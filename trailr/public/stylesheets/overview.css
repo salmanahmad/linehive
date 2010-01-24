@@ -29,6 +29,7 @@
 	margin-top:20px;
 	font-size:18px;
 	line-height:25px;
+	margin-bottom:20px;
 }
 
 #trail_subheading {
@@ -38,6 +39,9 @@
 #trail_wrapper {
 	margin-top:20px;
 }
+
+
+/* Start Code that may be removed... */
 
 #trail_wrapper #trail_info {
 	float:left;
@@ -101,9 +105,10 @@ ul#trail_tab_box_header {
 	font-weight:bold;
 }
 
+/* End */
 
 #user_info {
-	
+	height:10px;
 }
 
 #user_info img {
@@ -119,6 +124,8 @@ ul#trail_tab_box_header {
 	color:#222;
 	font-weight:bold;
 }
+
+/* Begin Again */
 
 #story_overview {
 	
@@ -239,3 +246,53 @@ ul#trail_tab_box_header {
 	font-weight:bold;
 	font-size:15px;
 }
+
+/* End */
+
+
+
+
+.article {
+	margin-bottom:10px;
+	border-top:1px solid #222;
+	border-bottom:1px solid #222;
+}
+
+.article .header {
+	
+	border-bottom:1px solid #CCC;
+	
+	
+	background-color:#F7F7F7;
+	color:black;
+	position:relative;
+	height:45px;
+	line-height:45px;
+	padding-left:10px;
+}
+
+.article .header .meta {
+	font-size:10px;
+	position:absolute;
+	right:10px;
+	top:10px;
+	text-align:right;
+	line-height:normal;
+}
+
+.article .notes {
+	padding:10px;
+	font-size:12px;
+	line-height:18px;
+}
+
+.article .thumbnail {
+	float:right;
+	margin:8px;
+	margin-right:0px;
+	border:1px solid #CCC;
+}
+
+
+
+

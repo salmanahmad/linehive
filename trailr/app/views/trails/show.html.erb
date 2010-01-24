@@ -5,7 +5,7 @@
 <% content_for :stylesheets do %>
 	<%= stylesheet_link_tag "overview" %>
 	<%= stylesheet_link_tag "form" %>
-	<%= stylesheet_link_tag "timeline" %>		
+	<%# stylesheet_link_tag "timeline" %>		
 <% end %>
 
 <% content_for :javascripts do %>
@@ -89,206 +89,119 @@
 	
 </div>
 
-<div id="trail_timeline">
-	<div id="timeline">
-		
-			<div id="steps">
-				
-				<% 10.times do %>
-					<div class="step">
-						<div class="thumbnail">
-							&nbsp;
-						</div>
-						<div class="source">cnn.com</div>
-					</div>
-				<% end %>
-									
-			</div>
-
-	</div>
-</div>
 
 <div id="trail_description">
-	<b>Description: </b> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	
 </div>
 
-<div id="trail_wrapper">
-	
 
-	
-	<div id="trail_tab_box">
+
+<div class="columns" >
+	<div class="maincol">
 		
-	
-		<h1>
-
-			<ul id="trail_tab_box_header">
-				<li><a class="tab" href="#trail_comments">Comments</a></li>
-				<li><a class="tab" href="#trail_responses">Trail Responses</a></li>
-				<li><a class="tab" href="#trail_related">Related Trails</a></li>
-			</ul>
-
-			
-		</h1>
-		
-		<div id="trail_comments" class="tab_panel">
-			<textarea style="font-size:13px;resize:none; width:401px; height:68px"></textarea>
-			<input type="button" class="comment_button" value="Post" />
-			
-			<div>&nbsp;</div>
-			<% 10.times do %>
-				<div class="comment">
-					<div class="avatar">
-						<%= image_tag "default_avatar.png" %>
-					</div>
-					<div class="text">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</div>
+		<div class="article">
+			<div class="header">
+				<div class="meta">
+					<div class="date">Yesterday</div>
+					<div class="source">cnn.com</div>					
 				</div>
+
+				<div class="header_text">Lorem ipsum dolor sit amet, consectetur</div>
+			</div>
+			<div class="thumbnail">
+				<%= image_tag "thumbs_150.png", :size => 100 %>
+			</div>
+			<div class="notes">
+				Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+			</div>
 			
-			<% end %>
-			
-			
-			
+			<div class="clear"></div>
 		</div>
+
 		
-		<div id="trail_responses" class="tab_panel">						
-			
-			<p class="wrapper">
-			<div class="trail_response">
-				<div class="icon">
-					&nbsp;
-				</div>
-				<div class="meta">
-					<div class="title">EarthQuake in Northern California</div>
-					<div class="info">by JohnDoe - on 1/12/2010 - 5,345 View</div>
-					<div style="clear:both"></div>
-				</div>
-			</div>
-			</p>
-			
-			<p>&nbsp;</p>
-									&nbsp;
-									&nbsp;
-
-									&nbsp;
-									&nbsp;
-
-									&nbsp;
-									&nbsp;
-
-			
-			<p>
-			<div class="trail_response">
-				<div class="icon">
-					&nbsp;
-				</div>
-				<div class="meta">
-					<div class="title">EarthQuake in Northern California</div>
-					<div class="info">by JohnDoe - on 1/12/2010 - 5,345 View</div>
-				</div>
-			</div>
-			</p>
-
-			
-		</div>
-		
-		<div id="trail_related" class="tab_panel">
-
-			<p class="wrapper">
-			<div class="trail_response">
-				<div class="icon">
-					&nbsp;
-				</div>
-				<div class="meta">
-					<div class="title">EarthQuake in Northern California</div>
-					<div class="info">by JohnDoe - on 1/12/2010 - 5,345 View</div>
-					<div style="clear:both"></div>
-				</div>
-			</div>
-			</p>
-			
-			<p>&nbsp;</p>
-			
-			&nbsp;
-			
-			<p>
-			<div class="trail_response">
-				<div class="icon">
-					&nbsp;
-				</div>
-				<div class="meta">
-					<div class="title">EarthQuake in Northern California</div>
-					<div class="info">by JohnDoe - on 1/12/2010 - 5,345 View</div>
-				</div>
-			</div>
-			</p>
-
-		</div>
 		
 	</div>
-	
-	
-	<div id="trail_info">
-		<h1>
-			Trail Information
-		</h1>
-		
-		<div class="trail_box_contents">
-			<div id="user_info">
-				<%= image_tag "default_avatar.png" %>
-				<a href="#">SomeUserNameHere</a>
-			</div>	
-			
-			<div style="clear:both"></div>
-			
-			<p class="trail_form_row">
-				<label class="label">Created:</label>
-				<label class="content">10/15/2010</label>
-				<br />
-			</p>
-			<p class="trail_form_row">
-				<label class="label">Views:</label>
-				<label class="content">105,156 Views</label>
-				<br />							
-			</p>
-			<p class="trail_form_row">
-				<label class="label">Tags:</label>
-				<label class="content">
-					<textarea style="width:190px; height:50px;resize: none;"></textarea>
-				</label>
-				<br />							
-			</p>
-			<p class="trail_form_row">
-				<label class="label">URL:</label>
-				<input class="content" style="width:190px" type="text">
+
+	<div class="sidecol">
+		<div class="trail_box">
+			<h1 class="trail_box_header">
+				Information
+			</h1>
+
+			<div class="trail_box_contents">
+				<div id="user_info">
+					<%= image_tag "default_avatar.png" %>
+					<a href="#">SomeUserNameHere</a>
+				</div>	
+
+				<div class="clear"></div>
+
+				<p class="trail_form_row">
+					<label class="label">Created:</label>
+					<label class="content">10/15/2010</label>
+					<br />
+				</p>
+				<p class="trail_form_row">
+					<label class="label">Views:</label>
+					<label class="content">105,156 Views</label>
+					<br />							
+				</p>
+				<p class="trail_form_row">
+					<label class="label">Tags:</label>
+					<label class="content">
+						<textarea style="width:188px; height:50px;resize: none;"></textarea>
+					</label>
+					<br />							
+				</p>
+				<p class="trail_form_row">
+					<label class="label">URL:</label>
+					<input class="content" style="width:188" type="text">
 
 
-				<br />							
-			</p>	
-			<p class="trail_form_row">
-				<label class="label">Embed:</label>
-							<label class="content">
-								<textarea style="width:190px; height:50px;resize: none;"></textarea>
-							</label>
+					<br />							
+				</p>	
+				<p class="trail_form_row">
+					<label class="label">Embed:</label>
+								<label class="content">
+									<textarea style="width:188px; height:50px;resize: none;"></textarea>
+								</label>
 
-				<br />							
-			</p>
-			<p class="trail_form_row">
-				<label class="label">Share:</label>
-				<label class="content">
-					<a href="#">twitter</a>
-					<a href="#">facebook</a>
-					<a href="#">digg</a>
-					<a href="#">more...</a>
-				</label>
-				<br />							
-			</p>																													
+					<br />							
+				</p>
+				<p class="trail_form_row">
+					<label class="label">Share:</label>
+					<label class="content">
+						<a href="#">twitter</a>
+						<a href="#">facebook</a>
+						<a href="#">digg</a>
+						<a href="#">more...</a>
+					</label>
+					<br />							
+				</p>																													
+			</div>
+
 		</div>
+
+
+			<div class="trail_box">
+				<h1 class="trail_box_header">
+				 	Related
+				</h1>
+
+				<div class="trail_box_contents">
+					Loading...																				
+				</div>
+
+			</div>
+
 		
 	</div>
-	
-	<div style="clear:both;"></div>
 
+
+
+	
+	<div class="clear"></div>
 </div>
 

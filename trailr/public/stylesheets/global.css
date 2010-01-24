@@ -23,6 +23,7 @@ p {
 
 .trail_box {
 	border:1px solid #B7B7B7;
+	margin-bottom:10px;
 }
 
 .trail_box_contents {
@@ -66,6 +67,25 @@ p {
 	color:black;
 	font-weight:bold;
 	text-decoration:underline;
+}
+
+
+
+.columns {
+	
+}
+
+.maincol {
+	float:left;
+	width:500px;
+	
+}
+
+.sidecol {
+	float:left;
+	//margin-left:510px;
+	margin-left:10px;
+	width:290px;
 }
 
 
