@@ -13,33 +13,59 @@
 	<script type="text/javascript" charset="utf-8">
 
 
+
+
 		$(function() {
-			var top = $("#footer").offset().top + 40 - parseFloat($(window).height());
 			
 			
-			console.log("Top: " + top);
-			console.log("Other Top: " + ($("#hoverline_end").offset().top - parseFloat($(window).height())));
+			function hoverline(event) {
+				
+				var top = $("#footer").offset().top - parseFloat($(window).height());
+				
+					
+		      // what the y position of the scroll is
+		      var y = $(this).scrollTop();
+
+					console.log("Y: " + y);
+					console.log("Top " + top);
+					
+
+
+		      // whether that's below the form
+		      if (y >= top) {
+		        // if so, ad the fixed class
+						console.log("absolute");
+						
+		        $('#hoverline').addClass('absolute');
+		        $('#hoverline_back').addClass('absolute');
+		      } else {
+		        // otherwise remove it
+						console.log("fixed");
+		        $('#hoverline').removeClass('absolute');
+		        $('#hoverline_back').removeClass('absolute');
+						
+						//$("#hoverline").css("top", parseFloat($(window).height()) - 40);
+						//$("#hoverline_back").css("top", parseFloat($(window).height()) - 40);						
+		      }
+					
+					console.log("\n");
+					
+					
+			}
 			
-
-	    $(window).scroll(function (event) {
-		
-		
-	      // what the y position of the scroll is
-	      var y = $(this).scrollTop();
-
-			console.log(y);
-
-	      // whether that's below the form
-	      if (y >= top) {
-	        // if so, ad the fixed class
-	        $('#hoverline').addClass('static');
-	        $('#hoverline_back').addClass('static');
-	      } else {
-	        // otherwise remove it
-	        $('#hoverline').removeClass('static');
-	        $('#hoverline_back').removeClass('static');
-	      }
-	    });			
+			//var top = $("#footer").offset().top + 40 - parseFloat($(window).height());
+			//console.log("Top: " + top);
+			//console.log("Other Top: " + ($("#hoverline_end").offset().top - parseFloat($(window).height())));
+			
+			$(window).scroll(hoverline);
+			//$(window).resize(hoverline);
+			/*$(window).resize(function() {
+				console.log("resize");
+				top = $("#footer").offset().top - parseFloat($(window).height());
+				hoverline();
+			});*/
+			
+	
 		});
 
 
@@ -89,10 +115,7 @@
 <% end %>
 
 
-<div id="hoverline_back"></div>
-<div id="hoverline">
-	Timeline Here!
-</div>
+
 
 
 		
@@ -249,7 +272,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 <div id="hoverline_end"></div>
 
-
+<div id="hoverline_back"></div>
+<div id="hoverline">
+	Timeline Here!
+</div>
 
 
 

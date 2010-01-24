@@ -16,10 +16,13 @@
 
 #hoverline_back {
 
+
+	bottom:0px;
+
+
 	margin:auto;
 
 	position:fixed;
-	bottom:0px;
 	
 		
 	background-color:#222;
@@ -33,25 +36,29 @@
 
 #hoverline {
 	
+	bottom:0px;
+
+
 	margin:auto;
 	
 	position:fixed;
 	height:40px;
-	bottom:0px;
+
 	width:800px;
 	line-height:40px;
 	color:black;
 	font-weight:bold;
 }
 
-#hoverline_back.static {
+#hoverline_back.absolute {
 	position:absolute;
-	top:25px;
 	margin-bottom:-15px;
+	/* top:25px; */
+	
 }
 
 
-#hoverline.static {
+#hoverline.absolute {
 	position:absolute;
 	margin-bottom:-15px;	
 }
