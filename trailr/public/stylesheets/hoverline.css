@@ -1,0 +1,57 @@
+#hoverline_end {
+	height:50px;
+	
+}
+
+#mirror {
+	z-index:200;
+	background-color:#919191;
+	height:40px;
+	width:100%;
+	line-height:46px;
+	color:black;
+	font-weight:bold;
+	margin-bottom:-15px;
+}
+
+#hoverline_back {
+
+	margin:auto;
+
+	position:fixed;
+	bottom:0px;
+	
+		
+	background-color:#222;
+	height:40px;
+	width:800px;
+	opacity:0.5;
+	line-height:46px;
+	color:black;
+	font-weight:bold;
+}
+
+#hoverline {
+	
+	margin:auto;
+	
+	position:fixed;
+	height:40px;
+	bottom:0px;
+	width:800px;
+	line-height:40px;
+	color:black;
+	font-weight:bold;
+}
+
+#hoverline_back.static {
+	position:absolute;
+	top:25px;
+	margin-bottom:-15px;
+}
+
+
+#hoverline.static {
+	position:absolute;
+	margin-bottom:-15px;	
+}

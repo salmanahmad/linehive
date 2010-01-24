@@ -5,11 +5,48 @@
 <% content_for :stylesheets do %>
 	<%= stylesheet_link_tag "overview" %>
 	<%= stylesheet_link_tag "form" %>
+	<%= stylesheet_link_tag "hoverline" %>		
 	<%# stylesheet_link_tag "timeline" %>		
 <% end %>
 
 <% content_for :javascripts do %>
 	<script type="text/javascript" charset="utf-8">
+
+
+		$(function() {
+			var top = $("#footer").offset().top + 40 - parseFloat($(window).height());
+			
+			
+			console.log("Top: " + top);
+			console.log("Other Top: " + ($("#hoverline_end").offset().top - parseFloat($(window).height())));
+			
+
+	    $(window).scroll(function (event) {
+		
+		
+	      // what the y position of the scroll is
+	      var y = $(this).scrollTop();
+
+			console.log(y);
+
+	      // whether that's below the form
+	      if (y >= top) {
+	        // if so, ad the fixed class
+	        $('#hoverline').addClass('static');
+	        $('#hoverline_back').addClass('static');
+	      } else {
+	        // otherwise remove it
+	        $('#hoverline').removeClass('static');
+	        $('#hoverline_back').removeClass('static');
+	      }
+	    });			
+		});
+
+
+    
+		
+		
+	
 
 		function tab_click() {
 			
@@ -52,8 +89,10 @@
 <% end %>
 
 
-
-
+<div id="hoverline_back"></div>
+<div id="hoverline">
+	Timeline Here!
+</div>
 
 
 		
@@ -113,8 +152,11 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 				<%= image_tag "thumbs_150.png", :size => 100 %>
 			</div>
 			<div class="notes">
-				Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+<p>				Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+<p>
+	<a href="#">Trails Containing This Link</a>
+</p>
 			</div>
 			
 			<div class="clear"></div>
@@ -187,7 +229,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 			<div class="trail_box">
 				<h1 class="trail_box_header">
-				 	Related
+				 	Responses
 				</h1>
 
 				<div class="trail_box_contents">
@@ -204,4 +246,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 	
 	<div class="clear"></div>
 </div>
+
+<div id="hoverline_end"></div>
+
+
+
+
 

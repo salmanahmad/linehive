@@ -101,6 +101,8 @@
 
 
 #footer {
+	/*z-index:100;*/
+	position:relative;
 	margin-top:15px;
 	height:200px;
 	background-color:#222222;
