@@ -1,0 +1,103 @@
+#sidebar {
+	background-color:#EEE;
+	color:rgb(102, 102, 102);
+	height:350px;
+	float:right;
+	width:200px;
+	-webkit-border-radius:5px;
+	padding:10px;
+	font-size:13.5px;
+	line-height:20px;
+}
+
+#create_form {
+	width:550px;
+}
+
+#buttons {
+	border-top:1px solid #888;
+	
+	padding-top:25px;
+	padding-bottom:25px;
+	margin-top:30px;	
+	
+}
+
+#buttons * {
+	margin:0px;
+	padding:0px;
+	display:inline;
+}
+
+
+
+.trail_close {
+	float:right;
+	font-size:11px;
+	position:relative;
+	left:10px;
+	top:-10px;
+	
+	height:26px;
+	width:26px;
+	background-color:none;
+	background-image:url("../images/close.png");
+	
+}
+
+.trail_item {
+	//background-color:#E6ECF2;	
+	background-color:#EDEDED;		
+	border:1px solid #CCC;
+	height:150px;
+	margin-bottom:20px;
+}
+
+
+.trail_handle {
+	background-color:#5F6972;
+	background-color:#454545;
+	
+	float:left;
+	
+	width:35px;
+	height:150px;
+	cursor:pointer;
+}
+
+
+.url_text {
+	margin-left:10px;
+	width:490;
+	height:30px;
+	font-size:15px;
+}
+
+
+.subtitle_text {
+	margin-left:10px;
+	width:490px;
+	resize:none;
+	font-size:15px;
+}
+
+
+.large_label {
+	color:#888;
+	font-weight:bold;
+	height:35px;
+	font-size:15px;
+}
+
+.large_text {
+	height:35px;
+	font-size:20px;
+}
+
+
+
+#loader {
+	display:none;
+	position:relative;
+	top:2px;
+}

@@ -1,0 +1,72 @@
+body {
+	font-family: "Helvetica", Arial, sans-serif;
+	padding:0px;
+	margin:0px;
+	font-size:14px;
+}
+
+a {
+	text-decoration:underline;
+	color:rgb(0, 136, 204);;
+}
+
+p {
+	font-size:14px;
+}
+
+.clear {
+	clear:both;
+	
+}
+
+
+
+.trail_box {
+	border:1px solid #B7B7B7;
+}
+
+.trail_box_contents {
+	margin:15px;
+}
+
+.trail_box_header {
+	margin:0pc;
+	
+	width:auto;
+	height:45px;
+	background-color:#222222;
+	color:white;
+	line-height:45px;
+	font-size:13px;
+	text-align:center;
+	font-weight:bold;
+	
+}
+
+
+.trail_snapshot {
+	float:left;
+	margin:5px;
+	padding:3px;
+	width:150px;
+	text-align:center;
+}
+
+
+.trail_snapshot .icon {
+	background-color:#222;
+	width:100px;
+	height:100px;
+	margin:auto;
+}
+
+.trail_snapshot .title {
+	margin-top:3px;
+	font-size:12px;
+	color:black;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+
+

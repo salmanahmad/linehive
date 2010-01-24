@@ -1,0 +1,86 @@
+
+#content {
+	padding-bottom:150px;
+}
+
+#header {
+	line-height:70px;
+	height:70px;
+	background-color:#222;
+	text-align:center;
+}
+
+#title {
+	text-align:center;
+	font-size:18px;
+	font-weight:normal;
+	color:white;
+	white-space:nowrap;
+	margin:auto;
+	width:800px;
+}
+
+#logo {
+	float:left;
+	position:relative;
+	top:15px;
+	left:15px;
+}
+
+#buttons {
+	float:right;
+	position:relative;
+	right:15px;
+}
+
+#buttons * {
+	display:inline;
+}
+
+#footer {
+	opacity:0.9;
+	position:fixed;
+	bottom:0px;
+	width:100%;
+}
+
+#simplemodal-overlay {background-color:#fff;}
+
+#simplemodal-container {
+	/*
+	background-color:#333; 
+	border:8px solid #444; 
+	*/
+	opacity:0.95;
+	background-color:rgb(34,34,34);
+	-webkit-border-radius:5px;
+	-gecko-border-radius:5px;	
+	padding:10px;
+}
+
+#share {
+	color:white;
+	display:none;
+	
+}
+
+#share h2 {
+	margin:0px;
+	padding:0px;
+	font-size:15px;
+	padding-bottom:20px;
+}
+
+#share_close {
+	height:26px;
+	width:26px;
+	background-image:url("../images/close.png");
+	float:left;
+	position:relative;
+	left:-15px;
+	top:-15px;
+}
+
+#share .trail_form_row {
+	color:white;
+}

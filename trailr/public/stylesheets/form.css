@@ -1,0 +1,48 @@
+.trail_form_row {
+	clear:both;
+	font-size:12px;
+	color:#222;
+	margin-bottom:15px;
+}
+
+.trail_form_row .label {
+	font-size:12px;
+	width:60px;
+	text-align:right;
+	float:left;
+	font-weight:bold;
+	padding-right:5px;
+}
+
+.trail_form_row .content {
+	margin:0px;
+	margin-left:5px;
+	float:left;
+	font-size:12px;
+	
+}
+
+.trail_form_row input.content {
+	margin-top:-3px;
+}
+
+.trail_form_row br {
+	clear:both;
+}
+
+.trail_button {
+	
+	font-size:13px;
+	color:#222222;
+	font-family: "Helvetica", Arial, sans-serif;
+	font-weight:bold;
+	
+	background-color:transparent;
+	background-image:url("../images/button_background_up.png");
+	width:118px;
+	height:36px;
+	border:none;
+	
+}
+
+

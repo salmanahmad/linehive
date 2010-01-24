@@ -1,0 +1,241 @@
+
+#trail_buttons {
+	position:relative;
+	bottom:0px;
+	float:right;
+}
+
+#trail_buttons * {
+	display:inline;
+}
+
+
+#trail_header h1 {
+	padding:0px;
+	margin:0px;
+	margin-top:25px;
+	font-weight:normal;
+	font-size:22px;
+}
+
+#trail_timeline {
+	margin-top:25px;
+	width:100%;
+	background-color:red;
+	
+}
+
+#trail_description {
+	margin-top:20px;
+	font-size:18px;
+	line-height:25px;
+}
+
+#trail_subheading {
+	font-size:12px;
+}
+
+#trail_wrapper {
+	margin-top:20px;
+}
+
+#trail_wrapper #trail_info {
+	float:left;
+	width:290px;
+	margin-left:6px;
+
+	border:1px solid #B7B7B7;
+	
+}
+
+#trail_wrapper #trail_tab_box {
+	float:left;
+	border:1px solid #B7B7B7;
+	width:500px;
+}
+
+ul#trail_tab_box_header {
+	display:inline;
+	text-align:center;
+	padding:0px;
+	margin:0px;
+}
+
+#trail_tab_box_header li {
+	display:inline;
+}
+
+#trail_tab_box_header li a {
+	padding:15px 35px;
+		
+	height:45px;
+	line-height:45px;
+
+	color:white;
+	text-decoration:none;
+}
+
+#trail_tab_box_header li a:hover {
+	background-color:#898D8D;
+	color:#222222;
+}
+
+#trail_tab_box_header li a.selected {
+	background-color:#898D8D;
+	color:#222222;
+}
+
+
+/* .trail_box_header */
+#trail_wrapper h1 {
+	
+	margin:0pc;
+	
+	width:auto;
+	height:45px;
+	background-color:#222222;
+	color:white;
+	line-height:45px;
+	font-size:13px;
+	text-align:center;
+	font-weight:bold;
+}
+
+
+#user_info {
+	
+}
+
+#user_info img {
+	float:left;
+}
+
+#user_info a {
+	float:left;
+	position:relative;
+	left:5px;
+	top:15px;
+	font-size:12px;
+	color:#222;
+	font-weight:bold;
+}
+
+#story_overview {
+	
+	display:none;
+	
+	font-size:12px;
+	color:white;
+	
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	
+	width:400px;
+	background-color:#454545;
+	background-color:#222;
+	opacity:0.95;
+
+	position:absolute;
+	margin:auto;
+	top:250px;
+	left:200px;
+	
+	padding:15px;
+}
+
+#story_overview a {
+	color:white;
+	font-weight:bold;
+}
+
+#story_overview #date {
+	float:right;
+}
+
+#story_overview #subtitle {
+	margin-top:15px;
+	margin-bottom:15px;	
+	font-weight:normal;
+	font-size:14px;
+	line-height:16px;
+	
+}
+
+#story_overview #close {
+	height:26px;
+	width:26px;
+	background-image:url("../images/close.png");
+	position:absolute;
+	left:-10px;
+	top:-10px;
+	cursor:pointer;
+}
+
+
+.tab_panel {
+	padding:10px;
+}
+
+
+.comment_button {
+	height:68px;
+	width:75px;
+	background-image:url("../images/comment_button_background.png");
+	border:1px solid #999;
+	float:right;
+	
+	font-family:"Helvetica", Arial, Sans-Serif;
+	font-weight:bold;
+	font-size:13px;
+	
+}
+
+
+.comment {
+	padding:10px;
+	border-top:1px dashed #999;
+	background-color:#EDEDED;
+	font-size:13px;
+}
+
+.comment .avatar {
+	float:left;
+	height:46px;
+	width:61px;
+}
+
+.comment .text {
+	margin-left:65px;
+}
+
+
+.trail_response {
+	display:block;
+	margin-top:10px;
+	margin-bottom:10px;
+	font-size:13px;
+	clear:both;
+}
+
+ p.wrapper {
+	margin-bottom:10px;
+	
+}
+
+.trail_response .icon {
+	height:64px;
+	width:64px;
+	background-color:#222;
+	float:left;
+}
+
+.trail_response .meta {
+	float:left;
+	padding-left:10px;
+	margin-top:15px;
+}
+
+.trail_response .title {
+	font-weight:bold;
+	font-size:15px;
+}

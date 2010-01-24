@@ -1,0 +1,160 @@
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "new" %>
+	<%= stylesheet_link_tag "form" %>	
+<% end %>
+
+
+<% content_for :javascripts do %>
+
+<script type="text/javascript" charset="utf-8">
+
+
+	function trail_close() {
+		if($(".trail_item").size() > 1) {
+			$(this).parent(".trail_item").remove();
+		}
+	}
+	
+	function initSortables() {
+		$("#trail").sortable( {
+			axis: 'y',
+			containment: '#trail',
+			cursor: 'pointer',
+			handle: '.trail_handle',
+		})
+	}
+
+	$(function() {
+		$(".url_text").Watermark("url");
+		$(".subtitle_text").Watermark("your thoughts...");   
+		
+		initSortables();
+		
+		$("#add_button").click(function() {
+			
+			var dom = '<div class="trail_item"> \
+				<div class="trail_close"></div>	\
+				<div class="trail_handle"></div> \
+\
+ 				<div class="trail_form"> \
+					<p> \
+						<input type="text" name="url" value="" class="url_text"> \
+					</p> \
+					<p> \
+						<textarea name="subtitle" rows="3" cols="40" class="subtitle_text"></textarea> \
+						<!-- ><input tye="text" name="url" value="" class="subtitle_text"> --> \
+					</p> \
+				</div> \
+			</div>';
+			
+			$("#trail").append(dom);
+			
+			$(".url_text").Watermark("url");
+			$(".subtitle_text").Watermark("your thoughts...");   
+
+			$(".trail_close").click(trail_close);
+
+			initSortables();
+			
+		});
+		
+		$(".trail_close").click(trail_close);
+		
+		$("#submit_button").click(function() {
+			
+			//$.Watermark.HideAll();
+	   
+			
+			var data = { title: "", links: [] };
+			data["title"] = $("#title").val();
+			
+			$(".trail_item").each(function(item) {
+				var url = $(".url_text", item).val();
+				var comment = $(".subtitle_text", item).val();
+				var item = { "url" : url, "comment" : comment };
+
+				data["links"].push(item);				
+			});
+			
+			var string = JSON.stringify(data);
+			alert(string);
+			
+			//$.Watermark.ShowAll();
+			
+			$("#loader").show();
+	   	$.post("<%= url_for :controller => "home", :action => "submit"  %>", {trail : data }, function() { 
+				$("#loader").hide(); 
+				$("#trail_input").val(string); 
+				$("#post_back").submit();
+		}, "script");
+			
+		});
+		
+		
+	});
+</script>
+
+
+<% end %>
+
+<div>
+		
+<div id="sidebar">
+	Instructions for creating a new trail appears here.
+
+</div>
+
+<h2>Create New Trail</h2>
+
+
+<div id="create_form">
+	<div style="margin-bottom:25px;">
+		<label for="title" class="large_label" >Trail Title:</label>
+		<input type="text" name="title" value="" style="width:100%" id="title" class="large_text">
+	</div>
+
+	<div id="trail">
+		<div class="trail_item">
+			<div class="trail_close"></div>
+			<div class="trail_handle"></div>
+
+			<div class="trail_form">
+				<p>
+					<input type="text" name="url" value="" class="url_text">
+				</p>
+				<p>
+					<textarea name="subtitle" rows="3" cols="40" class="subtitle_text"></textarea>
+					<!-- <input tye="text" name="url" value="" class="subtitle_text"> -->
+				</p>
+			</div>
+		</div>	
+	</div>
+
+
+	<div id="buttons">
+		<input type="button" name="add" value="Add" id="add_button" class="trail_button" />
+
+
+		<div style="float:right;position:relative;bottom:0px">
+			<%= image_tag "loader.gif", :id => "loader" %>
+			<!-- <input type="button" name="preview" value="Preview" id="preview_button" class="trail_button" />
+			<input type="button" name="submit" value="Submit" id="submit_button" class="trail_button" /> -->
+			
+			<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
+				<input type="hidden" name="trail" value="" id="trail_input"> 
+			<% end %>
+			
+			<%= button_to"Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
+			
+		</div>
+		
+		
+	
+	</div>
+	<div id=""></div>
+
+
+	</div>
+</div>
+<div class="clear"> </div>
+
