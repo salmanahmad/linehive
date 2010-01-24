@@ -28,7 +28,7 @@
 	background-color:#222;
 	height:40px;
 	width:800px;
-	opacity:0.5;
+	opacity:0.85;
 	line-height:46px;
 	color:black;
 	font-weight:bold;
@@ -46,8 +46,17 @@
 
 	width:800px;
 	line-height:40px;
-	color:black;
-	font-weight:bold;
+	
+	
+	font-size:11px;
+	
+	color:#F1F1F1;
+	
+	
+}
+
+#hoverline_contents {
+
 }
 
 #hoverline_back.absolute {

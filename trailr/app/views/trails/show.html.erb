@@ -18,6 +18,18 @@
 		$(function() {
 			
 			
+			$("#toggle_timeline").click(function() {
+				$("#hoverline").toggle();
+				$("#hoverline_back").toggle();
+				
+				if($("#hoverline").is(":visible")) {
+					$(this).val("Hide Timeline");
+				} else {
+					$(this).val("Show Timeline");
+				}
+				
+			});
+			
 			function hoverline(event) {
 				
 				var top = $("#footer").offset().top - parseFloat($(window).height());
@@ -139,8 +151,9 @@
 <div id="trail_header">
 	
 	<div id="trail_buttons">
-		<input type="button" value="Make Response" class="trail_button" />
-		<%= button_to "Start Slideshow", { :controller => "trails", :action => "slideshow"}, {:class => "trail_button"} %>
+		<input type="button" value="Trail Response" class="trail_button" />
+	<input type="button" value="Hide Timeline" id="toggle_timeline" class="trail_button" />
+		<%# button_to "Start Slideshow", { :controller => "trails", :action => "slideshow"}, {:class => "trail_button"} %>
 	</div>
 	
 	<h1>Earthquake in Haiti</h1>
