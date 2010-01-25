@@ -10,7 +10,39 @@
 
 <script type="text/javascript" charset="utf-8">
 
-
+	function add_url() {
+		console.log("here");
+		
+		
+		var text = $("#urls").val();
+		console.log(text);
+		$("#loader").show();
+		
+		
+		jQuery.ajax({
+        type: "POST",
+        url: "<%= url_for :controller => "trails", :action => "process_urls"  %>",
+        dataType:"html",
+        data:{urls : text },
+        success:function(data){
+					$("#articles").append(data);
+					$("#loader").hide();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+					alert("Error Occured");
+        }    
+    });
+    
+		$("#urls").text("");
+	}
+	
+	function add_url_keydown(event) {
+		if(event.which == 13) {
+			add_url();
+			return false;
+		}
+	}
+	
 	function trail_close() {
 		if($(".trail_item").size() > 1) {
 			$(this).parent(".trail_item").remove();
@@ -27,6 +59,10 @@
 	}
 
 	$(function() {
+		
+		$("#urls").keypress(add_url_keydown);
+		$("#add_urls").click(add_url);
+		
 		$(".url_text").Watermark("url");
 		$(".subtitle_text").Watermark("your thoughts...");   
 		
@@ -88,7 +124,7 @@
 				$("#loader").hide(); 
 				$("#trail_input").val(string); 
 				$("#post_back").submit();
-		}, "script");
+			}, "script");
 			
 		});
 		
@@ -125,7 +161,7 @@
 
 	<div class="small_columns">
 		<div class="maincol">
-			<label for="Description" class="large_label" >Description:</label>
+			<label for="description" class="large_label" >Description:</label>
 			<textarea name="description" id="description" class="large_text" style="width:100%;resize:none;height:75px;"></textarea>
 		</div>
 		<div class="sidecol">
@@ -144,53 +180,29 @@
 	
 	<div class="small_columns">
 		<div class="maincol">
-			<label for="Description" class="large_label" >URLs:</label>
+			<%= image_tag "loader.gif", :style => "float:right;", :id => "loader" %>
+			<label for="urls" class="large_label" >URLs:</label>
 			<br>
-			<input type="button" class="url_add_button" value="Add">
-			<textarea name="description" id="description" class="large_text" style="width:470px;resize:none;height:75px;"></textarea>
+			<input type="button" id="add_urls" class="url_add_button" value="Add">
+			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:470px;resize:none;height:75px;"></textarea>
 
 			
 			<div class="space_20"></div>
-			<div style="padding-left:10px;border-left:10px solid #FFF">
-				<% 1.times do %>
+			<div id="articles" style="padding-left:10px;border-left:10px solid #FFF">
+				<% 0.times do %>
 	
-				<div class="article form">
-					<div class="header">
-						<div class="header_text">
-							
-							<span class="input_label">Header:</span>
-							<input type="text" name="header" style="width:100%;" value="Lorem ipsum dolor sit amet, consectetur">
-											
-							<div class="space_5"></div>
+				<%= render :partial => "article", :locals => 	{
+			      :url => "http://www.google.com",
+			      :header => "Some header information",
 
-							<div class="two_columns">
-								<div class="left">
-									<span class="input_label">Date:</span>
-									<input type="text" name="header" style="width:100%;" value="11/15/2009">							
-								
-								</div>
-								<div class="right">
-									<span class="input_label">Source:</span>
-									<input type="text" name="header" style="width:100%;" value="cnn.com">							
-								
-								</div>
-							
-							</div>
-								
-						</div>
-					</div>
-					<div class="thumbnail">
-						<%= image_tag "thumbs_150.png", :size => 100 %>
-					</div>
-					<div class="notes">
-						<span class="input_label">Comments (Place article excerpts in "quotes")</span>
-						<textarea style="width:68%;height:120px;resize:none"></textarea>
-					</div>
+			      :date => Time.now.rfc2822,
+			      :source => "cnn.com",
 
-					<div class="clear"></div>
-				</div>
+			      :notes => "\"This is a sample paragraph that is included\""
+			    } %>
 	
 				<% end %>
+				
 			</div>
 	
 	

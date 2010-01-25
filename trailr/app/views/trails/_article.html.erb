@@ -1,0 +1,36 @@
+
+<div class="article form">
+	<div class="header">
+		<div class="header_text">
+			
+			<span class="input_label">Header:</span>
+			<input type="text" name="header" style="width:100%;" value="<%= header %>">
+							
+			<div class="space_5"></div>
+
+			<div class="two_columns">
+				<div class="left">
+					<span class="input_label">Date:</span>
+					<input type="text" name="header" style="width:100%;" value="<%= date %>">							
+				
+				</div>
+				<div class="right">
+					<span class="input_label">Source:</span>
+					<input type="text" name="header" style="width:100%;" value="<%= source %>">							
+				
+				</div>
+			
+			</div>
+				
+		</div>
+	</div>
+	<div class="thumbnail">
+		<%= image_tag "thumbs_150.png", :size => 100 %>
+	</div>
+	<div class="notes">
+		<span class="input_label">Comments (Place article excerpts in "quotes")</span>
+		<textarea style="width:68%;height:120px;resize:none"><%= notes %></textarea>
+	</div>
+
+	<div class="clear"></div>
+</div>
