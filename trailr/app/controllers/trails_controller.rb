@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'json'
 
 
@@ -44,13 +45,74 @@ class TrailsController < ApplicationController
     urls = temp_urls
     puts urls;
     
+    @data = []
+    
+    
+    for url in urls do
+      begin
+        
+        puts url
+        
+        open(url) do |f|
+
+
+          date_regex = Regexp.new("(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])");
+          meta_regex = Regexp.new("<meta\s+name=\"description\"\s+content=\"(.*?)\".*?>", Regexp::IGNORECASE)
+          p_regex = Regexp.new("<p[^>]*>(.*?)</p>", Regexp::IGNORECASE);
+          title_regex = Regexp.new("<title[^>]*>(.*?)</title>", Regexp::IGNORECASE);
+
+          html = f.read
+
+          host = URI.parse(url).host
+
+          title = title_regex.match(html)
+          date = title_regex.match(html)
+          desc = meta_regex.match(html)
+          
+
+
+
+          if(title) then title = title[1] else title = nil end 
+          if(date) then date = date[1] else date = nil end 
+          
+          if(desc) then
+            desc = desc[1] 
+            desc.gsub!(/<\/?[^>]*>/, "")
+          else 
+            desc = p_regex.match(html);
+            if(desc) then
+              desc = desc[1]
+            else
+              desc = nil 
+            end
+          end
+          
+          hash = {
+            :url => url,
+            :header => title,
+
+            :date => Time.now.rfc2822,
+            :source => host,
+
+            :notes => "\"#{desc}\""
+          }
+          
+ 
+         @data << hash
+
+
+        end
+
+      rescue Exception => the_error
+
+        puts "Exception - Need more sophisticated error reproting later... #{the_error.class}"
+      end
+    
+    end
     
     
     
-    
-    
-    data = []
-    
+=begin    
     hash = {
       :url => "http://www.google.com",
       :header => "Some header information",
@@ -60,11 +122,10 @@ class TrailsController < ApplicationController
       
       :notes => "\"This is a sample paragraph that is included\""
     }
+=end    
     
     
-    
-
-    render :partial => "article", :locals => hash
+    render :template => false
     
   end
 
