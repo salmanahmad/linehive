@@ -1,6 +1,8 @@
 <% content_for :stylesheets do %>
 	<%= stylesheet_link_tag "new" %>
 	<%= stylesheet_link_tag "form" %>	
+	<%= stylesheet_link_tag "overview" %>	
+
 <% end %>
 
 
@@ -95,66 +97,152 @@
 </script>
 
 
+
 <% end %>
 
-<div>
-		
-<div id="sidebar">
-	Instructions for creating a new trail appears here.
 
-</div>
-
-<h2>Create New Trail</h2>
+<h2>Create New Trail <span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create trails", :controller => "home", :action => "how" %>)</span></h2>
 
 
-<div id="create_form">
-	<div style="margin-bottom:25px;">
-		<label for="title" class="large_label" >Trail Title:</label>
-		<input type="text" name="title" value="" style="width:100%" id="title" class="large_text">
-	</div>
+<fieldset>
 
-	<div id="trail">
-		<div class="trail_item">
-			<div class="trail_close"></div>
-			<div class="trail_handle"></div>
-
-			<div class="trail_form">
-				<p>
-					<input type="text" name="url" value="" class="url_text">
-				</p>
-				<p>
-					<textarea name="subtitle" rows="3" cols="40" class="subtitle_text"></textarea>
-					<!-- <input tye="text" name="url" value="" class="subtitle_text"> -->
-				</p>
-			</div>
-		</div>	
-	</div>
-
-
-	<div id="buttons">
-		<input type="button" name="add" value="Add" id="add_button" class="trail_button" />
-
-
-		<div style="float:right;position:relative;bottom:0px">
-			<%= image_tag "loader.gif", :id => "loader" %>
-			<!-- <input type="button" name="preview" value="Preview" id="preview_button" class="trail_button" />
-			<input type="button" name="submit" value="Submit" id="submit_button" class="trail_button" /> -->
-			
-			<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
-				<input type="hidden" name="trail" value="" id="trail_input"> 
-			<% end %>
-			
-			<%= button_to"Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
-			
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="title" class="large_label" >Trail Title:</label>
+			<input type="text" name="title" value="" style="width:100%" id="title" class="large_text">
 		</div>
-		
-		
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				150 Characters Remaining
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</fieldset>
+
+<fieldset>
+
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="Description" class="large_label" >Description:</label>
+			<textarea name="description" id="description" class="large_text" style="width:100%;resize:none;height:75px;"></textarea>
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				150 Characters Remaining
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</fieldset>
+
+
+
+<fieldset style="">
 	
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="Description" class="large_label" >URLs:</label>
+			<br>
+			<input type="button" class="url_add_button" value="Add">
+			<textarea name="description" id="description" class="large_text" style="width:470px;resize:none;height:75px;"></textarea>
+
+			
+			<div class="space_20"></div>
+			<div style="padding-left:10px;border-left:10px solid #FFF">
+				<% 1.times do %>
+	
+				<div class="article form">
+					<div class="header">
+						<div class="header_text">
+							
+							<span class="input_label">Header:</span>
+							<input type="text" name="header" style="width:100%;" value="Lorem ipsum dolor sit amet, consectetur">
+											
+							<div class="space_5"></div>
+
+							<div class="two_columns">
+								<div class="left">
+									<span class="input_label">Date:</span>
+									<input type="text" name="header" style="width:100%;" value="11/15/2009">							
+								
+								</div>
+								<div class="right">
+									<span class="input_label">Source:</span>
+									<input type="text" name="header" style="width:100%;" value="cnn.com">							
+								
+								</div>
+							
+							</div>
+								
+						</div>
+					</div>
+					<div class="thumbnail">
+						<%= image_tag "thumbs_150.png", :size => 100 %>
+					</div>
+					<div class="notes">
+						<span class="input_label">Comments (Place article excerpts in "quotes")</span>
+						<textarea style="width:68%;height:120px;resize:none"></textarea>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+	
+				<% end %>
+			</div>
+	
+	
+	
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				Type or paste in as many URLs as you want and hit <b>Enter</b> to add them to your trail.
+				<p>After adding your URLs, you can edit the auto-populated information before creating your trail.</p>
+				<p>The links in your trail will be automatically sorted in chronological order based on the date found inside the article.</p>
+			</div>
+		</div>
+		<div class="clear"></div>
 	</div>
-	<div id=""></div>
+	
+	
+</fieldset>
 
 
+
+
+<fieldset style="border:none">
+
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="ags" class="large_label" >Tags:</label>
+			<textarea name="tags" id="tags" class="large_text" style="width:100%;resize:none;height:50px;"></textarea>
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				Keywords that describe your trail. Comma separated. 
+			</div>
+		</div>
+		<div class="clear"></div>
 	</div>
+
+</fieldset>
+
+
+<div id="buttons">
+		<%= image_tag "loader.gif", :id => "loader" %>
+		<!-- <input type="button" name="preview" value="Preview" id="preview_button" class="trail_button" />
+		<input type="button" name="submit" value="Submit" id="submit_button" class="trail_button" /> -->
+		
+		<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
+			<input type="hidden" name="trail" value="" id="trail_input"> 
+		<% end %>
+		
+		<%= button_to "Preview", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
+		<%= button_to "Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
+		
+
 </div>
-<div class="clear"> </div>
+
 

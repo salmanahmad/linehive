@@ -38,8 +38,8 @@
 		      // what the y position of the scroll is
 		      var y = $(this).scrollTop();
 
-					console.log("Y: " + y);
-					console.log("Top " + top);
+					//console.log("Y: " + y);
+					//console.log("Top " + top);
 					
 
 
@@ -60,7 +60,7 @@
 						//$("#hoverline_back").css("top", parseFloat($(window).height()) - 40);						
 		      }
 					
-					console.log("\n");
+					//console.log("\n");
 					
 					
 			}
@@ -156,7 +156,7 @@
 		<%# button_to "Start Slideshow", { :controller => "trails", :action => "slideshow"}, {:class => "trail_button"} %>
 	</div>
 	
-	<h1>Earthquake in Haiti</h1>
+	<h2>Earthquake in Haiti</h2>
 	<div id="trail_subheading">
 		by <b>CoolUsername</b> - on <b>6/10/2010</b> - <b>5,698</b> Views 
 	</div>
@@ -175,6 +175,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 <div class="columns" >
 	<div class="maincol">
 		
+		<% 3.times do %>
+		
 		<div class="article">
 			<div class="header">
 				<div class="meta">
@@ -188,15 +190,17 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 				<%= image_tag "thumbs_150.png", :size => 100 %>
 			</div>
 			<div class="notes">
-<p>				Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</p>
-<p>
-	<a href="#">Trails Containing This Link</a>
-</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					<a href="#">Trails Containing This Link</a>
+				</p>
 			</div>
 			
 			<div class="clear"></div>
 		</div>
+
+		<% end %>
 
 		
 		

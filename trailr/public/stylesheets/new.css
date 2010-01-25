@@ -92,6 +92,7 @@
 .large_text {
 	height:35px;
 	font-size:20px;
+	font-family:"Helvetica", Arial, Sans-Serif;
 }
 
 
@@ -100,4 +101,57 @@
 	display:none;
 	position:relative;
 	top:2px;
+}
+
+
+.round_box {
+	
+	padding:10px;
+	-webkit-border-radius:5px;
+	
+	background-color:#EEE;
+	color:rgb(102, 102, 102);	
+}
+
+fieldset {
+	padding:0px;
+	margin:0px;
+	padding-bottom:20px;
+	margin-bottom:20px;
+	border:none;
+	//border-bottom:1px solid rgb(136, 136, 136);	
+
+}
+
+
+.url_add_button {
+	height:75px;
+	width:100px;
+	border:none;
+	float:right;
+	
+	font-size:13px;
+	color:#222222;
+	font-family: "Helvetica", Arial, sans-serif;
+	font-weight:bold;
+	
+	background-color:none;
+	background-image:url("../images/url_add_button.png");
+	border:1px solid #737373;
+	border-left:0px;
+	
+	-moz-border-radius-topleft:0px;
+	-webkit-border-top-left-radius:0px;
+	
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-right-radius:5px;
+	
+	-moz-border-radius-bottomleft:0px;
+	-webkit-border-bottom-left-radius:0px;
+	
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+
+
+	
 }

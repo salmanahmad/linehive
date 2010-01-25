@@ -71,6 +71,58 @@ p {
 
 
 
+
+.input_label {
+	font-size:11px;
+}
+
+
+
+.small_columns {
+	
+}
+
+
+.small_columns .maincol {
+	float:left;
+	width:570px;	
+}
+
+
+.small_columns .sidecol {
+	float:left;
+	margin-left:10px;
+	width:220px;
+}
+
+
+
+
+.two_columns {
+	
+}
+
+.two_columns .left {
+	float:left;
+	width:48%;
+}
+
+.two_columns .right {
+	width:48%;
+	margin-left:52%;	
+}
+
+
+
+
+
+br {
+	clear:both;
+}
+
+
+
+
 .columns {
 	
 }
@@ -83,10 +135,31 @@ p {
 
 .sidecol {
 	float:left;
-	//margin-left:510px;
 	margin-left:10px;
 	width:290px;
+	
+	//margin-left:510px;
 }
 
 
+
+.space_5 {
+	clear:both;
+	height:5px;
+}
+
+.space_10 {
+	clear:both;
+	height:10px;
+}
+
+.space_15 {
+	clear:both;
+	height:15px;
+}
+
+.space_20 {
+	clear:both;
+	height:20px;
+}
 

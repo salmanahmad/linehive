@@ -18,6 +18,12 @@
 	font-size:22px;
 }
 
+#trail_header h2 {
+	margin:0px;
+	margin-top:25px;
+}
+
+
 #trail_timeline {
 	margin-top:25px;
 	width:100%;
@@ -255,7 +261,14 @@ ul#trail_tab_box_header {
 .article {
 	margin-bottom:10px;
 	border-top:1px solid #222;
-	border-bottom:1px solid #222;
+	//border-bottom:1px solid #222;
+}
+
+
+.article.form {
+	border-top:1px solid #CCC;
+	margin-bottom:15px;
+	
 }
 
 .article .header {
@@ -266,12 +279,15 @@ ul#trail_tab_box_header {
 	background-color:#F7F7F7;
 	color:black;
 	position:relative;
-	height:45px;
-	line-height:45px;
-	padding-left:10px;
+	//height:45px;
+	//line-height:45px;
+	padding-left:0px;
+	padding-top:15px;
+	padding-bottom:15px;	
 }
 
 .article .header .meta {
+	float:right;
 	font-size:10px;
 	position:absolute;
 	right:10px;
@@ -280,8 +296,17 @@ ul#trail_tab_box_header {
 	line-height:normal;
 }
 
+.article .header_text {
+	margin-left:10px;
+	margin-right:10px;	
+}
+
 .article .notes {
 	padding:10px;
+	
+	padding-left:20px;
+	padding-right:20px;	
+	
 	font-size:12px;
 	line-height:18px;
 }
@@ -289,10 +314,13 @@ ul#trail_tab_box_header {
 .article .thumbnail {
 	float:right;
 	margin:8px;
-	margin-right:0px;
+	margin-right:20px;
 	border:1px solid #CCC;
 }
 
+.article p {
+	margin-top:0px;
+}
 
 
 

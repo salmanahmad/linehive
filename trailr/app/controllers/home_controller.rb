@@ -29,4 +29,8 @@ class HomeController < ApplicationController
     
   end
 
+  def how
+    
+  end
+
 end
