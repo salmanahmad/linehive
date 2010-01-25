@@ -157,6 +157,26 @@
 
 </fieldset>
 
+
+<fieldset style="border:none">
+
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="ags" class="large_label" >Tags:</label>
+			<textarea name="tags" id="tags" class="large_text" style="width:100%;resize:none;height:50px;"></textarea>
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				Keywords that describe your trail. Comma separated. 
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</fieldset>
+
+
+<!--
 <fieldset>
 
 	<div class="small_columns">
@@ -173,7 +193,7 @@
 	</div>
 
 </fieldset>
-
+-->
 
 
 <fieldset style="">
@@ -184,7 +204,7 @@
 			<label for="urls" class="large_label" >URLs:</label>
 			<br>
 			<input type="button" id="add_urls" class="url_add_button" value="Add">
-			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:470px;resize:none;height:75px;"></textarea>
+			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:520px;resize:none;height:75px;"></textarea>
 
 			
 			<div class="space_20"></div>
@@ -211,8 +231,13 @@
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
 				Type or paste in as many URLs as you want and hit <b>Enter</b> to add them to your trail.
-				<p>After adding your URLs, you can edit the auto-populated information before creating your trail.</p>
-				<p>The links in your trail will be automatically sorted in chronological order based on the date found inside the article.</p>
+				
+				<p>
+					<a href="#">Sort by Date</a>
+				</p>
+				
+				<!--<p>After adding your URLs, you can edit the auto-populated information before creating your trail.</p>
+				<p>The links in your trail will be automatically sorted in chronological order based on the date found inside the article.</p>-->
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -224,34 +249,21 @@
 
 
 
-<fieldset style="border:none">
-
-	<div class="small_columns">
-		<div class="maincol">
-			<label for="ags" class="large_label" >Tags:</label>
-			<textarea name="tags" id="tags" class="large_text" style="width:100%;resize:none;height:50px;"></textarea>
-		</div>
-		<div class="sidecol">
-			<div class="round_box" style="margin-top:15px">
-				Keywords that describe your trail. Comma separated. 
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-
-</fieldset>
 
 
 <div id="buttons">
 		<%= image_tag "loader.gif", :id => "loader" %>
 		<!-- <input type="button" name="preview" value="Preview" id="preview_button" class="trail_button" />
 		<input type="button" name="submit" value="Submit" id="submit_button" class="trail_button" /> -->
-		
+				
 		<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
 			<input type="hidden" name="trail" value="" id="trail_input"> 
 		<% end %>
 		
+		
+		<!--
 		<%= button_to "Preview", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
+		-->
 		<%= button_to "Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
 		
 

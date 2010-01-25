@@ -16,8 +16,8 @@
 #header_wrapper {
 	position:relative;
 	
-	min-width:800px;
-	width:800px;
+	min-width:900px;
+	width:900px;
 	margin:auto;
 	//background-color:red;
 	height:100px;
@@ -110,7 +110,7 @@
 }
 
 #footer_wrapper {
-	width:800px;
+	width:900px;
 	margin:auto;
 }
 
@@ -134,7 +134,9 @@
 	position:relative;
 	background-color:none;
 	
-	width:800px;
+	
+	/* width:800px; */
+	width:900px;
 	margin-top:0px;
 	margin:auto;
 	padding:0px;

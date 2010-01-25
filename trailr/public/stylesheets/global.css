@@ -85,14 +85,14 @@ p {
 
 .small_columns .maincol {
 	float:left;
-	width:570px;	
+	width:620px;	
 }
 
 
 .small_columns .sidecol {
 	float:left;
 	margin-left:10px;
-	width:220px;
+	width:270px;
 }
 
 
@@ -129,7 +129,7 @@ br {
 
 .maincol {
 	float:left;
-	width:500px;
+	width:600px;
 	
 }
 
