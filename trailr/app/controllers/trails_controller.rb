@@ -5,6 +5,8 @@ require 'json'
 
 class TrailsController < ApplicationController
 
+  protect_from_forgery :except => :new
+
   def show
     
   end
