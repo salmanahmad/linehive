@@ -49,9 +49,7 @@
 	}
 	
 	function trail_close() {
-		if($(".trail_item").size() > 1) {
-			$(this).parent(".trail_item").remove();
-		}
+		$(this).parents(".article").remove();
 	}
 	
 	function initSortables() {
@@ -108,6 +106,8 @@
 		
 		$('.article .next').livequery('click', next_thumbnail);
 		$('.article .prev').livequery('click', prev_thumbnail);
+		$('.article .close').livequery('click', trail_close);
+		
 		
 		$("#urls").keypress(add_url_keydown);
 		$("#add_urls").click(add_url);
@@ -144,9 +144,7 @@
 			initSortables();
 			
 		});
-		
-		$(".trail_close").click(trail_close);
-		
+				
 		$("#submit_button").click(function() {
 			
 			//$.Watermark.HideAll();
