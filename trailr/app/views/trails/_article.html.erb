@@ -1,35 +1,38 @@
 
 <div class="article form">
 	<div class="header">
-		<div class="header_text">
-			
-			<span class="input_label">Header:</span>
-			<input type="text" name="header" style="width:100%;" value="<%= header %>">
-							
-			<div class="space_5"></div>
-
-			<div class="two_columns">
-				<div class="left">
-					<span class="input_label">Date:</span>
-					<input type="text" name="header" style="width:100%;" value="<%= date %>">							
-				
+		
+		<div class="meta">
+			<div class="date">
+					<%= date  %>
+					<!-- <input type="text" name="header" style="width:75px;text-align:right" value="<%= date %>">	-->						
 				</div>
-				<div class="right">
-					<span class="input_label">Source:</span>
-					<input type="text" name="header" style="width:100%;" value="<%= source %>">							
-				
-				</div>
-			
-			</div>
-				
+				<div class="source">
+					<%= source %>
+				</div>					
 		</div>
+		
+		<div class="header_text">			
+			<input type="text" class="inline" name="header" style="width:50%;" value="<%= header %>">
+		</div>
+		
 	</div>
-	<div class="thumbnail">
-		<%= image_tag "thumbs_150.png", :size => 100 %>
+	<div class="thumbnail_picker">
+		<div class="thumbnail">
+			
+			<img src="http://a1.twimg.com/a/1264447102/images/logo.png" width="150">
+			<ul class="thumbnail_links" style="display:none">
+				<li class="selected">http://a1.twimg.com/a/1264447102/images/logo.png</li>
+				<li>http://www.google.com/intl/en_ALL/images/logo.gif</li>
+				<li>http://l.yimg.com/g/images/logo_home.png.v2</li>
+			</ul>
+		</div>
+		<div class="thumbnail_controls"><span class="prev"><a href="#">Prev</a></span> <span class="next"><a href="#">Next</a></span></div>		
 	</div>
+
 	<div class="notes">
-		<span class="input_label">Comments (Place article excerpts in "quotes")</span>
-		<textarea style="width:68%;height:120px;resize:none"><%= notes %></textarea>
+		<textarea style="width:72%;height:120px;resize:none"><%= notes %></textarea>		
+		<span class="input_label">Comments (Place article excerpts in "quotes")</span>		
 	</div>
 
 	<div class="clear"></div>

@@ -271,6 +271,42 @@ ul#trail_tab_box_header {
 	
 }
 
+.article.form input.inline {
+	border:none;
+	border-bottom:1px solid #CCC;
+	background-color:transparent;
+	font-size:15px;
+	padding:4px 0px 3px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+
+.article.form input.inline:focus {
+	border:1px solid #CCC;
+	background-color:white;
+	font-size:15px;
+	padding:3px 0px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+article.form input.inline:hover {
+	border:1px solid #CCC;
+	background-color:white;
+	font-size:15px;
+	padding:3px 0px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+
+.article.form input.inline:hover {
+	border:1px solid #CCC;
+	background-color:white;
+	font-size:15px;
+	padding:3px 0px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+
 .article .header {
 	
 	border-bottom:1px solid #CCC;
@@ -311,11 +347,43 @@ ul#trail_tab_box_header {
 	line-height:18px;
 }
 
+.article .notes textarea {
+	font-size:15px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+.article .thumbnail_picker {
+	float:right;
+
+
+}
+
 .article .thumbnail {
+	
+	
 	float:right;
 	margin:8px;
 	margin-right:20px;
 	border:1px solid #CCC;
+	background-color:#FFFFFF;
+	/*background-image:url("../images/loader.gif");*/
+	background-repeat:no-repeat;
+	background-position:center center;
+	min-width:150px;
+	min-height:10px;
+	/*min-height:20px;*/	
+	
+}
+
+.article .thumbnail img {
+
+}
+
+
+.article .thumbnail_controls {
+	text-align:center;
+	font-size:10px;
+
 }
 
 .article p {

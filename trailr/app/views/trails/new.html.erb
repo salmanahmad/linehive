@@ -39,9 +39,6 @@
     
 		$("#urls").text("");
 		
-		
-		
-		
 	}
 	
 	function add_url_keydown(event) {
@@ -65,8 +62,42 @@
 			handle: '.trail_handle',
 		})
 	}
+	
+	
+	function next_thumbnail() {
+		console.log("next");
+		
+		//alert($(this).parents(".article").find("li.selected").html());
+		
+		var li = $(this).parents(".article").find("li.selected");
+		$(li).removeClass("selected");
+		$(li).next().addClass("selected")
+		
+		if($(li).siblings(".selected").size() == 0) {
+			$(this).parents(".article").find("li:first").addClass("selected");
+		}
+		
+		 var url = $(this).parents(".article").find("li.selected").text();
+		$(this).parents(".article").find(".thumbnail img").attr("src", url);
+		
+		
+		
+		return false;
+		
+	}
+	
+	function prev_thumbnail() {
+		console.log("prev");
+		
+		return false;
+	}
 
 	$(function() {
+		
+		
+		
+		$('.article .next').livequery('click', next_thumbnail);
+		$('.article .prev').livequery('click', prev_thumbnail);
 		
 		$("#urls").keypress(add_url_keydown);
 		$("#add_urls").click(add_url);
@@ -215,7 +246,7 @@
 			
 			
 			<div id="articles">
-				<% 0.times do %>
+				<% 1.times do %>
 	
 				<%= render :partial => "article", :locals => 	{
 			      :url => "http://www.google.com",
@@ -261,10 +292,6 @@
 </fieldset>
 
 
-
-
-
-
 <div id="buttons">
 		<%= image_tag "loader.gif", :id => "loader" %>
 		<!-- <input type="button" name="preview" value="Preview" id="preview_button" class="trail_button" />
@@ -275,9 +302,8 @@
 		<% end %>
 		
 		
-		<!--
-		<%= button_to "Preview", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
-		-->
+
+		<%# button_to "Preview", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
 		<%= button_to "Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
 		
 

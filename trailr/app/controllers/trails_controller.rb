@@ -33,6 +33,7 @@ class TrailsController < ApplicationController
 
   def process_urls
 
+    http_regex = /^http/
     url_regex = /(^$)|(^(http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix
     
     temp_urls = []
@@ -40,6 +41,9 @@ class TrailsController < ApplicationController
     
     for url in urls do
       if(url.match(url_regex)) then
+        if(!http_regex.match(url))
+          url = "http://#{url}"
+        end
         temp_urls << url
       end        
     end
@@ -64,7 +68,9 @@ class TrailsController < ApplicationController
           title_regex = Regexp.new("<title[^>]*>(.*?)</title>", Regexp::IGNORECASE);
 
           html = f.read
-
+          
+          
+          
           host = URI.parse(url).host
 
           title = title_regex.match(html)
@@ -93,7 +99,9 @@ class TrailsController < ApplicationController
             :url => url,
             :header => title,
 
-            :date => Time.now.rfc2822,
+            #:date => Time.now.rfc2822,
+            :date => Time.now.strftime("%m/%d/%Y"),
+            
             :source => host,
 
             :notes => "\"#{desc}\""
