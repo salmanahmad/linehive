@@ -276,7 +276,7 @@ ul#trail_tab_box_header {
 	border-bottom:1px solid #CCC;
 	background-color:transparent;
 	font-size:15px;
-	padding:4px 0px 3px;
+	padding:4px 0px 3px 1px;
 	font-family:Helvetica, Arial, Sans-Serif;
 }
 
@@ -353,6 +353,7 @@ article.form input.inline:hover {
 }
 
 .article .thumbnail_picker {
+	margin-top:10px;
 	float:right;
 
 

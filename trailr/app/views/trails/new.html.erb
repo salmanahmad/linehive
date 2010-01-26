@@ -66,9 +66,7 @@
 	
 	function next_thumbnail() {
 		console.log("next");
-		
-		//alert($(this).parents(".article").find("li.selected").html());
-		
+				
 		var li = $(this).parents(".article").find("li.selected");
 		$(li).removeClass("selected");
 		$(li).next().addClass("selected")
@@ -88,6 +86,18 @@
 	
 	function prev_thumbnail() {
 		console.log("prev");
+		
+		
+		var li = $(this).parents(".article").find("li.selected");
+		$(li).removeClass("selected");
+		$(li).prev().addClass("selected")
+		
+		if($(li).siblings(".selected").size() == 0) {
+			$(this).parents(".article").find("li:last").addClass("selected");
+		}
+		
+		 var url = $(this).parents(".article").find("li.selected").text();
+		$(this).parents(".article").find(".thumbnail img").attr("src", url);
 		
 		return false;
 	}
@@ -246,7 +256,7 @@
 			
 			
 			<div id="articles">
-				<% 1.times do %>
+				<% 0.times do %>
 	
 				<%= render :partial => "article", :locals => 	{
 			      :url => "http://www.google.com",
@@ -255,7 +265,12 @@
 			      :date => Time.now.rfc2822,
 			      :source => "cnn.com",
 
-			      :notes => "\"This is a sample paragraph that is included\""
+			      :notes => "\"This is a sample paragraph that is included\"",
+						:urls => [
+								"http://www.google.com/intl/en_ALL/images/logo.gif",
+								"http://l.yimg.com/g/images/logo_home.png.v2",
+								"http://a1.twimg.com/a/1264119427/images/logo.png"
+							]
 			    } %>
 	
 				<% end %>
