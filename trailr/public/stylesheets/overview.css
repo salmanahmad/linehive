@@ -289,6 +289,10 @@ ul#trail_tab_box_header {
 	font-family:Helvetica, Arial, Sans-Serif;
 }
 
+.article.form .header {
+	cursor: move;
+}
+
 article.form input.inline:hover {
 	border:1px solid #CCC;
 	background-color:white;

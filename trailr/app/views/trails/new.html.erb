@@ -30,7 +30,8 @@
 					
 					var offset = $(".article:last").offset();
 					
-					window.scrollTo(offset.left, offset.top);
+					// minus half the size of the close button...and then some small padding.
+					window.scrollTo(offset.left, offset.top - 50);
         },
         error:function (xhr, ajaxOptions, thrownError){
 					alert("Error Occured");
@@ -53,12 +54,14 @@
 	}
 	
 	function initSortables() {
-		$("#trail").sortable( {
+		console.log("Here!");
+		
+		$("#articles").sortable( {
 			axis: 'y',
-			containment: '#trail',
-			cursor: 'pointer',
-			handle: '.trail_handle',
-		})
+			containment: '#articles',
+			cursor: 'move',
+			handle: '.header',
+		});
 	}
 	
 	
@@ -254,7 +257,7 @@
 			
 			
 			<div id="articles">
-				<% 0.times do %>
+				<% 3.times do %>
 	
 				<%= render :partial => "article", :locals => 	{
 			      :url => "http://www.google.com",
