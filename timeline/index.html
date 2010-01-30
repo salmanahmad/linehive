@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="stylesheets/style.css" type="text/css" charset="utf-8">
+
+		<script src="javascripts/jquery-1.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+				
+				$(".event .thumbnail img").mouseenter(function() {
+					var parent = $(this).parents(".event");
+					var left = $(parent).position().left;
+					
+					var timeline_width = $("#timeline").width();
+
+					$(".meta").show();
+					
+					if(left > (timeline_width) / 2) {
+						$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
+					} else {
+						$(".meta").css("left", left);						
+					}
+					
+				}).mouseleave(function() {
+					$(".meta").hide();					
+				});
+				
+				
+				
+			});
+		</script>
+		
+		<title>Timeline Test</title>
+	</head>
+	<body id="index" onload="">
+		<div id="content">
+			
+			<h2>linehive</h2>
+			
+			<div id="timeline">
+				
+				
+				<div class="meta">
+					<div class="headline">
+						Congress rejects landmark legislation. Whitehouse responds quickly in TV address.						
+					</div>
+					<div class="source">www.cnn.com</div>
+				</div>
+				
+				
+				
+				<div class="event">
+				
+					<div class="thumbnail">
+						<img src="images/image.jpg">
+					</div>
+					<div class="tick">
+						
+					</div>
+					<div class="date">
+						June 15th 2009
+					</div>
+				</div>
+
+
+				<div class="event" style="left:350px">
+					<div class="thumbnail">
+						<img src="images/image.jpg">
+					</div>
+					<div class="tick">
+						
+					</div>
+					<div class="date">
+						June 15th 2009
+					</div>
+				</div>
+
+
+
+				<div class="event" style="right:0px">
+					<div class="thumbnail">
+						<img src="images/image.jpg">
+					</div>
+					<div class="tick">
+						
+					</div>
+					<div class="date">
+						June 15th 2009
+					</div>
+				</div>
+
+
+
+				<div id="scale">&nbsp;</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
