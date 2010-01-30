@@ -27,6 +27,29 @@ h2 {
 	
 }
 
+.info {
+	display:none;
+}
+
+.empty {
+	
+	display:none;
+	
+	width:75%;
+	text-align:center;
+	background-color:#454545;
+	color:white;
+	padding:10px;
+	margin:auto;
+	left:0px;
+	right:0px;	
+	position:absolute;
+	top:50px;
+	-webkit-border-radius:5px;
+	opacity:0.75;
+	
+	
+}
 
 .event {
 	text-align:center;
@@ -112,7 +135,7 @@ h2 {
 	width:50%;
 	border-right:2px solid black;
 	height:20px;
-	height:70%;
+	height:50%;
 	margin-bottom:6px;
 }
 

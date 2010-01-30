@@ -26,6 +26,190 @@
 				});
 				
 				
+				$("#open").click(function() {
+					$(".event:first").animate({
+						left: "500"
+					},
+					500);
+				});
+				
+				
+				
+				// BEGIN TIMELINE NAMESPACE
+				
+				var timeline = {
+					init: function() {
+						console.log("init");
+						this.draw();
+					},
+					add: function(e) {
+						
+						console.log("add");
+						
+						var template = '																 	\
+																														 	\
+						<div class="event">															 	\
+							<div class="info">														 	\
+								<div class="headline">                       	\
+									$headline					                         	\
+								</div>                                       	\
+								<div class="url">                            	\
+									$url							                         	\
+								</div>                                       	\
+								<div class="source">                         	\
+									$source                                    	\
+								</div>                                       	\
+								<div class="image">                          	\
+									$image	                                  	\
+								</div>                                       	\
+								<div class="date">                           	\
+									$date						                          	\
+								</div>                                       	\
+							</div>                                         	\
+							<div class="thumbnail">                        	\
+								<img src="$source">					                 	\
+							</div>                                         	\
+							<div class="tick">                             	\
+                &nbsp;					                    					\
+							</div>                                         	\
+							<div class="date">                             	\
+								$date					                               	\
+							</div>                                         	\
+						</div>                                           	\
+						';                                               	
+
+						template = template.replace(/\$headline/g, e.headline);
+						template = template.replace(/\$url/g, e.url);
+						template = template.replace(/\$source/g, e.source);
+						template = template.replace(/$image/g, e.image);
+						template = template.replace(/\$date/g, e.date);
+						                                                 
+						$("#timeline").append(template);
+						                                                 						                                                 
+						//this.draw();                                     
+					},                                                 
+					remove:function() {                                
+						console.log("remove");                           
+						this.draw();                                     
+					},                                                 
+					draw: function() {                                 
+						console.log("draw");                             
+						                                                 
+						// How or hide the empty tag which displays an image to the user indicating there
+						// are no events currently available to be visualized                                                 
+						if($(".event").size() == 0) {                    
+							$(".empty").show();                            
+						} else {                                         
+							$(".empty").hide();                            
+						}                                                
+						
+						var count = $(".event").size();
+						if(count == 1) {
+							
+							var event = $(".event:first");
+							
+							
+							var min_date = $(event).children(".info").children(".date").text();
+							min_date = Date.parse(min_date);
+							console.log(min_date);
+							
+							
+							var left = ($("#timeline").outerWidth() / 2);
+							left -= $(event).outerWidth() / 2;
+							
+							$(event).animate({ left: left }, 250);
+
+						} else if(count == 2) {
+							
+							// We guess the earlier and later events
+							var min_event = $(".event:first");
+							var max_event = $(".event:last");
+							
+							var min_date = $(min_event).children(".info").children(".date").text();
+							var max_date = $(max_event).children(".info").children(".date").text();
+							
+							min_date = Date.parse(min_date);
+							max_date = Date.parse(max_date);
+							
+							// If the min_date is greater than max, then we switch							
+							if(min_date > max_date) {
+								var temp = max_event;
+
+								max_event = min_event;
+								min_event = temp;
+							}
+							
+							
+							// Now, min_event should appear to the left of max event...
+							
+							var min_left = ($("#timeline").outerWidth() / 4);
+							min_left -= $(min_event).outerWidth() / 2;
+							
+							var max_left = ($("#timeline").outerWidth() * (3/4));
+							max_left -= $(max_event).outerWidth() / 2;
+							
+
+							$(min_event).animate({ left: min_left }, 250);
+							$(max_event).animate({ left: max_left }, 250);
+
+							
+							
+							
+						} else {
+							
+						}
+			                                          
+						                                                 
+					}                                                  
+                                                             
+				}                                                    
+				                                                     
+				timeline.add({
+					headline: "Dude ranch!",
+					date: "12-15-1999"
+				});
+				
+				timeline.add({
+					headline: "Dude ranch!",
+					date: "12-15-2000"
+				});
+				
+				timeline.draw();
+				
+				
+				/*
+				<div class="event" style="right:0px">
+					<div class="info">
+						<div class="headline">
+							Headline Goes Here
+						</div>
+						<div class="url">
+							http://www.cnn.com
+						</div>
+						<div class="source">
+							cnn.com
+						</div>
+						<div class="image">
+							iamge url
+						</div>
+						<div class="date">
+							Date Goes here...
+						</div>
+					</div>
+					
+					<div class="thumbnail">
+						<img src="images/image.jpg">
+					</div>
+					<div class="tick">
+						
+					</div>
+					<div class="date">
+						June 25th 2009
+					</div>
+				</div>
+				*/
+				
+				// END TIMELINE NAMESPACE				
 				
 			});
 		</script>
@@ -35,7 +219,7 @@
 	<body id="index" onload="">
 		<div id="content">
 			
-			<h2>linehive</h2>
+			<h2><span style="font-weight:normal;text-decoration:underline;">line</span>hive</h2>
 			
 			<div id="timeline">
 				
@@ -47,8 +231,11 @@
 					<div class="source">www.cnn.com</div>
 				</div>
 				
+				<div class="empty">
+					No Events
+				</div>
 				
-				
+				<!--
 				<div class="event">
 				
 					<div class="thumbnail">
@@ -63,7 +250,7 @@
 				</div>
 
 
-				<div class="event" style="left:350px">
+				<div class="event" style="left:200px">
 					<div class="thumbnail">
 						<img src="images/image.jpg">
 					</div>
@@ -71,13 +258,13 @@
 						
 					</div>
 					<div class="date">
-						June 15th 2009
+						June 17th 2009
 					</div>
 				</div>
 
 
 
-				<div class="event" style="right:0px">
+				<div class="event" style="left:450px">
 					<div class="thumbnail">
 						<img src="images/image.jpg">
 					</div>
@@ -85,15 +272,24 @@
 						
 					</div>
 					<div class="date">
-						June 15th 2009
+						June 22nd 2009
 					</div>
 				</div>
 
+
+
+
+			-->
 
 
 				<div id="scale">&nbsp;</div>
 			</div>
 			
+			<br>
+			<input type="button" name="" value="Animate" id="open">
+
 		</div>
+		
+		
 	</body>
 </html>
