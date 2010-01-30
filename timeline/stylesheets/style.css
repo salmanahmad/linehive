@@ -1,21 +1,83 @@
 body {
 	margin:0px;
 	padding:0px;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+h2 {
+	margin-bottom:100px;
 }
 
 #content {
 	width:900px;
 	margin:auto;
-	margin-top:100px;
+	margin-top:20px;
 }
 
 
 #timeline {
 	position:relative;
 	border:1px solid gray;
+	background-color:#F5F5F5;
+	
 	padding:0px 0px;
 	height:150px;
+
+	-webkit-border-radius:5px;
+	
 }
+
+
+.event {
+	text-align:center;
+	position:absolute;
+	
+	width:150px;
+	height:150px;
+
+	border:0px solid green;
+}
+
+.meta {
+
+	display:none;
+
+	z-index:200;
+
+	width:300px;
+	position:absolute;
+	left:13px;
+	top:-60px;
+	
+	background-color:#454545;
+	color:white;
+	padding:10px;
+	
+	margin:auto;
+	
+	text-align:left;
+	font-size:13px;	
+	
+	opacity:0.95;
+	
+	-webkit-border-radius:5px;
+}
+
+.meta .headline {
+	
+}
+
+.meta .source {
+	text-decoration:underline;
+	margin-top:10px;
+	font-size:10px;
+}
+
+.meta .date {
+	
+}
+
+
 
 .thumbnail img {
 	position:absolute;
@@ -39,14 +101,6 @@ body {
 	z-index:100;
 }
 
-.event {
-	position:absolute;
-	
-	width:170px;
-	height:150px;
-
-	border:0px solid green;
-}
 
 .tick {
 	
