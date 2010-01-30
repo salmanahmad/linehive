@@ -108,6 +108,8 @@ h2 {
 	left:0px;
 	right:0px;	
 	margin:auto;
+	
+	max-width:75%;
 }
 
 .thumbnail {
@@ -134,8 +136,8 @@ h2 {
 	
 	width:50%;
 	border-right:2px solid black;
+	height:25%;
 	height:20px;
-	height:50%;
 	margin-bottom:6px;
 }
 
