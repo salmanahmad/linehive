@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'json'
+#require 'json'
 
 
 
@@ -9,12 +9,11 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @trail }
-    end
-    
+    end    
     
   end
 
