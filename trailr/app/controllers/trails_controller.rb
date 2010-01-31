@@ -8,6 +8,13 @@ class TrailsController < ApplicationController
   protect_from_forgery :except => :new
 
   def show
+    @trail = Trail.find(params[:id])
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @trail }
+    end
+    
     
   end
 
@@ -17,8 +24,27 @@ class TrailsController < ApplicationController
   
   def create
     
-    items = ActiveSupport::JSON.decode(params[:trail]);
-    render :text => params[:trail]
+    args = ActiveSupport::JSON.decode(params[:trail])
+    links = args["links"]
+    
+    @trail = Trail.new
+    @trail.caption = args["title"]
+    
+    links.each do |link|
+      article = Article.new(link)
+      @trail.articles << article
+    end
+
+    if @trail.save
+      flash[:notice] = 'Trail was successfully created.'
+      render :text => @trail.id     
+      #redirect_to :action => 'show', :id => @trail.id
+    else
+      flash[:error] = 'Trail could not be created.'
+      render :action => 'create'
+    end
+    
+    
     
   end
   
@@ -158,7 +184,7 @@ class TrailsController < ApplicationController
            :url => url,
            :headline => title,
            :source => host,
-           :image => urls[0],
+           :image_url => urls[0],
            :date => date
          }
  

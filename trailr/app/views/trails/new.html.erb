@@ -38,12 +38,6 @@
 					}
 					
 					timeline.draw();
-					
-					//$("#articles").append(data);
-					
-					//var offset = $(".article:last").offset();
-					// minus half the size of the close button...and then some small padding.
-					//window.scrollTo(offset.left, offset.top - 50);
         },
         error:function (xhr, ajaxOptions, thrownError){
 					alert("Error Occured");
@@ -107,6 +101,8 @@
 
 	$(function() {
 		
+		timeline.init();
+		
 		$('.article .next').livequery('click', next_thumbnail);
 		$('.article .prev').livequery('click', prev_thumbnail);
 		$('.article .close').livequery('click', trail_close);
@@ -132,11 +128,12 @@
 				var image = $.trim($(".info .image", item).html());
 				var date = $.trim($(".info .date", item).html());
 								
+				// TODO: I need to standardize this json string. It matches the active record model...
 				var item = {
 					headline: headline,
 		   		url: url,
 		   		source: source,
-		   		image: image,
+		   		image_url: image,
 		   		date: date
 		   	};
 		

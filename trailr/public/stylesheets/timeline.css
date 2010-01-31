@@ -198,3 +198,6 @@
 	
 }
 
+#timeline.noedit .close {
+	display:none;
+}
