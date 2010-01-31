@@ -7,6 +7,11 @@
 		<script type="text/javascript" charset="utf-8">
 			$(function() {
 				
+				// Check for stupid freaking retarded Firefox...ugh
+				if(window.console == undefined) {
+					window.console = { log: function() { }};
+				}
+				
 				$(".event .thumbnail img").live("mouseenter", function() {
 					var parent = $(this).parents(".event");
 					var left = $(parent).position().left;
