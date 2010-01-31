@@ -58,6 +58,7 @@ class TrailsController < ApplicationController
         open(url) do |f|
 
           date_regex = Regexp.new("(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])");
+          date_regex = Regexp.new(".*((0[1-9]|[12][0-9]|3[01])\s(J(anuary|uly)|Ma(rch|y)|August|(Octo|Decem)ber)\s[1-9][0-9]{3}|(J(anuary|uly)|Ma(rch|y)|August|(Octo|Decem)ber)\s(0[1-9]|[12][0-9]|3[01]),?\s[1-9][0-9]{3}|(0[1-9]|[12][0-9]|30)\s(April|June|(Sept|Nov)ember)\s[1-9][0-9]{3}| (0[1-9]|1[0-9]|2[0-8])\sFebruary\s[1-9][0-9]{3}|29\sFebruary\s((0[48]|[2468][048]|[13579][26])00|[0-9]{2}(0[48]|[2468][048]|[13579][26]))).*", Regexp::IGNORECASE);
           meta_regex = Regexp.new("<meta\s+name=\"description\"\s+content=\"(.*?)\".*?>", Regexp::IGNORECASE)
           p_regex = Regexp.new("<p[^>]*>(.*?)</p>", Regexp::IGNORECASE);
           title_regex = Regexp.new("<title[^>]*>(.*?)</title>", Regexp::IGNORECASE);
@@ -70,11 +71,15 @@ class TrailsController < ApplicationController
           dirname = File.dirname(URI.parse(url).path)
 
           title = title_regex.match(html)
-          date = title_regex.match(html)
+          date = date_regex.match(html)
           desc = meta_regex.match(html)
+          
           
           if(title) then title = title[1] else title = nil end 
           if(date) then date = date[1] else date = nil end 
+          
+          puts date
+          
           
           if(desc) then
             desc = desc[1] 
@@ -130,7 +135,8 @@ class TrailsController < ApplicationController
             end
           end
           
-          
+                		
+=begin          
           hash = {
             :url => url,
             :header => title,
@@ -143,7 +149,15 @@ class TrailsController < ApplicationController
             :notes => desc,
             :urls => urls
           }
-          
+=end          
+ 
+         hash = {
+           :url => url,
+           :headline => title,
+           :source => host,
+           :image => urls[0],
+           :date => date
+         }
  
          @data << hash
 
@@ -156,8 +170,16 @@ class TrailsController < ApplicationController
       end
     
     end
-        
-    render :template => false
+    
+    # For future reference...
+    #items = ActiveSupport::JSON.decode("{
+    #  titles: ['harry potter', 'star wars', 'chhese...']
+    #}");
+    
+    
+    
+    render :json => @data   
+    #render :template => false
     
   end
 

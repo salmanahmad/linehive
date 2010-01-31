@@ -109,6 +109,8 @@
 .round_box {
 	
 	padding:10px;
+	
+	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	
 	background-color:#EEE;

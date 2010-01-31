@@ -25,16 +25,25 @@
 		jQuery.ajax({
         type: "POST",
         url: "<%= url_for :controller => "trails", :action => "process_urls"  %>",
-        dataType:"html",
+        dataType:"json",
         data:{urls : text },
         success:function(data){
-					$("#articles").append(data);
+					
 					$("#loader").hide();
 					
-					var offset = $(".article:last").offset();
+					console.log(data);
 					
+					for(i in data) {
+						timeline.add(data[i]);
+					}
+					
+					timeline.draw();
+					
+					//$("#articles").append(data);
+					
+					//var offset = $(".article:last").offset();
 					// minus half the size of the close button...and then some small padding.
-					window.scrollTo(offset.left, offset.top - 50);
+					//window.scrollTo(offset.left, offset.top - 50);
         },
         error:function (xhr, ajaxOptions, thrownError){
 					alert("Error Occured");
