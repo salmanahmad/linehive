@@ -39,7 +39,7 @@ var timeline = {
 				</div>                                       	\
 			</div>                                         		\
 			<div class="thumbnail">                        		\
-				<a href="$url">									\
+				<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">									\
 				<img src="$image">					            \
 				</a>											\
 			</div>                                         		\
