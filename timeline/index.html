@@ -11,6 +11,7 @@
 					var parent = $(this).parents(".event");
 					var left = $(parent).position().left;
 					
+					var event_width = $(parent).outerWidth();
 					var timeline_width = $("#timeline").width();
 
 					var headline = $(parent).children(".info").children(".headline").text();
@@ -23,17 +24,25 @@
 					
 
 					$(".meta").show();
+					$(".meta_callout").show();
+
 					
 					if(left > (timeline_width) / 2) {
 						$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
+
 					} else {
-						$(".meta").css("left", left);						
+						$(".meta").css("left", left);									
 					}
+					
+					var cal_left = left + (event_width/2.0) - ($(".meta_callout").width() / 2);
+					$(".meta_callout").css("left", cal_left);
+					
 					
 				});
 				
 				$(".event .thumbnail img").live("mouseleave", function() {
-					$(".meta").hide();					
+					$(".meta").hide();
+					$(".meta_callout").hide();										
 				});
 								
 				
@@ -429,6 +438,8 @@
 						&nbsp;
 					</div>
 				</div>
+				<div class="meta_callout">&nbsp;</div>
+				
 				
 				<div class="empty">
 					No Events
@@ -452,6 +463,7 @@
 			<br>
 			<input type="button" name="" value="Add Event #4" id="add4">
 
+		
 			
 		</div>
 		
