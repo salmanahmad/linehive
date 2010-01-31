@@ -24,12 +24,15 @@
 						</div>
 
 						<div id="top_links">
+							<!--
 							<div id="search">
 								<input type="text" name="search" value="Search..." id="search_box" />
 							</div>
+							-->
+
 							<ul>
 								<li><%= link_to "Create Trail", :controller => "trails", :action => "new" %></li>
-								<li><%= link_to "Explore", :controller => "home", :action => "explore" %></li>
+								<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
 							</ul>
 
 
@@ -38,25 +41,33 @@
 						
 						
 			</div>
-			
-	
-			
 		</div>
 		
+		
+		<div style="background-color:white">
 		<div id="content">
 			<%= yield %>
 		</div>	
-				
+		</div>
+						
 		<div id="footer">
 			<div id="footer_wrapper">
 				<ul>
 					<li>&copy; 2010 Trailr</li>
-					<li><%= link_to "About", :controller => "home", :action => "about" %></li>
-					<li><%= link_to "Contact", :controller => "home", :action => "contact" %></li>
-					<li><%= link_to "API", :controller => "home", :action => "api" %></li>				
-					<li><%= link_to "Terms", :controller => "home", :action => "terms" %></li>				
-					<li><%= link_to "Privacy", :controller => "home", :action => "privacy" %></li>				
 
+					<li><%= link_to "Home", :controller => "home", :action => "index" %></li>
+					<li><%= link_to "Team", :controller => "home", :action => "team" %></li>	
+					<li><%= link_to "About", :controller => "home", :action => "about" %></li>
+					<li><%= link_to "JetPack", :controller => "home", :action => "jetpack" %></li>
+					<li><%= link_to "Create", :controller => "trails", :action => "new" %></li>
+					
+					<!--
+					<li><%# link_to "About", :controller => "home", :action => "about" %></li>
+					<li><%# link_to "Contact", :controller => "home", :action => "contact" %></li>
+					<li><%# link_to "API", :controller => "home", :action => "api" %></li>				
+					<li><%# link_to "Terms", :controller => "home", :action => "terms" %></li>				
+					<li><%# link_to "Privacy", :controller => "home", :action => "privacy" %></li>				
+					-->
 				</ul>				
 			</div>
 

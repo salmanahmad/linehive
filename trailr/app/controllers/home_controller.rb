@@ -4,12 +4,22 @@ class HomeController < ApplicationController
     
   end
 
-  # TODO: Remove this method. It does not belong here. It is only here so that the explore link goes somewhere...
-  def explore 
+  def team
+    
+  end
+  
+  def about
     
   end
 
-  def about
+  def jetpack
+    
+  end
+
+
+
+  # TODO: Remove this method. It does not belong here. It is only here so that the explore link goes somewhere...
+  def explore 
     
   end
 
