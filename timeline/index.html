@@ -51,8 +51,8 @@
 						console.log("add");
 						
 						var template = '																 	\
-																														 	\
 						<div class="event">															 	\
+							<div class="insert"></div>											\
 							<div class="info">														 	\
 								<div class="headline">                       	\
 									$headline					                         	\
@@ -124,6 +124,8 @@
 							
 							var event = $(".event:first");
 							
+							$(event).children(".insert").remove();
+							
 							
 							var min_date = $(event).children(".info").children(".date").text();
 							min_date = Date.parse(min_date);
@@ -140,6 +142,10 @@
 							// We guess the earlier and later events
 							var min_event = $(".event:first");
 							var max_event = $(".event:last");
+							
+							$(min_event).children(".insert").remove();
+							$(max_event).children(".insert").remove();
+							
 							
 							var min_date = $(min_event).children(".info").children(".date").text();
 							var max_date = $(max_event).children(".info").children(".date").text();
@@ -185,10 +191,15 @@
 							min_date = null;
 							
 							var middle = ($("#timeline").outerWidth() / 2.0) - ($(".event:first").outerWidth() /2);
+							var end = $("#timeline").outerWidth() - $(".event:first").outerWidth();
 							
 							$(".event").each(function(index, event) {
 
-								$(event).css("left", middle)
+								if($(event).children(".insert").size() != 0) {
+									$(event).css("left", middle);									
+									$(event).children(".insert").remove();
+								}
+
 								
 								var date_text = $(event).children(".info").children(".date").text();
 								var date = new Date(Date.parse(date_text));
@@ -211,9 +222,12 @@
 
 							$(".event:eq("+ min_index + ")").animate({ left: 0}, this.duration);
 
-							$(".event:eq("+ max_index + ")").css("left", "auto");
-							$(".event:eq("+ max_index + ")").css("right", middle);
-							$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
+							//$(".event:eq("+ max_index + ")").css("left", "auto");
+							//$(".event:eq("+ max_index + ")").css("right", middle);
+							//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
+							$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
+
+
 							
 							
 							$(".event").each(function(index, event) {
@@ -240,7 +254,72 @@
                                                              
 				}                                                    
 				
-				function neema_sample() {
+				
+				$("#add1").click(function() {
+					timeline.add({
+					headline: "YouTube: Mad Tv - IPad",
+					url: "http://www.youtube.com/watch?v=lsjU0K8QPhs",
+					source: "youtube.com",
+					image: "http://i4.ytimg.com/vi/WK2drIylnDw/default.jpg",
+					date: "April 15, 2006 16:05:00"
+					});
+
+					timeline.draw();
+					
+					$(this).attr('disabled', 'disabled');
+
+
+				});
+				
+				$("#add2").click(function() {
+					timeline.add({
+					headline: "3G IPhone Due on June 9, Analysts Say",
+					url: "http://abcnews.go.com/Technology/PCWorld/story?id=4719951",
+					source: "abcnews.go..com",
+					image: "http://www.mapds.com.au/newsletters/0807/iphone_home.gif",
+					date: "May 24, 2008 16:05:00"
+					});
+					
+					timeline.draw();
+					
+					$(this).attr('disabled', 'disabled');
+					
+					
+				});				
+				
+				$("#add3").click(function() {
+					timeline.add({
+					headline: "The Kindle.  From Amazon.",
+					url: "http://www.amazon.com/dp/B0015T963C",
+					source: "amazon.com",
+					image: "http://www.picpocketbooks.com/wp-content/uploads/2009/11/kindle.jpg",
+					date: "November 19, 2007 16:05:00"
+					});
+					
+					timeline.draw();
+					
+					$(this).attr('disabled', 'disabled');
+					
+					
+				});
+				
+				$("#add4").click(function() {
+					timeline.add({
+					headline: "Apple iPad vs. Amazon Kindle chart",
+					url: "http://news.cnet.com/8301-17938_105-10443186-1.html",
+					source: "cnet.com",
+					image: "http://media.nj.com/ledgerupdates_impact/photo/apple-ipad-tablet-steve-jobsjpg-fd9049ca2d6b3208_large.jpg",
+					date: "January 27, 2010 14:05:00"
+					});
+					
+					timeline.draw();
+					
+					$(this).attr('disabled', 'disabled');
+					
+					
+				});								
+				
+				function sample() {
 					timeline.add({
 					headline: "YouTube: Mad Tv - IPad",
 					url: "http://www.youtube.com/watch?v=lsjU0K8QPhs",
@@ -282,7 +361,7 @@
 				}
 				
 				
-				function samples() {
+				function sample2() {
 					timeline.add({
 				   headline: "'Avatar's' True Cost -- and Consequences",
 				   url: "http://www.thewrap.com/article/true-cost-and-consequences-avatar-11206?page=1",
@@ -321,42 +400,11 @@
 					
 				}
 				
-				$("#add").click(neema_sample);
+				$("#add").click(sample);
           
 				timeline.init();
 				
 				
-				/*
-				<div class="event" style="right:0px">
-					<div class="info">
-						<div class="headline">
-							Headline Goes Here
-						</div>
-						<div class="url">
-							http://www.cnn.com
-						</div>
-						<div class="source">
-							cnn.com
-						</div>
-						<div class="image">
-							iamge url
-						</div>
-						<div class="date">
-							Date Goes here...
-						</div>
-					</div>
-					
-					<div class="thumbnail">
-						<img src="images/image.jpg">
-					</div>
-					<div class="tick">
-						
-					</div>
-					<div class="date">
-						June 25th 2009
-					</div>
-				</div>
-				*/
 				
 				// END TIMELINE NAMESPACE				
 				
@@ -384,60 +432,26 @@
 				
 				<div class="empty">
 					No Events
-				</div>
-				
-				<!--
-				<div class="event">
-				
-					<div class="thumbnail">
-						<img src="images/image.jpg">
-					</div>
-					<div class="tick">
-						
-					</div>
-					<div class="date">
-						June 15th 2009
-					</div>
-				</div>
-
-
-				<div class="event" style="left:200px">
-					<div class="thumbnail">
-						<img src="images/image.jpg">
-					</div>
-					<div class="tick">
-						
-					</div>
-					<div class="date">
-						June 17th 2009
-					</div>
-				</div>
-
-
-
-				<div class="event" style="left:450px">
-					<div class="thumbnail">
-						<img src="images/image.jpg">
-					</div>
-					<div class="tick">
-						
-					</div>
-					<div class="date">
-						June 22nd 2009
-					</div>
-				</div>
-
-
-
-
-			-->
-			
+				</div>			
 
 				<div id="scale">&nbsp;</div>
 			</div>
 			
+<!--			<br>
+			<input type="button" name="" value="Add Events" id="add">-->
+
 			<br>
-			<input type="button" name="" value="Add Events" id="add">
+			<input type="button" name="" value="Add Event #1" id="add1">
+
+			<br>
+			<input type="button" name="" value="Add Event #2" id="add2">
+
+			<br>
+			<input type="button" name="" value="Add Event #3" id="add3">
+
+			<br>
+			<input type="button" name="" value="Add Event #4" id="add4">
+
 			
 		</div>
 		
