@@ -1,0 +1,63 @@
+#timeline {
+	overflow:auto;
+	
+	background-color:#454545;
+	height:170px;	
+
+	
+}
+
+#timeline #steps {
+	position:relative;
+	top:3px;
+	padding:0px 5px 0px;
+	margin:0px;
+	display:table;
+	width:50px;
+	table-layout:fixed;
+}
+
+
+#timeline .step {
+	height:150px;
+	width:170px;
+	
+	padding:5px 10px;
+	display:table-cell;
+}
+
+
+.thumbnail {
+	background-color:#222;
+	height:120px;
+}
+
+#timeline .step:hover {
+	background-color:#898D8D;
+}
+
+#timeline .step.selected {
+	background-color:#898D8D;
+}
+
+
+.thumbnail:hover {
+//	border:2px solid white;
+	
+}
+
+
+
+.source {
+	margin-top:5px;
+	font-size:11px;
+	color:white;
+	text-align:center;
+}
+
+
+#timeline td {
+	width:150px;
+	height:150px;
+	background-color:red;
+}

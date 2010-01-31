@@ -2,11 +2,14 @@
 	<%= stylesheet_link_tag "new" %>
 	<%= stylesheet_link_tag "form" %>	
 	<%= stylesheet_link_tag "overview" %>	
+	<%= stylesheet_link_tag "timeline" %>	
 
 <% end %>
 
 
 <% content_for :javascripts do %>
+
+<%= javascript_include_tag "timeline.js" %>
 
 <script type="text/javascript" charset="utf-8">
 
@@ -184,6 +187,7 @@
 
 
 
+
 <% end %>
 
 
@@ -260,12 +264,34 @@
 </fieldset>
 
 
+<div id="timeline">
+	
+	
+	<div class="meta">
+		<div class="headline">
+			&nbsp;
+		</div>
+		<div class="source">
+			&nbsp;
+		</div>
+	</div>
+	<div class="meta_callout">&nbsp;</div>
+	
+	
+	<div class="empty">
+		No Events
+	</div>			
+
+	<div id="scale">&nbsp;</div>
+</div>
+
+
 <div id="buttons">
 				
 		<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
 			<input type="hidden" name="trail" value="" id="trail_input"> 
 		<% end %>
-		
+	
 		<%= button_to "Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
 		
 
