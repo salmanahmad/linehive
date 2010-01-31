@@ -33,16 +33,19 @@ jetpack.statusBar.append({
 		};
 		
 		// Put the url into our array?
-		if(! url_match.test(content))	
+		if(! url_match.test(content)){
 			content = '';
+			setUrl("Links ("+numurls+"). Most recent: None. ");
+		}
 		else {
 			content = escape(content);
 			formattedContent = shortenFunction(content);
 			numurls = 1;
+			// Output currently grabbed urls
+			setUrl("Links ("+numurls+"). Most recent: "+content);
 		}
 		
-		// Output currently grabbed urls
-		setUrl("Links ("+numurls+"). Most recent: "+content);
+		
 		
 		
 		var timer = function(){
@@ -60,9 +63,9 @@ jetpack.statusBar.append({
 			
 			//var temp = allURLS.filter(shortenFunction);
 			var myBody = "Current links ("+numurls+"): "+ formattedContent;
-			//var myIcon ="http://www.mozilla.com/favicon.ico";
+			var myIcon ="http://www.linehive.com/images/jetpack.ico";
 			var myTitle="linehive: Added link ("+Ncontent+")";
-			jetpack.notifications.show({title: myTitle, body: myBody}); // , icon: myIcon
+			jetpack.notifications.show({title: myTitle, body: myBody, icon: myIcon}); // 
 		  }
 		  
 		}
@@ -72,13 +75,13 @@ jetpack.statusBar.append({
 			height:20,
 			left: 20,
 			fontSize: "12px",
-			//cursor: "pointer",
+			cursor: "pointer",
 			backgroundColor: "rgba(255,255,255,.8)"
 		})
 		$("#send",doc).click(function (doc) {
 			jetpack.tabs.open('http://localhost:3000/create?url='+content);
 			jetpack.tabs[ jetpack.tabs.length-1 ].focus();
-			jetpack.notifications.show({title: "linehive: links created", body: "Customize your links on the new tab"});
+			jetpack.notifications.show({title: "linehive: links created", body: "Customize your links on the new tab", icon: "http://www.linehive.com/images/jetpack.ico"});
 			resetCounters();
 		})
 		$("#clearer",doc).click(function (doc) {			
