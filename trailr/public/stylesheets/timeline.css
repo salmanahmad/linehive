@@ -183,3 +183,18 @@
     border-style: solid;
 }
 
+#timeline .close {
+	
+	font-size:11px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	z-index:100;
+	height:26px;
+	width:26px;
+	background-color:none;
+	cursor:pointer;
+	//background-image:url("../images/close.png");
+	
+}
+

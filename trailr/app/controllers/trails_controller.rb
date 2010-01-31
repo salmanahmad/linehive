@@ -17,6 +17,9 @@ class TrailsController < ApplicationController
   
   def create
     
+    items = ActiveSupport::JSON.decode(params[:trail]);
+    render :text => params[:trail]
+    
   end
   
   def edit
@@ -161,7 +164,6 @@ class TrailsController < ApplicationController
  
          @data << hash
 
-
         end
 
       rescue Exception => the_error
@@ -179,6 +181,7 @@ class TrailsController < ApplicationController
     
     
     render :json => @data   
+    #render :json => @data.to_json
     #render :template => false
     
   end

@@ -65,16 +65,6 @@
 		$(this).parents(".article").remove();
 	}
 	
-	function initSortables() {
-		console.log("Here!");
-		
-		$("#articles").sortable( {
-			axis: 'y',
-			containment: '#articles',
-			cursor: 'move',
-			handle: '.header',
-		});
-	}
 	
 	
 	function next_thumbnail() {
@@ -117,8 +107,6 @@
 
 	$(function() {
 		
-		
-		
 		$('.article .next').livequery('click', next_thumbnail);
 		$('.article .prev').livequery('click', prev_thumbnail);
 		$('.article .close').livequery('click', trail_close);
@@ -130,66 +118,37 @@
 		$(".url_text").Watermark("url");
 		$(".subtitle_text").Watermark("your thoughts...");   
 		
-		initSortables();
 		
-		$("#add_button").click(function() {
-			
-			var dom = '<div class="trail_item"> \
-				<div class="trail_close"></div>	\
-				<div class="trail_handle"></div> \
-\
- 				<div class="trail_form"> \
-					<p> \
-						<input type="text" name="url" value="" class="url_text"> \
-					</p> \
-					<p> \
-						<textarea name="subtitle" rows="3" cols="40" class="subtitle_text"></textarea> \
-						<!-- ><input tye="text" name="url" value="" class="subtitle_text"> --> \
-					</p> \
-				</div> \
-			</div>';
-			
-			$("#trail").append(dom);
-			
-			$(".url_text").Watermark("url");
-			$(".subtitle_text").Watermark("your thoughts...");   
-
-			$(".trail_close").click(trail_close);
-
-			initSortables();
-			
-		});
-				
-		$("#submit_button").click(function() {
-			
-			//$.Watermark.HideAll();
-	   
+		$("#post_back").submit(function() {
 			
 			var data = { title: "", links: [] };
 			data["title"] = $("#title").val();
 			
-			$(".trail_item").each(function(item) {
-				var url = $(".url_text", item).val();
-				var comment = $(".subtitle_text", item).val();
-				var item = { "url" : url, "comment" : comment };
+			$("#timeline .event").each(function(item) {
 
+				var headline = $.trim($(".info .headline", item).html());
+				var url = $.trim($(".info .url", item).html());
+				var source = $.trim($(".info .source", item).html());
+				var image = $.trim($(".info .image", item).html());
+				var date = $.trim($(".info .date", item).html());
+								
+				var item = {
+					headline: headline,
+		   		url: url,
+		   		source: source,
+		   		image: image,
+		   		date: date
+		   	};
+		
 				data["links"].push(item);				
+				
 			});
 			
 			var string = JSON.stringify(data);
-			alert(string);
+						
+			$("#trail_input").val(string); 
 			
-			//$.Watermark.ShowAll();
-			
-			$("#loader").show();
-	   	$.post("<%= url_for :controller => "home", :action => "submit"  %>", {trail : data }, function() { 
-				$("#loader").hide(); 
-				$("#trail_input").val(string); 
-				$("#post_back").submit();
-			}, "script");
-			
-		});
-		
+		});		
 		
 	});
 </script>
@@ -229,37 +188,13 @@
 			<%= image_tag "loader.gif", :style => "float:right;", :id => "loader" %>
 			<label for="urls" class="large_label" >URLs:</label>
 						
-			<div id="articles">
-				<% 0.times do %>
-	
-				<%= render :partial => "article", :locals => 	{
-			      :url => "http://www.google.com",
-			      :header => "Some header information",
-
-			      :date => Time.now.rfc2822,
-			      :source => "cnn.com",
-
-			      :notes => "\"This is a sample paragraph that is included\"",
-						:urls => [
-								"http://www.google.com/intl/en_ALL/images/logo.gif",
-								"http://l.yimg.com/g/images/logo_home.png.v2",
-								"http://a1.twimg.com/a/1264119427/images/logo.png"
-							]
-			    } %>
-	
-				<% end %>
-				
-			</div>
-			
-			
+			<div id="articles"></div>
 			
 			<input type="button" id="add_urls" class="url_add_button" value="Add">
 			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:520px;resize:none;height:75px;"><%= params[:urls] %></textarea>
 			
 			<div class="space_20"></div>
-	
-	
-	
+			
 		</div>
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
@@ -297,11 +232,11 @@
 
 <div id="buttons">
 				
-		<% form_tag({:controller => "home", :action => "preview" }, {:id => "post_back"})  do %>
+		<% form_tag({:controller => "trails", :action => "create" }, {:id => "post_back"})  do %>
+			<%= submit_tag "Create", { :class => "trail_button"} %>
 			<input type="hidden" name="trail" value="" id="trail_input"> 
 		<% end %>
 	
-		<%= button_to "Create", {:controller => "trails", :action => "show"}, { :class => "trail_button"} %>
 		
 
 </div>

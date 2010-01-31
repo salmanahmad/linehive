@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100127221754) do
+ActiveRecord::Schema.define(:version => 20100131083844) do
 
   create_table "articles", :force => true do |t|
     t.integer  "trail_id",   :null => false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20100127221754) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_url"
   end
 
   add_index "articles", ["date"], :name => "index_articles_on_date"

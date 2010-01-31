@@ -41,6 +41,7 @@ var timeline = {
 &nbsp;					                    					\
 			</div>                                         		\
 			<div class="date">                             		\
+				<div class="close">[<a href="#">x</a>]</div>	\
 				$format				                            \
 			</div>                                         		\
 		</div>                                           		\
@@ -212,7 +213,12 @@ var timeline = {
 
 
 $(function() {
-		
+	
+	$(".event .close a").live("click", function() {
+		$(this).parents(".event").remove();
+		timeline.draw();
+	});
+	
 	$(".event .thumbnail img").live("mouseenter", function() {
 		var parent = $(this).parents(".event");
 		var left = $(parent).position().left;
