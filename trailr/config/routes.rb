@@ -41,9 +41,15 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.connect '/', :controller => "home", :action => "index"
+  map.connect 'about', :controller => "home", :action => "about"
+  map.connect 'team', :controller => "home", :action => "team"
+  map.connect 'jetpack', :controller => "home", :action => "jetpack"
+  
+  
   map.connect 'create', :controller => "trails", :action => "new"
   map.connect 'show/:id', :controller => "trails", :action => "show"
-  map.connect ':id', :controller => "trails", :action => "show"
+  
+  #map.connect ':id', :controller => "trails", :action => "show"
   
   
   map.connect ':controller/:action/:id'

@@ -14,13 +14,9 @@
 	<%= javascript_include_tag "timeline.js" %>
 	<script type="text/javascript" charset="utf-8">
 
-
-
-
 		$(function() {
 			timeline.init(<%= @articles.to_json %>);
 		});
-
 	
 	</script>
 	
