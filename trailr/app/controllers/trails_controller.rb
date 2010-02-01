@@ -20,7 +20,11 @@ class TrailsController < ApplicationController
       hash["url"] = a.url
       hash["source"] = a.source
       hash["image_url"] = a.image_url
-      hash["date"] = a.date.rfc2822()                        
+      if !a.date.nil? then
+        hash["date"] = a.date.rfc2822()                        
+      else 
+        hash["date"] = Time.new.rfc2822()
+      end
       
       @articles << hash
       
