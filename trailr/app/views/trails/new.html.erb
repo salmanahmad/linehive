@@ -1,5 +1,5 @@
 <% content_for :title do %>
-	Create Trail
+	Create Timeline
 <% end %>
 
 <% content_for :stylesheets do %>
@@ -174,19 +174,19 @@
 
 <% end %>
 
-<h2>Create New Trail <span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create trails", :controller => "home", :action => "jetpack" %>)</span></h2>
+<h2>Create New Timeline <span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create timelines", :controller => "home", :action => "jetpack" %>)</span></h2>
 
 
 <fieldset>
 
 	<div class="small_columns">
 		<div class="maincol">
-			<label for="title" class="large_label" >Trail Title:</label>
+			<label for="title" class="large_label" >Timeline Title:</label>
 			<input type="text" name="title" value="<%= params[:title] %>" style="width:100%" id="title" class="large_text">
 		</div>
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
-				150 Characters Remaining
+				150 Characters
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -252,8 +252,6 @@
 			<input type="hidden" name="trail" value="" id="trail_input"> 
 		<% end %>
 	
-		
-
 </div>
 
 
