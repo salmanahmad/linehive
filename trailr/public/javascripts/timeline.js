@@ -6,7 +6,13 @@ var timeline = {
 		console.log("init");
 		
 		for(i in datas) {
-			var data = datas[i];			
+			
+			var data = datas[i];
+			
+			if(data == null) {
+				continue;
+			}
+						
 			//this.add(data["article"]);
 			this.add(data);			
 		}
