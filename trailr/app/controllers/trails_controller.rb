@@ -60,7 +60,13 @@ class TrailsController < ApplicationController
     
     links.each do |link|
       
-      date = Date.parse(link["date"])
+      date = nil
+      
+      begin
+        date = Date.parse(link["date"])
+      rescue Exception => the_error
+        date = DateTime.new
+      end
       
       article = Article.new(link)
       article.date = date
