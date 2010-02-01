@@ -117,16 +117,19 @@
 		
 		$("#post_back").submit(function() {
 			
+			//console.log("here");
+			
+			
 			var data = { title: "", links: [] };
 			data["title"] = $("#title").val();
 			
 			$("#timeline .event").each(function(item) {
 
-				var headline = $.trim($(".info .headline", item).html());
-				var url = $.trim($(".info .url", item).html());
-				var source = $.trim($(".info .source", item).html());
-				var image = $.trim($(".info .image", item).html());
-				var date = $.trim($(".info .date", item).html());
+				var headline = $.trim($(".info .headline", this).html());
+				var url = $.trim($(".info .url", this).html());
+				var source = $.trim($(".info .source", this).html());
+				var image = $.trim($(".info .image", this).html());
+				var date = $.trim($(".info .date", this).html());
 								
 				// TODO: I need to standardize this json string. It matches the active record model...
 				var item = {
@@ -137,14 +140,20 @@
 		   		date: date
 		   	};
 		
+				//console.log(item);
+				
+		
 				data["links"].push(item);				
+				
+				
 				
 			});
 			
 			var string = JSON.stringify(data);
-						
+			
 			$("#trail_input").val(string); 
 			
+						
 		});		
 		
 	});

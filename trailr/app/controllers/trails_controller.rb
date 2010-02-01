@@ -10,6 +10,22 @@ class TrailsController < ApplicationController
   def show
     @trail = Trail.find(params[:id])
 
+
+
+    @articles = []
+    for a in @trail.articles
+      
+      hash = {}
+      hash["headline"] = a.headline
+      hash["url"] = a.url
+      hash["source"] = a.source
+      hash["image_url"] = a.image_url
+      hash["date"] = a.date.rfc2822()                        
+      
+      @articles << hash
+      
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @trail }
@@ -26,18 +42,27 @@ class TrailsController < ApplicationController
     args = ActiveSupport::JSON.decode(params[:trail])
     links = args["links"]
     
+    puts links
+    
     @trail = Trail.new
     @trail.caption = args["title"]
     
     links.each do |link|
+      
+      date = Date.parse(link["date"])
+      
       article = Article.new(link)
+      article.date = date
+      
+      puts "HERE!!! - #{article.date.class}"
+      
       @trail.articles << article
     end
 
     if @trail.save
       flash[:notice] = 'Trail was successfully created.'
-      render :text => @trail.id     
-      #redirect_to :action => 'show', :id => @trail.id
+      #render :text => @trail.id     
+      redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'
       render :action => 'create'

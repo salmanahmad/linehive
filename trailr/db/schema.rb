@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100131083844) do
+ActiveRecord::Schema.define(:version => 20100201044309) do
 
   create_table "articles", :force => true do |t|
     t.integer  "trail_id",   :null => false
-    t.date     "date"
+    t.datetime "date"
     t.string   "headline"
     t.string   "source"
     t.string   "url"

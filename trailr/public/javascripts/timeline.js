@@ -7,7 +7,8 @@ var timeline = {
 		
 		for(i in datas) {
 			var data = datas[i];			
-			this.add(data["article"]);
+			//this.add(data["article"]);
+			this.add(data);			
 		}
 		
 		this.draw();
