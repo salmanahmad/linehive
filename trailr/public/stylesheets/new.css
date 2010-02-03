@@ -4,7 +4,10 @@
 	height:350px;
 	float:right;
 	width:200px;
+
+	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
+
 	padding:10px;
 	font-size:13.5px;
 	line-height:20px;
@@ -100,13 +103,14 @@
 #loader {
 	display:none;
 	position:relative;
-	top:2px;
 }
 
 
 .round_box {
 	
 	padding:10px;
+	
+	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	
 	background-color:#EEE;

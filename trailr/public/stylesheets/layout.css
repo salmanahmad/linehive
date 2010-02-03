@@ -19,7 +19,6 @@
 	min-width:900px;
 	width:900px;
 	margin:auto;
-	//background-color:red;
 	height:100px;
 }
 
@@ -28,7 +27,7 @@
 	position:relative;
 	top:23px;
 	
-	background-image:url("../images/logo.png");
+	/*background-image:url("../images/logo.png");*/
 	width:149px;
 	height:53px;
 	background-repeat:no-repeat;
@@ -61,7 +60,7 @@
 	list-style: none;
 	
 	position:relative;
-	top:4px;
+	top:16px;
 	
 }
 
@@ -103,7 +102,6 @@
 #footer {
 	/*z-index:100;*/
 	position:relative;
-	margin-top:15px;
 	height:200px;
 	background-color:#222222;
 	color:white;
@@ -132,7 +130,7 @@
 #content {
 
 	position:relative;
-	background-color:none;
+	background-color:white;
 	
 	
 	/* width:800px; */
@@ -140,7 +138,9 @@
 	margin-top:0px;
 	margin:auto;
 	padding:0px;
-
+	
+	padding-bottom:15px;
+	padding-top:15px;	
 	
 	
 }

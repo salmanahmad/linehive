@@ -1,1 +1,56 @@
-<h2>About Us</h2>
+<% content_for :title do %>
+	LineHive - About
+<% end %>
+
+<div class="equal_columns">
+		
+	<div class="left">
+		<h2>The LineHive concept</h2>
+
+		<p><b>Create</b> a timeline by pasting links.<br><br>
+
+		<b>Share</b> its URL, embed it anywhere.<br><br>
+
+		<b>Comment</b> on any timeline.<br><br>
+
+		<b>Benefit</b> as the crowd maps the web.</p><br>
+		
+	</div>
+
+	<div class="right">
+		<h2>4 reasons LineHive is interesting</h2>
+
+		<p><b>Secretly educational</b> by sneaking learning into a communication tool.<br><br>
+
+		<b>Lightweight learning</b> by stripping down extraneous features.<br><br>
+
+		<b>Spans age groups and classes</b> by allowing any links to be associated.<br><br>
+
+		<b>Technically simple</b>, which makes the Jetpack icing on the cake.</p>
+		
+	</div>
+
+
+	
+	<div class="clear"></div>
+	
+</div>
+
+
+<div class="space_20"></div>
+
+
+<h2>Sample Timelines</h2>
+
+<p>
+	<%= link_to "Leadup to Obama's State of the Union", :controller => "trails", :action => "show", :id => "1" %>
+</p>
+
+<p>
+	<%= link_to "Haiti Earthquake", :controller => "trails", :action => "show", :id => "2" %>
+</p>
+
+<p>
+	<%= link_to "Beyonce goes from new kid on the block to Grammy winner", :controller => "trails", :action => "show", :id => "3" %>
+</p>
+
