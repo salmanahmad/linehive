@@ -94,6 +94,15 @@ ul {
 }
 
 
+#feedback {
+	position:fixed;
+	left:0px;
+	top:40%;
+	height:120px;
+	width:30px;
+	text-decoration:none;
+	background-image:url("../images/feedback.png");
+}
 
 
 .input_label {
