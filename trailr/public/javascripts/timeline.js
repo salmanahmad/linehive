@@ -55,10 +55,14 @@ var timeline = {
 			</div>                                         		\
 			<div class="date">                             		\
 				<div class="close">[<a href="#">x</a>]</div>	\
-				$format				                            \
+				<input type="text" value="$format" class="date_edit" />				                            \
 			</div>                                         		\
 		</div>                                           		\
 		';
+		
+		
+		console.log(e["date"]);
+		
 		
 		var date = new Date(Date.parse(e["date"]));
 		var date_format = date.toDateString();
@@ -80,6 +84,14 @@ var timeline = {
 		template = template.replace(/\$format/g, date_format);
 		
 		$("#timeline").append(template);
+
+		$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+									changeMonth:true, 
+									changeYear:true,
+									showButtonPanel:true,
+									currentText:'Show Today'});
+									
+		//$(".date_edit").datepicker();
 				                                                 						                                                 
 	},                                                 
 	remove:function() {                                
