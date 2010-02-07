@@ -1,9 +1,12 @@
 // BEGIN TIMELINE NAMESPACE
 
 var timeline = {
+	months: [],
 	duration:250,
 	init: function(datas) {
 		console.log("init");
+		
+		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		
 		for(i in datas) {
 			
@@ -65,7 +68,16 @@ var timeline = {
 		
 		
 		var date = new Date(Date.parse(e["date"]));
+		
+		if(date == "Invalid Date") {
+			date = new Date();
+		}
+		
+		
+		
+		var m = this.months
 		var date_format = date.toDateString();
+		date_format = ""  + m[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 		
 		/*
 		template = template.replace(/\$headline/g, e.headline);
@@ -80,20 +92,29 @@ var timeline = {
 		template = template.replace(/\$url/g, e["url"]);
 		template = template.replace(/\$source/g, e["source"]);
 		template = template.replace(/\$image/g, e["image_url"]);
-		template = template.replace(/\$date/g, e["date"]);
+		//template = template.replace(/\$date/g, e["date"]);
+		template = template.replace(/\$date/g, date.toUTCString());
 		template = template.replace(/\$format/g, date_format);
 		
 		$("#timeline").append(template);
-
+		
 		$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
 									changeMonth:true, 
 									changeYear:true,
 									showButtonPanel:true,
-									currentText:'Show Today'});
-									
-		//$(".date_edit").datepicker();
-				                                                 						                                                 
-	},                                                 
+									currentText:'Show Today',
+									onClose:this.updateDate,
+									closeText:'Cancel'});
+															                                                 
+	},     
+	updateDate:function(dateText, instance) {
+		var date = new Date(Date.parse(dateText));
+		var date_string = date.toUTCString();
+		
+		$(this).parents(".event").children(".info").children(".date").text(date_string);
+		
+		timeline.draw();
+	},                                            
 	remove:function() {                                
 		console.log("remove");                           
 		this.draw();                                     
@@ -135,10 +156,6 @@ var timeline = {
 			var min_event = $(".event:first");
 			var max_event = $(".event:last");
 			
-			$(min_event).children(".insert").remove();
-			$(max_event).children(".insert").remove();
-			
-			
 			var min_date = $(min_event).children(".info").children(".date").text();
 			var max_date = $(max_event).children(".info").children(".date").text();
 			
@@ -164,11 +181,22 @@ var timeline = {
 			
 			var middle = ($("#timeline").outerWidth() / 2.0) - ($(".event:first").outerWidth() /2);
 			
-			$(min_event).css("left", middle);
-			$(max_event).css("left", middle);							
+			if($(min_event).children(".insert").size() != 0) {
+				$(min_event).css("left", middle);			
+			}
+
+			if($(max_event).children(".insert").size() != 0) {
+				$(max_event).css("left", middle);			
+			}
+
 
 			$(min_event).animate({ left: min_left }, this.duration);
 			$(max_event).animate({ left: max_left }, this.duration);
+
+			
+			$(min_event).children(".insert").remove();
+			$(max_event).children(".insert").remove();
+			
 
 		} else {
 			

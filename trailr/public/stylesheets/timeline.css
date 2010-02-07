@@ -181,6 +181,8 @@
 	text-align:center;
 	width:110px;
 	
+	cursor:pointer;
+	
 	padding:2px 0px 2px 0px;
 	font-family:Helvetica, Arial, Sans-Serif;
 }
