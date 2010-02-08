@@ -94,7 +94,10 @@ module TrailsHelper
         threshold = 10000
         urls = []
         html.scan(img_regex) do |match|
-
+          
+          
+          
+          
           width_regex = Regexp.new("width=\"(.*?)\"")
           width_regex = Regexp.new(/(width)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/)
           height_regex = Regexp.new("height=\"(.*?)\"")
@@ -108,6 +111,15 @@ module TrailsHelper
           if(width) then width = width[2].to_i else width = 0 end
           if(height) then height = height[2].to_i else height = 0 end
           if(src) then src = src[1] else src = nil end
+
+
+
+          urls << src
+
+          #skipping my awesome logic for now...sadly...
+          next
+
+
 
           if(src && height * width >= threshold) 
 
@@ -146,7 +158,8 @@ module TrailsHelper
          :headline => title,
          :source => host,
          :image_url => urls[0],
-         :date => date
+         :date => date,
+         :pictures => urls
        }
 
        return hash

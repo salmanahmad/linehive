@@ -55,6 +55,7 @@ var timeline = {
 				<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">									\
 				<img src="$image">					            \
 				</a>											\
+				<span class="pick_image">Change Image</span>		\
 			</div>                                         		\
 			<div class="tick">                             		\
 &nbsp;					                    					\
@@ -82,6 +83,13 @@ var timeline = {
 		var date_format = date.toDateString();
 		date_format = ""  + m[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 		
+		var pictures_data = "";
+		var pictures = e["pictures"];
+		for(i in pictures) {
+			pictures_data += '<li><img src="' + pictures[i] + '" /></li>';
+		}
+		
+		
 		/*
 		template = template.replace(/\$headline/g, e.headline);
 		template = template.replace(/\$url/g, e.url);
@@ -98,6 +106,8 @@ var timeline = {
 		//template = template.replace(/\$date/g, e["date"]);
 		template = template.replace(/\$date/g, date.toUTCString());
 		template = template.replace(/\$format/g, date_format);
+		template = template.replace(/\$pictures/g, pictures_data);
+
 		
 		$("#timeline").append(template);
 		
@@ -277,10 +287,69 @@ var timeline = {
 
 $(function() {
 	
+	var current_event = null;
+	
+	function addCustomImage() {
+		if(current_event != null) {
+						
+			var src = $(".pick_custom_image_text").val();
+			$(current_event).children(".thumbnail").children("a").children("img").attr("src", src);
+			$(current_event).children(".info").children(".image").text(src);
+
+			$("#image_picker_cover").hide();
+			$("#image_picker").hide();
+			
+			current_event = null;
+		}
+	}
+
+	$(".pick_custom_image_text").keypress(function(event) {
+		if(event.which == 13) {
+			addCustomImage();
+			return false;
+		}
+	});
+	$(".pick_custom_image_button").click(addCustomImage);
+
+
+	$("#timeline #image_picker ul li").live("click", function() {
+		if(current_event != null) {
+						
+			var src = $(this).children("img").attr("src");
+			$(current_event).children(".thumbnail").children("a").children("img").attr("src", src);
+			$(current_event).children(".info").children(".image").text(src);
+
+			$("#image_picker_cover").hide();
+			$("#image_picker").hide();
+			
+			current_event = null;
+		}
+	});
+
+	
 	$("#timeline #image_picker .close").click(function() {
 		$("#image_picker_cover").hide();
 		$("#image_picker").hide();
 	});
+	
+	$(".event .thumbnail .pick_image").live("click", function() {
+
+
+		var source = $(this).parents(".event").children(".info").children(".source").text();
+		var images = $(this).parents(".event").children(".info").children(".pictures").html();
+		
+		
+		$("#image_picker ul").html(images);
+		$("#image_picker .source").html(source);
+
+		$(".pick_custom_image_text").val("");
+		$("#image_picker_cover").show();
+		$("#image_picker").show();
+		
+		current_event = $(this).parents(".event");
+	});
+	
+	
 	
 	$(".event .close a").live("click", function() {
 		$(this).parents(".event").remove();
@@ -288,7 +357,10 @@ $(function() {
 		return false;
 	});
 	
+	
 	$(".event .thumbnail img").live("mouseenter", function() {
+		
+		
 		var parent = $(this).parents(".event");
 		var left = $(parent).position().left;
 		
@@ -323,11 +395,13 @@ $(function() {
 		$(".meta_callout").css("left", cal_left);
 		
 		
+		
 	});
 	
 	$(".event .thumbnail img").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();										
+				
 	});
 						
 });
