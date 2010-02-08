@@ -32,6 +32,9 @@ var timeline = {
 		<div class="event">										\
 			<div class="insert"></div>							\
 			<div class="info">									\
+				<div class="pictures">							\
+					$pictures									\
+				</div>											\
 				<div class="headline">                       	\
 					$headline					                \
 				</div>                                       	\
@@ -273,6 +276,11 @@ var timeline = {
 
 
 $(function() {
+	
+	$("#timeline #image_picker .close").click(function() {
+		$("#image_picker_cover").hide();
+		$("#image_picker").hide();
+	});
 	
 	$(".event .close a").live("click", function() {
 		$(this).parents(".event").remove();
