@@ -94,7 +94,7 @@ module TrailsHelper
         #threshold = 2000
         threshold = 10000
         urls = []
-        
+        urls_hash = {}
         largest_url = nil
         largest_size = 0
         
@@ -123,8 +123,19 @@ module TrailsHelper
             else
               src = "#{uri.scheme}://#{host}#{dirname}/#{src}"
             end
-
-            urls << src
+            
+            
+            # I am not sure about this...but whatever
+            if File.extname(src).match(/gif\s*$/i)
+              next
+            end
+            
+            
+            if(urls_hash[src] == nil)
+              urls << src
+            end
+            
+            urls_hash[src] = true
 
             #if(src && height * width >= threshold) 
             if(src && height * width >= largest_size) 
