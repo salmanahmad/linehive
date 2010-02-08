@@ -48,7 +48,8 @@ module TrailsHelper
       open(url) do |f|
 
         date_regex = Regexp.new("(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])");
-        date_regex = Regexp.new(".*((0[1-9]|[12][0-9]|3[01])\s(J(anuary|uly)|Ma(rch|y)|August|(Octo|Decem)ber)\s[1-9][0-9]{3}|(J(anuary|uly)|Ma(rch|y)|August|(Octo|Decem)ber)\s(0[1-9]|[12][0-9]|3[01]),?\s[1-9][0-9]{3}|(0[1-9]|[12][0-9]|30)\s(April|June|(Sept|Nov)ember)\s[1-9][0-9]{3}| (0[1-9]|1[0-9]|2[0-8])\sFebruary\s[1-9][0-9]{3}|29\sFebruary\s((0[48]|[2468][048]|[13579][26])00|[0-9]{2}(0[48]|[2468][048]|[13579][26]))).*", Regexp::IGNORECASE);
+        date_regex = Regexp.new(".*(((J(anuary|uly)|Ma(rch|y)|August|(Octo|Decem)ber)|(Jan|July|Mar|Aug|Oct|Dec).?)\s+(0?[1-9]|[12][0-9]|3[01]),?\s+[1-9][0-9]{3}|((April|June|(Sept|Nov)ember)|(Apr|Jun|Sep|Nov).?)\s+(0?[1-9]|[12][0-9]|30),?\s+[1-9][0-9]{3}|(February|Feb.?)\s+(0?[1-9]|1[0-9]|2[0-8]),?\s+[1-9][0-9]{3}|(February|Feb.)\s+29,?\s+((0[48]|[2468][048]|[13579][26])00|[0-9]{2}(0[48]|[2468][048]|[13579][26]))).*", Regexp::IGNORECASE | Regexp::MULTILINE);
+
         meta_regex = Regexp.new("<meta\s+name=\"description\"\s+content=\"(.*?)\".*?>", Regexp::IGNORECASE)
         p_regex = Regexp.new("<p[^>]*>(.*?)</p>", Regexp::IGNORECASE);
         title_regex = Regexp.new("<title[^>]*>(.*?)</title>", Regexp::IGNORECASE);
