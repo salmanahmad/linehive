@@ -408,6 +408,7 @@
 	float:left;
 	padding:15px 15px;
 	cursor:pointer;
+	min-height:100px;
 }
 
 #image_picker ul li:hover {

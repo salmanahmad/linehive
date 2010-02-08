@@ -105,7 +105,7 @@ module TrailsHelper
           height_regex = Regexp.new("height=\"(.*?)\"")
           height_regex = Regexp.new(/(width)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/)
           src_regex = Regexp.new("src=\"(.*?)\"")
-
+          
           width = width_regex.match(match)      
           height = height_regex.match(match)
           src = src_regex.match(match)
@@ -126,9 +126,9 @@ module TrailsHelper
             
             
             # I am not sure about this...but whatever
-            if File.extname(src).match(/gif\s*$/i)
-              next
-            end
+            #if File.extname(src).match(/gif\s*$/i)
+            #  next
+            #end
             
             
             if(urls_hash[src] == nil)

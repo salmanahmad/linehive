@@ -146,3 +146,34 @@
 }
 
 
+#browser_check {
+	
+	display:none;
+	
+	position:fixed;
+	height:100%;
+	width:100%;
+	opacity:0.75;
+	background-color:black;
+	z-index:300;
+}
+
+#browser_check_message {
+	
+	display:none;
+	
+	padding:10px;
+	background-color:#F5F5F5;
+	width:600px;
+	position:absolute;
+	margin:auto;
+	top:50px;
+	left:0px;
+	right:0px;	
+	z-index:300;
+	
+	-webkit-border-radius:5px;
+	-gecko-border-radius:5px;
+	
+}
+

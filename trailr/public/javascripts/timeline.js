@@ -371,7 +371,7 @@ $(function() {
 	});
 	
 	
-	$(".event .thumbnail img").live("mouseenter", function() {
+	$(".event .thumbnail").live("mouseenter", function() {
 		
 		
 		var parent = $(this).parents(".event");
@@ -411,7 +411,7 @@ $(function() {
 		
 	});
 	
-	$(".event .thumbnail img").live("mouseleave", function() {
+	$(".event .thumbnail").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();										
 				
