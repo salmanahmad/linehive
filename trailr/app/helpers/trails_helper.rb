@@ -93,10 +93,11 @@ module TrailsHelper
         #threshold = 2000
         threshold = 10000
         urls = []
+        
+        largest_url = nil
+        largest_size = 0
+        
         html.scan(img_regex) do |match|
-          
-          
-          
           
           width_regex = Regexp.new("width=\"(.*?)\"")
           width_regex = Regexp.new(/(width)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/)
@@ -111,18 +112,9 @@ module TrailsHelper
           if(width) then width = width[2].to_i else width = 0 end
           if(height) then height = height[2].to_i else height = 0 end
           if(src) then src = src[1] else src = nil end
-
-
-
-          urls << src
-
-          #skipping my awesome logic for now...sadly...
-          next
-
-
-
-          if(src && height * width >= threshold) 
-
+          
+          if(src) then
+          
             if(src.match(/^http:/))
               src = src
             elsif(src.match(/^\//))
@@ -133,7 +125,17 @@ module TrailsHelper
 
             urls << src
 
+            #if(src && height * width >= threshold) 
+            if(src && height * width >= largest_size) 
+            
+              largest_size = height * width
+              largest_url = src
 
+              #skipping my awesome logic for now...sadly...I am not only using it to find the largest image...
+              #urls << src
+
+            end
+          
           end
         end
 
@@ -157,7 +159,8 @@ module TrailsHelper
          :url => url,
          :headline => title,
          :source => host,
-         :image_url => urls[0],
+         #:image_url => urls[0],
+         :image_url => largest_url,
          :date => date,
          :pictures => urls
        }
@@ -168,7 +171,7 @@ module TrailsHelper
 
     rescue Exception => the_error
 
-      puts "Exception - Need more sophisticated error reproting later... #{the_error.class}"
+      puts "Exception - Need more sophisticated error reproting later... #{the_error.class}\n #{the_error.backtrace}"
       return nil
     end
 
