@@ -61,12 +61,20 @@ var timeline = {
 &nbsp;					                    					\
 			</div>                                         		\
 			<div class="date">                             		\
-				<div class="close">[<a href="#">x</a>]</div>	\
-				<input type="text" value="$format" class="date_edit" />				                            \
-			</div>                                         		\
-		</div>                                           		\
-		';
+				<div class="close">[<a href="#">x</a>]</div>	';
+
+
+		if($("#timeline.noedit").size() == 0) {
+			template += '<input type="text" value="$format" class="date_edit" />';
+		} else {
+			template += '$format';
+		}
+
+//			</div>                                         		\
+//		</div>                                           		\
+//		';
 		
+		template += '</div></div>'
 		
 		console.log(e["date"]);
 		
@@ -111,13 +119,18 @@ var timeline = {
 		
 		$("#timeline").append(template);
 		
-		$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
-									changeMonth:true, 
-									changeYear:true,
-									showButtonPanel:true,
-									currentText:'Show Today',
-									onClose:this.updateDate,
-									closeText:'Cancel'});
+		if($("#timeline.noedit").size() == 0) {
+		
+			$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+										changeMonth:true, 
+										changeYear:true,
+										showButtonPanel:true,
+										currentText:'Show Today',
+										onClose:this.updateDate,
+										closeText:'Cancel'});
+		} else {
+			$(".date_edit").attr("disabled", true);
+		}
 															                                                 
 	},     
 	updateDate:function(dateText, instance) {

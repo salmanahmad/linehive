@@ -146,6 +146,11 @@
 	display:block;
 }
 
+#timeline.noedit .thumbnail:hover .pick_image {
+	display:none;
+}
+
+
 
 
 #timeline .thumbnail img {
@@ -208,6 +213,8 @@
 #timeline .date .date_edit {
 	border:none;
 	border-bottom:1px solid #CCC;
+	padding:2px 0px 2px 0px;
+	
 	background-color:transparent;
 	font-size:12px;
 
@@ -216,7 +223,6 @@
 	
 	cursor:pointer;
 	
-	padding:2px 0px 2px 0px;
 	font-family:Helvetica, Arial, Sans-Serif;
 }
 
@@ -245,6 +251,42 @@
 	padding:2px 0px;
 	font-family:Helvetica, Arial, Sans-Serif;
 }
+
+
+
+
+
+#timeline.noedit .date .date_edit {
+	cursor: default;
+}
+
+#timeline.noedit .date .date_edit:focus {
+	border:none;
+	border-bottom:1px solid #CCC;
+	padding:2px 0px 2px 0px;
+	background-color:transparent;
+	
+}
+
+#timeline.noedit .date .date_edit:hover {
+	border:none;
+	border-bottom:1px solid #CCC;
+	padding:2px 0px 2px 0px;
+	background-color:transparent;
+	
+}
+
+
+#timeline.noedit .date .date_edit:hover {
+	border:none;
+	border-bottom:1px solid #CCC;
+	padding:2px 0px 2px 0px;
+	background-color:transparent;
+	
+}
+
+
+
 
 
 
