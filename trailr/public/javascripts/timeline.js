@@ -397,7 +397,15 @@ $(function() {
 		$(".meta").show();
 		$(".meta_callout").show();
 		
-		$(parent).children(".thumbnail").children(".pick_image").show();
+		
+		
+		if(!$("#timeline").is(".noedit")) {
+			$(parent).children(".thumbnail").children(".pick_image").show();			
+		}
+		
+		
+		
+
 		
 		if(left > (timeline_width) / 2) {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
