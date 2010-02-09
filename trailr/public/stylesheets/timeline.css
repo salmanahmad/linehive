@@ -136,7 +136,7 @@
 	width:75%;
 	
 	-webkit-border-radius:5px;
-	-gecko-border-radius:5px;
+	-moz-border-radius:5px;
 	
 	opacity:0.95;
 }
@@ -369,7 +369,7 @@
 	
 	
 	-webkit-border-radius:5px;
-	-gecko-border-radius:5px;
+	-moz-border-radius:5px;
 	
 }
 

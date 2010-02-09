@@ -396,7 +396,8 @@ $(function() {
 
 		$(".meta").show();
 		$(".meta_callout").show();
-
+		
+		$(parent).children(".thumbnail").children(".pick_image").show();
 		
 		if(left > (timeline_width) / 2) {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
@@ -416,7 +417,10 @@ $(function() {
 	
 	$(".event .thumbnail").live("mouseleave", function() {
 		$(".meta").hide();
-		$(".meta_callout").hide();										
+		$(".meta_callout").hide();		
+		
+		var parent = $(this).parents(".event");
+		$(parent).children(".thumbnail").children(".pick_image").hide();
 				
 	});
 						
