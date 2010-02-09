@@ -1,0 +1,23 @@
+body {
+	background-color:white;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+#timeline .meta .headline {
+	height:14px;
+}
+
+h3#caption {
+	margin:0px;
+	padding:0px;
+	line-height:60px;
+	height:60px;
+	width:100%;
+}
+
+#logo {
+	position:fixed;
+	right:0px;
+	top:25px;
+	background-color:white;
+}

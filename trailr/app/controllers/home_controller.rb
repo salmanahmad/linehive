@@ -43,4 +43,8 @@ class HomeController < ApplicationController
     
   end
 
+  def embed_test
+    
+  end
+
 end

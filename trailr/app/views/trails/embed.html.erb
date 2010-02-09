@@ -1,0 +1,56 @@
+<%= stylesheet_link_tag "embed" %>			
+<%= stylesheet_link_tag "timeline" %>			
+
+<%= default_javascript %>
+<%= javascript_include_tag "timeline.js" %>
+<%= javascript_include_tag "jquery.autoellipsis.js" %>
+
+		
+<script type="text/javascript" charset="utf-8">
+
+	meta_show_callback = function () {
+		$(".meta .headline").autoEllipsis();
+	}
+
+	$(function() {
+		$("#caption").autoEllipsis();
+		timeline.init(<%= @articles.to_json %>);
+	});
+
+</script>
+
+<body id="" onload="">
+	
+	<!--
+	<div id="logo">
+		<a href="<%# url_for :controller => "home", :action => "index", :only_path => false %>">
+			<%# image_tag "logo_black.png", :width => "110" %>
+		</a>
+	</div>
+	-->
+	
+	<h3 id="caption"><%= @trail.caption %></h3>
+	<div style="">
+		<div id="timeline" class="noedit">
+
+			<div class="meta">
+				<div class="headline">
+					&nbsp;
+				</div>
+				<div class="source">
+					&nbsp;
+				</div>
+			</div>
+			<div class="meta_callout">&nbsp;</div>
+
+
+			<div class="empty">
+				No Events
+			</div>			
+
+			<div id="scale">&nbsp;</div>
+		</div>
+	</div>
+	
+</body>
+

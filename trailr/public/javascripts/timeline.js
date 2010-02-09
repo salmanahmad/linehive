@@ -297,6 +297,7 @@ var timeline = {
 
 // END TIMELINE NAMESPACE
 
+var meta_show_callback = null;
 
 $(function() {
 	
@@ -401,13 +402,15 @@ $(function() {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
 
 		} else {
-			$(".meta").css("left", left);									
+			$(".meta").css("left", left);
 		}
 		
 		var cal_left = left + (event_width/2.0) - ($(".meta_callout").width() / 2);
 		$(".meta_callout").css("left", cal_left);
 		
-		
+		if(meta_show_callback != null) {
+			meta_show_callback.apply(this);
+		}
 		
 	});
 	
