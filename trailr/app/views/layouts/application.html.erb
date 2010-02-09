@@ -11,10 +11,42 @@
 		
 		<%= default_javascript %>
 		<%= yield :javascripts %>
+		
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+				
+				if(!($.browser.webkit || $.browser.mozilla)) {
+					$(".browser_check").show();
+				}
+				
+				$("#close_browser_check").click(function() {
+					$(".browser_check").hide();
+				});
+			});
+		</script>
 				
 	</head>
 	
 	<body>
+		
+		<div id="browser_check" class="browser_check">
+			&nbsp;
+		</div>
+		<div id="browser_check_message" class="browser_check">
+
+			<div class="space_10"></div>
+			<h3>Pardon our mess...</h3>
+			<div class="space_10"></div>
+			
+			<p>LineHive is currently only supported in <b>Safari</b>, <b>Firefox</b>, and <b>Chrome</b>. We are currently in <b>Alpha</b> and hope to add support for other browsers soon! Thanks so much for your patience!</p>
+			<p>Feel free to continue, just realize that somethings may not work correctly...</p>
+			<div class="space_10"></div>
+			<p>
+				<input type="button" name="" value="Continue" id="close_browser_check" class="trail_button" />					
+			</p>
+		</div>
+		
+		
 		<div id="header">
 			
 			<div id="header_wrapper">

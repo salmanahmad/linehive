@@ -9,28 +9,23 @@ class TrailsController < ApplicationController
 
   protect_from_forgery :except => :new
 
+  
+  def embed 
+    @trail = Trail.find(params[:id])
+    
+    @articles = @trail.articles_json
+
+    respond_to do |format|
+      format.html { render :templte => false}
+    end    
+    
+  end
+
+
   def show
     @trail = Trail.find(params[:id])
 
-
-
-    @articles = []
-    for a in @trail.articles
-      
-      hash = {}
-      hash["headline"] = a.headline
-      hash["url"] = a.url
-      hash["source"] = a.source
-      hash["image_url"] = a.image_url
-      if !a.date.nil? then
-        hash["date"] = a.date.rfc2822()                        
-      else 
-        hash["date"] = Time.new.rfc2822()
-      end
-      
-      @articles << hash
-      
-    end
+    @articles = @trail.articles_json
 
     respond_to do |format|
       format.html # show.html.erb
@@ -38,6 +33,8 @@ class TrailsController < ApplicationController
     end    
     
   end
+
+
 
   def new
     

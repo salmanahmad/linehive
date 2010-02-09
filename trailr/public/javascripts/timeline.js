@@ -1,9 +1,12 @@
 // BEGIN TIMELINE NAMESPACE
 
 var timeline = {
+	months: [],
 	duration:250,
 	init: function(datas) {
 		console.log("init");
+		
+		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		
 		for(i in datas) {
 			
@@ -29,6 +32,9 @@ var timeline = {
 		<div class="event">										\
 			<div class="insert"></div>							\
 			<div class="info">									\
+				<div class="pictures">							\
+					$pictures									\
+				</div>											\
 				<div class="headline">                       	\
 					$headline					                \
 				</div>                                       	\
@@ -49,23 +55,48 @@ var timeline = {
 				<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">									\
 				<img src="$image">					            \
 				</a>											\
+				<span class="pick_image">Change Image</span>		\
 			</div>                                         		\
 			<div class="tick">                             		\
 &nbsp;					                    					\
 			</div>                                         		\
 			<div class="date">                             		\
-				<div class="close">[<a href="#">x</a>]</div>	\
-				<input type="text" value="$format" class="date_edit" />				                            \
-			</div>                                         		\
-		</div>                                           		\
-		';
+				<div class="close">[<a href="#">x</a>]</div>	';
+
+
+		if($("#timeline.noedit").size() == 0) {
+			template += '<input type="text" value="$format" class="date_edit" />';
+		} else {
+			template += '$format';
+		}
+
+//			</div>                                         		\
+//		</div>                                           		\
+//		';
 		
+		template += '</div></div>'
 		
 		console.log(e["date"]);
 		
 		
 		var date = new Date(Date.parse(e["date"]));
+		
+		if(date == "Invalid Date") {
+			date = new Date();
+		}
+		
+		
+		
+		var m = this.months
 		var date_format = date.toDateString();
+		date_format = ""  + m[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+		
+		var pictures_data = "";
+		var pictures = e["pictures"];
+		for(i in pictures) {
+			pictures_data += '<li><img src="' + pictures[i] + '" /></li>';
+		}
+		
 		
 		/*
 		template = template.replace(/\$headline/g, e.headline);
@@ -80,20 +111,36 @@ var timeline = {
 		template = template.replace(/\$url/g, e["url"]);
 		template = template.replace(/\$source/g, e["source"]);
 		template = template.replace(/\$image/g, e["image_url"]);
-		template = template.replace(/\$date/g, e["date"]);
+		//template = template.replace(/\$date/g, e["date"]);
+		template = template.replace(/\$date/g, date.toUTCString());
 		template = template.replace(/\$format/g, date_format);
+		template = template.replace(/\$pictures/g, pictures_data);
+
 		
 		$("#timeline").append(template);
-
-		$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
-									changeMonth:true, 
-									changeYear:true,
-									showButtonPanel:true,
-									currentText:'Show Today'});
-									
-		//$(".date_edit").datepicker();
-				                                                 						                                                 
-	},                                                 
+		
+		if($("#timeline.noedit").size() == 0) {
+		
+			$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+										changeMonth:true, 
+										changeYear:true,
+										showButtonPanel:true,
+										currentText:'Show Today',
+										onClose:this.updateDate,
+										closeText:'Cancel'});
+		} else {
+			$(".date_edit").attr("disabled", true);
+		}
+															                                                 
+	},     
+	updateDate:function(dateText, instance) {
+		var date = new Date(Date.parse(dateText));
+		var date_string = date.toUTCString();
+		
+		$(this).parents(".event").children(".info").children(".date").text(date_string);
+		
+		timeline.draw();
+	},                                            
 	remove:function() {                                
 		console.log("remove");                           
 		this.draw();                                     
@@ -135,10 +182,6 @@ var timeline = {
 			var min_event = $(".event:first");
 			var max_event = $(".event:last");
 			
-			$(min_event).children(".insert").remove();
-			$(max_event).children(".insert").remove();
-			
-			
 			var min_date = $(min_event).children(".info").children(".date").text();
 			var max_date = $(max_event).children(".info").children(".date").text();
 			
@@ -164,11 +207,22 @@ var timeline = {
 			
 			var middle = ($("#timeline").outerWidth() / 2.0) - ($(".event:first").outerWidth() /2);
 			
-			$(min_event).css("left", middle);
-			$(max_event).css("left", middle);							
+			if($(min_event).children(".insert").size() != 0) {
+				$(min_event).css("left", middle);			
+			}
+
+			if($(max_event).children(".insert").size() != 0) {
+				$(max_event).css("left", middle);			
+			}
+
 
 			$(min_event).animate({ left: min_left }, this.duration);
 			$(max_event).animate({ left: max_left }, this.duration);
+
+			
+			$(min_event).children(".insert").remove();
+			$(max_event).children(".insert").remove();
+			
 
 		} else {
 			
@@ -243,8 +297,73 @@ var timeline = {
 
 // END TIMELINE NAMESPACE
 
+var meta_show_callback = null;
 
 $(function() {
+	
+	var current_event = null;
+	
+	function addCustomImage() {
+		if(current_event != null) {
+						
+			var src = $(".pick_custom_image_text").val();
+			$(current_event).children(".thumbnail").children("a").children("img").attr("src", src);
+			$(current_event).children(".info").children(".image").text(src);
+
+			$("#image_picker_cover").hide();
+			$("#image_picker").hide();
+			
+			current_event = null;
+		}
+	}
+
+	$(".pick_custom_image_text").keypress(function(event) {
+		if(event.which == 13) {
+			addCustomImage();
+			return false;
+		}
+	});
+	$(".pick_custom_image_button").click(addCustomImage);
+
+
+	$("#timeline #image_picker ul li").live("click", function() {
+		if(current_event != null) {
+						
+			var src = $(this).children("img").attr("src");
+			$(current_event).children(".thumbnail").children("a").children("img").attr("src", src);
+			$(current_event).children(".info").children(".image").text(src);
+
+			$("#image_picker_cover").hide();
+			$("#image_picker").hide();
+			
+			current_event = null;
+		}
+	});
+
+	
+	$("#timeline #image_picker .close").click(function() {
+		$("#image_picker_cover").hide();
+		$("#image_picker").hide();
+	});
+	
+	$(".event .thumbnail .pick_image").live("click", function() {
+
+
+		var source = $(this).parents(".event").children(".info").children(".source").text();
+		var images = $(this).parents(".event").children(".info").children(".pictures").html();
+		
+		
+		$("#image_picker ul").html(images);
+		$("#image_picker .source").html(source);
+
+		$(".pick_custom_image_text").val("");
+		$("#image_picker_cover").show();
+		$("#image_picker").show();
+		
+		current_event = $(this).parents(".event");
+	});
+	
+	
 	
 	$(".event .close a").live("click", function() {
 		$(this).parents(".event").remove();
@@ -252,7 +371,10 @@ $(function() {
 		return false;
 	});
 	
-	$(".event .thumbnail img").live("mouseenter", function() {
+	
+	$(".event .thumbnail").live("mouseenter", function() {
+		
+		
 		var parent = $(this).parents(".event");
 		var left = $(parent).position().left;
 		
@@ -280,18 +402,22 @@ $(function() {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
 
 		} else {
-			$(".meta").css("left", left);									
+			$(".meta").css("left", left);
 		}
 		
 		var cal_left = left + (event_width/2.0) - ($(".meta_callout").width() / 2);
 		$(".meta_callout").css("left", cal_left);
 		
+		if(meta_show_callback != null) {
+			meta_show_callback.apply(this);
+		}
 		
 	});
 	
-	$(".event .thumbnail img").live("mouseleave", function() {
+	$(".event .thumbnail").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();										
+				
 	});
 						
 });

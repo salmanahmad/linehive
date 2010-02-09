@@ -1,0 +1,22 @@
+body {
+	background-color:white;
+	font-family:Helvetica, Arial, Sans-Serif;
+}
+
+#timeline .meta .headline {
+	height:14px;
+}
+
+h3#caption {
+	margin:25px 0px 10px;
+	padding:0px;
+	height:30px;
+	width:100%;
+}
+
+#logo {
+	position:fixed;
+	right:0px;
+	top:25px;
+	background-color:white;
+}
