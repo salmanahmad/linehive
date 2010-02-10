@@ -1,0 +1,126 @@
+<% bread_crumb "
+#{link_to "Home", :controller => "search", :action => "home"} »
+#{link_to "Your Account", :controller => :user, :action => "account"}" %>
+<% title "Lars & Lowel: Your Account" %>
+
+
+<div class="account" style="overflow:hidden;">
+	
+
+	<div class="right" style="margin-bottom:-2000px;padding-bottom:2000px;">
+		<!--<input type="button" style="float:right" name="" value="Order Status" id="some_name">-->
+		
+		<h1>Purchase History</h1>
+		
+		<%= render :file => "invoice/customer_list" %>
+		
+	</div>
+
+	<div class="left" style="margin-bottom:-2000px;padding-bottom:2000px">
+		<h1>
+			
+			<%= ll_button_to "Add Card", {:controller => 'card', :action => 'add'}, "float:right;margin-left:5px" %>
+			<%= ll_button_to "Add Contact", {:controller => 'contact_info', :action => 'add'}, "float:right" %>
+			
+			<b>salman's</b> Account Information
+		</h1>
+				
+		<h3>General Information</h3>
+		
+		<% form_tag :controller => :user, :action => :process_edit do %>
+			
+			<fieldset>	
+			<p>
+				<label>First Name</label>
+				<%= text_field :customer, :first_name %>
+				<span class="clear"></span>
+			</p>
+
+			<p>
+				<label>Last Name</label>
+				<%= text_field :customer, :last_name %>
+				<span class="clear"></span>
+			</p>
+
+			<p>
+				<label>Email</label>
+				<%= text_field :customer, :email %>
+				<span class="clear"></span>
+			</p>
+
+			<p>
+				<label>New Password</label>
+				<%= password_field_tag :password, {}, :size => 30 %>
+				<span class="clear"></span>
+			</p>
+
+			<p>
+				<label>Repeat Password</label>
+				<%= password_field_tag :password2, {}, :size => 30 %>
+				<span class="clear"></span>
+			</p>
+			
+			<div class="input">
+				<%= submit_tag "Save Changes" %>				
+			</div>
+			
+			</fieldset>		
+			
+				
+		<% end %>
+		
+		<h3>Contact Informations</h3>
+		
+		<% count = 0 %>
+		<% for @contact_info in @customer.contact_infos %>
+			<% count += 1 %>
+			
+			<% form_tag :controller => :contact_info, :action => :process_edit, :id => @contact_info.id do %>
+				<span class="number"><%= count %></span>
+				<fieldset>
+					<%= render :partial => "partials/contact_info_form" %>
+					<div class="input">
+						<%= submit_tag "Save Changes" %> 
+						<%= ll_button_to "Remove", {:controller => :contact_info, :action => :remove, :id => @contact_info.id} %>
+					</div>
+				</fieldset>
+			<% end %>
+		<% end %>
+		
+		<% if count == 0 %>
+			<p>No contact information on file. Feel free to add one. <%= link_to "Add Contact Information", :controller => 'contact_info', :action => 'add' %></p>
+		<% end %>
+		
+		
+		<h3>Credit Cards</h3>
+		
+		<% count = 0 %>
+		<% for @credit_card in @customer.credit_cards %>
+			<% count += 1 %>
+		
+			<% form_tag :controller => :card, :action => :process_edit, :id => @credit_card.id do %>
+				<span class="number"><%= count %></span>
+				<fieldset>				
+					<%= render :partial => "partials/credit_card_form" %>
+					
+					<div class="input">
+						<%= submit_tag "Save Changes" %> 
+						<%= ll_button_to "Remove", {:controller => :card, :action => :remove, :id => @credit_card.id} %>
+					</div>
+					
+				</fieldset>
+			<% end %>
+		
+		<% end %>
+		
+		<% if count == 0 %>
+			<p>No credit card on file. Feel free to add one. <%= link_to "Add Credit Card", :controller => 'card', :action => 'add' %></p>
+		<% end %>
+	</div>
+
+	<div class="clear">
+		&nbsp;
+	</div>
+
+</div>
+

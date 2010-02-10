@@ -10,7 +10,24 @@
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 
+	-moz-border-radius-bottomleft:0px;
+	-moz-border-radius-bottomright:0px;	
+
+	-webkit-border-bottom-left-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
 	
+	
+}
+
+#timeline .events {
+	padding:0px;
+	margin:0px;
+	margin:-1px;
+	position:relative;
+	height:166px;
+	
+	overflow:auto;
+	overflow-y:hidden;
 }
 
 #timeline .insert {

@@ -28,7 +28,8 @@ h2 {
 
 a {
 	text-decoration:underline;
-	color:rgb(0, 136, 204);;
+	color:rgb(0, 136, 204);
+	/*color:rgb(90, 118, 153);*/
 }
 
 ul {

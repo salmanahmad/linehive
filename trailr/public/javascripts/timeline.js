@@ -106,8 +106,14 @@ var timeline = {
 		template = template.replace(/\$date/g, e.date);
 		template = template.replace(/\$format/g, date_format);						
 		*/
-		                           
-		template = template.replace(/\$headline/g, e["headline"]);
+		
+		var headline = e["headline"];
+		
+		if (headline == null) {
+			headline = "Title Not Available";
+		}
+		
+		template = template.replace(/\$headline/g, headline);
 		template = template.replace(/\$url/g, e["url"]);
 		template = template.replace(/\$source/g, e["source"]);
 		template = template.replace(/\$image/g, e["image_url"]);
@@ -117,7 +123,7 @@ var timeline = {
 		template = template.replace(/\$pictures/g, pictures_data);
 
 		
-		$("#timeline").append(template);
+		$("#timeline .events").append(template);
 		
 		if($("#timeline.noedit").size() == 0) {
 		
