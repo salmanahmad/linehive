@@ -1,15 +1,15 @@
 <% bread_crumb "
 #{link_to "Home", :controller => "search", :action => "home"} »
 #{link_to "Log In", :controller => :user, :action => "signon"}" %>
-<% title "Lars & Lowel: Log In" %>
+<% title "linehive: Log In" %>
 
-<% if defined? @customer %>
+<% if defined? @user %>
 
-<% unless @customer.errors.empty? %>
+<% unless @user.errors.empty? %>
 <div class="error">
   The post couldn't be saved due to these errors:
   <ul>
-  <% @customer.errors.each_full do |message| %>
+  <% @user.errors.each_full do |message| %>
     <li><%= message %></li>
   <% end %>
   </ul>
@@ -26,26 +26,20 @@
 			<fieldset>
 				<legend>Create an Account</legend>					
 					<p>
-						<label>First Name</label>
-						<%= text_field :customer, :first_name %>
-						<span class="clear"></span>
-					</p>
-					
-					<p>
-						<label>Last Name</label>
-						<%= text_field :customer, :last_name %>
+						<label>Username</label>
+						<%= text_field :user, :handle %>
 						<span class="clear"></span>
 					</p>
 					
 					<p>
 						<label>Email Address</label>
-						<%= text_field :customer, :email %>
+						<%= text_field :user, :email %>
 						<span class="clear"></span>
 					</p>
 
 					<p>
 						<label>Password</label>
-						<%= password_field :customer, :password %>
+						<%= password_field :user, :password %>
 						<span class="clear"></span>
 						
 					</p>
@@ -55,8 +49,7 @@
 						<%= password_field_tag "confirm_password", nil, :size => 30 %>			
 						<span class="clear"></span>
 					</p>
-					<legend>Contact Information</legend>
-						<%= render :partial => "partials/contact_info_form" %>
+
 					<p class="input"><%= submit_tag "Create" %></p>
 			</fieldset>
 		<% end %>
