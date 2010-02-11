@@ -321,7 +321,7 @@
 #timeline .cluster img{
 	position:absolute;
 	left:2px;
-	
+	cursor:pointer;
 }
 
 

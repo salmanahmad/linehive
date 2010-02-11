@@ -362,7 +362,7 @@ var timeline = {
 
 						if(e1 != e2) {
 							var diff = Math.abs(e1 - e2);
-							var mid = (e1 + e2) / 2.0;
+							var mid = (parseFloat(e1) + parseFloat(e2)) / 2.0;
 							
 							// TODO: CLusters are the same width as the events
 							if(diff < (event_width * timeline.overlap)) {
@@ -374,6 +374,7 @@ var timeline = {
 
 								delete events[e1];
 								delete events[e2];
+																
 								
 								if(!events[mid]) {
 									events[mid] = array;
@@ -432,10 +433,17 @@ var timeline = {
 					}
 					
 					
-					
-					var m = this.months
-					date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();
-					date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate();// + ", " + max_date.getFullYear();
+					if(min_date.getDate() == max_date.getDate() &&
+						min_date.getMonth() == max_date.getMonth() &&
+						min_date.getFullYear() == max_date.getFullYear()) {
+						var m = this.months
+						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();							
+					} else {
+						var m = this.months
+						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();
+						date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate();// + ", " + max_date.getFullYear();						
+					}
+
 					
 					
 					var template = '<div class="event cluster"> \
@@ -454,7 +462,7 @@ var timeline = {
 							' + date_range + '								\
 						</div>												\
 					</div>';
-					
+										
 					$(".events").append(template);
 					$(".cluster:last").css("left", e);	
 				} 
@@ -551,9 +559,20 @@ $(function() {
 		
 		var event_width = $(parent).outerWidth();
 		var timeline_width = $("#timeline").width();
+		
+		var headline = "";
+		var source = "";
+		
+		if($(parent).is(".cluster")) {
+			source = "Multiple Sources";
+			headline = $(parent).children(".info").children(".count").text() + " articles";
+			
+		} else {
+			headline = $(parent).children(".info").children(".headline").text();
+			source = $(parent).children(".info").children(".source").text();			
+		}
+		
 
-		var headline = $(parent).children(".info").children(".headline").text();
-		var source = $(parent).children(".info").children(".source").text();
 
 
 		$(".meta .headline").html(headline);
