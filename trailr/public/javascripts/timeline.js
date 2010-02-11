@@ -7,6 +7,7 @@ var timeline = {
 		console.log("init");
 		
 		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		
 		for(i in datas) {
 			
@@ -127,7 +128,8 @@ var timeline = {
 		
 		if($("#timeline.noedit").size() == 0) {
 		
-			$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+			//$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+			$(".date_edit").datepicker({dateFormat: 'M d, yy', 			
 										changeMonth:true, 
 										changeYear:true,
 										showButtonPanel:true,
@@ -137,7 +139,9 @@ var timeline = {
 		} else {
 			$(".date_edit").attr("disabled", true);
 		}
-															                                                 
+				
+				
+		
 	},     
 	updateDate:function(dateText, instance) {
 		var date = new Date(Date.parse(dateText));
@@ -255,6 +259,7 @@ var timeline = {
 				
 				var date_text = $(event).children(".info").children(".date").text();
 				var date = new Date(Date.parse(date_text));
+								
 				
 				if(max_date == null || (date > max_date)) {
 					max_date = date;
@@ -271,6 +276,9 @@ var timeline = {
 			
 			date_range = max_date.getTime() - min_date.getTime();
 			
+			
+			var events = {}
+			
 
 			$(".event:eq("+ min_index + ")").animate({ left: 0}, this.duration);
 
@@ -279,7 +287,8 @@ var timeline = {
 			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
 			$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
 
-
+			events[0] = $(".event:eq("+ min_index + ")");
+			events[end] = $(".event:eq("+ max_index + ")");
 			
 			
 			$(".event").each(function(index, event) {
@@ -290,8 +299,18 @@ var timeline = {
 					var date_offset = date.getTime() - min_date.getTime();
 					var date_percent = date_offset / date_range;
 					
-					var left = ($("#timeline").outerWidth() * date_percent);
-					left -= $(event).outerWidth() / 2;
+					
+					// TODO: Validate this:
+					//var left = ($("#timeline").outerWidth() * date_percent);
+					//left -= $(event).outerWidth() / 2;
+					
+					
+					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
+				
+
+				
+					
+					
 					
 					$(event).animate({ left: left }, this.duration);
 					
