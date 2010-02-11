@@ -158,6 +158,10 @@ var timeline = {
 		
 		if(date == "Invalid Date") {
 			date = new Date();
+			date.setHours(0);
+			date.setMinutes(0);
+			date.setSeconds(0);
+			date.setMilliseconds(0);									
 		}
 		
 		
@@ -233,6 +237,7 @@ var timeline = {
 		console.log("draw");                             
 
 		// remove any previous clusters...
+		$(".dummy").remove();
 		$(".cluster").remove();
 		$(".event").show();
                             
@@ -383,6 +388,9 @@ var timeline = {
 			//events[end] = [max_index];
 			
 			
+			var max_left = (max_date.getTime() - min_date.getTime()) / scale ;
+			max_left *= ($("#timeline").outerWidth() - event_width);
+			
 			
 			$(".event").each(function(index, event) {
 				//if(index != min_index && index != max_index) {
@@ -390,28 +398,38 @@ var timeline = {
 					var date_text = $(event).children(".info").children(".date").text();
 					var date = new Date(Date.parse(date_text));
 					
-						
 					var date_offset = date.getTime() - min_date.getTime();
 					var date_percent = date_offset / scale;
 					
-										
 					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
 					
 					if(timeline.isUnitScale()) {
 						var found_slot = false;
+						
+						var search_right = true;
+						if(left == max_left) {
+							search_right = false
+						} else {
+							search_right = true
+						}
+						
 						while(!found_slot) {
+														
 							if(!events[left]) {
 								found_slot = true;
 								events[left] = [];
 								events[left].push(index);
 							} else {
-								if(left == end) {
-									left -= event_width;									
-								} else {
+								
+								if(search_right) {
 									left += event_width;
+								} else {
+									left -= event_width;
 								}
+
 							}
 						}
+						
 						
 					} else {
 						if(!events[left]) {
@@ -420,11 +438,7 @@ var timeline = {
 						
 						events[left].push(index);
 					}
-
-
 					
-
-
 					$(event).animate({ left: left }, this.duration);
 				}
 				
@@ -552,22 +566,21 @@ var timeline = {
 					
 					
 						// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
-						//$(".cluster:last").css("left", middle);	
-						//$(".cluster:last").animate({ left: e }, this.duration);
-						$(".cluster:last").css("left", e);	
+						$(".cluster:last").css("left", middle);	
+						$(".cluster:last").animate({ left: e }, this.duration);
+						//$(".cluster:last").css("left", e);
 					} 
 					
 				}
 			
+				// to solve the scrolling problem
+				var dummy = '<div class="dummy" style="position:absolute;left:'+ max_left +'px;"></div>';
+				$(".events").append(dummy);
 			
-			
-			
-
 				var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
 				var scroll_percent = scroll_offset / scale;
 				var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
-
-
+				
 				$(".events").scrollLeft(scroll_left);				
 			
 			
@@ -675,7 +688,7 @@ $(function() {
 	});
 	
 	
-	$(".event .thumbnail img").live("mouseenter", function() {
+	$(".event .thumbnail").live("mouseenter", function() {
 		
 		
 		var parent = $(this).parents(".event");
@@ -737,7 +750,7 @@ $(function() {
 		
 	});
 	
-	$(".event .thumbnail img").live("mouseleave", function() {
+	$(".event .thumbnail").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();		
 		

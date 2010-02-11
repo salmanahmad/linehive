@@ -110,6 +110,8 @@
 
 	$(function() {
 		
+		timeline.use_clustering = false;
+		
 		<% if @articles %>
 			timeline.init(<%= @articles.to_json %>);
 		<% else %>
