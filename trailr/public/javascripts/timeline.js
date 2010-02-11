@@ -1,6 +1,9 @@
 // BEGIN TIMELINE NAMESPACE
 
+
+
 var timeline = {
+	overlap:0.5,
 	months: [],
 	duration:250,
 	init: function(datas) {
@@ -26,7 +29,6 @@ var timeline = {
 	add: function(e) {
 		
 		console.log("add");
-		console.log(e);
 		
 		
 		var template = '										\
@@ -76,8 +78,6 @@ var timeline = {
 //		';
 		
 		template += '</div></div>'
-		
-		console.log(e["date"]);
 		
 		
 		var date = new Date(Date.parse(e["date"]));
@@ -157,7 +157,10 @@ var timeline = {
 	},                                                 
 	draw: function() {                                 
 		console.log("draw");                             
-		                                                 
+
+		// remove any previous clusters...
+		$(".cluster").remove();
+                                 
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
 		if($(".event").size() == 0) {                    
@@ -178,7 +181,6 @@ var timeline = {
 			
 			var min_date = $(event).children(".info").children(".date").text();
 			min_date = Date.parse(min_date);
-			console.log(min_date);
 			
 			
 			var left = ($("#timeline").outerWidth() / 2);
@@ -277,8 +279,11 @@ var timeline = {
 			date_range = max_date.getTime() - min_date.getTime();
 			
 			
-			var events = {}
+			var events = {};
 			
+			
+			// TODO: Abstract This!
+			var event_width = $(".event:first").outerWidth();
 
 			$(".event:eq("+ min_index + ")").animate({ left: 0}, this.duration);
 
@@ -287,8 +292,18 @@ var timeline = {
 			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
 			$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
 
+			/*
 			events[0] = $(".event:eq("+ min_index + ")");
 			events[end] = $(".event:eq("+ max_index + ")");
+			*/
+			
+			
+			
+			events[0] = [min_index];
+			events[end] = [max_index];
+			
+			
+			
 			
 			
 			$(".event").each(function(index, event) {
@@ -305,20 +320,168 @@ var timeline = {
 					//left -= $(event).outerWidth() / 2;
 					
 					
+					
 					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
+
+					if(!events[left]) {
+						events[left] = []
+					}
+					
+					events[left].push(index);
+					//events[left].push($(event).index());
+
+					$(event).animate({ left: left }, this.duration);
+				}
+				
+			});	
+			
+			
+			
+			
+			
+			/*
+				var cluster_members = {};
+				var member_average = 0;
+				var member_size = 0;
+
+				for(var l in events) {
+					l = parseFloat(l);
+					var diff = Math.abs(l - left);
+					var mid = (l + left) / 2.0;
+					
+					console.log("l: " + typeof(l) + " left: " + typeof(left) + " mid: " + mid);
+					
+					
+					
+					if(diff < (event_width * timeline.overlap)) {
+						// overlap: hide them both
+						$(events[l]).hide();
+						$(event).hide();
+						
+						member_average += l;
+						
+						//cluster_members[$(event).index()] = true;
+						cluster_members[$(events[l]).index()] = true;
+						
+						
+						//if(!clusters[mid]) {
+						//	clusters[mid] = []
+						//}
+						//
+						//clusters[mid].push($(event).index());
+						//clusters[mid].push($(events[l]).index());
+						
+						
+					}
+				}
+				
+
+				for(var member in cluster_members) {
+					delete events[member];
+					member_size++;
+				}
+				
+				if(member_size > 0) {
+					// we have to count the current event
+					member_size++; 
+					member_average += left;
+					
+					member_average = member_average / member_size;
+					events[member_average]
+				} else {
+					events[left] = event;
+				}
 				
 
 				
+				
+			}
+			*/
+			
+			
+			//console.log(events);
+			
+			
+			
+		
+			// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
+			var change = true;
+			while(change) {
+				change = false;
+				for(var e1 in events) {
 					
 					
+					var should_break = false;
+										
+					for(var e2 in events) {
+
+						if(e1 != e2) {
+							var diff = Math.abs(e1 - e2);
+							var mid = (e1 + e2) / 2.0;
+							
+							// TODO: CLusters are the same width as the events
+							if(diff < (event_width * timeline.overlap)) {
+								
+								change = true;
+								should_break = true;
+								
+								var array = events[e1].concat(events[e2]);
+
+								delete events[e1];
+								delete events[e2];
+
+								events[mid] = array;
+								
+								
+								break;
+								
+								
+							}
+						}
+					}
 					
-					$(event).animate({ left: left }, this.duration);
+					// FUUUUUUUUUUUUUUUUUUUUCK
+					if(should_break) {
+						break;
+					}
+					
 					
 				}
-			});	
-		}                                                
-	}                                                                                
-}                                                    
+			}
+						
+			
+			for(var e in events) {
+				if(events[e].length > 1) {
+					
+					for(var i in events[e]) {
+						
+						$(".event:eq(" + events[e][i] + ")").hide();
+					}
+					
+					var template = '<div class="cluster"></div>';
+					$(".events").append(template);
+					$(".cluster:last").css("left", e);	
+				} 
+					
+			}
+	
+			
+			
+			
+			
+			
+			
+			/*
+			for(var c in clusters) {
+				var template = '<div class="cluster"></div>';
+				$(".events").append(template);
+				$(".cluster:last").css("left", clusters[c]);
+			}
+			*/
+			
+		}
+	}
+}
 
 // END TIMELINE NAMESPACE
 

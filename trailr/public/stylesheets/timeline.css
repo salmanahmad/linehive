@@ -73,6 +73,17 @@
 	border:0px solid green;
 }
 
+#timeline .cluster {
+	text-align:center;
+	position:absolute;
+	
+	width:150px;
+	height:150px;
+
+	border:1px solid red;
+	
+}
+
 #timeline .meta_callout {
 	
 	z-index:300;
