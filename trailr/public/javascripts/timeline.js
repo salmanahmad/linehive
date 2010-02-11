@@ -9,7 +9,7 @@ var timeline = {
 	overlap:0.5,
 	months: [],
 	duration:500,
-	use_clustering:false,
+	use_clustering:true,
 	init: function(datas) {
 		console.log("init");
 		
@@ -31,12 +31,16 @@ var timeline = {
 		this.draw();
 	},
 	setScale:function(min, max) {
+		this.min_date = min;
+		this.max_date = max;
 		
+		/*
 		if(min == null && max == null) {
 			this.min_date = min;
 			this.max_date = max;
 		} else {
 			// TODO: Set bounds...
+
 			if(min == max) {
 				var msInDay = 3600000;
 				min -= msInDay;
@@ -61,7 +65,7 @@ var timeline = {
 			this.min_date = min - range;
 			this.max_date = max + range;			
 		}
-		
+		*/
 
 	},
 	zoomIn:function(min, max) {
@@ -83,9 +87,18 @@ var timeline = {
 	computeScale:function() {
 		if(this.min_date == null || this.max_date == null) {
 			return null;
+		} else if(this.max_date == this.min_date) {
+			return 86400000; // One day in ms
 		} else {
 			return this.max_date - this.min_date;
 		}
+	},
+	isUnitScale:function() {
+		if((this.max_date == this.min_date) && this.max_date != null) {
+			return true;
+		} else {
+			return false;
+		}		
 	},
 	add: function(e) {
 		
@@ -381,20 +394,36 @@ var timeline = {
 					var date_offset = date.getTime() - min_date.getTime();
 					var date_percent = date_offset / scale;
 					
-					
-					// TODO: Validate this:
-					//var left = ($("#timeline").outerWidth() * date_percent);
-					//left -= $(event).outerWidth() / 2;
-					
-					
+										
 					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
-
-					if(!events[left]) {
-						events[left] = []
-					}
 					
-					events[left].push(index);
-					//events[left].push($(event).index());
+					if(timeline.isUnitScale()) {
+						var found_slot = false;
+						while(!found_slot) {
+							if(!events[left]) {
+								found_slot = true;
+								events[left] = [];
+								events[left].push(index);
+							} else {
+								if(left == end) {
+									left -= event_width;									
+								} else {
+									left += event_width;
+								}
+							}
+						}
+						
+					} else {
+						if(!events[left]) {
+							events[left] = []
+						}						
+						
+						events[left].push(index);
+					}
+
+
+					
+
 
 					$(event).animate({ left: left }, this.duration);
 				}
