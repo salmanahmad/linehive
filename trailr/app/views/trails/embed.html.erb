@@ -15,6 +15,7 @@
 	$(function() {
 		$("#caption").autoEllipsis();
 		timeline.init(<%= @articles.to_json %>);
+		
 	});
 
 </script>
@@ -31,9 +32,14 @@
 	<div id="actions">
 		
 	</div>
-	<h3 id="caption"><%= @trail.caption %></h3>
+	
+
+	<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
+	<a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><h3 id="caption"><%= @trail.caption %></h3></a>
 	<div style="">
 		<div id="timeline" class="noedit">
+
+			<div class="back">Back</div>
 
 			<div class="meta">
 				<div class="headline">

@@ -9,6 +9,7 @@ var timeline = {
 	overlap:0.5,
 	months: [],
 	duration:500,
+	use_clustering:false,
 	init: function(datas) {
 		console.log("init");
 		
@@ -37,9 +38,20 @@ var timeline = {
 		} else {
 			// TODO: Set bounds...
 			if(min == max) {
-				var msInDay = 86400000 / 2;
+				var msInDay = 3600000;
 				min -= msInDay;
 				max += msInDay;
+				
+				alert("here!");
+				
+				//this.min_date = min - range;
+				//this.max_date = max + range;			
+			
+				this.min_date = min - range;
+				this.max_date = max + range;			
+				
+				return;
+				
 			}
 			
 			// TODO: Is this math correct?
@@ -390,147 +402,147 @@ var timeline = {
 			});	
 			
 
-			
+			if(this.use_clustering) {
 		
-			// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
-			var change = true;
-			while(change) {
-				change = false;
-				for(var e1 in events) {
+				// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
+				var change = true;
+				while(change) {
+					change = false;
+					for(var e1 in events) {
 					
 					
-					var should_break = false;
+						var should_break = false;
 										
-					for(var e2 in events) {
+						for(var e2 in events) {
 
-						if(e1 != e2) {
-							var diff = Math.abs(e1 - e2);
-							var mid = (parseFloat(e1) + parseFloat(e2)) / 2.0;
+							if(e1 != e2) {
+								var diff = Math.abs(e1 - e2);
+								var mid = (parseFloat(e1) + parseFloat(e2)) / 2.0;
 							
-							// TODO: CLusters are the same width as the events
-							if(diff < (event_width * timeline.overlap)) {
+								// TODO: CLusters are the same width as the events
+								if(diff < (event_width * timeline.overlap)) {
 								
-								change = true;
-								should_break = true;
+									change = true;
+									should_break = true;
 								
-								var array = events[e1].concat(events[e2]);
+									var array = events[e1].concat(events[e2]);
 
-								delete events[e1];
-								delete events[e2];
+									delete events[e1];
+									delete events[e2];
 																
 								
-								if(!events[mid]) {
-									events[mid] = array;
-								} else {
-									events[mid] = events[mid].concat(array);
-								}
+									if(!events[mid]) {
+										events[mid] = array;
+									} else {
+										events[mid] = events[mid].concat(array);
+									}
 								
 
 								
 								
-								break;
+									break;
 								
 								
+								}
 							}
 						}
-					}
 					
-					// FUUUUUUUUUUUUUUUUUUUUCK
-					if(should_break) {
-						break;
-					}
+						// FUUUUUUUUUUUUUUUUUUUUCK
+						if(should_break) {
+							break;
+						}
 					
+					
+					}
+				}
+						
+				console.log(new Date(min_date));
+			
+				for(var e in events) {
+					if(events[e].length > 1) {
+					
+						var date_range = "Date Range";
+						var min_d = null;
+						var max_d = null;
+						var count = 0;
+					
+						for(var i in events[e]) {
+						
+						
+							var event = $(".event:eq(" + events[e][i] + ")");
+							$(event).hide();
+						
+							var date_text = $(event).children(".info").children(".date").text();
+							var date = new Date(Date.parse(date_text));
+
+
+							if(max_d == null || (date > max_d)) {
+								max_d = date;
+							}
+
+							if(min_d == null || (date < min_d)) {
+								min_d = date;
+							}
+						
+						
+							count++;
+						}
+					
+					
+						if(min_d.getDate() == max_d.getDate() &&
+							min_d.getMonth() == max_d.getMonth() &&
+							min_d.getFullYear() == max_d.getFullYear()) {
+							var m = this.months
+							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();							
+						} else {
+							var m = this.months
+							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();
+							date_range += " - " + m[max_d.getMonth()] + " " + max_d.getDate() + ", " + max_d.getFullYear();
+						}
+
+					
+					
+						var template = '<div class="event cluster"> \
+							<div class="info">									\
+								<div class="min_date">' + min_d.getTime() + '</div>	\
+								<div class="max_date">'+ max_d.getTime() + '</div>		\
+								<div class="count">' + count +'</div>			\
+							</div>												\
+							<div class="thumbnail">                        		\
+								<img width="30" src="/images/cluster.png">		\
+							</div>                                         		\
+							<div class="tick">                             		\
+								&nbsp;			              					\
+							</div>                                         		\
+							<div class="date">                             		\
+								' + date_range + '								\
+							</div>												\
+						</div>';
+										
+						$(".events").append(template);
+					
+					
+						// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
+						//$(".cluster:last").css("left", middle);	
+						//$(".cluster:last").animate({ left: e }, this.duration);
+						$(".cluster:last").css("left", e);	
+					} 
 					
 				}
+			
+			
+			
+			
+
+				var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
+				var scroll_percent = scroll_offset / scale;
+				var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
+
+
+				$(".events").scrollLeft(scroll_left);				
+			
+			
 			}
-						
-			console.log(new Date(min_date));
-			
-			for(var e in events) {
-				if(events[e].length > 1) {
-					
-					var date_range = "Date Range";
-					var min_d = null;
-					var max_d = null;
-					var count = 0;
-					
-					for(var i in events[e]) {
-						
-						
-						var event = $(".event:eq(" + events[e][i] + ")");
-						$(event).hide();
-						
-						var date_text = $(event).children(".info").children(".date").text();
-						var date = new Date(Date.parse(date_text));
-
-
-						if(max_d == null || (date > max_d)) {
-							max_d = date;
-						}
-
-						if(min_d == null || (date < min_d)) {
-							min_d = date;
-						}
-						
-						
-						count++;
-					}
-					
-					
-					if(min_d.getDate() == max_d.getDate() &&
-						min_d.getMonth() == max_d.getMonth() &&
-						min_d.getFullYear() == max_d.getFullYear()) {
-						var m = this.months
-						date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();							
-					} else {
-						var m = this.months
-						date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();
-						date_range += " - " + m[max_d.getMonth()] + " " + max_d.getDate() + ", " + max_d.getFullYear();
-					}
-
-					
-					
-					var template = '<div class="event cluster"> \
-						<div class="info">									\
-							<div class="min_date">' + min_d.getTime() + '</div>	\
-							<div class="max_date">'+ max_d.getTime() + '</div>		\
-							<div class="count">' + count +'</div>			\
-						</div>												\
-						<div class="thumbnail">                        		\
-							<img width="30" src="/images/cluster.png">		\
-						</div>                                         		\
-						<div class="tick">                             		\
-							&nbsp;			              					\
-						</div>                                         		\
-						<div class="date">                             		\
-							' + date_range + '								\
-						</div>												\
-					</div>';
-										
-					$(".events").append(template);
-					
-					
-					// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
-					//$(".cluster:last").css("left", middle);	
-					//$(".cluster:last").animate({ left: e }, this.duration);
-					$(".cluster:last").css("left", e);	
-				} 
-					
-			}
-			
-			
-			
-			
-
-			var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
-			var scroll_percent = scroll_offset / scale;
-			var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
-
-
-			$(".events").scrollLeft(scroll_left);				
-			
-			
-
 			
 			
 			
