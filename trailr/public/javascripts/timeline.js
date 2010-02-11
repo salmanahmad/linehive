@@ -5,9 +5,10 @@
 var timeline = {
 	min_date:null,
 	max_date:null,
-	overlap:.5,
+	zoom_stack:[],
+	overlap:0.15,
 	months: [],
-	duration:250,
+	duration:500,
 	init: function(datas) {
 		console.log("init");
 		
@@ -29,9 +30,39 @@ var timeline = {
 		this.draw();
 	},
 	setScale:function(min, max) {
-		this.min_date = min;
-		this.max_date = max;
-		// TODO: Set bounds...
+		
+		if(min == null && max == null) {
+			this.min_date = min;
+			this.max_date = max;
+		} else {
+			// TODO: Set bounds...
+			if(min == max) {
+				var msInDay = 86400000 / 2;
+				min -= msInDay;
+				max += msInDay;
+			}
+
+			this.min_date = min;
+			this.max_date = max;			
+		}
+		
+
+	},
+	zoomIn:function(min, max) {
+		var scale = {};
+		scale["min"] = this.min_date;
+		scale["max"] = this.max_date;
+		
+		this.zoom_stack.push(scale);
+		
+		this.setScale(min, max);
+	},
+	zoomOut:function() {
+		
+		if(this.zoom_stack.length > 0) {
+			var scale = this.zoom_stack.pop();
+			this.setScale(scale["min"], scale["max"]);
+		}
 	},
 	computeScale:function() {
 		if(this.min_date == null || this.max_date == null) {
@@ -174,7 +205,15 @@ var timeline = {
 
 		// remove any previous clusters...
 		$(".cluster").remove();
-                                 
+		$(".event").show();
+                            
+
+		if(this.zoom_stack.length == 0) {
+			$("#timeline .back").hide();
+		} else {
+			$("#timeline .back").show();
+		}
+     
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
 		if($(".event").size() == 0) {                    
@@ -437,11 +476,11 @@ var timeline = {
 						min_date.getMonth() == max_date.getMonth() &&
 						min_date.getFullYear() == max_date.getFullYear()) {
 						var m = this.months
-						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();							
+						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate() + ", " + min_date.getFullYear();							
 					} else {
 						var m = this.months
-						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();
-						date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate();// + ", " + max_date.getFullYear();						
+						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate() + ", " + min_date.getFullYear();
+						date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate() + ", " + max_date.getFullYear();
 					}
 
 					
@@ -464,10 +503,26 @@ var timeline = {
 					</div>';
 										
 					$(".events").append(template);
-					$(".cluster:last").css("left", e);	
+					$(".cluster:last").css("left", middle);	
+					$(".cluster:last").animate({ left: e }, this.duration);
+					
 				} 
 					
 			}
+			
+			
+			
+			
+			/*
+			var scroll_offset = this.min_date - min_date.getTime();
+			var scroll_percent = scroll_offset / scale;
+			var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
+			
+			$(".events").scrollTo({left:scroll_left});
+			*/
+
+			
+			
 			
 
 		}
@@ -519,6 +574,24 @@ $(function() {
 		}
 	});
 
+
+	$("#timeline .back").live("click", function() {
+		timeline.zoomOut();
+		timeline.draw();
+	});
+
+	$("#timeline .cluster img").live("click", function() {
+		var parent = $(this).parents(".event");
+		
+		var min = $(parent).children(".info").children(".min_date").text();
+		var max = $(parent).children(".info").children(".max_date").text();
+		
+		min = parseInt(min);
+		max = parseInt(max);
+		
+		timeline.zoomIn(min, max);
+		timeline.draw();
+	});
 	
 	$("#timeline #image_picker .close").click(function() {
 		$("#image_picker_cover").hide();
