@@ -1,5 +1,5 @@
 <% content_for :title do %>
-	Trail - <%= @trail.caption %>
+	LineHive: <%= @trail.caption %>
 <% end  %>
 
 <% content_for :stylesheets do %>
@@ -65,7 +65,15 @@
 
 	</div>
 </div>
-
-
-
-
+<form name="inputs">
+<div id="urlbox">
+	<input name="url" value="http://www.linehive.com/show/<%= @trail.id %>" onclick="javascript:document.inputs.url.focus();document.inputs.url.select();" style="width:500px; float:right;">
+	<span style="float:right;margin-right:5px; text-weight:bold">URL</span>
+</div>
+<div id="embedbox">
+	<input name="embed" value='<iframe frameborder="0" width="600" height="235" style="float:left;width:600px;height:230px;border:0px solid #808080" src="http://linehive.com/embed/<%= @trail.id %>"></iframe>' 
+	style="width:500px; float:right;" onclick="javascript:document.inputs.embed.focus();document.inputs.embed.select();">
+	<span style="float:right; margin-right:5px; text-weight:bold">Embed</span>
+</div>
+</form>
+<div class="clear">

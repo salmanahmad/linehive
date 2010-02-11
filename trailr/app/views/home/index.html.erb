@@ -1,5 +1,5 @@
 <% content_for :title do %>
-	linehive
+	LineHive
 <% end %>
 
 <% content_for :stylesheets do %>
@@ -20,21 +20,42 @@
 
 
 
-<h2>Popular Timelines <span style="font-size:12px; font-weight:normal">
+<h2>Popular Timelines</h2>
 <div class="space_10"></div>
 <fieldset>
 	<div class="small_columns">
 		<div class="maincol">
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/51"></iframe> 
+			</div> 
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/52"></iframe> 
+			</div> 
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/53"></iframe> 
+			</div> 
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/54"></iframe> 
+			</div> 
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/55"></iframe> 
+			</div> 
+			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
+				<iframe frameborder="0" width="600" height="235" src="/embed/56"></iframe> 
+			</div> 
+			<!--
 			<div style="float:left;width:600px;height:235px;border:0px solid #808080"> 
 				<iframe frameborder="0" width="600" height="235" src="/embed/3"></iframe> 
 			</div> 
 			<div style="float:left; width:600px; height:235px;border:0px solid #808080"> 
 				<iframe frameborder="0" width="600" height="235" src="/embed/1"></iframe> 
 			</div> 			
+			-->
 		</div>
+
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
-				<h3>What is linehive?</h3>
+				<h3>What is LineHive?</h3>
 				<b>Create</b> a timeline by pasting links.<br>
 				<b>Share</b> the URL with others; <b>embed</b> it anywhere.<br>
 				<b>Crowdsource</b> news exploration.<br><br>
@@ -42,7 +63,7 @@
 				<h3>What's new?</h3>
 				<b>Date time editing</b> for timeline creation.<br>
 				<b>Jetpack</b> authoring extension for firefox.<br>
-				Follow us on <b>Twitter</b>.<br><br>
+				Follow us on <b><a href="http://twitter.com/linehive">Twitter</a></b>.<br><br>
 				
 				<h3>To come?</h3>
 				<b>Search</b> by topics.<br>
@@ -55,7 +76,7 @@
 	
 </fieldset>
 <!--
-<h2>Most Popular Topics <span style="font-size:12px; font-weight:normal">(<%= link_to "Create a timeline", :controller => "home", :action => "create" %>)</span></h2>
+<h2>Most Popular Topics <span style="font-size:12px; font-weight:normal">(<%# link_to "Create a timeline", :controller => "home", :action => "create" %>)</span></h2>
 <div class="space_10"></div>
 <fieldset>
 	<div class="small_columns">
