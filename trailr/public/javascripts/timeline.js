@@ -9,7 +9,7 @@ var timeline = {
 	overlap:0.5,
 	months: [],
 	duration:500,
-	use_clustering:true,
+	use_clustering:false,
 	init: function(datas) {
 		console.log("init");
 		
