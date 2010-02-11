@@ -292,17 +292,9 @@ var timeline = {
 			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
 			$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
 
-			/*
-			events[0] = $(".event:eq("+ min_index + ")");
-			events[end] = $(".event:eq("+ max_index + ")");
-			*/
-			
-			
-			
+						
 			events[0] = [min_index];
 			events[end] = [max_index];
-			
-			
 			
 			
 			
@@ -320,7 +312,6 @@ var timeline = {
 					//left -= $(event).outerWidth() / 2;
 					
 					
-					
 					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
 
 					if(!events[left]) {
@@ -335,73 +326,7 @@ var timeline = {
 				
 			});	
 			
-			
-			
-			
-			
-			/*
-				var cluster_members = {};
-				var member_average = 0;
-				var member_size = 0;
 
-				for(var l in events) {
-					l = parseFloat(l);
-					var diff = Math.abs(l - left);
-					var mid = (l + left) / 2.0;
-					
-					console.log("l: " + typeof(l) + " left: " + typeof(left) + " mid: " + mid);
-					
-					
-					
-					if(diff < (event_width * timeline.overlap)) {
-						// overlap: hide them both
-						$(events[l]).hide();
-						$(event).hide();
-						
-						member_average += l;
-						
-						//cluster_members[$(event).index()] = true;
-						cluster_members[$(events[l]).index()] = true;
-						
-						
-						//if(!clusters[mid]) {
-						//	clusters[mid] = []
-						//}
-						//
-						//clusters[mid].push($(event).index());
-						//clusters[mid].push($(events[l]).index());
-						
-						
-					}
-				}
-				
-
-				for(var member in cluster_members) {
-					delete events[member];
-					member_size++;
-				}
-				
-				if(member_size > 0) {
-					// we have to count the current event
-					member_size++; 
-					member_average += left;
-					
-					member_average = member_average / member_size;
-					events[member_average]
-				} else {
-					events[left] = event;
-				}
-				
-
-				
-				
-			}
-			*/
-			
-			
-			//console.log(events);
-			
-			
 			
 		
 			// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
@@ -465,20 +390,7 @@ var timeline = {
 					
 			}
 	
-			
-			
-			
-			
-			
-			
-			/*
-			for(var c in clusters) {
-				var template = '<div class="cluster"></div>';
-				$(".events").append(template);
-				$(".cluster:last").css("left", clusters[c]);
-			}
-			*/
-			
+
 		}
 	}
 }
