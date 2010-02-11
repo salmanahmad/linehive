@@ -64,11 +64,12 @@
 </div>
 <form name="inputs">
 <div id="urlbox">
-	<input name="url" value="http://www.linehive.com/show/<%= @trail.id %>" onclick="javascript:document.inputs.url.focus();document.inputs.url.select();" style="width:200px; float:right;margin-right:200px;">
-	<span style="float:right;margin-right:5px; font-weight:bold">URL</span>
+	
 	<input name="embed" value='<iframe frameborder="0" width="600" height="235" style="float:left;width:600px;height:230px;border:0px solid #808080" src="http://linehive.com/embed/<%= @trail.id %>"></iframe>' 
-	style="width:200px; float:right; margin-right:50px;" onclick="javascript:document.inputs.embed.focus();document.inputs.embed.select();">
+	style="width:200px; float:right; margin-right:200px;" onclick="javascript:document.inputs.embed.focus();document.inputs.embed.select();">
 	<span style="float:right; margin-right:5px; font-weight:bold">Embed</span>
+	<input name="url" value="http://www.linehive.com/show/<%= @trail.id %>" onclick="javascript:document.inputs.url.focus();document.inputs.url.select();" style="width:200px; float:right;margin-right:50px;">
+	<span style="float:right;margin-right:5px; font-weight:bold;">URL</span>
 </div>
 </form>
 <div class="clear">
