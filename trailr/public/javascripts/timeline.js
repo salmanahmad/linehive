@@ -3,7 +3,9 @@
 
 
 var timeline = {
-	overlap:0.5,
+	min_date:null,
+	max_date:null,
+	overlap:.5,
 	months: [],
 	duration:250,
 	init: function(datas) {
@@ -25,6 +27,18 @@ var timeline = {
 		}
 		
 		this.draw();
+	},
+	setScale:function(min, max) {
+		this.min_date = min;
+		this.max_date = max;
+		// TODO: Set bounds...
+	},
+	computeScale:function() {
+		if(this.min_date == null || this.max_date == null) {
+			return null;
+		} else {
+			return this.max_date - this.min_date;
+		}
 	},
 	add: function(e) {
 		
@@ -240,7 +254,7 @@ var timeline = {
 			
 			// Now comes the hard part...
 			
-			var date_range = 0;
+			var scale = 0;
 			
 			max_index = 0;
 			max_date = null;
@@ -276,7 +290,11 @@ var timeline = {
 			});
 			
 			
-			date_range = max_date.getTime() - min_date.getTime();
+			scale = timeline.computeScale();
+			if(scale == null) {
+				scale = max_date.getTime() - min_date.getTime();
+			}
+
 			
 			
 			var events = {};
@@ -290,21 +308,23 @@ var timeline = {
 			//$(".event:eq("+ max_index + ")").css("left", "auto");
 			//$(".event:eq("+ max_index + ")").css("right", middle);
 			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
-			$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
+			//$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
 
 						
 			events[0] = [min_index];
-			events[end] = [max_index];
+			//events[end] = [max_index];
 			
 			
 			
 			$(".event").each(function(index, event) {
-				if(index != min_index && index != max_index) {
+				//if(index != min_index && index != max_index) {
+				if(index != min_index) {	
 					var date_text = $(event).children(".info").children(".date").text();
 					var date = new Date(Date.parse(date_text));
 					
+						
 					var date_offset = date.getTime() - min_date.getTime();
-					var date_percent = date_offset / date_range;
+					var date_percent = date_offset / scale;
 					
 					
 					// TODO: Validate this:
@@ -354,8 +374,14 @@ var timeline = {
 
 								delete events[e1];
 								delete events[e2];
+								
+								if(!events[mid]) {
+									events[mid] = array;
+								} else {
+									events[mid] = events[mid].concat(array);
+								}
+								
 
-								events[mid] = array;
 								
 								
 								break;
@@ -378,18 +404,63 @@ var timeline = {
 			for(var e in events) {
 				if(events[e].length > 1) {
 					
+					var date_range = "Date Range";
+					var min_date = null;
+					var max_date = null;
+					var count = 0;
+					
 					for(var i in events[e]) {
 						
-						$(".event:eq(" + events[e][i] + ")").hide();
+						
+						var event = $(".event:eq(" + events[e][i] + ")");
+						$(event).hide();
+						
+						var date_text = $(event).children(".info").children(".date").text();
+						var date = new Date(Date.parse(date_text));
+
+
+						if(max_date == null || (date > max_date)) {
+							max_date = date;
+						}
+
+						if(min_date == null || (date < min_date)) {
+							min_date = date;
+						}
+						
+						
+						count++;
 					}
 					
-					var template = '<div class="cluster"></div>';
+					
+					
+					var m = this.months
+					date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate();// + ", "; + min_date.getFullYear();
+					date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate();// + ", " + max_date.getFullYear();
+					
+					
+					var template = '<div class="event cluster"> \
+						<div class="info">									\
+							<div class="min_date">' + min_date.getTime() + '</div>	\
+							<div class="max_date">'+ max_date.getTime() + '</div>		\
+							<div class="count">' + count +'</div>			\
+						</div>												\
+						<div class="thumbnail">                        		\
+							<img width="30" src="/images/cluster.png">		\
+						</div>                                         		\
+						<div class="tick">                             		\
+							&nbsp;			              					\
+						</div>                                         		\
+						<div class="date">                             		\
+							' + date_range + '								\
+						</div>												\
+					</div>';
+					
 					$(".events").append(template);
 					$(".cluster:last").css("left", e);	
 				} 
 					
 			}
-	
+			
 
 		}
 	}
@@ -472,7 +543,7 @@ $(function() {
 	});
 	
 	
-	$(".event .thumbnail").live("mouseenter", function() {
+	$(".event .thumbnail img").live("mouseenter", function() {
 		
 		
 		var parent = $(this).parents(".event");
@@ -523,7 +594,7 @@ $(function() {
 		
 	});
 	
-	$(".event .thumbnail").live("mouseleave", function() {
+	$(".event .thumbnail img").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();		
 		
