@@ -23,8 +23,10 @@
 	padding:0px;
 	margin:0px;
 	margin:-1px;
+	padding:-1px;
 	position:relative;
 	height:166px;
+	height:165px;	
 	
 	overflow:auto;
 	overflow-y:hidden;
@@ -70,6 +72,7 @@
 
 	border:0px solid green;
 }
+
 
 #timeline .meta_callout {
 	
@@ -219,7 +222,7 @@
 	
 	text-align:center;
 	font-family:Helvetica, Arial, Sans-Serif;
-	font-size:12px;
+	font-size:11px;
 }
 
 
@@ -304,6 +307,23 @@
 
 
 
+#timeline .cluster {
+	text-align:center;
+	position:absolute;
+	
+	width:150px;
+	height:150px;
+
+	border:0px solid red;
+	
+}
+
+#timeline .cluster img{
+	position:absolute;
+	left:2px;
+	cursor:pointer;
+}
+
 
 
 
@@ -332,6 +352,33 @@
     border-style: solid;
 }
 */
+
+#timeline .back {
+	
+	text-align:center;
+	font-size:13px;
+	color:white;
+	height:30px;
+	width:92px;
+	
+
+	line-height:27px;
+	padding-left:5px;
+	
+	background:none;
+	background-image:url("../images/back.png");
+	background-repeat: no-repeat;
+	
+	position:absolute;
+	left:8px;
+	top:8px;
+	z-index:150;
+
+	cursor:pointer;
+	display:none;
+	
+}
+
 
 #timeline .close {
 	

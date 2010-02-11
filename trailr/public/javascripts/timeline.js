@@ -1,12 +1,20 @@
 // BEGIN TIMELINE NAMESPACE
 
+
+
 var timeline = {
+	min_date:null,
+	max_date:null,
+	zoom_stack:[],
+	overlap:0.5,
 	months: [],
-	duration:250,
+	duration:500,
+	use_clustering:false,
 	init: function(datas) {
 		console.log("init");
 		
 		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		
 		for(i in datas) {
 			
@@ -22,10 +30,66 @@ var timeline = {
 		
 		this.draw();
 	},
+	setScale:function(min, max) {
+		
+		if(min == null && max == null) {
+			this.min_date = min;
+			this.max_date = max;
+		} else {
+			// TODO: Set bounds...
+			if(min == max) {
+				var msInDay = 3600000;
+				min -= msInDay;
+				max += msInDay;
+				
+				alert("here!");
+				
+				//this.min_date = min - range;
+				//this.max_date = max + range;			
+			
+				this.min_date = min - range;
+				this.max_date = max + range;			
+				
+				return;
+				
+			}
+			
+			// TODO: Is this math correct?
+			var range = max - min;
+			range = range * 0.5;
+			
+			this.min_date = min - range;
+			this.max_date = max + range;			
+		}
+		
+
+	},
+	zoomIn:function(min, max) {
+		var scale = {};
+		scale["min"] = this.min_date;
+		scale["max"] = this.max_date;
+		
+		this.zoom_stack.push(scale);
+		
+		this.setScale(min, max);
+	},
+	zoomOut:function() {
+		
+		if(this.zoom_stack.length > 0) {
+			var scale = this.zoom_stack.pop();
+			this.setScale(scale["min"], scale["max"]);
+		}
+	},
+	computeScale:function() {
+		if(this.min_date == null || this.max_date == null) {
+			return null;
+		} else {
+			return this.max_date - this.min_date;
+		}
+	},
 	add: function(e) {
 		
 		console.log("add");
-		console.log(e);
 		
 		
 		var template = '										\
@@ -76,8 +140,6 @@ var timeline = {
 		
 		template += '</div></div>'
 		
-		console.log(e["date"]);
-		
 		
 		var date = new Date(Date.parse(e["date"]));
 		
@@ -127,7 +189,8 @@ var timeline = {
 		
 		if($("#timeline.noedit").size() == 0) {
 		
-			$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+			//$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
+			$(".date_edit").datepicker({dateFormat: 'M d, yy', 			
 										changeMonth:true, 
 										changeYear:true,
 										showButtonPanel:true,
@@ -137,7 +200,9 @@ var timeline = {
 		} else {
 			$(".date_edit").attr("disabled", true);
 		}
-															                                                 
+				
+				
+		
 	},     
 	updateDate:function(dateText, instance) {
 		var date = new Date(Date.parse(dateText));
@@ -153,7 +218,18 @@ var timeline = {
 	},                                                 
 	draw: function() {                                 
 		console.log("draw");                             
-		                                                 
+
+		// remove any previous clusters...
+		$(".cluster").remove();
+		$(".event").show();
+                            
+
+		if(this.zoom_stack.length == 0) {
+			$("#timeline .back").hide();
+		} else {
+			$("#timeline .back").show();
+		}
+     
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
 		if($(".event").size() == 0) {                    
@@ -174,7 +250,6 @@ var timeline = {
 			
 			var min_date = $(event).children(".info").children(".date").text();
 			min_date = Date.parse(min_date);
-			console.log(min_date);
 			
 			
 			var left = ($("#timeline").outerWidth() / 2);
@@ -234,7 +309,7 @@ var timeline = {
 			
 			// Now comes the hard part...
 			
-			var date_range = 0;
+			var scale = 0;
 			
 			max_index = 0;
 			max_date = null;
@@ -255,6 +330,7 @@ var timeline = {
 				
 				var date_text = $(event).children(".info").children(".date").text();
 				var date = new Date(Date.parse(date_text));
+								
 				
 				if(max_date == null || (date > max_date)) {
 					max_date = date;
@@ -269,37 +345,211 @@ var timeline = {
 			});
 			
 			
-			date_range = max_date.getTime() - min_date.getTime();
+			scale = timeline.computeScale();
+			if(scale == null) {
+				scale = max_date.getTime() - min_date.getTime();
+			}
+
 			
+			
+			var events = {};
+			
+			
+			// TODO: Abstract This!
+			var event_width = $(".event:first").outerWidth();
 
 			$(".event:eq("+ min_index + ")").animate({ left: 0}, this.duration);
 
 			//$(".event:eq("+ max_index + ")").css("left", "auto");
 			//$(".event:eq("+ max_index + ")").css("right", middle);
 			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
-			$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
+			//$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
 
-
+						
+			events[0] = [min_index];
+			//events[end] = [max_index];
+			
 			
 			
 			$(".event").each(function(index, event) {
-				if(index != min_index && index != max_index) {
+				//if(index != min_index && index != max_index) {
+				if(index != min_index) {	
 					var date_text = $(event).children(".info").children(".date").text();
 					var date = new Date(Date.parse(date_text));
 					
+						
 					var date_offset = date.getTime() - min_date.getTime();
-					var date_percent = date_offset / date_range;
+					var date_percent = date_offset / scale;
 					
-					var left = ($("#timeline").outerWidth() * date_percent);
-					left -= $(event).outerWidth() / 2;
 					
+					// TODO: Validate this:
+					//var left = ($("#timeline").outerWidth() * date_percent);
+					//left -= $(event).outerWidth() / 2;
+					
+					
+					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
+
+					if(!events[left]) {
+						events[left] = []
+					}
+					
+					events[left].push(index);
+					//events[left].push($(event).index());
+
 					$(event).animate({ left: left }, this.duration);
+				}
+				
+			});	
+			
+
+			if(this.use_clustering) {
+		
+				// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
+				var change = true;
+				while(change) {
+					change = false;
+					for(var e1 in events) {
+					
+					
+						var should_break = false;
+										
+						for(var e2 in events) {
+
+							if(e1 != e2) {
+								var diff = Math.abs(e1 - e2);
+								var mid = (parseFloat(e1) + parseFloat(e2)) / 2.0;
+							
+								// TODO: CLusters are the same width as the events
+								if(diff < (event_width * timeline.overlap)) {
+								
+									change = true;
+									should_break = true;
+								
+									var array = events[e1].concat(events[e2]);
+
+									delete events[e1];
+									delete events[e2];
+																
+								
+									if(!events[mid]) {
+										events[mid] = array;
+									} else {
+										events[mid] = events[mid].concat(array);
+									}
+								
+
+								
+								
+									break;
+								
+								
+								}
+							}
+						}
+					
+						// FUUUUUUUUUUUUUUUUUUUUCK
+						if(should_break) {
+							break;
+						}
+					
+					
+					}
+				}
+						
+				console.log(new Date(min_date));
+			
+				for(var e in events) {
+					if(events[e].length > 1) {
+					
+						var date_range = "Date Range";
+						var min_d = null;
+						var max_d = null;
+						var count = 0;
+					
+						for(var i in events[e]) {
+						
+						
+							var event = $(".event:eq(" + events[e][i] + ")");
+							$(event).hide();
+						
+							var date_text = $(event).children(".info").children(".date").text();
+							var date = new Date(Date.parse(date_text));
+
+
+							if(max_d == null || (date > max_d)) {
+								max_d = date;
+							}
+
+							if(min_d == null || (date < min_d)) {
+								min_d = date;
+							}
+						
+						
+							count++;
+						}
+					
+					
+						if(min_d.getDate() == max_d.getDate() &&
+							min_d.getMonth() == max_d.getMonth() &&
+							min_d.getFullYear() == max_d.getFullYear()) {
+							var m = this.months
+							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();							
+						} else {
+							var m = this.months
+							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();
+							date_range += " - " + m[max_d.getMonth()] + " " + max_d.getDate() + ", " + max_d.getFullYear();
+						}
+
+					
+					
+						var template = '<div class="event cluster"> \
+							<div class="info">									\
+								<div class="min_date">' + min_d.getTime() + '</div>	\
+								<div class="max_date">'+ max_d.getTime() + '</div>		\
+								<div class="count">' + count +'</div>			\
+							</div>												\
+							<div class="thumbnail">                        		\
+								<img width="30" src="/images/cluster.png">		\
+							</div>                                         		\
+							<div class="tick">                             		\
+								&nbsp;			              					\
+							</div>                                         		\
+							<div class="date">                             		\
+								' + date_range + '								\
+							</div>												\
+						</div>';
+										
+						$(".events").append(template);
+					
+					
+						// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
+						//$(".cluster:last").css("left", middle);	
+						//$(".cluster:last").animate({ left: e }, this.duration);
+						$(".cluster:last").css("left", e);	
+					} 
 					
 				}
-			});	
-		}                                                
-	}                                                                                
-}                                                    
+			
+			
+			
+			
+
+				var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
+				var scroll_percent = scroll_offset / scale;
+				var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
+
+
+				$(".events").scrollLeft(scroll_left);				
+			
+			
+			}
+			
+			
+			
+
+		}
+	}
+}
 
 // END TIMELINE NAMESPACE
 
@@ -346,6 +596,24 @@ $(function() {
 		}
 	});
 
+
+	$("#timeline .back").live("click", function() {
+		timeline.zoomOut();
+		timeline.draw();
+	});
+
+	$("#timeline .cluster img").live("click", function() {
+		var parent = $(this).parents(".event");
+		
+		var min = $(parent).children(".info").children(".min_date").text();
+		var max = $(parent).children(".info").children(".max_date").text();
+		
+		min = parseInt(min);
+		max = parseInt(max);
+		
+		timeline.zoomIn(min, max);
+		timeline.draw();
+	});
 	
 	$("#timeline #image_picker .close").click(function() {
 		$("#image_picker_cover").hide();
@@ -378,7 +646,7 @@ $(function() {
 	});
 	
 	
-	$(".event .thumbnail").live("mouseenter", function() {
+	$(".event .thumbnail img").live("mouseenter", function() {
 		
 		
 		var parent = $(this).parents(".event");
@@ -386,9 +654,20 @@ $(function() {
 		
 		var event_width = $(parent).outerWidth();
 		var timeline_width = $("#timeline").width();
+		
+		var headline = "";
+		var source = "";
+		
+		if($(parent).is(".cluster")) {
+			source = "Multiple Sources";
+			headline = $(parent).children(".info").children(".count").text() + " articles";
+			
+		} else {
+			headline = $(parent).children(".info").children(".headline").text();
+			source = $(parent).children(".info").children(".source").text();			
+		}
+		
 
-		var headline = $(parent).children(".info").children(".headline").text();
-		var source = $(parent).children(".info").children(".source").text();
 
 
 		$(".meta .headline").html(headline);
@@ -429,7 +708,7 @@ $(function() {
 		
 	});
 	
-	$(".event .thumbnail").live("mouseleave", function() {
+	$(".event .thumbnail img").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();		
 		

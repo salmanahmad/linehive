@@ -8,6 +8,9 @@ module ApplicationHelper
             <script src="/javascripts/jquery.watermark.js"></script>
             <script src="/javascripts/jquery.ui.sortable.js"></script>
             <script src="/javascripts/json.js"></script>
+            <script src="/javascripts/jquery.scrollTo.js"></script>
+            
+
 
 
             <script src="/javascripts/application.js" type="text/javascript"></script>'
