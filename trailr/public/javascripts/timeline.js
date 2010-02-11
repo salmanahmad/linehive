@@ -41,9 +41,13 @@ var timeline = {
 				min -= msInDay;
 				max += msInDay;
 			}
-
-			this.min_date = min;
-			this.max_date = max;			
+			
+			// TODO: Is this math correct?
+			var range = max - min;
+			range = range * 0.5;
+			
+			this.min_date = min - range;
+			this.max_date = max + range;			
 		}
 		
 
