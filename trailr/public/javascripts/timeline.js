@@ -6,7 +6,7 @@ var timeline = {
 	min_date:null,
 	max_date:null,
 	zoom_stack:[],
-	overlap:0.15,
+	overlap:0.5,
 	months: [],
 	duration:500,
 	init: function(datas) {
@@ -440,13 +440,14 @@ var timeline = {
 				}
 			}
 						
+			console.log(new Date(min_date));
 			
 			for(var e in events) {
 				if(events[e].length > 1) {
 					
 					var date_range = "Date Range";
-					var min_date = null;
-					var max_date = null;
+					var min_d = null;
+					var max_d = null;
 					var count = 0;
 					
 					for(var i in events[e]) {
@@ -459,12 +460,12 @@ var timeline = {
 						var date = new Date(Date.parse(date_text));
 
 
-						if(max_date == null || (date > max_date)) {
-							max_date = date;
+						if(max_d == null || (date > max_d)) {
+							max_d = date;
 						}
 
-						if(min_date == null || (date < min_date)) {
-							min_date = date;
+						if(min_d == null || (date < min_d)) {
+							min_d = date;
 						}
 						
 						
@@ -472,23 +473,23 @@ var timeline = {
 					}
 					
 					
-					if(min_date.getDate() == max_date.getDate() &&
-						min_date.getMonth() == max_date.getMonth() &&
-						min_date.getFullYear() == max_date.getFullYear()) {
+					if(min_d.getDate() == max_d.getDate() &&
+						min_d.getMonth() == max_d.getMonth() &&
+						min_d.getFullYear() == max_d.getFullYear()) {
 						var m = this.months
-						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate() + ", " + min_date.getFullYear();							
+						date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();							
 					} else {
 						var m = this.months
-						date_range = ""  + m[min_date.getMonth()] + " " + min_date.getDate() + ", " + min_date.getFullYear();
-						date_range += " - " + m[max_date.getMonth()] + " " + max_date.getDate() + ", " + max_date.getFullYear();
+						date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();
+						date_range += " - " + m[max_d.getMonth()] + " " + max_d.getDate() + ", " + max_d.getFullYear();
 					}
 
 					
 					
 					var template = '<div class="event cluster"> \
 						<div class="info">									\
-							<div class="min_date">' + min_date.getTime() + '</div>	\
-							<div class="max_date">'+ max_date.getTime() + '</div>		\
+							<div class="min_date">' + min_d.getTime() + '</div>	\
+							<div class="max_date">'+ max_d.getTime() + '</div>		\
 							<div class="count">' + count +'</div>			\
 						</div>												\
 						<div class="thumbnail">                        		\
@@ -503,9 +504,12 @@ var timeline = {
 					</div>';
 										
 					$(".events").append(template);
-					$(".cluster:last").css("left", middle);	
-					$(".cluster:last").animate({ left: e }, this.duration);
 					
+					
+					// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
+					//$(".cluster:last").css("left", middle);	
+					//$(".cluster:last").animate({ left: e }, this.duration);
+					$(".cluster:last").css("left", e);	
 				} 
 					
 			}
@@ -513,13 +517,15 @@ var timeline = {
 			
 			
 			
-			/*
-			var scroll_offset = this.min_date - min_date.getTime();
+
+			var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
 			var scroll_percent = scroll_offset / scale;
 			var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
+
+
+			$(".events").scrollLeft(scroll_left);				
 			
-			$(".events").scrollTo({left:scroll_left});
-			*/
+			
 
 			
 			
