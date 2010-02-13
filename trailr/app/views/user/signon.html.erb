@@ -1,24 +1,15 @@
-<% bread_crumb "
-#{link_to "Home", :controller => "search", :action => "home"} »
-#{link_to "Log In", :controller => :user, :action => "signon"}" %>
-<% title "linehive: Log In" %>
-
-<% if defined? @user %>
-
-<% unless @user.errors.empty? %>
-<div class="error">
-  The post couldn't be saved due to these errors:
-  <ul>
-  <% @user.errors.each_full do |message| %>
-    <li><%= message %></li>
-  <% end %>
-  </ul>
-</div>
+<% content_for :title do %>
+	LineHive: Log In
 <% end %>
+
+<% content_for :stylesheets do %>
+	
+	<%= stylesheet_link_tag "form" %>	
+	<%= stylesheet_link_tag "signon" %>	
 
 <% end %>
 
-
+	
 <div class="login">
 	<div class="right">
 		

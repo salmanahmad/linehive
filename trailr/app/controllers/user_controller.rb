@@ -31,20 +31,17 @@ class UserController < ApplicationController
     if current_user then
       redirect_to :controller => :home, :action => :index    
     else
-      @customer = Customer.new(params[:customer])
-      @customer.password = (params[:customer][:password] != '' && params[:confirm_password] == params[:customer][:password]) ? MD5::md5(params[:customer][:password]).hexdigest : nil
+      @user = User.new(params[:user])
+      @user.password = (params[:user][:password] != '' && params[:confirm_password] == params[:user][:password]) ? MD5::md5(params[:user][:password]).hexdigest : nil
 
-      if @customer.save
-        session[:user] = [@customer.id, @customer.first_name]
-        
-        @contact_info = ContactInfo.new(params[:contact_info])
-        @customer.contact_infos << @contact_info
+      if @user.save
+        session[:user] = [@user.id, @user.handle]
         
         flash[:notice] = 'Congrats! Your account has been created. You can update your information by clicking "Account"'
-        redirect_to :controller => :search, :action => :home    
+        redirect_to :controller => :home, :action => :index    
       else
         @customer.password = ""
-        flash[:notice] = 'Customer could not be created. Please check your input.'
+        flash[:notice] = 'User could not be created. Please check your input.'
         render :action => 'signon'
       end
 

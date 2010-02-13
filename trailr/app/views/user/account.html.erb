@@ -1,28 +1,20 @@
-<% bread_crumb "
-#{link_to "Home", :controller => "search", :action => "home"} »
-#{link_to "Your Account", :controller => :user, :action => "account"}" %>
-<% title "linehive: Your Account" %>
-
+<% content_for :title do %>
+	LineHive: Your Account
+<% end %>
 
 <div class="account" style="overflow:hidden;">
 	
 
 	<div class="right" style="margin-bottom:-2000px;padding-bottom:2000px;">
-		<!--<input type="button" style="float:right" name="" value="Order Status" id="some_name">-->
-		
-		<h1>Purchase History</h1>
-		
-		<%= render :file => "invoice/customer_list" %>
-		
+		<h1>Timelines</h1>
+		See more...
 	</div>
 
 	<div class="left" style="margin-bottom:-2000px;padding-bottom:2000px">
 		<h1>
 			
-			<%= ll_button_to "Add Card", {:controller => 'card', :action => 'add'}, "float:right;margin-left:5px" %>
-			<%= ll_button_to "Add Contact", {:controller => 'contact_info', :action => 'add'}, "float:right" %>
 			
-			<b>salman's</b> Account Information
+			<b><%= text_field :user, :handle %></b> Account Information
 		</h1>
 				
 		<h3>General Information</h3>
