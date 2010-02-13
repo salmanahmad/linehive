@@ -389,6 +389,19 @@ $(function() {
 		$(parent).children(".thumbnail").children(".pick_image").hide();
 				
 	});
+	
+	
+	$('#timeline .events').mousewheel(function(event , delta) {
+		
+		var left = $(".events").scrollLeft();
+		delta = 0 - delta;
+		
+		left += delta * 15;
+		$(".events").scrollLeft(left);
+		return false;
+		
+	});
+	
 						
 });
 
