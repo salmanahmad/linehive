@@ -4,6 +4,7 @@
 
 var timeline = {
 	
+	show_meta:true,
 	min_date:null,
 	max_date:null,
 	zoom_stack:[],
@@ -322,12 +323,28 @@ $(function() {
 	
 	$(".event .thumbnail").live("mouseenter", function() {
 		
+
+
+		
 		
 		var parent = $(this).parents(".event");
 		var left = $(parent).position().left;
 		
 		var event_width = $(parent).outerWidth();
 		var timeline_width = $("#timeline").width();
+		
+		
+		
+		
+		if(!$("#timeline").is(".noedit")) {
+			$(parent).children(".thumbnail").children(".pick_image").show();			
+		}
+		
+		
+		if(!timeline.show_meta) {
+			return;
+		}
+		
 		
 		var headline = "";
 		var source = "";
@@ -354,15 +371,6 @@ $(function() {
 
 		$(".meta").show();
 		$(".meta_callout").show();
-		
-		
-		
-		if(!$("#timeline").is(".noedit")) {
-			$(parent).children(".thumbnail").children(".pick_image").show();			
-		}
-		
-		
-		
 
 		
 		if(left > (timeline_width) / 2) {
@@ -384,23 +392,33 @@ $(function() {
 
 	
 	$(".event .thumbnail").live("mouseleave", function() {
-		$(".meta").hide();
-		$(".meta_callout").hide();		
 		
 		var parent = $(this).parents(".event");
 		$(parent).children(".thumbnail").children(".pick_image").hide();
+		
+		
+		if(!timeline.show_meta) {
+			return;
+		}
+		
+		$(".meta").hide();
+		$(".meta_callout").hide();		
+		
 				
 	});
 	
 	
 	$(".event").live("mouseenter", function() {
-		$(this).children(".date").children(".close").show();
-
+		if($("#timeline.noedit").size() == 0) {
+			$(this).children(".date").children(".close").show();
+		}
 	});
 	
 	
 	$(".event").live("mouseleave", function() {
-		$(this).children(".date").children(".close").hide();
+		if($("#timeline.noedit").size() == 0) {
+			$(this).children(".date").children(".close").hide();
+		}
 	});
 	
 	

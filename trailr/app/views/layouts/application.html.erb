@@ -63,30 +63,28 @@
 						</div>
 
 
-						<% if (!defined? @hide_create_button || @hide_create_button == false) %>
-							<div id="top_links">
-								<!--
-								<div id="search">
-									<input type="text" name="search" value="Search..." id="search_box" />
-								</div>
-								-->
-
-								<ul>
-									<li><%= link_to "Create New Timeline", :controller => "trails", :action => "new" %></li>
-									<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
-								</ul>
-								<div class="clear"></div>
-								<!--
-								<br><br>
-								<a>Create Account</a>
-								&nbsp; &nbsp;or&nbsp; &nbsp;
-								<a>Login</a>
-								&nbsp; &nbsp;
-								<a>Recent Timelines</a>
-								&nbsp; &nbsp;
-								<a>Help</a>-->
+						<div id="top_links">
+							<!--
+							<div id="search">
+								<input type="text" name="search" value="Search..." id="search_box" />
 							</div>
-						<% end %>
+							-->
+
+							<ul>
+								<li><%= link_to "Create New Timeline", :controller => "trails", :action => "new" %></li>
+								<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
+							</ul>
+							<div class="clear"></div>
+							<!--
+							<br><br>
+							<a>Create Account</a>
+							&nbsp; &nbsp;or&nbsp; &nbsp;
+							<a>Login</a>
+							&nbsp; &nbsp;
+							<a>Recent Timelines</a>
+							&nbsp; &nbsp;
+							<a>Help</a>-->
+						</div>
 						
 						
 						
