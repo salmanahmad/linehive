@@ -69,6 +69,11 @@ var timeline = {
 	addTemplate:function(info) {
 		var template = $("#add.template").html();
 
+		if($("#timeline.noedit").size() == 0) {
+			var edit_template = '<input type="text" value="$format" class="date_edit" />';
+			template = template.replace(/\$format/g, edit_template);
+		} 
+
 		// I need this to no mess up the event count later one...
 		template = template.replace(/\$class/g, 'event');
 		
@@ -87,66 +92,18 @@ var timeline = {
 		
 		console.log("add");
 		
-		
-		var template = '										\
-		<div class="event">										\
-			<div class="insert"></div>							\
-			<div class="info">									\
-				<div class="pictures">							\
-					$pictures									\
-				</div>											\
-				<div class="headline">                       	\
-					$headline					                \
-				</div>                                       	\
-				<div class="url">                            	\
-					$url							            \
-				</div>                                       	\
-				<div class="source">                         	\
-					$source                                    	\
-				</div>                                       	\
-				<div class="image">                          	\
-					$image	                                  	\
-				</div>                                       	\
-				<div class="date">                           	\
-					$date						                \
-				</div>                                       	\
-			</div>                                         		\
-			<div class="thumbnail">                        		\
-				<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">									\
-				<img src="$image">					            \
-				</a>											\
-				<span class="pick_image">Change Image</span>		\
-			</div>                                         		\
-			<div class="tick">                             		\
-&nbsp;					                    					\
-			</div>                                         		\
-			<div class="date">                             		\
-				<div class="close">[<a href="#">x</a>]</div>	';
-
-
-		if($("#timeline.noedit").size() == 0) {
-			template += '<input type="text" value="$format" class="date_edit" />';
-		} else {
-			template += '$format';
-		}
-
-		
-		template += '</div></div>';
-		
-		
 		var date = new Date(Date.parse(e["date"]));
-		
 		if(date == "Invalid Date") {
 			date = new Date();
-			date.setHours(0);
-			date.setMinutes(0);
-			date.setSeconds(0);
-			date.setMilliseconds(0);									
 		}
+		
+		
 		
 		var m = this.months
 		var date_format = date.toDateString();
 		date_format = ""  + m[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+		
+		
 		
 		var pictures_data = "";
 		var pictures = e["pictures"];
@@ -154,21 +111,15 @@ var timeline = {
 			pictures_data += '<li><img src="' + pictures[i] + '" /></li>';
 		}
 		
-		var headline = e["headline"];
 		
+		
+		var headline = e["headline"];
 		if (headline == null) {
 			headline = "Title Not Available";
 		}
 		
-		template = template.replace(/\$headline/g, headline);
-		template = template.replace(/\$url/g, e["url"]);
-		template = template.replace(/\$source/g, e["source"]);
-		template = template.replace(/\$image/g, e["image_url"]);
-		//template = template.replace(/\$date/g, e["date"]);
-		template = template.replace(/\$date/g, date.toUTCString());
-		template = template.replace(/\$format/g, date_format);
-		template = template.replace(/\$pictures/g, pictures_data);
 		
+				
 		var info = {};
 		info.headline = headline;
 		info.url = e["url"];
@@ -196,8 +147,6 @@ var timeline = {
 			$(".date_edit").attr("disabled", true);
 		}
 				
-				
-		
 	},     
 	updateDate:function(dateText, instance) {
 		var date = new Date(Date.parse(dateText));
@@ -213,23 +162,8 @@ var timeline = {
 	},                                                 
 	draw: function() {                                 
 		console.log("draw");                             
-
-
-		/*
-		// remove any previous clusters...
-		$(".dummy").remove();
-		$(".cluster").remove();
-		$(".event").show();
-                            
-
-		if(this.zoom_stack.length == 0) {
-			$("#timeline .back").hide();
-		} else {
-			$("#timeline .back").show();
-		}
-		*/
 		
-     
+		     
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
 		if($(".event").size() == 0) {                    
@@ -276,343 +210,8 @@ var timeline = {
 				left += event_width;
 			}
 				
-
 		}
 		
-		/*
-		if(count == 0) {
-			
-		} else if(count == 1) {
-			
-			var event = $(".event:first");
-			
-			$(event).children(".insert").remove();
-			
-			
-			var min_date = $(event).children(".info").children(".date").text();
-			min_date = Date.parse(min_date);
-			
-			
-			var left = ($("#timeline").outerWidth() / 2);
-			left -= $(event).outerWidth() / 2;
-			
-			$(event).animate({ left: left }, this.duration);
-
-		} else if(count == 2) {
-			
-			// We guess the earlier and later events
-			var min_event = $(".event:first");
-			var max_event = $(".event:last");
-			
-			var min_date = $(min_event).children(".info").children(".date").text();
-			var max_date = $(max_event).children(".info").children(".date").text();
-			
-			min_date = Date.parse(min_date);
-			max_date = Date.parse(max_date);
-			
-			// If the min_date is greater than max, then we switch							
-			if(min_date > max_date) {
-				var temp = max_event;
-
-				max_event = min_event;
-				min_event = temp;
-			}
-			
-			
-			// Now, min_event should appear to the left of max event...
-			
-			var min_left = ($("#timeline").outerWidth() / 4);
-			min_left -= $(min_event).outerWidth() / 2;
-			
-			var max_left = ($("#timeline").outerWidth() * (3/4));
-			max_left -= $(max_event).outerWidth() / 2;
-			
-			var middle = ($("#timeline").outerWidth() / 2.0) - ($(".event:first").outerWidth() /2);
-			
-			if($(min_event).children(".insert").size() != 0) {
-				$(min_event).css("left", middle);			
-			}
-
-			if($(max_event).children(".insert").size() != 0) {
-				$(max_event).css("left", middle);			
-			}
-
-
-			$(min_event).animate({ left: min_left }, this.duration);
-			$(max_event).animate({ left: max_left }, this.duration);
-
-			
-			$(min_event).children(".insert").remove();
-			$(max_event).children(".insert").remove();
-			
-
-		} else {
-			
-			// Now comes the hard part...
-			
-			var scale = 0;
-			
-			max_index = 0;
-			max_date = null;
-			
-			min_index = 0;
-			min_date = null;
-			
-			var middle = ($("#timeline").outerWidth() / 2.0) - ($(".event:first").outerWidth() /2);
-			var end = $("#timeline").outerWidth() - $(".event:first").outerWidth();
-			
-			$(".event").each(function(index, event) {
-
-				if($(event).children(".insert").size() != 0) {
-					$(event).css("left", middle);									
-					$(event).children(".insert").remove();
-				}
-
-				
-				var date_text = $(event).children(".info").children(".date").text();
-				var date = new Date(Date.parse(date_text));
-								
-				
-				if(max_date == null || (date > max_date)) {
-					max_date = date;
-					max_index = index;
-				}
-
-				if(min_date == null || (date < min_date)) {
-					min_date = date;
-					min_index = index;
-				}
-				
-			});
-			
-			
-			scale = timeline.computeScale();
-			if(scale == null) {
-				scale = max_date.getTime() - min_date.getTime();
-			}
-
-			
-			
-			var events = {};
-			
-			
-			// TODO: Abstract This!
-			var event_width = $(".event:first").outerWidth();
-
-			$(".event:eq("+ min_index + ")").animate({ left: 0}, this.duration);
-
-			//$(".event:eq("+ max_index + ")").css("left", "auto");
-			//$(".event:eq("+ max_index + ")").css("right", middle);
-			//$(".event:eq("+ max_index + ")").animate({ right: 0}, this.duration);
-			//$(".event:eq("+ max_index + ")").animate({ left: end}, this.duration);
-
-						
-			events[0] = [min_index];
-			//events[end] = [max_index];
-			
-			
-			var max_left = (max_date.getTime() - min_date.getTime()) / scale ;
-			max_left *= ($("#timeline").outerWidth() - event_width);
-			
-			
-			$(".event").each(function(index, event) {
-				//if(index != min_index && index != max_index) {
-				if(index != min_index) {	
-					var date_text = $(event).children(".info").children(".date").text();
-					var date = new Date(Date.parse(date_text));
-					
-					var date_offset = date.getTime() - min_date.getTime();
-					var date_percent = date_offset / scale;
-					
-					var left = (($("#timeline").outerWidth() - $(event).outerWidth())  * date_percent);
-					
-					if(timeline.isUnitScale()) {
-						var found_slot = false;
-						
-						var search_right = true;
-						if(left == max_left) {
-							search_right = false
-						} else {
-							search_right = true
-						}
-						
-						while(!found_slot) {
-														
-							if(!events[left]) {
-								found_slot = true;
-								events[left] = [];
-								events[left].push(index);
-							} else {
-								
-								if(search_right) {
-									left += event_width;
-								} else {
-									left -= event_width;
-								}
-
-							}
-						}
-						
-						
-					} else {
-						if(!events[left]) {
-							events[left] = []
-						}						
-						
-						events[left].push(index);
-					}
-					
-					$(event).animate({ left: left }, this.duration);
-				}
-				
-			});	
-			
-
-			if(this.use_clustering) {
-		
-				// Iteratively cluster the clusters...soooo confusing. Good luck understanding the code...
-				var change = true;
-				while(change) {
-					change = false;
-					for(var e1 in events) {
-					
-					
-						var should_break = false;
-										
-						for(var e2 in events) {
-
-							if(e1 != e2) {
-								var diff = Math.abs(e1 - e2);
-								var mid = (parseFloat(e1) + parseFloat(e2)) / 2.0;
-							
-								// TODO: CLusters are the same width as the events
-								if(diff < (event_width * timeline.overlap)) {
-								
-									change = true;
-									should_break = true;
-								
-									var array = events[e1].concat(events[e2]);
-
-									delete events[e1];
-									delete events[e2];
-																
-								
-									if(!events[mid]) {
-										events[mid] = array;
-									} else {
-										events[mid] = events[mid].concat(array);
-									}
-								
-
-								
-								
-									break;
-								
-								
-								}
-							}
-						}
-					
-						// FUUUUUUUUUUUUUUUUUUUUCK
-						if(should_break) {
-							break;
-						}
-					
-					
-					}
-				}
-						
-				console.log(new Date(min_date));
-			
-				for(var e in events) {
-					if(events[e].length > 1) {
-					
-						var date_range = "Date Range";
-						var min_d = null;
-						var max_d = null;
-						var count = 0;
-					
-						for(var i in events[e]) {
-						
-						
-							var event = $(".event:eq(" + events[e][i] + ")");
-							$(event).hide();
-						
-							var date_text = $(event).children(".info").children(".date").text();
-							var date = new Date(Date.parse(date_text));
-
-
-							if(max_d == null || (date > max_d)) {
-								max_d = date;
-							}
-
-							if(min_d == null || (date < min_d)) {
-								min_d = date;
-							}
-						
-						
-							count++;
-						}
-					
-					
-						if(min_d.getDate() == max_d.getDate() &&
-							min_d.getMonth() == max_d.getMonth() &&
-							min_d.getFullYear() == max_d.getFullYear()) {
-							var m = this.months
-							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();							
-						} else {
-							var m = this.months
-							date_range = ""  + m[min_d.getMonth()] + " " + min_d.getDate() + ", " + min_d.getFullYear();
-							date_range += " - " + m[max_d.getMonth()] + " " + max_d.getDate() + ", " + max_d.getFullYear();
-						}
-
-					
-					
-						var template = '<div class="event cluster"> \
-							<div class="info">									\
-								<div class="min_date">' + min_d.getTime() + '</div>	\
-								<div class="max_date">'+ max_d.getTime() + '</div>		\
-								<div class="count">' + count +'</div>			\
-							</div>												\
-							<div class="thumbnail">                        		\
-								<img width="30" src="/images/cluster.png">		\
-							</div>                                         		\
-							<div class="tick">                             		\
-								&nbsp;			              					\
-							</div>                                         		\
-							<div class="date">                             		\
-								' + date_range + '								\
-							</div>												\
-						</div>';
-										
-						$(".events").append(template);
-					
-					
-						// TODO: I need to fix this. I can only intelligently scroll if I do NOT use an animation...
-						$(".cluster:last").css("left", middle);	
-						$(".cluster:last").animate({ left: e }, this.duration);
-						//$(".cluster:last").css("left", e);
-					} 
-					
-				}
-			
-				// to solve the scrolling problem
-				var dummy = '<div class="dummy" style="position:absolute;left:'+ max_left +'px;"></div>';
-				$(".events").append(dummy);
-			
-				var scroll_offset = (new Date(this.min_date)).getTime() - min_date.getTime();
-				var scroll_percent = scroll_offset / scale;
-				var scroll_left = (($("#timeline").outerWidth() - $(".event:first").outerWidth())  * scroll_percent);
-				
-				$(".events").scrollLeft(scroll_left);				
-			
-			
-			}
-			
-			
-			
-
-		}*/
 	}
 }
 
