@@ -4,8 +4,16 @@ class User < ActiveRecord::Base
   has_many :trails
   has_many :articles, :through => :trails
   
-  def self.authenticate(email, password)
-
+	def self.authenticate(email, password)
+		u=find(:first, :conditions=>["email = ?", email])
+		if u.nil? 
+			return nil
+		elsif u["password"] == MD5::md5(password).hexdigest
+			return [u["id"], u["handle"]];
+		else
+			return nil
+		end
+    
 =begin    
 
   Frank start work here...
@@ -24,8 +32,5 @@ class User < ActiveRecord::Base
     end
     
 =end
-  end
-  
-  
-  
+	end  
 end

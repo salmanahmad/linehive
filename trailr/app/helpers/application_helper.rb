@@ -20,5 +20,20 @@ module ApplicationHelper
       
   end
   
+  def current_user
+    if session[:user]
+      session[:user][0]
+    else
+      false
+    end
+  end
+  
+  def current_username
+    if session[:user]
+      session[:user][1]
+    else
+      false
+    end
+  end
   
 end

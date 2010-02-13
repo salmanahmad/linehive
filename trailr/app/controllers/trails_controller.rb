@@ -5,8 +5,6 @@ require 'open-uri'
 
 class TrailsController < ApplicationController
   include TrailsHelper
-  
-
   protect_from_forgery :except => :new
 
   

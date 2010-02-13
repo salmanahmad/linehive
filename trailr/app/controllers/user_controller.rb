@@ -1,10 +1,17 @@
 require 'md5'
 
 class UserController < ApplicationController
-
+  include UserHelper
+  
+  def account
+	if current_user
+		@user = User.find(current_user)
+	end
+  end
+  
   def signon
     if current_user
-      redirect_to :controller => :home, :action => :index
+      redirect_to :controller => :user, :action => :account
     end
   end
   
@@ -12,10 +19,10 @@ class UserController < ApplicationController
     if request.post?
        if user = User.authenticate(params[:user][:email], params[:user][:password])
          session[:user] = user
-         redirect_to :controller => :home, :action => :index
+         redirect_to :controller => :user, :action => :account
        else
          session[:user] = nil
-         redirect_to :controller => "user", :action => "signon"            
+         redirect_to :controller => :user, :action => :signon
        end
        
      end
@@ -54,5 +61,6 @@ class UserController < ApplicationController
   def process_edit
     @user = User.find(current_user)
     @user.update_attributes(params[:user])
+	flash[:notice] = 'Congrats! Your account has been updated.'
   end
 end

@@ -61,9 +61,24 @@
 							</span>
 							
 						</div>
-
-
+						<div class="header_right">
+							<% if ! current_user -%>
+							<%= link_to "Sign In", :controller => "user", :action => "signon" %>
+							&nbsp; &nbsp;or&nbsp; &nbsp;
+							<%= link_to "Sign Up", :controller => "user", :action => "signon" %>
+							<% else -%>
+							<%= current_username %> 
+							(<%= link_to "Sign off", :controller => "user", :action => "signout" %>)
+							<% end %>
+							&nbsp; &nbsp;
+							<%= link_to "Recent Timelines", :controller => "user", :action => "account" %>
+							&nbsp; &nbsp;
+							<!--
+							<a>Help</a>-->
+						</div>
+							
 						<div id="top_links">
+						
 							<!--
 							<div id="search">
 								<input type="text" name="search" value="Search..." id="search_box" />
@@ -75,15 +90,9 @@
 								<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
 							</ul>
 							<div class="clear"></div>
-							<!--
+							
 							<br><br>
-							<a>Create Account</a>
-							&nbsp; &nbsp;or&nbsp; &nbsp;
-							<a>Login</a>
-							&nbsp; &nbsp;
-							<a>Recent Timelines</a>
-							&nbsp; &nbsp;
-							<a>Help</a>-->
+							
 						</div>
 						
 						
