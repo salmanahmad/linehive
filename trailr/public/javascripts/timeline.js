@@ -3,6 +3,7 @@
 
 
 var timeline = {
+	
 	min_date:null,
 	max_date:null,
 	zoom_stack:[],
@@ -10,6 +11,7 @@ var timeline = {
 	months: [],
 	duration:1000,
 	use_clustering:false,
+	
 	init: function(datas) {
 		console.log("init");
 		
@@ -114,7 +116,7 @@ var timeline = {
 		
 		
 		var headline = e["headline"];
-		if (headline == null) {
+		if (headline == null || headline == "null") {
 			headline = "Title Not Available";
 		}
 		
@@ -146,7 +148,10 @@ var timeline = {
 		} else {
 			$(".date_edit").attr("disabled", true);
 		}
-				
+
+		$("#timeline .events .event > .headline").autoEllipsis();
+		
+
 	},     
 	updateDate:function(dateText, instance) {
 		var date = new Date(Date.parse(dateText));
@@ -179,6 +184,7 @@ var timeline = {
 			var event_total_width = event_width * count;
 			var timeline_width = $("#timeline").outerWidth();
 			var start_left = 0;
+			var midde = (timeline_width / 2) - (event_width / 2);
 			
 			if(event_total_width < timeline_width ) {
 				start_left = (timeline_width/2) - (event_total_width/2);
@@ -186,6 +192,10 @@ var timeline = {
 			
 			var events = [];
 			$(".event").each(function(index, element) {
+				if($(this).children(".insert").size() != 0) {
+					$(this).css("left", midde);
+					$(this).children(".insert").remove();
+				}
 				events.push($(this));
 			});
 
@@ -331,7 +341,6 @@ $(function() {
 			source = $(parent).children(".info").children(".source").text();			
 		}
 		
-
 
 
 		$(".meta .headline").html(headline);
