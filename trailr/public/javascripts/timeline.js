@@ -8,7 +8,7 @@ var timeline = {
 	zoom_stack:[],
 	overlap:0.5,
 	months: [],
-	duration:500,
+	duration:1000,
 	use_clustering:false,
 	init: function(datas) {
 		console.log("init");
@@ -33,40 +33,6 @@ var timeline = {
 	setScale:function(min, max) {
 		this.min_date = min;
 		this.max_date = max;
-		
-		/*
-		if(min == null && max == null) {
-			this.min_date = min;
-			this.max_date = max;
-		} else {
-			// TODO: Set bounds...
-
-			if(min == max) {
-				var msInDay = 3600000;
-				min -= msInDay;
-				max += msInDay;
-				
-				alert("here!");
-				
-				//this.min_date = min - range;
-				//this.max_date = max + range;			
-			
-				this.min_date = min - range;
-				this.max_date = max + range;			
-				
-				return;
-				
-			}
-			
-			// TODO: Is this math correct?
-			var range = max - min;
-			range = range * 0.5;
-			
-			this.min_date = min - range;
-			this.max_date = max + range;			
-		}
-		*/
-
 	},
 	zoomIn:function(min, max) {
 		var scale = {};
@@ -147,11 +113,8 @@ var timeline = {
 			template += '$format';
 		}
 
-//			</div>                                         		\
-//		</div>                                           		\
-//		';
 		
-		template += '</div></div>'
+		template += '</div></div>';
 		
 		
 		var date = new Date(Date.parse(e["date"]));
@@ -236,6 +199,8 @@ var timeline = {
 	draw: function() {                                 
 		console.log("draw");                             
 
+
+		/*
 		// remove any previous clusters...
 		$(".dummy").remove();
 		$(".cluster").remove();
@@ -247,6 +212,8 @@ var timeline = {
 		} else {
 			$("#timeline .back").show();
 		}
+		*/
+		
      
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
@@ -257,6 +224,47 @@ var timeline = {
 		}                                                
 		
 		var count = $(".event").size();
+		
+		if(count > 0) {
+			var event_width = $(".event:first").outerWidth();
+			var event_total_width = event_width * count;
+			var timeline_width = $("#timeline").outerWidth();
+			var start_left = 0;
+			
+			if(event_total_width < timeline_width ) {
+				start_left = (timeline_width/2) - (event_total_width/2);
+			}
+			
+			var events = [];
+			$(".event").each(function(index, element) {
+				events.push($(this));
+			});
+
+			events.sort(function(a, b) {
+
+				var date1_text = $(a).children(".info").children(".date").text();
+				var date2_text = $(b).children(".info").children(".date").text();			
+
+				var date1 = new Date(Date.parse(date1_text));
+				var date2 = new Date(Date.parse(date2_text));
+
+				return date1 - date2;
+
+			});
+			
+			var left = start_left;
+			for(var i in events) {
+				var event = events[i];
+				
+				$(event).animate({ left: left }, this.duration, "easeOutBounce");
+				
+				left += event_width;
+			}
+				
+
+		}
+		
+		/*
 		if(count == 0) {
 			
 		} else if(count == 1) {
@@ -589,7 +597,7 @@ var timeline = {
 			
 			
 
-		}
+		}*/
 	}
 }
 
