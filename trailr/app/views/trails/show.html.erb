@@ -43,30 +43,10 @@
 </div>
 
 <div style="margin-top:50px;margin-bottom:35px">
-	<div id="timeline" class="noedit">
-	
-		<div class="back">Back</div>
-	
-	
-		<div class="meta">
-			<div class="headline">
-				&nbsp;
-			</div>
-			<div class="source">
-				&nbsp;
-			</div>
-		</div>
-		<div class="meta_callout">&nbsp;</div>
-	
-		<div class="events">
-			<div class="empty">
-				No Events
-			</div>			
-		</div>
 
-		<div id="scale">&nbsp;</div>
+	<%= render :partial => "timeline", :locals => { :noedit => true } %>
 
-	</div>
+
 </div>
 
 <form name="inputs">
