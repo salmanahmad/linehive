@@ -66,6 +66,23 @@ var timeline = {
 			return false;
 		}		
 	},
+	addTemplate:function(info) {
+		var template = $("#add.template").html();
+
+		// I need this to no mess up the event count later one...
+		template = template.replace(/\$class/g, 'event');
+		
+		template = template.replace(/\$headline/g, info.headline);
+		template = template.replace(/\$url/g, info.url);
+		template = template.replace(/\$source/g, info.source);
+		template = template.replace(/\$image/g, info.image_url);
+		template = template.replace(/\$date/g, info.date);
+		template = template.replace(/\$format/g, info.format);
+		template = template.replace(/\$pictures/g, info.pictures);
+		
+
+		return template;
+	},
 	add: function(e) {
 		
 		console.log("add");
@@ -127,8 +144,6 @@ var timeline = {
 			date.setMilliseconds(0);									
 		}
 		
-		
-		
 		var m = this.months
 		var date_format = date.toDateString();
 		date_format = ""  + m[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
@@ -138,16 +153,6 @@ var timeline = {
 		for(i in pictures) {
 			pictures_data += '<li><img src="' + pictures[i] + '" /></li>';
 		}
-		
-		
-		/*
-		template = template.replace(/\$headline/g, e.headline);
-		template = template.replace(/\$url/g, e.url);
-		template = template.replace(/\$source/g, e.source);
-		template = template.replace(/\$image/g, e.image_url);
-		template = template.replace(/\$date/g, e.date);
-		template = template.replace(/\$format/g, date_format);						
-		*/
 		
 		var headline = e["headline"];
 		
@@ -163,7 +168,17 @@ var timeline = {
 		template = template.replace(/\$date/g, date.toUTCString());
 		template = template.replace(/\$format/g, date_format);
 		template = template.replace(/\$pictures/g, pictures_data);
-
+		
+		var info = {};
+		info.headline = headline;
+		info.url = e["url"];
+		info.source = e["source"];
+		info.image_url = e["image_url"];
+		info.date = date.toUTCString();
+		info.format = date_format;
+		info.pictures = pictures_data;
+						
+		var template = this.addTemplate(info);
 		
 		$("#timeline .events").append(template);
 		
