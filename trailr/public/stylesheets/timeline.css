@@ -393,13 +393,17 @@
 	
 	font-size:11px;
 	position:absolute;
-	left:0px;
+	right:0px;
 	bottom:-12px;
 	z-index:50;
 	height:26px;
 	width:26px;
 	background-color:none;
 	cursor:pointer;
+	
+	font-weight:normal;
+	
+	display:none;
 	
 }
 

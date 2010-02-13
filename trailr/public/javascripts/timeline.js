@@ -381,6 +381,8 @@ $(function() {
 		
 	});
 	
+
+	
 	$(".event .thumbnail").live("mouseleave", function() {
 		$(".meta").hide();
 		$(".meta_callout").hide();		
@@ -388,6 +390,17 @@ $(function() {
 		var parent = $(this).parents(".event");
 		$(parent).children(".thumbnail").children(".pick_image").hide();
 				
+	});
+	
+	
+	$(".event").live("mouseenter", function() {
+		$(this).children(".date").children(".close").show();
+
+	});
+	
+	
+	$(".event").live("mouseleave", function() {
+		$(this).children(".date").children(".close").hide();
 	});
 	
 	

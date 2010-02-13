@@ -37,6 +37,7 @@ class TrailsController < ApplicationController
 
 
   def new
+    @hide_create_button = true
     
     @articles = nil
     if params[:urls] then
