@@ -61,33 +61,43 @@ class TrailsController < ApplicationController
     
     @articles = [];
     
+    has_errors = false
+    
+    if links.length < 4 || links.length > 7 then
+    
+      @trail.valid?
+      @trail.errors.add("articles", "Timelines must contain between 4 and 7 articles.")
+      
+      has_errors = true;
+      
+    end
+
     links.each do |link|
-      
       @articles << link.dup
-      
+
       date = nil
       begin
         date = Date.parse(link["date"])
       rescue Exception => the_error
         date = DateTime.new
       end
-      
+
       link.delete("pictures")
-      
+
       article = Article.new(link)
       article.date = date
-            
+
       @trail.articles << article
     end
+      
 
-    if @trail.save
+    if !has_errors && @trail.save
       flash[:notice] = 'Trail was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'
       render :action => 'new'
     end
-    
     
     
   end
