@@ -61,7 +61,6 @@ class TrailsController < ApplicationController
 		@trail.user_id = current_user
 	end
 	
-    links.each do |link|
     @articles = [];
     
     has_errors = false
