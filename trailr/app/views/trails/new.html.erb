@@ -26,6 +26,30 @@
 
 <script type="text/javascript" charset="utf-8">
 
+	var title_max_count = 150;
+	function title_keydown(event) {
+		
+		
+		if($(this).val().length == title_max_count && event.keyCode > 46) {		
+			return false;
+		}
+		
+	}
+	
+	function title_keyup() {
+		var length = $(this).val().length;		
+				
+		if(length > title_max_count) {
+			var val = $(this).val();
+			val = val.substring(0, title_max_count);
+			$(this).val(val);
+		}
+		
+		
+		
+		$("#title_count").text(title_max_count - length);
+	}
+	
 	function add_url() {
 		console.log("here");
 		
@@ -67,50 +91,8 @@
 			return false;
 		}
 	}
+
 	
-	function trail_close() {
-		$(this).parents(".article").remove();
-	}
-	
-	
-	
-	function next_thumbnail() {
-		console.log("next");
-				
-		var li = $(this).parents(".article").find("li.selected");
-		$(li).removeClass("selected");
-		$(li).next().addClass("selected")
-		
-		if($(li).siblings(".selected").size() == 0) {
-			$(this).parents(".article").find("li:first").addClass("selected");
-		}
-		
-		 var url = $(this).parents(".article").find("li.selected").text();
-		$(this).parents(".article").find(".thumbnail img").attr("src", url);
-		
-		
-		
-		return false;
-		
-	}
-	
-	function prev_thumbnail() {
-		console.log("prev");
-		
-		
-		var li = $(this).parents(".article").find("li.selected");
-		$(li).removeClass("selected");
-		$(li).prev().addClass("selected")
-		
-		if($(li).siblings(".selected").size() == 0) {
-			$(this).parents(".article").find("li:last").addClass("selected");
-		}
-		
-		 var url = $(this).parents(".article").find("li.selected").text();
-		$(this).parents(".article").find(".thumbnail img").attr("src", url);
-		
-		return false;
-	}
 
 	$(function() {
 		
@@ -124,26 +106,16 @@
 		<% else %>
 			timeline.init();		
 		<% end %>
-		
 
-		
-		$('.article .next').livequery('click', next_thumbnail);
-		$('.article .prev').livequery('click', prev_thumbnail);
-		$('.article .close').livequery('click', trail_close);
-		
+		$("#title").keydown(title_keydown);		
+		$("#title").keyup(title_keyup);		
 		
 		$("#urls").keypress(add_url_keydown);
 		$("#add_urls").click(add_url);
 		
-		$(".url_text").Watermark("url");
-		$(".subtitle_text").Watermark("your thoughts...");   
-		
 		
 		$("#post_back").submit(function() {
-			
-			//console.log("here");
-			
-			
+						
 			var data = { title: "", links: [] };
 			data["title"] = $("#title").val();
 			
@@ -154,27 +126,30 @@
 				var source = $.trim($(".info .source", this).html());
 				var image = $.trim($(".info .image", this).html());
 				var date = $.trim($(".info .date", this).html());
-								
+				var pictures = [];
+				
+				$(".info .pictures li img", this).each(function() {
+					var src = $(this).attr("src");
+					pictures.push(src);
+				});
+
+
 				// TODO: I need to standardize this json string. It matches the active record model...
 				var item = {
 					headline: headline,
-		   		url: url,
-		   		source: source,
-		   		image_url: image,
-		   		date: date
+					url: url,
+					source: source,
+					image_url: image,
+					date: date,
+					pictures:pictures
 		   	};
-		
-				//console.log(item);
-				
+						
 		
 				data["links"].push(item);				
-				
-				
-				
+						
 			});
 			
 			var string = JSON.stringify(data);
-			
 			$("#trail_input").val(string); 
 			
 						
@@ -184,14 +159,29 @@
 </script>
 
 
-
-
 <% end %>
 
 
 <h2>Create New Timeline <span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create timelines", :controller => "home", :action => "jetpack" %>)</span></h2>
 
 <div class="space_10"></div>
+
+
+<% if defined? @trail %>
+
+	<% unless @trail.errors.empty? %>
+	<div class="error">
+	  <ul>
+	  <% @trail.errors.each do |attr, message| %>
+	    <li><%= message %></li>
+	  <% end %>
+	  </ul>
+	</div>
+	<% end %>
+
+<% end %>
+
+
 
 <fieldset>
 
@@ -202,7 +192,7 @@
 		</div>
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
-				150 Characters
+				<span id="title_count">150</span> Characters Remaining
 			</div>
 		</div>
 		<div class="clear"></div>

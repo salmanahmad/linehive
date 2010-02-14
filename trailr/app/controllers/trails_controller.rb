@@ -22,8 +22,12 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
-
     @articles = @trail.articles_json
+
+
+    update_viewcount(params[:id])
+
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -52,38 +56,51 @@ class TrailsController < ApplicationController
     
     @trail = Trail.new
     @trail.caption = args["title"]
+
     if current_user
 		@trail.user_id = current_user
 	end
 	
     links.each do |link|
+    @articles = [];
+    
+    has_errors = false
+    if links.length < 4 || links.length > 7 then
+    
+      @trail.valid?
+      @trail.errors.add("articles", "Timelines must contain between 4 and 7 articles.")
       
+      has_errors = true;
+      
+    end
+
+    links.each do |link|
+      @articles << link.dup
+
       date = nil
-      
       begin
         date = Date.parse(link["date"])
       rescue Exception => the_error
         date = DateTime.new
       end
-      
+
+      link.delete("pictures")
+
       article = Article.new(link)
       article.date = date
-            
+
       @trail.articles << article
     end
+      
 
-	
-	
-    if @trail.save
-      flash[:notice] = 'Timeline was successfully created.'
-      #render :text => @trail.id     
+	if !has_errors && @trail.save
+      flash[:notice] = 'Trail was successfully created.'
 	  session[:trails] << @trail
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
-      flash[:error] = 'Timeline could not be created.'
-      render :action => 'create'
+      flash[:error] = 'Trail could not be created.'
+      render :action => 'new'
     end
-    
     
     
   end
@@ -105,5 +122,26 @@ class TrailsController < ApplicationController
     render :json => @data   
     
   end
+
+
+private 
+
+  
+  def update_viewcount(id)
+    views = session[:views]
+    
+    if views == nil
+      session[:views] = {}
+      views = session[:views]
+    end
+    
+    if(!views.include?(id))
+      @trail.increment! :viewcount
+      session[:views][id] = true
+    end
+    
+  end
+  
+
 
 end
