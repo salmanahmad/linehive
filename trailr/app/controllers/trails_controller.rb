@@ -52,7 +52,10 @@ class TrailsController < ApplicationController
     
     @trail = Trail.new
     @trail.caption = args["title"]
-    
+    if current_user
+		@trail.user_id = current_user
+	end
+	
     links.each do |link|
       
       date = nil
@@ -69,12 +72,15 @@ class TrailsController < ApplicationController
       @trail.articles << article
     end
 
+	
+	
     if @trail.save
-      flash[:notice] = 'Trail was successfully created.'
+      flash[:notice] = 'Timeline was successfully created.'
       #render :text => @trail.id     
+	  session[:trails] << @trail
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
-      flash[:error] = 'Trail could not be created.'
+      flash[:error] = 'Timeline could not be created.'
       render :action => 'create'
     end
     

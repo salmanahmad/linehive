@@ -29,6 +29,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  
-  
+  def current_trails
+	if session[:trails]
+		session[:trails]
+	else
+		session[:trails] = Array.new
+	end
+  end
 end

@@ -11,8 +11,19 @@
 <div class="account" style="overflow:hidden;">	
 
 	<div class="right" style="margin-bottom:-2000px;padding-bottom:2000px;height=200px">
-		<h1>Timelines</h1>
-		See more...
+		<h1>Most Recent Timelines</h1>
+		<% count = 0 %>
+		<ul>
+		
+		<% for @trail in session[:trails] %>
+			<% count += 1 %>
+			<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
+			<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
+		<% end %>
+		</ul>
+		<% if count == 0 %>
+			<p>You have not created any timelines yet. Start one <%= link_to "here", :controller => 'trails', :action => 'new' %></p>.
+		<% end %>
 		<br><br><br><br>
 	</div>
 	
@@ -36,13 +47,7 @@
 				<%= text_field :user, :email %>
 				<span class="clear"></span>
 			</p>
-
-			<p>
-				<label>Email</label>
-				<%= text_field :customer, :email %>
-				<span class="clear"></span>
-			</p>
-
+			
 			<p>
 				<label>New Password</label>
 				<%= password_field_tag :password, {}, :size => 30 %>
