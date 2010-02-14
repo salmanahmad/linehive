@@ -94,7 +94,7 @@ class TrailsController < ApplicationController
 
 	if !has_errors && @trail.save
       flash[:notice] = 'Trail was successfully created.'
-	  session[:trails] << @trail
+#session[:trails] << @trail
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'

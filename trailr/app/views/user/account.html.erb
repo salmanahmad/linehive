@@ -15,7 +15,7 @@
 		<% count = 0 %>
 		<ul>
 		
-		<% for @trail in session[:trails] %>
+		<% for @trail in @recent_trails %>
 			<% count += 1 %>
 			<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
 			<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
@@ -37,7 +37,7 @@
 			
 			<fieldset>	
 			<p>
-				<label>Handle</label>
+				<label>Username</label>
 				<%= text_field :user, :handle %>
 				<span class="clear"></span>
 			</p>

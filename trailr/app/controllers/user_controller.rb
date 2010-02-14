@@ -6,10 +6,20 @@ class UserController < ApplicationController
   def account
 	if current_user
 		@user = User.find(current_user)
-		session[:trails] = Array.new
-		session[:trails] = Trail.find(:all, :conditions => [" user_id = ? ", current_user ])
+		
+		@recent_trails = []
+		
+		#@recent_trails = session[:trails];
+		#if(@recent_trails.nil?) 
+		#	@recent_trails = []
+		#end
+		
+		#session[:trails] = Array.new	
+		#session[:trails] = Trail.find(:all, :conditions => [" user_id = ? ", current_user ])
+	else 
+		redirect_to :controller => "home", :action => "index"
 	end
-
+	
   end
   
   def signon
