@@ -189,6 +189,15 @@ br {
 }
 
 
+.error {
+	padding:10px;
+	margin-top:5px;
+	margin-bottom:25px;
+	background-color:#FCC;
+	border:2px solid #FF9976;
+	
+}
+
 .space_5 {
 	clear:both;
 	height:5px;

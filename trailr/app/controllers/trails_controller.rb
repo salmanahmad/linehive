@@ -24,8 +24,12 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
-
     @articles = @trail.articles_json
+
+
+    update_viewcount(params[:id])
+
+
 
     respond_to do |format|
       format.html # show.html.erb
@@ -55,15 +59,20 @@ class TrailsController < ApplicationController
     @trail = Trail.new
     @trail.caption = args["title"]
     
+    @articles = [];
+    
     links.each do |link|
       
-      date = nil
+      @articles << link.dup
       
+      date = nil
       begin
         date = Date.parse(link["date"])
       rescue Exception => the_error
         date = DateTime.new
       end
+      
+      link.delete("pictures")
       
       article = Article.new(link)
       article.date = date
@@ -73,11 +82,10 @@ class TrailsController < ApplicationController
 
     if @trail.save
       flash[:notice] = 'Trail was successfully created.'
-      #render :text => @trail.id     
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'
-      render :action => 'create'
+      render :action => 'new'
     end
     
     
@@ -101,5 +109,26 @@ class TrailsController < ApplicationController
     render :json => @data   
     
   end
+
+
+private 
+
+  
+  def update_viewcount(id)
+    views = session[:views]
+    
+    if views == nil
+      session[:views] = {}
+      views = session[:views]
+    end
+    
+    if(!views.include?(id))
+      @trail.increment! :viewcount
+      session[:views][id] = true
+    end
+    
+  end
+  
+
 
 end
