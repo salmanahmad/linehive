@@ -14,7 +14,7 @@ class TrailsController < ApplicationController
     @articles = @trail.articles_json
 
     respond_to do |format|
-      format.html { render :templte => false}
+      format.html { render :template => false}
     end    
     
   end

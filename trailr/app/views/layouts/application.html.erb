@@ -3,17 +3,25 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title><%= yield :title %></title>
 		
-		
 		<%= stylesheet_link_tag "global.css" %>	
 		<%= stylesheet_link_tag "layout.css" %>	
-		
 		<%= yield :stylesheets %>
 		
 		<%= default_javascript %>
 		<%= yield :javascripts %>
 		
 		<script type="text/javascript" charset="utf-8">
+			
+			var cleared = false;
+			
 			$(function() {
+				
+				$("#search_box").focus(function() {
+					if(!cleared) {
+						$(this).val("");
+						cleared = true;
+					}
+				});
 				
 				if(!($.browser.webkit || $.browser.mozilla)) {
 					$(".browser_check").show();
@@ -61,33 +69,41 @@
 							</span>
 							
 						</div>
-						<div class="header_right">
-							<% if ! current_user -%>
-							<%= link_to "Sign In", :controller => "user", :action => "signon" %>
-							&nbsp; &nbsp;or&nbsp; &nbsp;
-							<%= link_to "Sign Up", :controller => "user", :action => "signon" %>
-							<% else -%>
-							<%= current_username %> 
-							(<%= link_to "Sign off", :controller => "user", :action => "signout" %>)
-							<% end %>
-							&nbsp; &nbsp;
-							<%= link_to "Recent Timelines", :controller => "user", :action => "account" %>
-							&nbsp; &nbsp;
-							<!--
-							<a>Help</a>-->
-						</div>
-							
+			
+						<%# link_to "Recent Timelines", :controller => "user", :action => "account" %>
+						<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
+						
 						<div id="top_links">
 						
-							<!--
-							<div id="search">
-								<input type="text" name="search" value="Search..." id="search_box" />
-							</div>
-							-->
 
-							<ul>
-								<li><%= link_to "Create New Timeline", :controller => "trails", :action => "new" %></li>
-								<!--<li><%# link_to "Explore", :controller => "home", :action => "explore" %></li>-->
+							<div id="search">
+								<% form_tag({:controller => "search", :action => "results" })  do %>
+									<input type="text" name="query" value="<%= params[:query] ||= "Search..." %>" id="search_box" />
+								<% end %>
+							</div>
+
+							<ul
+								
+								<% if current_user %>
+									<li class="first">
+										Hi, <%= current_username %>
+									</li>
+									<li>	
+										<%= link_to "Account", :controller => "user", :action => "account" %>
+									</li>
+									<li>
+										<%= link_to "Sign Out", :controller => "user", :action => "signout" %>
+									</li>
+								<% else %>
+									<li class="first">
+										<%= link_to "Sign In / Join", :controller => "user", :action => "signon" %>
+									</li>
+								<% end %>
+								
+								<li id="create_timeline_link">
+									<%= link_to "Create New Timeline", :controller => "trails", :action => "new" %>
+								</li>
+								
 							</ul>
 							<div class="clear"></div>
 							
