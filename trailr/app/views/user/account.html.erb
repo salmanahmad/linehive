@@ -11,31 +11,29 @@
 <div class="account" style="overflow:hidden;">	
 
 	<div class="right" style="margin-bottom:-2000px;padding-bottom:2000px;height=200px">
-		<h1>Most Recent Timelines</h1>
-		<% count = 0 %>
-		<ul>
-		
-		<% for @trail in @recent_trails %>
-			<% count += 1 %>
+		<h2>Most Recent Timelines</h2>
+
+		<ul>		
+		<% for @trail in @trails %>
 			<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
 			<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
 		<% end %>
 		</ul>
-		<% if count == 0 %>
-			<p>You have not created any timelines yet. Start one <%= link_to "here", :controller => 'trails', :action => 'new' %></p>.
+
+		<% if @trails.count == 0 %>
+			<p>You have not created any timelines yet. Start one <%= link_to "here", :controller => 'trails', :action => 'new' %>.</p>
 		<% end %>
-		<br><br><br><br>
+
 	</div>
 	
 	<% if current_user %>
 	<div class="left" style="margin-bottom:-2000px;padding-bottom:2000px">
-		<h1>Account Information</h1>
-				
-		<h3>General Information</h3>
+		<h2>Account Information</h2>
 		
 		<% form_tag :controller => :user, :action => :process_edit do %>
 			
 			<fieldset>	
+				<legend>General Information</legend>
 			<p>
 				<label>Username</label>
 				<%= text_field :user, :handle %>

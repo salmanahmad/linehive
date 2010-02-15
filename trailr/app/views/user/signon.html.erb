@@ -39,7 +39,9 @@
 						<span class="clear"></span>
 					</p>
 
-					<p class="input"><%= submit_tag "Create" %></p>
+					<p>
+						<%= submit_tag "Create", :class => "trail_button" %>
+					</p>
 			</fieldset>
 		<% end %>
 	
@@ -62,7 +64,9 @@
 						
 					</p>
 					<div class="clear"></div>
-					<p class="input"><input type="submit" value="Sign On"></p>
+					<p>
+						<%= submit_tag "Login", :class => "trail_button" %>
+					</p>
 			</fieldset>
 		<% end %>
 		

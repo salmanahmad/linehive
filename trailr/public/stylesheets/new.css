@@ -85,20 +85,6 @@
 }
 
 
-.large_label {
-	color:#888;
-	font-weight:bold;
-	height:35px;
-	font-size:15px;
-}
-
-.large_text {
-	height:35px;
-	font-size:20px;
-	font-family:"Helvetica", Arial, Sans-Serif;
-}
-
-
 
 #loader {
 	display:none;

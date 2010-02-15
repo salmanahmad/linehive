@@ -1,15 +1,15 @@
-.right {
+.account .right {
 	margin-left:20px;
 	float:right;
 	width:440px;
 }
 
-input {
+.account input {
 	float:right;
 	margin-bottom:25px;
 }
 
-p
+.account p
 {
 	padding:25px 10px 0px 10px;
 }

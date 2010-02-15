@@ -4,21 +4,20 @@ class UserController < ApplicationController
   include UserHelper
   
   def account
-	if current_user
-		@user = User.find(current_user)
+  	if current_user
+  		@user = User.find(current_user)
+  		@trails = @user.trails
 		
-		@recent_trails = []
+  		#@recent_trails = session[:trails];
+  		#if(@recent_trails.nil?) 
+  		#	@recent_trails = []
+  		#end
 		
-		#@recent_trails = session[:trails];
-		#if(@recent_trails.nil?) 
-		#	@recent_trails = []
-		#end
-		
-		#session[:trails] = Array.new	
-		#session[:trails] = Trail.find(:all, :conditions => [" user_id = ? ", current_user ])
-	else 
-		redirect_to :controller => "home", :action => "index"
-	end
+  		#session[:trails] = Array.new	
+  		#session[:trails] = Trail.find(:all, :conditions => [" user_id = ? ", current_user ])
+  	else 
+  		redirect_to :controller => "home", :action => "index"
+  	end
 	
   end
   
@@ -26,7 +25,7 @@ class UserController < ApplicationController
     if current_user
       redirect_to :controller => :user, :action => :account
     end
-# Iterate on saving current session. Snippet: <% for @trail in session[:trails] %>
+    # Iterate on saving current session. Snippet: <% for @trail in session[:trails] %>
   end
   
   def process_signon
@@ -76,6 +75,7 @@ class UserController < ApplicationController
   def process_edit
     @user = User.find(current_user)
     @user.update_attributes(params[:user])
-	flash[:notice] = 'Congrats! Your account has been updated.'
+	  flash[:notice] = 'Congrats! Your account has been updated.'
   end
+  
 end
