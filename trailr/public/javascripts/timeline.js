@@ -83,7 +83,9 @@ var timeline = {
 		template = template.replace(/\$headline/g, info.headline);
 		template = template.replace(/\$url/g, info.url);
 		template = template.replace(/\$source/g, info.source);
-		template = template.replace(/\$image/g, info.image_url);
+		
+		// I need to do this to avoid a server call back...
+		template = template.replace(/\$image/g, '<img src="' + info.image_url + '" />');
 		template = template.replace(/\$date/g, info.date);
 		template = template.replace(/\$format/g, info.format);
 		template = template.replace(/\$pictures/g, info.pictures);
@@ -216,7 +218,10 @@ var timeline = {
 			for(var i in events) {
 				var event = events[i];
 				
-				$(event).animate({ left: left }, this.duration, "easeOutBounce");
+				//$(event).animate({ left: left }, this.duration, "easeOutBounce");
+				//$(event).animate({ left: left }, this.duration, "easeOutQuad");
+				//$(event).animate({ left: left }, this.duration, "easeOutElastic");
+				$(event).animate({ left: left }, this.duration, "easeOutCirc");
 				
 				left += event_width;
 			}
