@@ -79,6 +79,7 @@
 							<div id="search">
 								<% form_tag({:controller => "search", :action => "results" })  do %>
 									<input type="text" name="query" value="<%= params[:query] ||= "Search..." %>" id="search_box" />
+									<input type="submit" name="search_button" value="" id="search_button">
 								<% end %>
 							</div>
 

@@ -108,6 +108,18 @@
 	float:right;
 }
 
+#search_button {
+	position:relative;
+	top:2px;
+	width:25px;
+	height:24px;
+	border:1px solid gray;
+	background-color:#F5F5F5;
+	background-image:url("../images/search.png");
+	background-position: center center;
+	background-repeat:no-repeat;
+}
+
 #search_box {
 
 	position:relative;
