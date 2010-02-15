@@ -3,7 +3,7 @@
 
 
 var timeline = {
-	
+	gap_threshold:.15,
 	show_meta:true,
 	min_date:null,
 	max_date:null,
@@ -171,7 +171,8 @@ var timeline = {
 	draw: function() {                                 
 		console.log("draw");                             
 		
-		     
+		$(".gap").remove();
+		
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
 		if($(".event").size() == 0) {                    
@@ -199,31 +200,76 @@ var timeline = {
 					$(this).css("left", midde);
 					$(this).children(".insert").remove();
 				}
-				events.push($(this));
+				
+				var date = new Date(Date.parse($(this).children(".info").children(".date").text()));
+				
+				events.push({e:$(this), d: date});
+				
 			});
 
 			events.sort(function(a, b) {
 
-				var date1_text = $(a).children(".info").children(".date").text();
-				var date2_text = $(b).children(".info").children(".date").text();			
+				//var date1_text = $(a).children(".info").children(".date").text();
+				//var date2_text = $(b).children(".info").children(".date").text();			
 
-				var date1 = new Date(Date.parse(date1_text));
-				var date2 = new Date(Date.parse(date2_text));
-
+				//var date1 = new Date(Date.parse(date1_text));
+				//var date2 = new Date(Date.parse(date2_text));
+				
+				var date1 = a.d;
+				var date2 = b.d;
+				
 				return date1 - date2;
 
 			});
 			
+			
 			var left = start_left;
+			var max_date = events[events.length - 1].d;
+			var min_date = events[0].d;
+			var date_range = max_date.getTime() - min_date.getTime();
+			
+			var one_year=1000*60*60*24*365;
+			
+			
 			for(var i in events) {
-				var event = events[i];
+				var event = events[i].e;
+				
+				console.log(events.length);
+				
+				
 				
 				//$(event).animate({ left: left }, this.duration, "easeOutBounce");
 				//$(event).animate({ left: left }, this.duration, "easeOutQuad");
 				//$(event).animate({ left: left }, this.duration, "easeOutElastic");
 				$(event).animate({ left: left }, this.duration, "easeOutCirc");
+
+				left += event_width;				
+
+				i = parseInt(i);
+				if((i + 1) < events.length) {
+					
+					var current_date = events[i].d; 
+					var next_date = events[(i+1)].d;
+					var diff = next_date.getTime() - current_date.getTime();
+					
+					if(diff / date_range > timeline.gap_threshold) {
+						var gap = '<div class="gap"></div>'
+
+						$(".events").append(gap);
+						$(".gap:last").animate({ left: left }, this.duration, "easeOutCirc");
+						left += 15;						
+					}
+					
+
+					
+				}
+
+
 				
-				left += event_width;
+
+				
+				
+				
 			}
 				
 		}
