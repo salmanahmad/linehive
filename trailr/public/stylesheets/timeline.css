@@ -72,6 +72,7 @@
 	height:200px;
 
 	border:0px solid green;
+	z-index:1;
 }
 
 
@@ -85,10 +86,13 @@
 	top:0px;
 	top:-5px;
 
-	
 	width:36px;
+	width:150px;
 	height:20px;
 	background-image:url("../images/callout.png");
+	background-position:center;
+	background-repeat:no-repeat;
+	
 	opacity:0.95;
 }
 
@@ -119,6 +123,22 @@
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 }
+
+#timeline .meta ul {
+	list-style: none;
+	padding:0px;
+	color:white;
+	font-size:12px;
+}
+
+
+#timeline .meta ul li a{
+
+	color:white;
+	font-size:12px;
+}
+
+
 
 #timeline .meta .headline {
 	

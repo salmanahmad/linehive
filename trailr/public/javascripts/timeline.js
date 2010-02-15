@@ -326,13 +326,32 @@ $(function() {
 	});
 	
 	
-	$(".event .thumbnail").live("mouseenter", function() {
+	function show_meta() {
+		if(!timeline.show_meta) {
+			return;
+		}
+		
+		$(".meta").show();
+		$(".meta_callout").show();
+	}
+	
+	function hide_meta() {
+		if(!timeline.show_meta) {
+			return;
+		}
+		
+		$(".meta").hide();
+		$(".meta_callout").hide();		
+	}
+	
+	$(".event").live("mouseenter", function() {
 		
 
 
 		
 		
-		var parent = $(this).parents(".event");
+		//var parent = $(this).parents(".event");
+		var parent = this;
 		var left = $(parent).position().left;
 		
 		var event_width = $(parent).outerWidth();
@@ -363,20 +382,13 @@ $(function() {
 			source = $(parent).children(".info").children(".source").text();			
 		}
 		
-
-
 		$(".meta .headline").html(headline);
 		$(".meta .source").html(source);
-
 
 		$(".meta").css("top", 0);
 		$(".meta").css("top", 0 - $(".meta").outerHeight() - 5);
 		
-				
-
-		$(".meta").show();
-		$(".meta_callout").show();
-
+		show_meta();
 		
 		if(left > (timeline_width) / 2) {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
@@ -396,19 +408,14 @@ $(function() {
 	
 
 	
-	$(".event .thumbnail").live("mouseleave", function() {
+	$(".event").live("mouseleave", function() {
 		
-		var parent = $(this).parents(".event");
+		//var parent = $(this).parents(".event");
+		var parent = this;
 		$(parent).children(".thumbnail").children(".pick_image").hide();
 		
 		
-		if(!timeline.show_meta) {
-			return;
-		}
-		
-		$(".meta").hide();
-		$(".meta_callout").hide();		
-		
+		hide_meta();
 				
 	});
 	
@@ -425,6 +432,25 @@ $(function() {
 			$(this).children(".date").children(".close").hide();
 		}
 	});
+	
+	
+	$(".meta_callout").mouseenter(function(){
+		show_meta();
+	});
+	
+	$(".meta_callout").mouseleave(function(){
+		hide_meta();
+	});
+
+	$(".meta").mouseenter(function(){
+		show_meta();
+	});
+	
+	$(".meta").mouseleave(function(){
+		hide_meta();
+	});
+
+
 	
 	
 	$('#timeline .events').mousewheel(function(event , delta) {
