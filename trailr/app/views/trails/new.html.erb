@@ -125,6 +125,7 @@
 				var url = $.trim($(".info .url", this).html());
 				var source = $.trim($(".info .source", this).html());
 				var image = $.trim($(".info .image", this).html());
+				
 				var date = $.trim($(".info .date", this).html());
 				var pictures = [];
 				
@@ -183,24 +184,6 @@
 
 
 
-<fieldset>
-
-	<div class="small_columns">
-		<div class="maincol">
-			<label for="title" class="large_label" >Timeline Title:</label>
-			<input type="text" name="title" value="<%= params[:title] %>" style="width:100%" id="title" class="large_text">
-		</div>
-		<div class="sidecol">
-			<div class="round_box" style="margin-top:15px">
-				<span id="title_count">100</span> Characters Remaining
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-
-</fieldset>
-
-
 <fieldset style="">
 	
 	<div class="small_columns">
@@ -214,7 +197,7 @@
 			<input type="button" id="add_urls" class="url_add_button" value="Add">
 			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:520px;resize:none;height:75px;"></textarea>
 			
-			<div class="space_20"></div>
+			<!--<div class="space_20"></div>-->
 			
 		</div>
 		<div class="sidecol">
@@ -230,6 +213,33 @@
 
 
 <%= render :partial => "timeline", :locals => { :noedit => false } %>
+
+
+
+<fieldset>
+
+	<div class="space_20"></div>
+
+
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="title" class="large_label" >Caption:</label>
+			<input type="text" name="title" value="<%= params[:title] %>" style="width:100%" id="title" class="large_text">
+			<span style="font-style:italic;color:gray; font-size:12px;margin-top:5x;">
+				e.g. "Chinese couple finally take figure skating gold in 2010 after tumultuous history"
+			</span>
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				<span id="title_count">100</span> Characters Remaining
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</fieldset>
+
+
 
 <div id="buttons">
 				

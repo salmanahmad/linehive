@@ -49,7 +49,19 @@ class TrailsController < ApplicationController
   
   def create
     
+    if(params[:trail] == nil) 
+      redirect_to :controller => "trails", :action => "new"
+      return
+      
+    end
+    
     args = ActiveSupport::JSON.decode(params[:trail])
+    
+    if(args == nil || args == "")
+      redirect_to :controller => "trails", :action => "new"
+      return
+    end
+    
     links = args["links"]
     
     puts links
@@ -58,16 +70,16 @@ class TrailsController < ApplicationController
     @trail.caption = args["title"]
 
     if current_user
-		@trail.user_id = current_user
-	end
+		  @trail.user_id = current_user
+	  end
 	
     @articles = [];
     
     has_errors = false
-    if links.length < 4 || links.length > 7 then
+    if links.length < 3 || links.length > 6 then
     
       @trail.valid?
-      @trail.errors.add("articles", "Timelines must contain between 4 and 7 articles.")
+      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
       
       has_errors = true;
       

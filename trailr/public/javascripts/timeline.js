@@ -85,6 +85,7 @@ var timeline = {
 		template = template.replace(/\$source/g, info.source);
 		
 		// I need to do this to avoid a server call back...
+		template = template.replace(/\$img_src/g, info.image_url);		
 		template = template.replace(/\$image/g, '<img src="' + info.image_url + '" />');
 		template = template.replace(/\$date/g, info.date);
 		template = template.replace(/\$format/g, info.format);
@@ -289,6 +290,8 @@ $(function() {
 		if(current_event != null) {
 						
 			var src = $(".pick_custom_image_text").val();
+			
+			
 			$(current_event).children(".thumbnail").children("a").children("img").attr("src", src);
 			$(current_event).children(".info").children(".image").text(src);
 

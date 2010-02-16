@@ -3,7 +3,7 @@ class Trail < ActiveRecord::Base
   has_many :articles
   
   validates_length_of :caption, :maximum => 150, :message => "must be less than 150 characters long."
-  validates_presence_of :caption, :message => "Timelines must have a title."
+  validates_presence_of :caption, :message => "Timelines must have a caption."
   
   def articles_json
     articles = []
