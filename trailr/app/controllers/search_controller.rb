@@ -12,7 +12,7 @@ class SearchController < ApplicationController
         JOIN articles ON articles.trail_id = trails.id 
         LEFT JOIN users ON trails.user_id = users.id
       WHERE trails.caption LIKE ? OR users.handle LIKE ? OR articles.headline LIKE ? OR articles.source LIKE ? OR articles.url LIKE ?
-      ORDER BY viewcount DESC, created_at DESC;
+      ORDER BY viewcount DESC, trails.created_at DESC;
       EOF
       
       query = '%' + params[:query] + '%';
