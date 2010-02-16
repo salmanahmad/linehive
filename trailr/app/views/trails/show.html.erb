@@ -56,7 +56,7 @@
 <form name="inputs">
 
 <div id="urlbox">
-	<input name="embed" value='<iframe frameborder="0" width="600" height="235" style="float:left;width:600px;height:230px;border:0px solid #808080" src="<%= url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>"></iframe>' 
+	<input name="embed" value='<iframe frameborder="0" width="600" height="235" style="float:left;width:600px;height:235px;border:0px solid #808080" src="<%= url_for :controller => "trails", :action => "embed", :id => @trail.id, :only_path => false %>"></iframe>' 
 	style="width:200px; float:right; margin-right:200px;" onclick="javascript:document.inputs.embed.focus();document.inputs.embed.select();">
 	<span style="float:right; margin-right:5px; font-weight:bold">Embed</span>
 	<input name="url" value="<%= url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>" onclick="javascript:document.inputs.url.focus();document.inputs.url.select();" style="width:200px; float:right;margin-right:50px;">
