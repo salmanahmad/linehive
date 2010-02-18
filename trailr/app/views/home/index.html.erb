@@ -28,13 +28,14 @@
 			<% examples = [79, 75, 53, 56, 54, 52, 51, 77, 55] %>
 			
 			<% for example in examples do %>
-				<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-					<iframe frameborder="0" width="600" height="300" src="<%= url_for :controller => "trails", :action => "embed", :id => example %>"></iframe> 
+				<div style="float:left;width:900px;height:300px;border:0px solid #808080"> 
+					<iframe frameborder="0" width="900" height="300" src="<%= url_for :controller => "trails", :action => "embed", :id => example %>"></iframe> 
 				</div>			
 			<% end %>
 
 		</div>
 
+		<!--
 		<div class="sidecol">
 			<div class="round_box info_box" style="margin-top:15px">
 				<h3>What is LineHive?</h3>
@@ -42,7 +43,7 @@
 				<ul>
 					<li><b>Lightweight timelines</b> anytime, anywhere, about anything.<br></li>
 					<li><b>Create</b> a timeline by just pasting links.<br></li>
-					<li><b>Share</b> a timeline's URL, <b>embetd</b> it anywhere.<br><br></li>
+					<li><b>Share</b> a timeline's URL, <b>embed</b> it anywhere.<br><br></li>
 				</ul>
 				
 
@@ -56,6 +57,8 @@
 				
 			</div>
 		</div>
+		-->
+		
 		<div class="clear"></div>
 	</div>
 	
