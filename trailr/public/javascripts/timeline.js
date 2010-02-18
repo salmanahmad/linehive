@@ -78,9 +78,9 @@ var timeline = {
 		} 
 
 		// I need this to no mess up the event count later one...
-		template = template.replace(/\$class/g, 'event');
-		
+		template = template.replace(/\$class/g, 'event');		
 		template = template.replace(/\$headline/g, info.headline);
+		
 		template = template.replace(/\$url/g, info.url);
 		template = template.replace(/\$source/g, info.source);
 		
@@ -91,6 +91,7 @@ var timeline = {
 		template = template.replace(/\$format/g, info.format);
 		template = template.replace(/\$pictures/g, info.pictures);
 		
+		console.log(template);
 
 		return template;
 	},
@@ -150,11 +151,13 @@ var timeline = {
 										onClose:this.updateDate,
 										closeText:'Cancel',
 										yearRange:'-25:0'});
+
 		} else {
 			$(".date_edit").attr("disabled", true);
+			$("#timeline .events .event > .headline").autoEllipsis();
 		}
-
-		$("#timeline .events .event > .headline").autoEllipsis();
+		
+		
 		
 
 	},     

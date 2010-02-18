@@ -261,6 +261,14 @@
 	font-size:11px;
 }
 
+#timeline .event .headline textarea{
+	height:100%;
+	width:95%;
+	text-align:center;
+	resize:none;
+}
+
+
 #timeline .date {
 	font-weight:bold;
 	

@@ -118,6 +118,8 @@
 			$("#timeline .event").each(function(item) {
 
 				var headline = $.trim($(".info .headline", this).html());
+				var headline = $.trim($(".headline textarea:first", this).val());
+				
 				var url = $.trim($(".info .url", this).html());
 				var source = $.trim($(".info .source", this).html());
 				var image = $.trim($(".info .image", this).html());
