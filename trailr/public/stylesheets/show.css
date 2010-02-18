@@ -1,7 +1,52 @@
-#urlbox {
+.urlbox {
 	background-color:#F5F5F5;
+	
+	padding:10px;
+	
+	border:1px solid #808080;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;	
+	text-align:center;
+	
+	
+	display:inline-block;
+	
 }
 
-#edit {
+.actions {
+	text-align:right;
 	float:right;
+	
+}
+
+.actions form {
+	display:inline-block;
+}
+
+.urlbox ul {
+	
+	padding:0px;
+	
+	display:inline-block;
+	text-align:center;
+	list-style: none;
+	
+
+}
+
+.urlbox ul li {
+	margin:0px 6px;
+	min-width:250px;
+	display:inline-block;
+}
+
+.urlbox input.text {
+	height:25px;
+	line-height:20px;
+}
+
+.urlbox .label {
+	margin-right:2px;
+	font-size:12px;
+	font-weight:bold
 }

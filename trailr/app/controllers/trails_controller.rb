@@ -53,7 +53,15 @@ class TrailsController < ApplicationController
   
   
   def edit
+    
     @trail = Trail.find(params[:id])
+    
+    if(@trail.user && @trail.user.id != current_user)
+      redirect_to :action => "show", :id => @trail.id
+      return
+    end
+    
+    
     @articles = @trail.articles_json
     
     for article in @articles do
@@ -68,6 +76,14 @@ class TrailsController < ApplicationController
   def update
     
     @trail = Trail.find(params[:id])
+    
+    
+    if(@trail.user && @trail.user.id != current_user)
+      redirect_to :action => "show", :id => @trail.id
+      return
+    end
+    
+    
     args = ActiveSupport::JSON.decode(params[:trail])
     @links = args["links"]
     
@@ -102,7 +118,7 @@ class TrailsController < ApplicationController
       return
     end
     
-    links = args["links"]
+    @links = args["links"]
         
     @trail = Trail.new
     @trail.caption = args["title"]

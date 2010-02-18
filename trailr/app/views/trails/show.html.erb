@@ -39,17 +39,35 @@
 		
 	</div>
 	
-	
-	<div id="edit">
-		<%= button_to "Edit", {:controller => "trails", :action => "edit", :id => @trail.id}, {:class => "trail_button"} %>
+	<div class="actions">
 	</div>
+
+	
+	
 	<h2><%= @trail.caption %></h2>
 	<div id="trail_subheading">
+		
+		<div class="actions">
+			<% if @trail.user.nil? %>
+				This is an anonymous timeline. Anyone can edit it - <%= link_to "Edit", :controller => "trails", :action => "edit", :id => @trail.id %>
+			<% elsif @trail.user.id == current_user %>
+				This is your timeline - <%= link_to "Edit", :controller => "trails", :action => "edit", :id => @trail.id %>
+			<% end %>
+		</div>
+		
 		Created on <b><%= @trail.created_at.strftime("%B %d, %Y at %I:%M%p") %></b>
 		&nbsp; | &nbsp; Views <b><%= @trail.viewcount %></b>
 		
 		<% if @trail.user %>
-			&nbsp; | &nbsp; Created by	<b><%= @trail.user.handle %></b>
+			&nbsp; | &nbsp; Created by	
+			<b>
+				<% if @trail.user && @trail.user.id == current_user %>
+					You!
+				<% else %>
+					<%= @trail.user.handle %>				
+				<% end %>
+
+			</b>
 		<% end %>
 		
 
@@ -57,7 +75,7 @@
 	
 </div>
 
-<div style="margin-top:50px;margin-bottom:35px">
+<div style="margin-top:50px;margin-bottom:15px">
 
 	<%= render :partial => "timeline", :locals => { :noedit => true } %>
 
@@ -67,13 +85,26 @@
 
 
 
-<div id="urlbox">
-	<input name="embed" value='<iframe frameborder="0" width="600" height="235" style="float:left;width:600px;height:235px;border:0px solid #808080" src="<%= url_for :controller => "trails", :action => "embed", :id => @trail.id, :only_path => false %>"></iframe>' 
-	style="width:200px; float:right; margin-right:200px;" onclick="this.focus();this.select();">
-	<span style="float:right; margin-right:5px; font-weight:bold">Embed</span>
-	<input name="url" value="<%= url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>" onclick="this.focus();this.select();" style="width:200px; float:right;margin-right:50px;">
-	<span style="float:right;margin-right:5px; font-weight:bold;">URL</span>
+<div style="text-align:center;">
+	
+		<div class="urlbox">
+	
+		<ul>
+			<li>
+				<span class="label">Embed</span>	
+				<input class="text" name="embed" value='' style="width:200px;" onclick="this.focus();this.select();">
+			</li>
+			<li>
+				<span class="label">URL</span>
+				<input class="text" name="url" value="<%= url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>" onclick="this.focus();this.select();" style="width:200px;">
+			</li>
+		</ul>
+		
+		<div class="clear"></div>
+		
+	</div>
 </div>
 
 
-<div class="clear">
+<div class="space_20"></div>
+
