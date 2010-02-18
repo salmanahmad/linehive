@@ -40,10 +40,13 @@ class TrailsController < ApplicationController
 
   def new
     
+    @trail = Trail.new
+    @trail.caption = params[:title]
     @articles = nil
     if params[:urls] then
       @articles = parse_urls(params[:urls])
     end
+    
     
   end
   
@@ -53,12 +56,64 @@ class TrailsController < ApplicationController
     @trail = Trail.find(params[:id])
     @articles = @trail.articles_json
     
-    render :action => 'new'
+    for article in @articles do
+      hash = parse_url(article["url"]);
+      article[:pictures] = hash[:pictures];
+    end
+    
     
     
   end
   
   def update
+    
+    @trail = Trail.find(params[:id])
+    args = ActiveSupport::JSON.decode(params[:trail])
+    links = args["links"]
+    
+    # TODO: Improve performance!
+    @trail.caption = args["title"]
+    @trail.articles.clear
+    
+    @articles = [];
+    has_errors = false
+    if links.length < 3 || links.length > 6 then
+
+      @trail.valid?
+      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
+
+      has_errors = true;
+
+    end
+
+    links.each do |link|
+      @articles << link.dup
+
+      date = nil
+      begin
+        date = Date.parse(link["date"])
+      rescue Exception => the_error
+        date = DateTime.new
+      end
+
+      link.delete("pictures")
+
+      article = Article.new(link)
+      article.date = date
+
+      @trail.articles << article
+    end
+
+
+	if !has_errors && @trail.save
+      flash[:notice] = 'Trail was successfully created.'
+#session[:trails] << @trail
+      redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
+    else
+      flash[:error] = 'Trail could not be created.'
+      render :action => 'new'
+    end
+    
     
   end
   
@@ -68,11 +123,6 @@ class TrailsController < ApplicationController
   
   def create
     
-    if(params[:trail] == nil) 
-      redirect_to :controller => "trails", :action => "new"
-      return
-      
-    end
     
     args = ActiveSupport::JSON.decode(params[:trail])
     
@@ -82,9 +132,7 @@ class TrailsController < ApplicationController
     end
     
     links = args["links"]
-    
-    puts links
-    
+        
     @trail = Trail.new
     @trail.caption = args["title"]
 
@@ -93,7 +141,6 @@ class TrailsController < ApplicationController
 	  end
 	
     @articles = [];
-    
     has_errors = false
     if links.length < 3 || links.length > 6 then
     
@@ -134,16 +181,20 @@ class TrailsController < ApplicationController
     
     
   end
-
-  def slideshow
-    render :layout => "slideshow"
-  end
-
+  
+  
   def process_urls
     @data = parse_urls(params[:urls])
     render :json => @data   
     
   end
+  
+  
+
+  def slideshow
+    render :layout => "slideshow"
+  end
+
 
 
 private 
