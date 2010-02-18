@@ -148,7 +148,8 @@ var timeline = {
 										showButtonPanel:true,
 										currentText:'Show Today',
 										onClose:this.updateDate,
-										closeText:'Cancel'});
+										closeText:'Cancel',
+										yearRange:'-25:0'});
 		} else {
 			$(".date_edit").attr("disabled", true);
 		}
