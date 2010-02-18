@@ -69,49 +69,20 @@ class TrailsController < ApplicationController
     
     @trail = Trail.find(params[:id])
     args = ActiveSupport::JSON.decode(params[:trail])
-    links = args["links"]
+    @links = args["links"]
     
-    # TODO: Improve performance!
+    # TODO: IMPROVE PERFORMANCE! EVEN WHEN THE SAVE FAILS, THIS GETS RE-CREATED
     @trail.caption = args["title"]
     @trail.articles.clear
     
-    @articles = [];
-    has_errors = false
-    if links.length < 3 || links.length > 6 then
+    construct_trail
 
-      @trail.valid?
-      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
-
-      has_errors = true;
-
-    end
-
-    links.each do |link|
-      @articles << link.dup
-
-      date = nil
-      begin
-        date = Date.parse(link["date"])
-      rescue Exception => the_error
-        date = DateTime.new
-      end
-
-      link.delete("pictures")
-
-      article = Article.new(link)
-      article.date = date
-
-      @trail.articles << article
-    end
-
-
-	if !has_errors && @trail.save
+	  if !@has_errors && @trail.save
       flash[:notice] = 'Trail was successfully created.'
-#session[:trails] << @trail
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'
-      render :action => 'new'
+      render :action => 'edit'
     end
     
     
@@ -139,40 +110,11 @@ class TrailsController < ApplicationController
     if current_user
 		  @trail.user_id = current_user
 	  end
-	
-    @articles = [];
-    has_errors = false
-    if links.length < 3 || links.length > 6 then
-    
-      @trail.valid?
-      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
-      
-      has_errors = true;
-      
-    end
 
-    links.each do |link|
-      @articles << link.dup
+    construct_trail
 
-      date = nil
-      begin
-        date = Date.parse(link["date"])
-      rescue Exception => the_error
-        date = DateTime.new
-      end
-
-      link.delete("pictures")
-
-      article = Article.new(link)
-      article.date = date
-
-      @trail.articles << article
-    end
-      
-
-	if !has_errors && @trail.save
+	  if !@has_errors && @trail.save
       flash[:notice] = 'Trail was successfully created.'
-#session[:trails] << @trail
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       flash[:error] = 'Trail could not be created.'
@@ -199,6 +141,39 @@ class TrailsController < ApplicationController
 
 private 
 
+
+  def construct_trail
+    @articles = [];
+    @has_errors = false
+    if @links.length < 3 || @links.length > 6 then
+
+      @trail.valid?
+      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
+
+      @has_errors = true;
+
+    end
+
+    @links.each do |link|
+      @articles << link.dup
+
+      date = nil
+      begin
+        date = Date.parse(link["date"])
+      rescue Exception => the_error
+        date = DateTime.new
+      end
+
+      link.delete("pictures")
+
+      article = Article.new(link)
+      article.date = date
+
+      @trail.articles << article
+    end
+    
+  end
+
   
   def update_viewcount(id)
     views = session[:views]
@@ -214,6 +189,42 @@ private
     end
     
   end
+  
+  
+  
+  
+=begin THIS USED TO BE IN CREATE
+    @articles = [];
+    has_errors = false
+    if links.length < 3 || links.length > 6 then
+
+      @trail.valid?
+      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
+
+      has_errors = true;
+
+    end
+
+    links.each do |link|
+      @articles << link.dup
+
+      date = nil
+      begin
+        date = Date.parse(link["date"])
+      rescue Exception => the_error
+        date = DateTime.new
+      end
+
+      link.delete("pictures")
+
+      article = Article.new(link)
+      article.date = date
+
+      @trail.articles << article
+    end
+=end
+  
+  
   
 
 
