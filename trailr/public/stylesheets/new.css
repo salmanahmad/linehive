@@ -106,6 +106,16 @@
 	color:rgb(102, 102, 102);	
 }
 
+.info_box h3 {
+	font-size:16px;
+	margin-bottom:10px;
+}
+
+.info_box ul {
+	font-size:12px;
+	line-height:16px;
+}
+
 fieldset {
 	padding:0px;
 	margin:0px;

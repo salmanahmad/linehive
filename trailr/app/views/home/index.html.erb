@@ -19,42 +19,40 @@
 
 
 
-<h2>Popular Timelines</h2>
+<h2>Featured Timelines</h2>
 <div class="space_10"></div>
 <fieldset>
 	<div class="small_columns">
 		<div class="maincol">
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/51"></iframe> 
-			</div> 
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/52"></iframe> 
-			</div> 
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/53"></iframe> 
-			</div> 
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/54"></iframe> 
-			</div> 
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/55"></iframe> 
-			</div> 
-			<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
-				<iframe frameborder="0" width="600" height="300" src="/embed/56"></iframe> 
-			</div> 
+			
+			<% examples = [79, 75, 53, 56, 54, 52, 51, 77, 55] %>
+			
+			<% for example in examples do %>
+				<div style="float:left;width:600px;height:300px;border:0px solid #808080"> 
+					<iframe frameborder="0" width="600" height="300" src="<%= url_for :controller => "trails", :action => "embed", :id => example %>"></iframe> 
+				</div>			
+			<% end %>
 
 		</div>
 
 		<div class="sidecol">
-			<div class="round_box" style="margin-top:15px">
+			<div class="round_box info_box" style="margin-top:15px">
 				<h3>What is LineHive?</h3>
-				<b>Lightweight timelines</b> anytime, anywhere, about anything.<br>
-				<b>Create</b> a timeline by just pasting links.<br>
-				<b>Share</b> a timeline's URL, <b>embed</b> it anywhere.<br><br>
 				
+				<ul>
+					<li><b>Lightweight timelines</b> anytime, anywhere, about anything.<br></li>
+					<li><b>Create</b> a timeline by just pasting links.<br></li>
+					<li><b>Share</b> a timeline's URL, <b>embetd</b> it anywhere.<br><br></li>
+				</ul>
+				
+
 				<h3>What's new?</h3>
-				<b>Jetpack</b> authoring extension for firefox.<br>
-				<b>Follow</b> us on <b><a href="http://twitter.com/linehive">Twitter</a></b>.<br><br>
+				<ul>
+					<li><b>Jetpack</b> authoring extension for firefox.<br></li>
+					<li><b>Follow</b> us on <b><a href="http://twitter.com/linehive">Twitter</a></b>.<br><br></li>
+				</ul>
+				
+				
 				
 			</div>
 		</div>
@@ -62,63 +60,3 @@
 	</div>
 	
 </fieldset>
-<!--
-<h2>Most Popular Topics <span style="font-size:12px; font-weight:normal">(<%# link_to "Create a timeline", :controller => "home", :action => "create" %>)</span></h2>
-<div class="space_10"></div>
-<fieldset>
-	<div class="small_columns">
-		<div class="maincol">
-			<div class="item">
-			Entertainment<br>
-			<img src="http://frankc.net/single.gif">
-			<div class="itemdetailscon">
-				<div class="itemdetails">
-				<span class="title">Haiti Earthquake Relief<br>
-				by <span class="author">SalmanA...</span><br>
-				Views: <span class="views">13,332</span><br>
-				Replies: <span class="replies">809</span><br>
-				</div>
-			</div>
-			</div>
-			<div class="item">
-			News<br>
-			<img src="http://frankc.net/single.gif">
-			<div class="itemdetailscon">
-				<div class="itemdetails">
-				<span class="title">Haiti Earthquake Relief<br>
-				by <span class="author">SalmanA...</span><br>
-				Views: <span class="views">13,332</span><br>
-				Replies: <span class="replies">809</span><br>
-				</div>
-			</div>
-			</div>
-			<div class="item">
-			linehive<br>
-			<img src="http://frankc.net/single.gif">
-			<div class="itemdetailscon">
-				<div class="itemdetails">
-				<span class="title">Haiti Earthquake Relief<br>
-				by <span class="author">SalmanA...</span><br>
-				Views: <span class="views">13,332</span><br>
-				Replies: <span class="replies">809</span><br>
-				</div>
-			</div>
-			</div>
-			<div class="item">
-			<b>Music</b><br>
-			<img src="http://frankc.net/single.gif">
-			<div class="itemdetailscon">
-				<div class="itemdetails">
-				<span class="title">Haiti Earthquake Relief<br>
-				by <span class="author">SalmanA...</span><br>
-				Views: <span class="views">13,332</span><br>
-				Replies: <span class="replies">809</span><br>
-				</div>
-			</div>
-			</div>
-			
-		</div>
-		<div class="clear"></div>
-	</div>
-</fieldset>
--->	

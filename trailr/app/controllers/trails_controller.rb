@@ -47,6 +47,25 @@ class TrailsController < ApplicationController
     
   end
   
+  
+  
+  def edit
+    @trail = Trail.find(params[:id])
+    @articles = @trail.articles_json
+    
+    render :action => 'new'
+    
+    
+  end
+  
+  def update
+    
+  end
+  
+  
+  
+  
+  
   def create
     
     if(params[:trail] == nil) 
@@ -115,15 +134,7 @@ class TrailsController < ApplicationController
     
     
   end
-  
-  def edit
-    
-  end
-  
-  def update
-    
-  end
-  
+
   def slideshow
     render :layout => "slideshow"
   end
