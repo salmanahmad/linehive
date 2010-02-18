@@ -375,6 +375,7 @@ $(function() {
 	$(".event .close a").live("click", function() {
 		$(this).parents(".event").remove();
 		timeline.draw();
+		hide_meta();
 		return false;
 	});
 	
@@ -505,9 +506,9 @@ $(function() {
 
 
 	
-	
+	/*
 	$('#timeline .events').mousewheel(function(event , delta) {
-		
+
 		var left = $(".events").scrollLeft();
 		delta = 0 - delta;
 		
@@ -516,6 +517,7 @@ $(function() {
 		return false;
 		
 	});
+	*/
 	
 						
 });
