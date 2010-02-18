@@ -92,7 +92,7 @@
 		<ul>
 			<li>
 				<span class="label">Embed</span>	
-				<input class="text" name="embed" value='' style="width:200px;" onclick="this.focus();this.select();">
+				<input class="text" name="embed" value='<%= render :partial => "embed", :locals => {:trail => @trail} %>' style="width:200px;" onclick="this.focus();this.select();">
 			</li>
 			<li>
 				<span class="label">URL</span>
