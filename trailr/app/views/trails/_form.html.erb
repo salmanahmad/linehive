@@ -1,0 +1,262 @@
+<% content_for :title do %>
+	LineHive: Create a timeline
+<% end %>
+
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "new" %>
+	<%= stylesheet_link_tag "form" %>	
+	<%= stylesheet_link_tag "overview" %>	
+	<%= stylesheet_link_tag "timeline" %>	
+	<%= stylesheet_link_tag "smoothness/jquery.ui.datepicker.css" %>	
+
+
+<% end %>
+
+
+<% content_for :javascripts do %>
+
+<%= javascript_include_tag "timeline.js" %>
+<%= javascript_include_tag "jquery.ui.datepicker.js" %>
+<%= javascript_include_tag "jquery.easing.1.3.js" %>
+<%= javascript_include_tag "jquery.create.js" %>
+<%= javascript_include_tag "jquery.autoellipsis.js" %>
+<%= javascript_include_tag "jquery.mousewheel.js" %>
+
+
+<script type="text/javascript" charset="utf-8">
+
+	var title_max_count = 100;
+	
+	function title_keydown(event) {	
+		if($(this).val().length == title_max_count && event.keyCode > 46) {		
+			return false;
+		}
+	}
+	
+	function title_keyup() {
+		var length = $(this).val().length;		
+				
+		if(length > title_max_count) {
+			var val = $(this).val();
+			val = val.substring(0, title_max_count);
+			$(this).val(val);
+		}
+		
+		
+		
+		$("#title_count").text(title_max_count - length);
+	}
+	
+	function add_url() {
+		console.log("here");
+		
+		
+		var text = $("#urls").val();
+		console.log(text);
+		$("#loader").show();
+		
+		
+		jQuery.ajax({
+        type: "POST",
+        url: "<%= url_for :controller => "trails", :action => "process_urls"  %>",
+        dataType:"json",
+        data:{urls : text },
+        success:function(data){
+					
+					$("#loader").hide();
+					
+					console.log(data);
+					
+					for(i in data) {
+						timeline.add(data[i]);
+					}
+					
+					timeline.draw();
+        },
+        error:function (xhr, ajaxOptions, thrownError){
+					alert("Error Occured");
+        }    
+    });
+    
+		$("#urls").text("");
+		
+	}
+	
+	function add_url_keydown(event) {
+		if(event.which == 13) {
+			add_url();
+			return false;
+		}
+	}
+
+	
+
+	$(function() {
+		
+		title_keyup.apply($("#title"));
+				
+		timeline.use_clustering = false;
+		
+		<% if @articles %>
+			timeline.init(<%= @articles.to_json %>);
+		<% else %>
+			timeline.init();		
+		<% end %>
+
+		$("#title").keydown(title_keydown);		
+		$("#title").keyup(title_keyup);		
+		
+		$("#urls").keypress(add_url_keydown);
+		$("#add_urls").click(add_url);
+		
+		
+		$("#post_back").submit(function() {
+						
+			var data = { title: "", links: [] };
+			data["title"] = $("#title").val();
+			
+			$("#timeline .event").each(function(item) {
+
+				var headline = $.trim($(".info .headline", this).html());
+				var headline = $.trim($(".headline textarea:first", this).val());
+				
+				var url = $.trim($(".info .url", this).html());
+				var source = $.trim($(".info .source", this).html());
+				var image = $.trim($(".info .image", this).html());
+				
+				var date = $.trim($(".info .date", this).html());
+				var pictures = [];
+				
+				$(".info .pictures li img", this).each(function() {
+					var src = $(this).attr("src");
+					pictures.push(src);
+				});
+
+
+				// TODO: I need to standardize this json string. It matches the active record model...
+				var item = {
+					headline: headline,
+					url: url,
+					source: source,
+					image_url: image,
+					date: date,
+					pictures:pictures
+		   	};
+						
+		
+				data["links"].push(item);				
+						
+			});
+			
+			var string = JSON.stringify(data);
+			$("#trail_input").val(string); 
+			
+						
+		});		
+		
+	});
+</script>
+
+
+<% end %>
+
+<% if !defined? edit then edit = false end %>
+<h2>
+	<%= if edit then "Edit Timeline" else "Create New Timeline" end %> 
+	<span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create timelines", :controller => "home", :action => "jetpack" %>)</span>
+</h2>
+
+<div class="space_10"></div>
+
+
+<% if defined? @trail %>
+
+	<% unless @trail.errors.empty? %>
+	<div class="error">
+	  <ul>
+	  <% @trail.errors.each do |attr, message| %>
+	    <li><%= message %></li>
+	  <% end %>
+	  </ul>
+	</div>
+	<% end %>
+
+<% end %>
+
+
+
+<fieldset style="">
+	
+	<div class="small_columns">
+		<div class="maincol">
+			
+			<%= image_tag "loader.gif", :style => "float:right;", :id => "loader" %>
+			<label for="urls" class="large_label" >URLs:</label>
+						
+			<div id="articles"></div>
+			
+			<input type="button" id="add_urls" class="url_add_button" value="Add">
+			<textarea name="urls" id="urls" id="urls" class="large_text" style="width:520px;resize:none;height:75px;"></textarea>
+						
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				Type or paste in as many URLs as you want and hit <b>Enter</b> to add them to your trail.
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	
+</fieldset>
+
+
+<%= render :partial => "timeline", :locals => { :noedit => false } %>
+
+
+
+<fieldset>
+
+	<div class="space_20"></div>
+
+
+	<div class="small_columns">
+		<div class="maincol">
+			<label for="title" class="large_label" >Caption:</label>
+			<%= text_field "trail", "caption", :id => "title", :class => "large_text", :style => "width:100%" %>
+			<!--<input type="text" name="title" value="<%# params[:title] %>" style="width:100%" id="title" class="large_text">-->
+			<span style="font-style:italic;color:gray; font-size:12px;margin-top:5x;">
+				e.g. "Chinese couple finally take figure skating gold in 2010 after tumultuous history"
+			</span>
+		</div>
+		<div class="sidecol">
+			<div class="round_box" style="margin-top:15px">
+				<span id="title_count">100</span> Characters Remaining
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</fieldset>
+
+
+
+<div id="buttons">
+		<% if edit then %>
+			<% form_tag({:controller => "trails", :action => "update", :id => @trail.id }, {:id => "post_back"})  do %>
+				<%= submit_tag "Update", { :class => "trail_button"} %>
+				<input type="hidden" name="trail" value="" id="trail_input"> 
+			<% end %>
+				<%= button_to "Cancel", {:controller => "trails", :action => "show", :id => @trail.id}, {:class => "trail_button"} %>
+		<% else %>
+			<% form_tag({:controller => "trails", :action => "create" }, {:id => "post_back"})  do %>
+				<%= submit_tag "Publish", { :class => "trail_button"} %>
+				<input type="hidden" name="trail" value="" id="trail_input"> 
+			<% end %>
+		<% end %>
+		
+</div>
+
+<div class="clear"></div>
+
+

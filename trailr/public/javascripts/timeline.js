@@ -81,9 +81,9 @@ var timeline = {
 		} 
 
 		// I need this to no mess up the event count later one...
-		template = template.replace(/\$class/g, 'event');
-		
+		template = template.replace(/\$class/g, 'event');		
 		template = template.replace(/\$headline/g, info.headline);
+		
 		template = template.replace(/\$url/g, info.url);
 		template = template.replace(/\$source/g, info.source);
 		
@@ -94,6 +94,7 @@ var timeline = {
 		template = template.replace(/\$format/g, info.format);
 		template = template.replace(/\$pictures/g, info.pictures);
 		
+		console.log(template);
 
 		return template;
 	},
@@ -151,12 +152,15 @@ var timeline = {
 										showButtonPanel:true,
 										currentText:'Show Today',
 										onClose:this.updateDate,
-										closeText:'Cancel'});
+										closeText:'Cancel',
+										yearRange:'-25:0'});
+
 		} else {
 			$(".date_edit").attr("disabled", true);
+			$("#timeline .events .event > .headline").autoEllipsis();
 		}
-
-		$("#timeline .events .event > .headline").autoEllipsis();
+		
+		
 		
 
 	},     
@@ -242,9 +246,10 @@ var timeline = {
 				
 				
 				
-				//$(event).animate({ left: left }, this.duration, "easeOutBounce");
+				//$(event).animate({ left: left }, this.duration + 100 * 2, "easeOutBounce");
 				//$(event).animate({ left: left }, this.duration, "easeOutQuad");
-				//$(event).animate({ left: left }, this.duration, "easeOutElastic");
+				//$(event).animate({ left: left }, this.duration * 2, "easeOutElastic");
+				
 				$(event).animate({ left: left }, this.duration, "easeOutCirc");
 
 				left += event_width;				
@@ -374,6 +379,7 @@ $(function() {
 	$(".event .close a").live("click", function() {
 		$(this).parents(".event").remove();
 		timeline.draw();
+		hide_meta();
 		return false;
 	});
 	
@@ -514,9 +520,9 @@ $(function() {
 
 
 	
-	
+	/*
 	$('#timeline .events').mousewheel(function(event , delta) {
-		
+
 		var left = $(".events").scrollLeft();
 		delta = 0 - delta;
 		
@@ -525,6 +531,7 @@ $(function() {
 		return false;
 		
 	});
+	*/
 	
 						
 });
