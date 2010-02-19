@@ -1,6 +1,9 @@
 // BEGIN TIMELINE NAMESPACE
 
-
+var shortenUrl = function (x){
+	if(x.length>40) return x.substr(0,40)+"...";
+	return x;			
+};
 
 var timeline = {
 	gap_threshold:.15,
@@ -375,11 +378,19 @@ $(function() {
 	});
 	
 	
-	function show_meta() {
+	function show_meta(url) {
 		if(!timeline.show_meta) {
 			return;
 		}
-		
+		url = typeof(url) != 'undefined' ? url : "nope";
+		if(url != "nope")
+		{
+			url = $.trim(url);
+			$(".meta #fullLink").html('<b><a href="'+url+'">'+shortenUrl(url)+'</a></b>');
+			$("#searchURL").attr("value",url);
+			$('.meta #searchLink').click(function() { $('#searchURLForm').submit();			});
+			//$(".meta #startLink").html('<a href="/trails/create?urls=' + escape(url) + '">Start new timeline from here</a>');
+		}
 		$(".meta").show();
 		$(".meta_callout").show();
 	}
@@ -421,6 +432,7 @@ $(function() {
 		
 		var headline = "";
 		var source = "";
+		var url = "";
 		
 		if($(parent).is(".cluster")) {
 			source = "Multiple Sources";
@@ -428,7 +440,8 @@ $(function() {
 			
 		} else {
 			headline = $(parent).children(".info").children(".headline").text();
-			source = $(parent).children(".info").children(".source").text();			
+			source = $(parent).children(".info").children(".source").text();
+			url = $(parent).children(".info").children(".url").text();
 		}
 		
 		$(".meta .headline").html(headline);
@@ -437,7 +450,7 @@ $(function() {
 		$(".meta").css("top", 0);
 		$(".meta").css("top", 0 - $(".meta").outerHeight() - 5);
 		
-		show_meta();
+		show_meta(url);
 		
 		if(left > (timeline_width) / 2) {
 			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
