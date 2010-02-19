@@ -243,9 +243,10 @@ var timeline = {
 				
 				
 				
-				//$(event).animate({ left: left }, this.duration, "easeOutBounce");
+				//$(event).animate({ left: left }, this.duration + 100 * 2, "easeOutBounce");
 				//$(event).animate({ left: left }, this.duration, "easeOutQuad");
-				//$(event).animate({ left: left }, this.duration, "easeOutElastic");
+				//$(event).animate({ left: left }, this.duration * 2, "easeOutElastic");
+				
 				$(event).animate({ left: left }, this.duration, "easeOutCirc");
 
 				left += event_width;				
