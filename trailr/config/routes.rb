@@ -51,7 +51,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'show/:id', :controller => "trails", :action => "show"
   
   #map.connect ':id', :controller => "trails", :action => "show"
-  
+
+  map.connect 'api/:action.:format', :controller => "api"
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
