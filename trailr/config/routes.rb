@@ -47,12 +47,13 @@ ActionController::Routing::Routes.draw do |map|
   
   
   map.connect 'create', :controller => "trails", :action => "new"
+  map.connect 'fullscreen/:id', :controller => "trails", :action => "fullscreen"
   map.connect 'embed/:id', :controller => "trails", :action => "embed"
   map.connect 'show/:id', :controller => "trails", :action => "show"
   
   #map.connect ':id', :controller => "trails", :action => "show"
 
-  map.connect 'api/:action.:format', :controller => "api"
+  map.connect 'api/:action/:query', :controller => "api"
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

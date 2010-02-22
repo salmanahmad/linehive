@@ -1,0 +1,95 @@
+#page
+{
+	border:0px;
+	display: block; border: none; 
+	margin:0px;
+	min-width:100%;
+	width:100%;
+	
+}
+html, body, div, #page {margin: 0px; padding: 0px; height: 100%; border: none;} 
+
+#timeline
+{
+	width:900px;
+	height:315px; 
+	background-color:white;
+	position:fixed;
+	top:0px;
+	z-index:9999;
+	left:50%;
+	margin-left: -450px;
+	display:none;
+	-moz-border-radius-bottomleft: 15px; -webkit-border-bottom-left-radius: 15px; border: 1px solid #000; border-top:0px;
+	-moz-border-radius-bottomright: 15px; -webkit-border-bottom-right-radius: 15px; border: 1px solid #000; border-top:0px;
+}
+#timeline #Bcontrols
+{
+	position:absolute;
+	bottom:0px;
+	width:350px;
+	height:30px;
+	left:50%;
+	margin-left:-175px;
+}
+#timeline #Bcontrols #prev { float:left;}
+#timeline #Bcontrols #next { float:right; }
+
+#timeline #Rcontrols
+{
+	position:absolute;
+	right:0px;
+	width:60px;
+	height:270px;
+	top:50%;
+	margin-top:-135px;
+	font-family: Sans-serif;
+	font-size: 10px;
+}
+#timeline #Rcontrols #prev { vertical-align:bottom;}
+#timeline #Rcontrols #next { vertical-align:top; }
+
+.timelineIndicator
+{
+	font-family: Sans-serif;
+	font-size: 10px;
+	background-color:white;
+	padding: 3px;
+	width:350px; 
+	height:24px; 
+	position:fixed; 
+	z-index:9998;
+	top:0px; 
+	left:50%; 
+	margin-left:-175px; 
+	-moz-border-radius-bottomleft: 15px; -webkit-border-bottom-left-radius: 15px; border: 1px solid #000; border-top:0px;
+	-moz-border-radius-bottomright: 15px; -webkit-border-bottom-right-radius: 15px; border: 1px solid #000; border-top:0px;
+	 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffcc), color-stop(0.5, #ffcc00), color-stop(0.5, #ffcc00), to(#ffcc33));
+        
+}
+#timeline .timelineIndicator
+{
+	position:relative;
+	margin-top:15px;
+}
+.timelineIndicator img
+{
+	float:left;
+	margin-top:3px;
+}
+.timelineIndicator p
+{
+	float:left;
+	margin:0;
+	overflow:hidden;
+	padding-left:3px;
+}
+.timelineIndicator a
+{
+	margin-right:14px;
+	color: #0099ff;
+	letter-spacing:.095em;
+	font-weight:normal;
+	text-decoration:none;
+	border-bottom:1px dotted #0099ff;
+}

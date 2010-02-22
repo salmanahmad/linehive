@@ -107,6 +107,16 @@ class TrailsController < ApplicationController
   
   
   
+  def fullscreen
+	
+	@trail = Trail.find(params[:id])
+    
+    @articles = @trail.articles_json
+
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
   
   def create
     
