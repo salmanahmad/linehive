@@ -75,7 +75,7 @@
 							<%# link_to image_tag("logo3.png", :border=>0), :controller => 'home', :action => 'index' %>
 							<%# link_to image_tag("logo4.png", :border=>0, :height => 45), :controller => 'home', :action => 'index' %>
 							<%= link_to image_tag("logo5.png", :border=>0, :height => 30), :controller => 'home', :action => 'index' %>
-							<!-->
+							<!--
 							<span style="position:absolute;top:40px;/*left:7px;*/left:18px;font-size:11px">
 								Everybody is a storyteller	
 							</span>
@@ -115,6 +115,7 @@
 									<li class="first">
 										<%# Previously, this was a link_to %>
 										<%= button_to "Sign In / Join", {:controller => "user", :action => "signon"}, {:class => "trail_button"} %>
+										<%# link_to "Sign In / Join", {:controller => "user", :action => "signon"} %>
 									</li>
 								<% end %>
 								

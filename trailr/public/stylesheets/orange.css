@@ -6,7 +6,8 @@ body {
 }
 
 #header {
-	background-image:url("../images/header_background.png");	
+	background-image:url("../images/header_background.png");
+	background-color:#f8bd29;
 }
 
 #footer {
@@ -28,17 +29,28 @@ h2 {
 
 #top_links {
 	background-color:transparent;
+	padding:0px;
 }
 
 #top_links ul li {
 	border:none;
+	padding:0px 10px;
 	padding:0px;
 	
 	
 }
 
+#top_links ul li a {
+	color:rgb(0, 129, 199);
+	font-weight:bold;
+	position:relative;
+	top:12px;
+}
+
 #top_links ul {
 	top:5px;
+	padding:0px;
+	padding-right:3px;
 }
 
 
