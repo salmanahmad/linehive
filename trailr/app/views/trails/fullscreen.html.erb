@@ -1,4 +1,8 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <head>
+	<meta http-equiv="x-ua-compatible" content="IE=8">
 	<title>LineHive: <%= @trail.caption %></title>
 	<%= stylesheet_link_tag "embed" %>			
 	<%= stylesheet_link_tag "timeline" %>		
@@ -23,6 +27,8 @@
 		
 		current_articles = <%= @articles.to_json %>;
 		current_article_num = 1;
+		
+		<%= url_for :controller, :only_path => false %>
 		
 		$.getJSON('http://localhost:3000/api/url?query='+escape(current_articles[0]['url']), function(data) {
 			numlinks = eval(data);
