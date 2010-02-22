@@ -1,5 +1,10 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
 <html>
 	<head>
+		<meta http-equiv="x-ua-compatible" content="IE=8">
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title><%= yield :title %></title>
 		
@@ -22,7 +27,7 @@
 						cleared = true;
 					}
 				});
-				
+				/*
 				if(!($.browser.webkit || $.browser.mozilla)) {
 					$(".browser_check").show();
 				}
@@ -30,6 +35,9 @@
 				$("#close_browser_check").click(function() {
 					$(".browser_check").hide();
 				});
+				*/
+				
+				
 			});
 		</script>
 				
@@ -78,12 +86,12 @@
 
 							<div id="search">
 								<% form_tag({:controller => "search", :action => "results" })  do %>
-									<input type="text" name="query" value="<%= params[:query] ||= "Search..." %>" id="search_box" />
 									<input type="submit" name="search_button" value="" id="search_button">
+									<input type="text" name="query" value="<%= params[:query] ||= "Search..." %>" id="search_box" />
 								<% end %>
 							</div>
 
-							<ul
+							<ul>
 								
 								<% if current_user %>
 									<li class="first">
@@ -104,7 +112,7 @@
 								<li id="create_timeline_link">
 									<%= link_to "Create New Timeline", :controller => "trails", :action => "new" %>
 								</li>
-								
+																
 							</ul>
 							<div class="clear"></div>
 							
