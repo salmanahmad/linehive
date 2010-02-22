@@ -40,6 +40,11 @@ h2 {
 	
 }
 
+#top_links ul li.first {
+	padding:0px;
+}
+
+
 #top_links ul li a {
 	color:rgb(0, 129, 199);
 	font-weight:bold;

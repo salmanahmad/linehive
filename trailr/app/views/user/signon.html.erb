@@ -12,72 +12,73 @@
 	<div class="right">
 		
 		<% form_tag :controller => :user, :action => :process_create do %>
-			<fieldset>
-				<legend>Create an Account</legend>					
-					<p>
-						<label>Username</label>
-						<%= text_field :user, :handle %>
-						<span class="clear"></span>
+			<h2>Create an Account</h2>
+			<div class="account_form" style="border:1px solid #ccc">
+				
+					<p class="row">
+						<label class="label">Username</label>
+						<%= text_field :user, :handle , {:class => "content" } %>
+						<br>
 					</p>
 					
-					<p>
-						<label>Email Address</label>
-						<%= text_field :user, :email %>
-						<span class="clear"></span>
+					<p class="row">
+						<label class="label">Email Address</label>
+						<%= text_field :user, :email, {:class => "content"} %>
+						<br>
 					</p>
 
-					<p>
-						<label>Password</label>
-						<%= password_field :user, :password %>
-						<span class="clear"></span>
-						
+					<p class="row">
+						<label class="label">Password</label>
+						<%= password_field :user, :password, {:class => "content"} %>
+						<br>
 					</p>
 					
-					<p>
-						<label>Confirm Password</label>
-						<%= password_field_tag "confirm_password", nil, :size => 30 %>			
-						<span class="clear"></span>
+					<p class="row">
+						<label class="label">Confirm Password</label>
+						<%= password_field_tag "confirm_password", nil, :size => 30, :class => "content" %>			
+						<br>
 					</p>
-
-					<p>
+					
+					<p class="row" style="text-align:center;">
 						<%= submit_tag "Create", :class => "trail_button" %>
+						<br>
 					</p>
-			</fieldset>
+					
+						
+						
+
+			
+			</div>
 		<% end %>
 	
 	
 	</div>
 	<div class="left">
 		<% form_tag :controller => :user, :action => :process_signon do %>
-			<fieldset>
-				<legend>Login with account</legend>
-					<p>
-						<label>Email</label>
-						<%= text_field :user, :email %>
-						<span class="clear"></span>
+			<h2>Login with account</h2>
+			<div class="account_form" style="border:1px solid #ccc">
+					<p class="row">
+						<label class="label">Email</label>
+						<%= text_field :user, :email, :class => "content" %>
+						<br>
 					</p>
 					
-					<p>
-						<label>Password</label>
-						<%= password_field :user, :password %>
-						<span class="clear"></span>
-						
+					<p class="row">
+						<label class="label">Password</label>
+						<%= password_field :user, :password, :class => "content" %>
+						<br>
 					</p>
-					<div class="clear"></div>
-					<p>
+
+					<p class="row" style="text-align:center;">
 						<%= submit_tag "Login", :class => "trail_button" %>
+						<br>
 					</p>
-			</fieldset>
+			</div>
 		<% end %>
 		
-		<form>
-			<div style="text-align:center;padding:35px">
-				<h2>Don't have an account?</h2>
-				<h3>Create one. It's easy! &raquo;</h3>
-			</div>
-		</form>
 		
 	</div>
-	
-	<div class="clear"></div>
+
+
+	<div class="clear space_20"></div>
 </div>

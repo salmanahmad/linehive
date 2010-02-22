@@ -73,9 +73,11 @@ class UserController < ApplicationController
   
     
   def process_edit
+=begin    
     @user = User.find(current_user)
     @user.update_attributes(params[:user])
 	  flash[:notice] = 'Congrats! Your account has been updated.'
+=end	  
   end
   
 end
