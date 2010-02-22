@@ -25,17 +25,25 @@ html, body, div, #page {margin: 0px; padding: 0px; height: 100%; border: none;}
 	width:900px;
 }
 
-#timelinediv
+#timelinedivcon
 {
 	width:900px;
-	height:315px; 
-	background-color:white;
-	position:fixed;
+	height:330px; 
+	
 	top:0px;
 	z-index:9999;
 	left:50%;
 	margin-left: -450px;
-	display:none;
+	display:block;
+	position:fixed;
+}
+#timelinediv
+{
+	height:315px; 
+	position:fixed;
+	width:900px;
+	top:0px;
+	background-color:white;
 	-moz-border-radius-bottomleft: 15px; -webkit-border-bottom-left-radius: 15px; border: 1px solid #000; border-top:0px;
 	-moz-border-radius-bottomright: 15px; -webkit-border-bottom-right-radius: 15px; border: 1px solid #000; border-top:0px;
 }
