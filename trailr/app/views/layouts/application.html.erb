@@ -11,6 +11,8 @@
 		<%= stylesheet_link_tag "global.css" %>	
 		<%= stylesheet_link_tag "layout.css" %>	
 		<%= yield :stylesheets %>
+		<%= stylesheet_link_tag "orange.css" %>	
+
 		
 		<%= default_javascript %>
 		<%= yield :javascripts %>
@@ -69,13 +71,15 @@
 					
 						<div id="logo">
 							<%# link_to image_tag("logo.png", :border=>0), :controller => 'home', :action => 'index' %>
-							<%# link_to image_tag("logo2.png", :border=>0), :controller => 'home', :action => 'index' %>							
-							<%# link_to image_tag("logo3.png", :border=>0), :controller => 'home', :action => 'index' %>							
-							<%= link_to image_tag("logo4.png", :border=>0, :height => 45), :controller => 'home', :action => 'index' %>								
+							<%# link_to image_tag("logo2.png", :border=>0), :controller => 'home', :action => 'index' %>
+							<%# link_to image_tag("logo3.png", :border=>0), :controller => 'home', :action => 'index' %>
+							<%# link_to image_tag("logo4.png", :border=>0, :height => 45), :controller => 'home', :action => 'index' %>
+							<%= link_to image_tag("logo5.png", :border=>0, :height => 30), :controller => 'home', :action => 'index' %>
+							<!-->
 							<span style="position:absolute;top:40px;/*left:7px;*/left:18px;font-size:11px">
 								Everybody is a storyteller	
 							</span>
-							
+							-->
 						</div>
 			
 						<%# link_to "Recent Timelines", :controller => "user", :action => "account" %>
@@ -94,23 +98,29 @@
 							<ul>
 								
 								<% if current_user %>
+									<!-- REMOVE THIS FOR THE NEW THEME
 									<li class="first">
 										Hi, <%= current_username %>
 									</li>
+									-->
 									<li>	
-										<%= link_to "Account", :controller => "user", :action => "account" %>
+										<%# link_to "Account", :controller => "user", :action => "account" %>
+										<%= button_to "Account", {:controller => "user", :action => "account"}, {:class => "trail_button"} %>
 									</li>
 									<li>
-										<%= link_to "Sign Out", :controller => "user", :action => "signout" %>
+										<%# link_to "Sign Out", :controller => "user", :action => "signout" %>
+										<%= button_to "Sign Out", {:controller => "user", :action => "signout"}, {:class => "trail_button"} %>
 									</li>
 								<% else %>
 									<li class="first">
-										<%= link_to "Sign In / Join", :controller => "user", :action => "signon" %>
+										<%# Previously, this was a link_to %>
+										<%= button_to "Sign In / Join", {:controller => "user", :action => "signon"}, {:class => "trail_button"} %>
 									</li>
 								<% end %>
 								
 								<li id="create_timeline_link">
-									<%= link_to "Create New Timeline", :controller => "trails", :action => "new" %>
+									<%# Previously, this was a link_to %>
+									<%= button_to "Create Timeline", {:controller => "trails", :action => "new"}, {:class => "trail_button"} %>
 								</li>
 																
 							</ul>
@@ -121,8 +131,18 @@
 						</div>
 						
 						
-						
 			</div>
+
+			<div id="color_bar">
+				<div id="color_bar_wrapper">
+					<div class="color" style="float:left;width:25%;background-color:#f8bd29">&nbsp;</div>
+					<div class="color" style="float:left;width:25%;background-color:#e05d4c">&nbsp;</div>
+					<div class="color" style="float:left;width:25%;background-color:#02a1ea">&nbsp;</div>
+					<div class="color" style="float:left;width:25%;background-color:#fc3f8d">&nbsp;</div>
+				</div>
+
+			</div>
+
 		</div>
 		
 		

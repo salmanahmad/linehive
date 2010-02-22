@@ -5,8 +5,16 @@
 	<head>
 	<meta http-equiv="x-ua-compatible" content="IE=8">
 		
-	<%= stylesheet_link_tag "embed" %>			
 	<%= stylesheet_link_tag "timeline" %>			
+
+	<%= stylesheet_link_tag "embed" %>			
+	<%= stylesheet_link_tag "orange" %>
+
+	<style type="text/css" media="screen">
+		body {
+			background-color:white;
+		}
+	</style>
 
 	<%= default_javascript %>
 
@@ -24,7 +32,7 @@
 		}
 
 		$(function() {
-			$("#caption").autoEllipsis();
+			$("#caption a").autoEllipsis();
 			timeline.show_meta = false;
 			timeline.init(<%= @articles.to_json %>);
 		
@@ -49,7 +57,7 @@
 	
 
 		<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
-		<a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><h3 id="caption"><%= @trail.caption %></h3></a>
+		<h3 id="caption"><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></h3>
 		<div style="">
 
 		<%= render :partial => "timeline", :locals => { :noedit => true } %>

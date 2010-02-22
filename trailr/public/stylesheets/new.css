@@ -99,6 +99,9 @@
 
 .round_box {
 	
+	position:relative;
+	top:2px;
+	
 	padding:10px;
 	
 	-moz-border-radius:5px;

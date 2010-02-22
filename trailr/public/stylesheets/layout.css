@@ -9,7 +9,8 @@
 #header {
 	
 	background-color:#222222;
-	height:100px;
+	height:100px;	
+	position:relative;
 	
 }
 
@@ -39,6 +40,11 @@
 	background-repeat:no-repeat;
 	color:white;
 	text-align:right;
+	
+	
+	/* NEW THEME */
+	top:35px;
+	
 }
 
 #top_links {
@@ -125,7 +131,7 @@
 		
 	float:right;
 
-	width:200px;
+	width:150px;
 	height:17px;
 	padding:3px;
 	font-size:13px;
@@ -142,6 +148,7 @@
 	height:200px;
 	background-color:#222222;
 	color:white;
+	
 }
 
 #footer_wrapper {

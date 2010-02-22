@@ -14,6 +14,12 @@ h3#caption {
 	width:100%;
 }
 
+h3#caption a {
+
+	height:inherit;
+	display:block;
+}
+
 #logo {
 	position:fixed;
 	right:0px;
@@ -21,12 +27,12 @@ h3#caption {
 	background-color:white;
 }
 
-a h3 {
+/*h3 a {
 	color:#454545;
 	color:black;
 	
 }
-
+*/
 a {
 	color:#454545;
 	color:black;
