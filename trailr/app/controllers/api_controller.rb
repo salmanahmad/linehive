@@ -30,14 +30,17 @@ class ApiController < ApplicationController
 		format = params[:format]
 	end
 	escaped_url =  params[:query].gsub ('\\', '\\\\').gsub ('%', '\%').gsub ('_', '\_')
-	@urls = Article.find(:all, :conditions => [ "url like ?" , "%#{escaped_url}%" ] )
+	@articles = Article.find(:all, :conditions => [ "url like ?" , "%#{params[:query]}%" ] )
+	@trails = Array.new
+	for @a in @articles
+		@trails << Trail.find(:first, :conditions => ["id=?", @a.trail_id]);
+	end
+#render :text => "#{params[:query]} #{escaped_url}"
 	
-	#render :text => "#{params[:query]} #{escaped_url}"
-	
-	respond_to do |format|
-      format.json
-	  format.xml
-    end
+    respond_to do |format|
+		format.json
+		format.xml
+	end
   end
   
   def line
