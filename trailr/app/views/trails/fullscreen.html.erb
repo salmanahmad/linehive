@@ -1,53 +1,91 @@
 <head>
-	<title>LineHive: what up</title>
+	<title>LineHive: <%= @trail.caption %></title>
+	<%= stylesheet_link_tag "embed" %>			
+	<%= stylesheet_link_tag "timeline" %>		
 	<%= default_javascript %>
+	<%= javascript_include_tag "timeline.js" %>
+	<%= javascript_include_tag "jquery.autoellipsis.js" %>
+	<%= javascript_include_tag "jquery.create.js" %>
+	<%= javascript_include_tag "jquery.easing.1.3.js" %>
+	<%= javascript_include_tag "jquery.mousewheel.js" %>
 	<%= stylesheet_link_tag "fullscreen" %>
+<script type="text/javascript" charset="utf-8">
+
+	meta_show_callback = function () {
+		$(".meta .headline").autoEllipsis();
+	}
+
+	$(function() {
+		$("#caption").autoEllipsis();
+		timeline.show_meta = false;
+		timeline.init(<%= @articles.to_json %>);
+	});
+	
+	current_articles = <%= @articles.to_json %>;
+	current_article_num = 1;
+	$.getJSON('http://localhost:3000/api/url?query='+escape('<%= articles[0]['url'] %>'), function(data) {
+	num_links = eval(data);
+	});
+</script>
+	
 </head>
 
 
-<div id="timeline">
-	<iframe frameborder="0" width="900" height="300" src="http://linehive.com/embed/79"></iframe> 
+<div id="timelinediv">
+	<div id="actions">
+		
+	</div>
+	<div style="width:900px; width:900px;
+	height:200px;
+	position:absolute;
+	top:30px;" width="900">
+	<%= render :partial => "timeline", :locals => { :noedit => true } %>
+	</div>
+	
 	<div id="Bcontrols">
-		<img id="prev" src="/images/fullscreen/left.png">
-		<img id="next" src="/images/fullscreen/right.png">
+		<img id="prevE" src="/images/fullscreen/left.png">
+		<img id="nextE" src="/images/fullscreen/right.png">
 	</div>
 	<div id="Rcontrols">
-		<div id="prev" >Prev. line</div>
-		<div id="next" >Next line</div>
+		<div id="prevL" >Prev. line</div>
+		<div id="nextL" >Next line</div>
 	</div>
 	<div class="timelineIndicator" style=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC">
-<p><b>LineHive</b>: <i>Plane crash in East Palo Alto causes power outage</i>...<br>
-<a>10 related lines</a> <a href="#" id="close">close</a></p>
+<p><b>LineHive</b>: <i><%= @trail.caption %></i>...<br>
+<a id="currentLink">10 related lines</a> <a href="#" id="close">close</a></p>
 	</div>
 </div>
 	
 <div class="timelineIndicator" style="">
 	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC">
-	<p><b>LineHive</b>: <i>Plane crash in East Palo Alto causes power outage</i>...<br>
-	<a>10 related lines</a> <a href="#" id="close">close</a></p>
+	<p><b>LineHive</b>: <i><%= @trail.caption %></i>...<br>
+	<a id="currentLink">10 related lines</a> <a href="#" id="close">close</a></p>
 </div>
 
 <div id="source">
-	<iframe frameborder="0" id="page" name="page" src="http://linehive.com/">
+	<iframe frameborder="0" id="page" name="page" src="<%= @articles[0]['url']%>">
 	</iframe>
 </div>
 <script>
 	$(document).ready(function() {
 		$(".timelineIndicator").mouseenter(function(){
 			//$('#timeline').show();
-			$('#timeline').slideDown("slow");
+			$('#timelinediv').slideDown("slow");
 			//$("#timelineIndicator").css({"top":315});
 		});
 	$("#source").mouseenter(function(){
-			$('#timeline').hide();
+			$('#timelinediv').hide();
 			$("#timelineIndicator").css({"top":0});
 		});
 	
 	$("#close").click(function(){
-			$('#timeline').hide();
+			$('#timelinediv').hide();
 			$('#timelineIndicator').hide();
 		});
 	});
+	$("#nextE").click(function(){
+	$('#page').attr("src",current_articles[current_article_num].url);
+		current_article_num++;
+		
+	});
 </script>
-<div class="space_20"></div>
-
