@@ -1,0 +1,133 @@
+#page
+{
+	border:0px;
+	display: block; border: none; 
+	margin:0px;
+	min-width:100%;
+	width:100%;
+	
+}
+html, body, #page {margin: 0px; padding: 0px; height: 100%; border: none;} 
+
+#timeline
+{
+	width:850px;
+	height:200px;
+	position:absolute;
+	top:10px;
+	margin-left:25px;
+}
+
+#timelinedivcon
+{
+	width:900px;
+	height:275px; 
+	top:0px;
+	z-index:9999;
+	left:50%;
+	margin-left: -450px;
+	display:block;
+	position:fixed;
+}
+#timelinediv
+{
+	height:250px;
+	position:fixed;
+	width:900px;
+	top:0px;
+	background-color:white;
+	-moz-border-radius-bottomleft: 15px; -webkit-border-bottom-left-radius: 15px; border: 1px solid #000; border-top:0px;
+	-moz-border-radius-bottomright: 15px; -webkit-border-bottom-right-radius: 15px; border: 1px solid #000; border-top:0px;
+}
+#timelinediv #close
+{
+	right:12px;float:right;
+	margin-top:235px;
+	font-family: Sans-serif; font-size: 10px;
+}
+#timelineHeadCon
+{
+	font-family: Sans-serif;
+	font-size: 10px;
+	padding: 3px;
+	padding-left: 0px;
+	padding-right:0px;
+	width:900px;
+	height:30px; 
+	position:fixed; 
+	top:0px; 
+	left:50%; 
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	margin-left:-450px; 
+	background-color:#ffffcc;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffcc), color-stop(0.5, #ffcc00), color-stop(0.5, #ffcc00), to(#ffcc33));
+}
+#timelineHead
+{
+	float:left;
+	margin-top:3px;
+	margin-left:-150px;
+	position:fixed;
+	font-size: 14px;
+}
+#timelineHead img
+{
+	float:left;
+	margin-top:3px;
+}
+#timelineHead p
+{
+	float:left;
+	margin-top:4px;
+	overflow:hidden;
+	padding-left:3px;
+}
+
+#timelineHead #Tcontrols
+{
+	position:absolute;
+	top:0px;
+	width:900px;
+	height:30px;
+	left:50%;
+	margin-left:-450px;
+}
+#timelinediv #Tcontrols #prevL { cursor:pointer; float:left; margin-top:8px; margin-left:5px; text-align: left;}
+#timelinediv #Tcontrols #prevE { cursor:pointer; float:left; margin-top:8px; margin-left:50px; }
+#timelinediv #Tcontrols #nextE { cursor:pointer; float:right; margin-top:8px; margin-right:50px; }
+#timelinediv #Tcontrols #nextL { cursor:pointer; float:right; margin-top:8px; margin-right:5px; text-align: right;}
+
+.timelineIndicator
+{
+	font-family: Sans-serif;
+	font-size: 10px;
+	background-color:white;
+	padding: 3px;
+	width:150px; 
+	height:10px; 
+	position:fixed; 
+	z-index:9998;
+	top:0px; 
+	left:50%; 
+	margin-left:-50px; 
+	-moz-border-radius-bottomleft: 15px; -webkit-border-bottom-left-radius: 15px; border: 1px solid #000; border-top:0px;
+	-moz-border-radius-bottomright: 15px; -webkit-border-bottom-right-radius: 15px; border: 1px solid #000; border-top:0px;
+	 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffcc), color-stop(0.5, #ffcc00), color-stop(0.5, #ffcc00), to(#ffcc33));
+}
+.timelineIndicator p
+{
+	float:left;
+	margin:0;
+	overflow:hidden;
+	padding-left:6px;
+}
+.timelineIndicator a
+{
+	margin-left:8px;
+	color: #0099ff;
+	letter-spacing:.095em;
+	font-weight:normal;
+	text-decoration:none;
+	border-bottom:1px dotted #0099ff;
+}
