@@ -55,6 +55,7 @@
 		console.log(text);
 		$("#loader").show();
 		
+		$("#urls").val("");
 		
 		jQuery.ajax({
         type: "POST",
@@ -78,7 +79,6 @@
         }    
     });
     
-		$("#urls").text("");
 		
 	}
 	

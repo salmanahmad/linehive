@@ -265,6 +265,9 @@
 	height:100%;
 	width:95%;
 	text-align:center;
+	font-family:Helvetica, Arial, Sans-Serif;
+	font-size:11px;
+	
 	resize:none;
 }
 
