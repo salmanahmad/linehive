@@ -221,3 +221,22 @@
 	
 }
 
+#linehive_description {
+	margin-top:30px;
+	margin-bottom:30px;	
+}
+
+#linehive_description * {
+	text-align:center;
+	margin:0px;
+}
+
+#linehive_description h3 {
+	font-size:18px;
+	color:#534741;
+}
+
+#linehive_description h2 {
+	font-size:25px;
+	color:#959595;
+}
