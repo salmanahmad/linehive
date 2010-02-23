@@ -30,21 +30,12 @@
 	clear:both;
 }
 
+
+/* Moved to layout.css since it is now global..essentially...
 .trail_button {
 	
-	font-size:13px;
-	color:#222222;
-	font-family: "Helvetica", Arial, sans-serif;
-	font-weight:bold;
-	
-	background-color:transparent;
-	background-image:url("../images/button_background_up.png");
-	width:118px;
-	height:36px;
-	border:none;
 	
 }
-
 
 .large_label {
 	color:#888;
