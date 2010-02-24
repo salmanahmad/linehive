@@ -265,8 +265,8 @@ var timeline = {
 						var gap = '<div class="gap"></div>'
 
 						$(".events").append(gap);
-						$(".gap:last").animate({ left: left }, this.duration, "easeOutCirc");
-						left += 15;						
+						$(".gap:last").animate({ left: (left - 4) }, this.duration, "easeOutCirc");
+						//left += 15;						
 					}
 					
 

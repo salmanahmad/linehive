@@ -67,10 +67,10 @@
 #timeline .gap {
 	background-color:#F5F5F5;
 	/*background-color:red;*/
-	height:13px;
-	width:11px;
+	height:9px;
+	width:6px;
 	position:absolute;
-	bottom:100px;
+	bottom:102px;
 	z-index:1;
 	
 	border-left:2px solid black;
