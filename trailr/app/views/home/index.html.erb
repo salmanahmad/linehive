@@ -29,8 +29,22 @@
 	<div class="small_columns">
 		<div class="maincol">
 			
-			<% examples = [79, 75, 53, 56, 54, 52, 51, 77, 55] %>
 			
+			http://linehive.com/show/79 - plane crash
+			http://linehive.com/show/53 - female president
+			http://linehive.com/show/75 - snowboarding
+			http://linehive.com/show/90 - madonna concert tours
+			http://linehive.com/show/56 - google china (i wanted to edit headline
+			but website doesn't work)
+			http://linehive.com/show/84 - martha
+			http://linehive.com/show/54 - snowmageddon
+			http://linehive.com/show/88 - travolta
+			http://linehive.com/show/89 - h1n1
+			
+			
+			<%# examples = [79, 75, 53, 56, 54, 52, 51, 77, 55] %>
+			<%= examples = [79, 53, 75, 90, 56, 84, 54, 88, 89 ] %>
+						
 			<% for example in examples do %>
 				<div style="float:left;width:900px;height:300px;border:0px solid #808080"> 
 					<iframe frameborder="0" width="900" height="300" src="<%= url_for :controller => "trails", :action => "embed", :id => example %>"></iframe> 
