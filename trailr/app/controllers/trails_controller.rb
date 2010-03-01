@@ -66,7 +66,10 @@ class TrailsController < ApplicationController
     
     for article in @articles do
       hash = parse_url(article["url"]);
-      article[:pictures] = hash[:pictures];
+      if hash
+        article[:pictures] = hash[:pictures];  
+      end
+      
     end
     
     
