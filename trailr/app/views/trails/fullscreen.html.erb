@@ -28,11 +28,14 @@
 		current_articles = <%= @articles.to_json %>;
 		current_article_num = 1;
 		
-		<%= url_for :controller, :only_path => false %>
+		/*(encodeURIComponent(current_articles[0]['url']));
+		*/
 		
-		$.getJSON('http://localhost:3000/api/url?query='+escape(current_articles[0]['url']), function(data) {
+		$.getJSON('<%= url_for :controller => "api", :action => "url" #:only_path => false 
+		%>?query='+encodeURIComponent(current_articles[0]['url']), function(data) {
 			numlinks = eval(data);
 			$("#currentLink").html(numlinks.length+" lines");
+			
 		});
 		
 	</script>

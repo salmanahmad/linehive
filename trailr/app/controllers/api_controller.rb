@@ -35,6 +35,7 @@ class ApiController < ApplicationController
 	for @a in @articles
 		@trails << Trail.find(:first, :conditions => ["id=?", @a.trail_id]);
 	end
+	
 #render :text => "#{params[:query]} #{escaped_url}"
 	
     respond_to do |format|
@@ -43,7 +44,7 @@ class ApiController < ApplicationController
 	end
   end
   
-  def line
+  def search
 	if ! params[:format]
 		format = "json"
 		params[:format] = "json"
@@ -54,12 +55,25 @@ class ApiController < ApplicationController
 	@urls = Article.find(:all, :conditions => [ "url like ?" , "%#{q}%" ] )
 	@trails = @urls.trails
 	@trails.push(Trail.find(:all, :conditions => [ "caption like ?", "%#{q}%"] ))
-	
 	respond_to do |format|
       format.xml
       format.json
     end
-	
+  end
+  
+  def line
+	if ! params[:format]
+		format = "json"
+		params[:format] = "json"
+	else
+		format = params[:format]
+	end
+	@articles = Article.find(:all, :conditions => params[:query] )
+	#render :text => "#{params[:query]} #{@articles.to_json}"
+	respond_to do |format|
+      format.xml
+      format.json
+    end
   end
 
 end

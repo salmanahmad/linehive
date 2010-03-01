@@ -65,6 +65,8 @@ jetpack.statusBar.append({
 		})
 		$("#add",doc).click(function (doc) {			
 			jetpack.notifications.show("Added: "+jetpack.tabs.focused.contentWindow.location);
+			var hr = document.createElementNS("http://www.w3.org/1999/xhtml", "hr");
+			$("body",document).appendChild(hr);
 		})
 		$("#create",doc).click(function (doc) {			
 			jetpack.notifications.show("Open new page");
