@@ -51,6 +51,24 @@ class TrailsController < ApplicationController
   end
   
   
+  def clone
+    
+    @trail = Trail.find(params[:id])
+    @articles = @trail.articles_json
+    
+    for article in @articles do
+      hash = parse_url(article["url"]);
+      if hash
+        article[:pictures] = hash[:pictures];  
+      end
+      
+    end
+    
+    render :action => "new"
+    
+  end
+  
+  
   
   def edit
     
