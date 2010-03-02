@@ -6,7 +6,10 @@ class UserController < ApplicationController
   def account
   	if current_user
   		@user = User.find(current_user)
-  		@trails = @user.trails
+  		@trails = @user.published_trails
+  		@drafts = @user.drafts
+  		
+  		puts @drafts
 		
   		#@recent_trails = session[:trails];
   		#if(@recent_trails.nil?) 

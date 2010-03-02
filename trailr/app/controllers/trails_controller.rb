@@ -22,8 +22,14 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
+    
+    if(@trail.draft) then
+      redirect_to :controller => "home", :action => "index"
+      return;
+    end
+    
     @articles = @trail.articles_json
-
+    
 
     update_viewcount(params[:id])
 

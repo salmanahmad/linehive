@@ -10,71 +10,67 @@
 <% end %>
 
 
-<div class="account" style="overflow:hidden;">	
+<%# form_tag :controller => :user, :action => :process_edit do %>
+	
+<div class="account_info">
+		
+		<div class="two_columns">
+			
+			<div class="left">
+				<h2>Username:</h2>	
+				<b><%= @user.handle %></b>
+			</div>
+			
+			<div class="right">
+				<h2>Email:</h2>
+				<b><%= @user.email %></b>
+			</div>
+			
+		</div>
 
-	<div class="right" style="margin-bottom:-2000px;padding-bottom:2000px;height=200px">
-		<h2>Most Recent Timelines</h2>
 
+	
+</div>		
+	
+		
+<%# end %>
+
+
+
+
+
+<div class="equal_columns">	
+	<div class="left" >
+		<h2>Published Timelines</h2>
 		<ul>		
-		<% for @trail in @trails %>
-			<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
-			<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
-		<% end %>
+			<% for @trail in @trails %>
+				<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
+				<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
+			<% end %>
 		</ul>
-
-		<% if @trails.count == 0 %>
+		<% if @trails.size == 0 %>
 			<p>You have not created any timelines yet. Start one <%= link_to "here", :controller => 'trails', :action => 'new' %>.</p>
 		<% end %>
+	</div>
 
+	<div class="right">
+		<h2>Timeline Drafts</h2>
+		
+		<ul>		
+			<% for @draft in @drafts %>
+				<% url = url_for :controller => "trails", :action => "show", :id => @draft.id, :only_path => false %>
+				<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @draft.caption ||= "Untitled" %></a></li><br>
+			<% end %>
+		</ul>
+		<% if @drafts.size == 0 %>
+			<p>You do not have any drafts. To save a draft, click the 'Save Draft' button on the create timeline page. Try it out now: <%= link_to "Create Timeline", :controller => 'trails', :action => 'new' %>.</p>
+		<% end %>
+		
+		
+		
 	</div>
 	
-	<% if current_user %>
-	<div class="left">
-		<h2>Account Information</h2>
-		
-		<%# form_tag :controller => :user, :action => :process_edit do %>
-			
-		<div class="account_form" style="border:1px solid #ccc">
-				
-			<p class="row">
-				<label class="label">Username</label>
-				<%= text_field :user, :handle, :class => "content" %>
-				<br>
-			</p>
-
-			<p class="row">
-				<label class="label">Email</label>
-				<%= text_field :user, :email, :class => "content" %>
-				<br>
-			</p>
-			
-			<p class="row">
-				<label class="label">New Password</label>
-				<%= password_field_tag :password, {}, :size => 30, :class => "content" %>
-				<br>
-			</p>
-
-			<p class="row">
-				<label class="label">Repeat Password</label>
-				<%= password_field_tag :password2, {}, :size => 30, :class => "content" %>
-				<br>
-			</p>
-			
-			<p class="row" style="text-align:center;">
-				<%= submit_tag "Save Changes", :class => "trail_button" %>
-				<br>				
-			</p>
-			
-		</div>		
-			
-				
-		<%# end %>
-
-	</div>
-	<% end %>
-	<div class="clear">
-		&nbsp;
-	</div>
+	<div class="clear"></div>
 	
 </div>
 

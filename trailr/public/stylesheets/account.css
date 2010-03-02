@@ -1,17 +1,16 @@
-.account .right {
-	margin-left:20px;
-	float:right;
-	width:440px;
+.account_info {
+	/* TODO:MOVE TO ORANGE.css */
+	border:1px solid #ccc;
+	background-color:rgb(250, 250, 250);
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	padding:10px;
+	text-align:left;
+	margin-bottom:15px;
 }
 
-/*
-.account input {
-	float:right;
-	margin-bottom:25px;
-}
-*/
 
-.account p
-{
-	padding:25px 10px 0px 10px;
+.account_info h2 {
+	display:inline;
+	font-size:14px;
 }
