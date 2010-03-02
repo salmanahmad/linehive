@@ -58,7 +58,7 @@
 		
 		<ul>		
 			<% for @draft in @drafts %>
-				<% url = url_for :controller => "trails", :action => "show", :id => @draft.id, :only_path => false %>
+				<% url = url_for :controller => "trails", :action => "draft", :id => @draft.id, :only_path => false %>
 				<li>
 					<a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank">
 						<% caption = @draft.caption %>
