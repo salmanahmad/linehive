@@ -100,6 +100,7 @@ class TrailsController < ApplicationController
       flash[:notice] = 'Trail was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
+      @show_notifications = false
       flash[:error] = 'Trail could not be created.'
       render :action => 'edit'
     end
@@ -123,7 +124,6 @@ class TrailsController < ApplicationController
   
   def create
     
-    
     args = ActiveSupport::JSON.decode(params[:trail])
     
     if(args == nil || args == "")
@@ -146,6 +146,7 @@ class TrailsController < ApplicationController
       flash[:notice] = 'Trail was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
+      @show_notifications = false
       flash[:error] = 'Trail could not be created.'
       render :action => 'new'
     end

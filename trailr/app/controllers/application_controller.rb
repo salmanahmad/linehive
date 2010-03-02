@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  
+  @show_notifications = true
   
   # These methods are included to check if the user is autenticated
   # The information is actually stored in the session, so these methods

@@ -153,6 +153,20 @@
 		<div style="background-color:white">
 			<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>
 			<div id="content">
+				
+				<% if !(defined? @show_notifications)  %>
+					<% if flash[:notice] %>
+						<div class="notice">
+							<%= flash[:notice] %>
+						</div>
+					<% end %>
+				
+					<% if flash[:error] %>
+						<div class="error">
+							<%= flash[:error] %>
+						</div>
+					<% end %>
+				<% end %>
 				<%= yield %>
 			</div>	
 		</div>
