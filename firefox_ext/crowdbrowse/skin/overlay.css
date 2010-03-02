@@ -1,0 +1,13 @@
+/* This is just an example. You shouldn't do this. */
+menuitem#helloworld-hello {
+  color: red !important;
+}
+
+iframe{
+width:900px;height:300px;border:0px solid #808080;
+}
+
+#example-window{
+	width:900px;
+	height:400px;
+}

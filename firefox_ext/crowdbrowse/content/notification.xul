@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://helloworld/skin/overlay.css" type="text/css"?>
+
+<window id="example-window" title="Linehive"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" src="timeline/jquery-1.4.min.js" />
+  <script type="application/x-javascript" src="timeline/jquery-1.4.min.js" />
+  
+  <!--<html:div style="width:900px;height:300px;border:0px solid #808080"><iframe src="http://linehive.com/embed/79"></iframe>  </html:div>
+  <html:div id="wtf"><html:p> wtf!</html:p></html:div>
+  <html:p>
+    <html:input id="rtd" type="checkbox"/>
+    <html:label for="rtd">Remember This Decision</html:label>
+  </html:p>-->
+  
+<script type="text/javascript" charset="utf-8">
+		meta_show_callback = function () {
+			$(".meta .headline").autoEllipsis();
+		}
+		$(function() {
+			$("#caption").autoEllipsis();
+			timeline.show_meta = false;
+			timeline.init([{"image_url":"http://images.huffingtonpost.com/gen/130721/thumbs/s-OBAMA-large.jpg","url":"http://www.huffingtonpost.com/2010/01/18/obama-state-of-the-union_n_427375.html","headline":"Whitehouse announces that the state of the union\nwill be given on the 27th, before healthcare bill can be passed; the\nSOTU will be broadcast live on whitehouse.gov","date":"Mon, 18 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://images.huffingtonpost.com/gen/135966/thumbs/s-STATE-OF-THE-UNION-DRINKING-GAME-large.jpg","url":"http://www.huffingtonpost.com/2010/01/26/state-of-the-union-drinki_n_436932.html","headline":"SOTU drinking game","date":"Fri, 22 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://www.shelleytherepublican.com/wp-content/uploads/2008/01/sotufinal.jpg","url":"http://www.youtube.com/watch?v=6kYW_fgaDDM","headline":"Obama gives the state of the union\naddress","date":"Wed, 27 Jan 2010 07:35:48 +0000","source":"youtube.com"}]);
+		});
+		
+		current_articles = [{"image_url":"http://images.huffingtonpost.com/gen/130721/thumbs/s-OBAMA-large.jpg","url":"http://www.huffingtonpost.com/2010/01/18/obama-state-of-the-union_n_427375.html","headline":"Whitehouse announces that the state of the union\nwill be given on the 27th, before healthcare bill can be passed; the\nSOTU will be broadcast live on whitehouse.gov","date":"Mon, 18 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://images.huffingtonpost.com/gen/135966/thumbs/s-STATE-OF-THE-UNION-DRINKING-GAME-large.jpg","url":"http://www.huffingtonpost.com/2010/01/26/state-of-the-union-drinki_n_436932.html","headline":"SOTU drinking game","date":"Fri, 22 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://www.shelleytherepublican.com/wp-content/uploads/2008/01/sotufinal.jpg","url":"http://www.youtube.com/watch?v=6kYW_fgaDDM","headline":"Obama gives the state of the union\naddress","date":"Wed, 27 Jan 2010 07:35:48 +0000","source":"youtube.com"}];
+		current_article_num = 1;
+		
+		 // alert(encodeURIComponent(window.location));
+	</script>
+	
+<html:div id="timelinedivcon">
+	<html:div id="timelinediv">
+		<html:div id="actions">
+		</html:div>
+		
+		<html:div style="position:absolute;top:30px;">
+	<html:div id="timeline" class="noedit">
+		<html:div class="back">Back</html:div>
+		<html:div class="meta">
+			<html:ul>
+				<html:li>Link: <html:span id="fullLink">url</html:span></html:li>
+				<html:li id="searchLink"><html:a id="showURL" style="cursor:pointer">Show timelines containing this link</html:a></html:li>
+			</html:ul>
+		</html:div>
+		<html:div class="meta_callout"> </html:div>
+
+		<html:div class="events">
+			<html:div class="empty">
+				No Events
+			</html:div>			
+		</html:div>
+
+		<html:div id="scale"> </html:div>
+		</html:div>
+
+		<html:pre id="add" class="template">
+		<html:div class="$class">					 
+			<html:div class="insert"></html:div> 
+			<html:div class="info">				 
+				<html:div class="pictures">	 
+						$pictures
+				</html:div>									 
+				<html:div class="headline">   
+						$headline
+				</html:div>                   
+				<html:div class="url">        
+					$url
+				</html:div>                   
+				<html:div class="source">     
+					$source
+				</html:div>                   
+				<html:div class="image">      
+					$img_src
+				</html:div>                   
+				<html:div class="date">       
+					$date
+				</html:div>                   
+			</html:div>
+			<html:div class="thumbnail">
+				<html:a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">
+					$image
+				</html:a>
+				<html:span class="pick_image">Change Image</html:span>
+			</html:div>
+			<html:div class="tick">
+				  
+			</html:div>
+			<html:div class="date">
+				<html:div class="close">[<html:a href="#">x</html:a>]</html:div>
+				$format
+			</html:div>
+			<html:div class="headline">
+				Hello
+			</html:div>
+		</html:div>
+		</html:pre>
+
+		</html:div>
+		
+		<html:div id="timelineHeadCon">
+			<html:div id="timelineHead">
+				<html:img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC" />
+				<html:p><html:b>LineHive</html:b>: Hello</html:p>
+			</html:div>
+			<html:div id="Tcontrols">
+				<html:div id="prevL">Prev line</html:div>
+				<html:div id="nextL">Next line</html:div>
+			</html:div>
+		</html:div>
+		<html:a href="#" id="close">[x]</html:a>
+	</html:div>
+</html:div>
+</window>

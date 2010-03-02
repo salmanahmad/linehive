@@ -1,0 +1,378 @@
+/***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****/
+
+/* Bindings */
+gsdiggeventbox {
+  -moz-binding: url("chrome://digg/content/events/gsDiggEventBox.xml#gs-digg-event-box");
+}
+gsdiggeventcompactbox {
+  -moz-binding: url("chrome://digg/content/events/gsDiggEventBox.xml#gs-digg-event-compact-box");
+}
+gsdiggeventdetailedbox {
+  -moz-binding: url("chrome://digg/content/events/gsDiggEventBox.xml#gs-digg-event-detailed-box");
+}
+
+/* Notification box */
+.gs-digg-notification-outer-box {
+  background-color: #FFF;
+  height: 140px;
+  -moz-box-align: start;
+  font-family: arial, serif, sans-serif;
+  padding: 10px;
+  border: 1px solid #999;
+}
+
+.gs-digg-notification-arrow-box {
+  -moz-box-pack: start;
+  -moz-box-align: center;
+  height: inherit;
+  padding: 4px;
+}
+.gs-digg-notification-left-arrow {
+  list-style-image: url("chrome://digg/skin/images/nav-left.png");
+}
+.gs-digg-notification-left-arrow:hover {
+  list-style-image: url("chrome://digg/skin/images/nav-left-hover.png");
+}
+.gs-digg-notification-left-arrow[disabled=true] {
+  list-style-image: url("chrome://digg/skin/images/nav-left-off.png");
+}
+.gs-digg-notification-right-arrow {
+  list-style-image: url("chrome://digg/skin/images/nav-right.png");
+}
+.gs-digg-notification-right-arrow:hover {
+  list-style-image: url("chrome://digg/skin/images/nav-right-hover.png");
+}
+.gs-digg-notification-right-arrow[disabled=true] {
+  list-style-image: url("chrome://digg/skin/images/nav-right-off.png");
+}
+
+.gs-digg-notification-divider {
+  width: 1px;
+  background-color: #CCC;
+  min-height: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.gs-digg-notification-small-divider {
+  width: 1px;
+  height: 1.5em;
+  background-color: #CCC;
+}
+
+.gs-digg-notification-close-button {
+  list-style-image: url("chrome://digg/skin/images/icon-close.png");
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+  margin-bottom: 26px;
+}
+.gs-digg-notification-close-button:hover {
+  list-style-image: url("chrome://digg/skin/images/icon-close-hover.png");
+}
+
+.gs-digg-notification-top-box {
+  min-height: 90px;
+  padding-top: 4px;
+  -moz-box-align: start;
+}
+
+.gs-digg-notification-content-box {
+  padding-left: 4px;
+  padding-right: 4px;
+  min-height: 90px;
+  overflow: hidden;
+}
+
+.gs-digg-notification-title {
+  font-size: 13px;
+  font-weight: bold;
+  margin-left: 0px;
+  margin-top: 3px;
+  margin-bottom: 4px;
+  color: rgb(16,92,182);
+  text-decoration: underline;
+}
+
+.gs-digg-notification-description-box {
+  max-width: inherit;
+  max-height: inherit;
+  margin-bottom: 4px;
+}
+
+.gs-digg-notification-description {
+  max-width: inherit;
+  max-height: inherit;
+  color: #444;
+  font-size: 11px;
+}
+
+.gs-digg-notification-user {
+  color: rgb(16,92,182);
+}
+
+.gs-digg-notification-quote {
+  background: url("chrome://digg/skin/images/quote.gif") no-repeat left;
+  width: 17px;
+  height: 14px;
+  padding-right: 4px;
+  display: table-cell;
+}
+
+.gs-digg-notification-comments-image {
+  list-style-image: url("chrome://digg/skin/images/event-comment.png");
+}
+.gs-digg-notification-comments-label {
+  margin-left: 4px;
+  color: rgb(87,140,202);
+}
+
+.gs-digg-notification-diggs-box {
+  -moz-box-align: center;
+}
+
+.gs-digg-notification-bottom-box {
+  min-height: 24px;
+  padding-left: 6px;
+  padding-right: 4px;
+  -moz-box-align: center;
+  font-weight: bold;
+}
+
+.gs-digg-notification-event-image {
+  height: 16px;
+  width: 16px;
+}
+.gs-digg-notification-event-image[eventType="1"] {
+  list-style-image: url("chrome://digg/skin/images/event-popular.png");
+}
+.gs-digg-notification-event-image[eventType="2"] {
+  list-style-image: url("chrome://digg/skin/images/event-submit.png");
+}
+.gs-digg-notification-event-image[eventType="3"] {
+  list-style-image: url("chrome://digg/skin/images/event-comment.png");
+}
+.gs-digg-notification-event-image[eventType="4"] {
+  list-style-image: url("chrome://digg/skin/images/event-digg.png");
+}
+
+.gs-digg-notification-event-label {
+  margin-left: 4px;
+  margin-top: 1px;
+}
+.gs-digg-notification-event-label[eventType="1"] {
+  color: #990000;
+  font-weight: bold;
+}
+.gs-digg-notification-event-label[eventType="2"] {
+  font-weight: bold;
+}
+.gs-digg-notification-event-label[eventType="3"] {
+}
+.gs-digg-notification-event-label[eventType="4"] {
+}
+
+.gs-digg-notification-settings-label {
+  color: rgb(16,92,182);
+}
+
+.gs-digg-notification-snooze-label {
+  color: rgb(16,92,182);
+}
+.gs-digg-notification-snooze-label[checked="true"] {
+  color: #FF0000;
+}
+.gs-digg-notification-snooze-label[checked="true"]:hover {
+  color: #990000;
+  cursor: pointer !important;
+}
+
+.gs-digg-notification-link:hover,
+.gs-digg-notification-link *:hover{
+  cursor: pointer !important;
+  color: #000000;
+}
+
+/* Notification detailed box */
+.gs-digg-notification-image-box {
+  -moz-box-pack: center;
+  -moz-box-align: start;
+  width: 86px;
+}
+
+.gs-digg-notification-image-border {
+  width: 82px;
+  height: 82px;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  border: 1px solid rgb(87,140,202);
+}
+
+.gs-digg-notification-image {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  border: 1px solid #FFFFFF;
+}
+.gs-digg-notification-image[media="images"] {
+  list-style-image: url("chrome://digg/skin/images/frame-image.png");
+}
+.gs-digg-notification-image[media="videos"] {
+  list-style-image: url("chrome://digg/skin/images/frame-video.png");
+}
+
+.gs-digg-notification-digg-box {
+  -moz-box-pack: start;
+  -moz-box-align: center;
+  width: 60px;
+}
+
+.gs-digg-notification-digg-number-box {
+  -moz-box-pack: start;
+  -moz-box-align: center;
+  background: url("chrome://digg/skin/images/diggs-box.gif") no-repeat center;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  color: rgb(147, 136, 63);
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+.gs-digg-notification-digg-number-box *:hover {
+  cursor: pointer !important;
+}
+.gs-digg-notification-digg-number-box > description {
+  margin: 0px !important;
+}
+.gs-digg-notification-digg-number-box:hover .diggsNumber {
+  color: rgb(147, 136, 63);
+}
+
+.gs-digg-notification-diggs-number {
+  font-size: 160%;
+  font-weight: normal;
+  letter-spacing: -1px;
+  line-height: 1;
+  color: rgb(115, 105, 38);
+}
+
+.gs-digg-notification-topic {
+  color: rgb(16,92,182);
+}
+
+.gs-digg-notification-diggit-button {
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("chrome://digg/skin/images/button-notification-diggit.png");
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0px !important;
+  margin: 0px 0px -5px 0px !important;
+  min-width: 52px !important;
+  min-height: 28px !important;
+  cursor: pointer !important;
+}
+.gs-digg-notification-diggit-button:hover {
+  background-image: url("chrome://digg/skin/images/button-notification-diggit-hover.png");
+}
+.gs-digg-notification-diggit-button[dugg="true"] {
+  background-image: url("chrome://digg/skin/images/button-notification-dugg.png");
+}
+.gs-digg-notification-diggit-button[dugg="true"]:hover {
+  background-image: url("chrome://digg/skin/images/button-notification-dugg-hover.png");
+}
+.gs-digg-notification-diggit-button[disabled="true"],
+.gs-digg-notification-diggit-button[disabled="true"]:hover {
+  background-image: url("chrome://digg/skin/images/button-notification-diggit-disabled.png");
+}
+
+/* Notification compact box */
+.gs-digg-notification-outer-box[eventstyle="0"] {
+  height: 40px;
+  padding: 5px 5px 3px 5px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-close-button {
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-right: -10px;
+  margin-bottom: 6px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-divider {
+  min-height: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-top-box {
+  min-height: 24px;
+  padding-top: 4px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-title {
+  margin-bottom: 6px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-content-box {
+  min-height: 24px;
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-bottom-box {
+  min-height: 20px;
+  padding-left: 4px;
+  -moz-box-align: start;
+}
+
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-diggit-button {
+  margin: 0px 0px 1px 0px !important;
+  min-width: 38px !important;
+  min-height: 16px !important;
+  background-image: url("chrome://digg/skin/images/button-digg.png");
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-diggit-button[dugg="true"] {
+  background-image: url("chrome://digg/skin/images/button-dugg.png");
+}
+.gs-digg-notification-outer-box[eventstyle="0"] .gs-digg-notification-diggit-button[disabled="true"] {
+  background-image: url("chrome://digg/skin/images/button-digg-disabled.png");
+}
+
+.gs-digg-notification-diggs-label {
+  margin-left: 0px !important;
+  font-weight: bold;
+  color: #666;
+}
+
+.gs-digg-notification-comments-separator {
+  width: 10px;
+}

@@ -1,0 +1,981 @@
+<?xml version="1.0"?>
+
+<!--
+***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****
+-->
+
+<!DOCTYPE bindings SYSTEM "chrome://digg/locale/gsDiggLocale.dtd">
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+  xmlns:xbl="http://www.mozilla.org/xbl"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!--
+    - Event Box.
+    -->
+  <binding id="gs-digg-event-box">
+    <resources>
+      <stylesheet src="chrome://digg/skin/gsDiggEventBox.css"/>
+    </resources>
+
+    <content>
+      <xul:hbox class="gs-digg-notification-outer-box" flex="1"
+        xbl:inherits="eventstyle">
+        <xul:vbox class="gs-digg-notification-arrow-box">
+          <xul:spacer class="gs-digg-notification-close-button" />
+          <xul:image class="gs-digg-notification-left-arrow"
+            xbl:inherits="disabled=gsdiggleftnavigationdisabled"
+            onclick="document.getBindingParent(this).showPrevious(this);"
+            tooltiptext="&gs.digg.eventBox.previous.tooltip;" />
+        </xul:vbox>
+        <xul:hbox class="gs-digg-notification-divider" />
+
+        <xul:vbox flex="1">
+          <xul:gsdiggeventcompactbox anonid="gs-digg-event-compact-box" />
+          <xul:gsdiggeventdetailedbox anonid="gs-digg-event-detailed-box" />
+        </xul:vbox>
+
+        <xul:hbox class="gs-digg-notification-divider" />
+        <xul:vbox class="gs-digg-notification-arrow-box">
+          <xul:image class="gs-digg-notification-close-button"
+            tooltiptext="&gs.digg.eventBox.closeButton.tooltip;"
+            onclick="document.getBindingParent(this).toggleNotification();" />
+          <xul:image class="gs-digg-notification-right-arrow"
+            xbl:inherits="disabled=gsdiggrightnavigationdisabled"
+            onclick="document.getBindingParent(this).showNext(this);"
+            tooltiptext="&gs.digg.eventBox.next.tooltip;" />
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+
+    <implementation>
+      <!-- Holds the log service -->
+      <field name="_logger">null</field>
+      <!-- Holds the current event object. -->
+      <field name="_event">null</field>
+      <!-- Holds the current notification style. -->
+      <field name="_style">null</field>
+
+      <!-- The event property. -->
+      <property name="event" readonly="true">
+        <getter>return this._event;</getter>
+      </property>
+
+      <!--
+        - Initializes the log service.
+        -->
+      <constructor>
+        <![CDATA[
+          this._logger = GlaxDigg.getLogger("GlaxChrome.Digg.EventBox");
+          this._logger.debug("constructor");
+        ]]>
+      </constructor>
+
+      <!--
+        - Gets the element from its id.
+        - @param aId the element id.
+        - @return the element with the id.
+        -->
+      <method name="_getElement">
+        <parameter name="aId" />
+        <body>
+          <![CDATA[
+            this._logger.debug("_getElement");
+
+            return document.getAnonymousElementByAttribute(this, "anonid", aId);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Shows the previous notification.
+        - @param aElement the arrow element.
+        -->
+      <method name="showPrevious">
+        <parameter name="aElement" />
+        <body>
+          <![CDATA[
+            this._logger.debug("showPrevious");
+
+            if (aElement.getAttribute("disabled") != "true") {
+              GlaxChrome.Digg.EventViewer.showPrevious();
+            }
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Shows the next notification.
+        - @param aElement the arrow element.
+        -->
+      <method name="showNext">
+        <parameter name="aElement" />
+        <body>
+          <![CDATA[
+            this._logger.debug("showNext");
+
+            if (aElement.getAttribute("disabled") != "true") {
+              GlaxChrome.Digg.EventViewer.showNext();
+            }
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Toggles the notification.
+        -->
+      <method name="toggleNotification">
+        <body>
+          <![CDATA[
+            this._logger.debug("toggleNotification");
+
+            GlaxChrome.Digg.EventViewer.toggle();
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Gets the event box by type.
+        - @param aEvent the event dto.
+        - @param aStyle the event style.
+        - @return the event box.
+        -->
+      <method name="_getEventBoxByStyle">
+        <parameter name="aEvent" />
+        <parameter name="aStyle" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_getEventBoxByStyle");
+
+            let eventBox = null;
+            let compactBox = this._getElement("gs-digg-event-compact-box");
+            let detailedBox = this._getElement("gs-digg-event-detailed-box");
+
+            this.setAttribute("eventstyle", aStyle);
+
+            if (GS_DIGG_NOTIFICATION_STYLE_COMPACT == aStyle) {
+              compactBox.hidden = false;
+              detailedBox.hidden = true;
+              eventBox = compactBox;
+            } else {
+              compactBox.hidden = true;
+              detailedBox.hidden = false;
+              eventBox = detailedBox;
+            }
+
+            return eventBox;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Shows the previous notification.
+        - @param aEvent the event DTO.
+        - @param aStyle the event style.
+        -->
+      <method name="loadEvent">
+        <parameter name="aEvent" />
+        <parameter name="aStyle" />
+        <body>
+          <![CDATA[
+            this._logger.debug("loadEvent");
+
+            let eventBox = this._getEventBoxByStyle(aEvent, aStyle);
+
+            if (aEvent instanceof GlaxDigg.Digg.EventDTO) {
+              this._event = aEvent;
+              this._style = aStyle;
+            } else {
+              throw Components.Exception("Invalid event DTO");
+            }
+
+            eventBox.loadEvent(aEvent, aStyle);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <!--
+    - Event Box Base.
+    -->
+  <binding id="gs-digg-event-box-base">
+    <resources>
+      <stylesheet src="chrome://digg/skin/gsDiggEventBox.css"/>
+    </resources>
+
+    <implementation>
+      <!-- Holds the log service -->
+      <field name="_logger">null</field>
+      <!-- Holds the string bundle. -->
+      <field name="_stringBundle">null</field>
+      <!-- Holds a reference to the timer used to crop the description text. -->
+      <field name="_cropTimer">null</field>
+      <!-- Holds the current event object. -->
+      <field name="_event">null</field>
+      <!-- The maximum number of friends to display when a story is dugg. -->
+      <field name="MAX_FRIENDS_DISPLAYED">5</field>
+      <!-- The initial maximum length for the description text. -->
+      <field name="MAX_DESCRIPTION_LENGTH">200</field>
+
+      <!-- The event property. -->
+      <property name="event" readonly="true">
+        <getter>return this._event;</getter>
+      </property>
+
+      <!--
+        - Initializes the log service.
+        -->
+      <constructor>
+        <![CDATA[
+          this._logger = GlaxDigg.getLogger("GlaxChrome.Digg.EventBoxBase");
+          this._logger.debug("constructor");
+
+          this._stringBundle = document.getElementById("gs-digg-string-bundle");
+        ]]>
+      </constructor>
+
+      <!--
+        - Gets the element from its id.
+        - @param aId the element id.
+        - @return the element with the id.
+        -->
+      <method name="_getElement">
+        <parameter name="aId" />
+        <body>
+          <![CDATA[
+            this._logger.debug("_getElement");
+
+            return document.getAnonymousElementByAttribute(this, "anonid", aId);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Shows the previous notification.
+        - @param aEvent the event DTO.
+        - @param aStyle the event style.
+        -->
+      <method name="loadEvent">
+        <parameter name="aEvent" />
+        <parameter name="aStyle" />
+        <body>
+          <![CDATA[
+            this._logger.debug("loadEvent");
+
+            let infoLabel = this._getEventInfoLabel(aEvent);
+            let diggItButton =
+              this._getElement("gs-digg-notification-diggit-button");
+            let storyDugg =
+              GlaxChrome.Digg.StoryDigger.checkIfStoryHasBeenDugg(aEvent.id);
+
+            this._event = aEvent;
+            this.setAttribute("title", aEvent.title);
+            this.setAttribute("eventType", aEvent.type);
+            this._setInfoLabel(infoLabel);
+
+            diggItButton.removeAttribute("disabled");
+            if (storyDugg) {
+              diggItButton.setAttribute("dugg", "true");
+            } else {
+              diggItButton.removeAttribute("dugg");
+            }
+
+            if (GS_DIGG_NOTIFICATION_STYLE_COMPACT == aStyle) {
+              let diggsLabel = (1 == aEvent.diggs ?
+                this._stringBundle.getString(
+                  "gs.digg.eventBox.diggsFull.singular") :
+                this._stringBundle.getFormattedString(
+                  "gs.digg.eventBox.diggsFull.plural", [aEvent.diggs]));
+
+              this.setAttribute("diggs", diggsLabel);
+              this.setAttribute("comments", aEvent.comments);
+            } else {
+              let descriptionLabel = this._stripTags(aEvent.description);
+              let commentsLabel = (1 == aEvent.comments ?
+                this._stringBundle.getString(
+                  "gs.digg.eventBox.comments.singular") :
+                this._stringBundle.getFormattedString(
+                  "gs.digg.eventBox.comments.plural", [aEvent.comments]));
+              let diggsLabel = (1 == aEvent.diggs ?
+                this._stringBundle.getString("gs.digg.eventBox.diggs.singular"):
+                this._stringBundle.getString("gs.digg.eventBox.diggs.plural"));
+              let imageSource =
+                "background: url(" + aEvent.imageURL + ") no-repeat center";
+              let isImageOrVideo =
+                (aEvent.media == "videos" || aEvent.media == "images");
+              let hideLeftImage = ("" == aEvent.imageURL || !isImageOrVideo);
+              let hideRightImage = ("" == aEvent.imageURL || isImageOrVideo);
+
+              this.setAttribute("diggs", aEvent.diggs);
+              this.setAttribute("diggsLabel", diggsLabel);
+              this.setAttribute("comments", commentsLabel);
+              this.setAttribute("imageSource",imageSource);
+              this.setAttribute("imageMedia", aEvent.media);
+              this.setAttribute("imageLeftHidden", hideLeftImage);
+              this.setAttribute("imageRigthHidden", hideRightImage);
+              this._setDescriptionLabel(descriptionLabel);
+            }
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Toggles the snooze.
+        -->
+      <method name="toggleSnooze">
+        <body>
+          <![CDATA[
+            this._logger.debug("toggleSnooze");
+
+            GlaxChrome.Digg.Overlay.toggleSnooze();
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Opens the settings window.
+        -->
+      <method name="openSettingsWindow">
+        <body>
+          <![CDATA[
+            this._logger.debug("openSettingsWindow");
+
+            GlaxChrome.Digg.EventViewer.toggle();
+
+            // XXX: Open the window after one second has passed to prevent the
+            // new window from losing focus.
+            window.setTimeout(function() {
+              GlaxChrome.Digg.Overlay.openSettingsWindow();
+            }, 1000);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Opens the target URL of the story (href property).
+        - @param aTrackingCode The Digg tracking code to be appended to the URL.
+        -->
+      <method name="openStory">
+        <parameter name="aTrackingCode" />
+        <body>
+          <![CDATA[
+            this._logger.debug("openStory");
+
+            let url = this._event.href;
+            let params = url.lastIndexOf("?");
+
+            if (params > 0) {
+              url = url.substring(0, params);
+            }
+
+            GlaxChrome.Digg.EventViewer.toggle();
+            GlaxChrome.Digg.Overlay.openURL(url, aTrackingCode);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Opens the URL of the story comment.
+        - @param aTrackingCode The Digg tracking code to be appended to the URL.
+        -->
+      <method name="openComment">
+        <parameter name="aTrackingCode" />
+        <body>
+          <![CDATA[
+            this._logger.debug("openComment");
+
+            let url = this._event.href;
+
+            GlaxChrome.Digg.EventViewer.toggle();
+            GlaxChrome.Digg.Overlay.openURL(url, aTrackingCode);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Opens the URL of a Digg user.
+        - @param aUserName The user name of the user whose page will be opened.
+        - @param aTrackingCode The Digg tracking code to be appended to the URL.
+        -->
+      <method name="openUser">
+        <parameter name="aUserName" />
+        <parameter name="aTrackingCode" />
+        <body>
+          <![CDATA[
+            this._logger.debug("openUser");
+
+            let url = "http://www.digg.com/users/" + aUserName;
+
+            GlaxChrome.Digg.EventViewer.toggle();
+            GlaxChrome.Digg.Overlay.openURL(url, aTrackingCode);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Opens the URL of the current story topic.
+        - @param aTrackingCode The Digg tracking code to be appended to the URL.
+        -->
+      <method name="openTopic">
+        <parameter name="aTrackingCode" />
+        <body>
+          <![CDATA[
+            this._logger.debug("openTopic");
+
+            let url = this._event.href;
+            let lastSlash = url.lastIndexOf("/");
+
+            if (lastSlash > 0) {
+              url = url.substring(0, lastSlash);
+            }
+
+            GlaxChrome.Digg.EventViewer.toggle();
+            GlaxChrome.Digg.Overlay.openURL(url, aTrackingCode);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Sets the info label.
+        - @param aLabel the info label.
+        -->
+      <method name="_setInfoLabel">
+        <parameter name="aInfoLabel" />
+        <body>
+          <![CDATA[
+            // XXX: No logging here for efficiency reasons.
+
+            let eventInfo = this._getElement("gs-digg-event-box-info");
+
+            while (eventInfo.firstChild) {
+              eventInfo.removeChild(eventInfo.firstChild);
+            }
+
+            eventInfo.appendChild(aInfoLabel);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Gets and builds the event info label.
+        - @param aEvent the event DTO.
+        - @return the event info label.
+        -->
+      <method name="_getEventInfoLabel">
+        <parameter name="aEvent" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_getEventInfoLabel");
+
+            let that = this;
+            let infoWrapper =
+              document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+            let userTags = "";
+            let eventDate = this._formatDate(aEvent.date);
+            let getUserTag = function(aUser, aTrackingCode) {
+              return '<span class="gs-digg-notification-user ' +
+                'gs-digg-notification-link" ' +
+                'onclick="document.getBindingParent(this).openUser(\'' +
+                aUser + '\', \'' + aTrackingCode + '\');">' + aUser + '</span>';
+            };
+            let getInnerHTML = function(aStringKey, aUserTags) {
+              let stringParams =
+                (aUserTags ? [aUserTags, eventDate] : [eventDate]);
+
+              return that._stringBundle.getFormattedString(
+                aStringKey, stringParams);
+            };
+
+            switch (aEvent.type) {
+              case GlaxDigg.Digg.EventDTO.EVENT_TYPE_STORY:
+                infoWrapper.innerHTML =
+                  getInnerHTML("gs.digg.eventBox.popularEvent", null);
+                break;
+              case GlaxDigg.Digg.EventDTO.EVENT_TYPE_FRIEND_SUBMISSION:
+                userTags = getUserTag(
+                  aEvent.user, GS_DIGG_TRACKING_CODE_NOTIFICATION_SUBMITTER);
+                infoWrapper.innerHTML =
+                  getInnerHTML("gs.digg.eventBox.submissionEvent", userTags);
+                break;
+              case GlaxDigg.Digg.EventDTO.EVENT_TYPE_FRIEND_COMMENT:
+                userTags = getUserTag(
+                  aEvent.friends, GS_DIGG_TRACKING_CODE_NOTIFICATION_COMMENTER);
+                infoWrapper.innerHTML =
+                  getInnerHTML("gs.digg.eventBox.commentEvent", userTags);
+                break;
+              case GlaxDigg.Digg.EventDTO.EVENT_TYPE_FRIEND_DIGG:
+                let friendArray = aEvent.friends.split(",");
+                let friendArrayLength = friendArray.length;
+
+                for (let i = 0; i < friendArrayLength &&
+                     i < this.MAX_FRIENDS_DISPLAYED; i++) {
+                  if (i > 0) {
+                    userTags += ", ";
+                  }
+                  userTags += getUserTag(
+                    friendArray[i], GS_DIGG_TRACKING_CODE_NOTIFICATION_DIGGER);
+                }
+
+                if (friendArrayLength > this.MAX_FRIENDS_DISPLAYED) {
+                  userTags += "...";
+                }
+
+                infoWrapper.innerHTML =
+                  getInnerHTML("gs.digg.eventBox.diggEvent", userTags);
+                break;
+            }
+
+            return infoWrapper;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Formats a time value to a string that says how long ago that time
+        - occurred when compared to the current time.
+        - @param aTime The time value to be converted.
+        - @return the time converted to its "how long ago" string
+        - representation.
+        -->
+      <method name="_formatDate">
+        <parameter name="aTime" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_formatDate");
+
+            let result = "";
+            let oneMinute = 60 * 1000;
+            let oneHour = 60 * oneMinute;
+            let oneDay = 24 * oneHour;
+            let now = new Date();
+            let old = new Date(aTime * 1000);
+            let time = now.getTime() - old.getTime();
+            let hours = null;
+            let mins = null;
+
+            if (time > oneDay) {
+              result =
+                this._stringBundle.getFormattedString(
+                  "gs.digg.eventBox.date",
+                  [old.getFullYear(), old.getMonth(), old.getDate()]);
+            } else {
+              hours = Math.floor(time / oneHour);
+              time -= hours * oneHour;
+              mins = Math.floor(time / oneMinute);
+
+              if (hours > 0) {
+                result +=
+                  this._stringBundle.getFormattedString(
+                    "gs.digg.eventBox.hours", [hours]) + " ";
+              }
+              if (mins > 0) {
+                result +=
+                  this._stringBundle.getFormattedString(
+                    "gs.digg.eventBox.minutes", [mins]) + " ";
+              }
+              if (result == "") {
+                result =
+                  this._stringBundle.getString("gs.digg.eventBox.oneMinute");
+              }
+            }
+
+            return result;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Sets the description label.
+        - @param aLabel the description label.
+        -->
+      <method name="_setDescriptionLabel">
+        <parameter name="aDescriptionLabel" />
+        <body>
+          <![CDATA[
+            // XXX: No logging here for efficiency reasons.
+
+            let description = this._getElement("gs-digg-event-box-description");
+            let descriptionLabel = this._getDescriptionLabel(aDescriptionLabel);
+
+            while (description.hasChildNodes()) {
+              description.removeChild(description.firstChild);
+            }
+
+            description.appendChild(descriptionLabel);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Gets and builds the description label.
+        - @param aCroppedDescription the cropped description.
+        - @return the description label.
+        -->
+      <method name="_getDescriptionLabel">
+        <parameter name="aCroppedDescription" />
+        <body>
+          <![CDATA[
+            // XXX: No logging here for efficiency reasons.
+
+            let wrapper =
+              document.createElementNS("http://www.w3.org/1999/xhtml", "span");
+            let htmlDescription =
+              this._convertHtmlEntities(aCroppedDescription);
+            let htmlDomain = this._convertHtmlEntities(this._event.domain);
+            let htmlTopic = this._convertHtmlEntities(this._event.topic);
+            let endLabel =
+              (aCroppedDescription != this._event.description ? "..." : "");
+
+            wrapper.setAttribute("class", "gs-digg-notification-description");
+
+            if (this._event.type ==
+                GlaxDigg.Digg.EventDTO.EVENT_TYPE_FRIEND_COMMENT) {
+              wrapper.innerHTML =
+                '<div class="gs-digg-notification-quote"></div>' +
+                '<span class="gs-digg-notification-link" ' +
+                'onclick="document.getBindingParent(this).' +
+                'openComment(GS_DIGG_TRACKING_CODE_NOTIFICATION_COMMENT);">' +
+                htmlDescription + endLabel + '</span>';
+            } else {
+              wrapper.innerHTML =
+                '<span class="domain">' + htmlDomain + ' - </span>' +
+                htmlDescription + endLabel + ' (<span ' +
+                'class="gs-digg-notification-topic gs-digg-notification-link"' +
+                ' onclick="document.getBindingParent(this).' +
+                'openTopic(GS_DIGG_TRACKING_CODE_NOTIFICATION_TOPIC);">' +
+                htmlTopic + '</span>)';
+            }
+
+            return wrapper;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Strips all HTML tags from the given string.
+        - @param aString The string to be modified.
+        - @return The modified string.
+        -->
+      <method name="_stripTags">
+        <parameter name="aString" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_stripTags");
+
+            const TAG_REGEX = /<a[^>]+>([^<]+)<\/a>/gi;
+
+            let result = aString;
+            let match = TAG_REGEX.exec(aString);
+
+            while (match) {
+              result = result.replace(match[0], match[1]);
+              match = TAG_REGEX.exec(aString);
+            }
+
+            return result;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Converts HTML entities inside the given string to their encoded form.
+        - @param aString The string to be modified.
+        - @return The modified string.
+        -->
+      <method name="_convertHtmlEntities">
+        <parameter name="aString" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_convertHtmlEntities");
+
+            let div =
+              document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+
+            div.textContent = aString;
+
+            return div.innerHTML;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Starts the description crop timed script. On every iteration of the
+        - timer the text is cropped further until it fits in the available
+        - space.
+        -->
+      <method name="startDescriptionCrop">
+        <body>
+          <![CDATA[
+            // XXX: No logging here for efficiency reasons.
+
+            let that = this;
+            let stripDescription = this._stripTags(this._event.description);
+            let descriptionText = this._crop(stripDescription);
+
+            this._cropTimer =
+              window.setInterval(function() {
+                try {
+                  that._setDescriptionLabel(descriptionText);
+                  descriptionText =
+                    descriptionText.substring(0, descriptionText.length - 30);
+                } catch (e) {
+                  that.stopDescriptionCrop();
+                }
+              }, 1);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Stops the description crop timed script.
+        -->
+      <method name="stopDescriptionCrop">
+        <body>
+          <![CDATA[
+            // XXX: No logging here for efficiency reasons.
+
+            window.clearInterval(this._cropTimer);
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Crops the given string if it is longer than the value specified.
+        - @param aString the string to be cropped.
+        - @return the potentially cropped string.
+        -->
+      <method name="_crop">
+        <parameter name="aString" />
+        <body>
+          <![CDATA[
+            this._logger.trace("_crop");
+
+            if (aString.length > this.MAX_DESCRIPTION_LENGTH) {
+              aString = aString.substring(0, this.MAX_DESCRIPTION_LENGTH);
+            }
+
+            return aString;
+          ]]>
+        </body>
+      </method>
+
+      <!--
+        - Diggs a story from the event box.
+        - @param aStyle the notification style.
+        -->
+      <method name="diggStoryFromEvent">
+        <parameter name="aStyle" />
+        <body>
+          <![CDATA[
+            this._logger.debug("diggStoryFromEvent");
+
+            let button = this._getElement("gs-digg-notification-diggit-button");
+
+            if (!button.hasAttribute("disabled")) {
+              if (button.hasAttribute("dugg")) {
+                this.openStory(GS_DIGG_TRACKING_CODE_NOTIFICATION_DUGG);
+              } else {
+                let that = this;
+                let processEvent = this._event;
+
+                if (null != processEvent) {
+                  let callback = function(aSuccess, aIncreaseDigg) {
+                    if (aSuccess) {
+                      if (aIncreaseDigg) {
+                        processEvent.diggs++;
+                        GlaxDigg.Digg.EventDAO.updateEvent(processEvent);
+                      }
+                      if (processEvent.id == that._event.id) {
+                        that.loadEvent(processEvent, aStyle);
+                      }
+                    }
+
+                    button.removeAttribute("disabled");
+                  };
+
+                  button.setAttribute("disabled", "true");
+                  GlaxChrome.Digg.StoryDigger.diggStory(
+                    processEvent.id, callback);
+                }
+              }
+            }
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+
+  <!--
+    - Event Detailed Box.
+    -->
+  <binding id="gs-digg-event-detailed-box"
+    extends="chrome://digg/content/events/gsDiggEventBox.xml#gs-digg-event-box-base">
+    <content>
+      <xul:vbox flex="1">
+        <xul:hbox class="gs-digg-notification-top-box" flex="1">
+          <xul:vbox class="gs-digg-notification-digg-box">
+            <xul:vbox class="gs-digg-notification-digg-number-box"
+              onclick="document.getBindingParent(this).openStory(
+                GS_DIGG_TRACKING_CODE_NOTIFICATION_DIGGS);">
+              <xul:description class="gs-digg-notification-diggs-number"
+                xbl:inherits="value=diggs"/>
+              <xul:description xbl:inherits="value=diggsLabel"/>
+            </xul:vbox>
+            <xul:hbox anonid="gs-digg-notification-diggit-button"
+              class="gs-digg-notification-diggit-button"
+              onclick="document.getBindingParent(this).diggStoryFromEvent(
+                GS_DIGG_NOTIFICATION_STYLE_DETAILED);" />
+          </xul:vbox>
+
+          <xul:hbox class="gs-digg-notification-image-box"
+            xbl:inherits="hidden=imageLeftHidden">
+            <xul:hbox class="gs-digg-notification-image-border">
+              <xul:image class="gs-digg-notification-image"
+                xbl:inherits="style=imageSource,media=imageMedia"/>
+            </xul:hbox>
+          </xul:hbox>
+
+          <xul:vbox class="gs-digg-notification-content-box" flex="1"
+            onoverflow="document.getBindingParent(this).startDescriptionCrop();"
+            onunderflow="document.getBindingParent(this).
+              stopDescriptionCrop();">
+            <xul:label crop="end"
+              class="gs-digg-notification-title gs-digg-notification-link"
+              xbl:inherits="value=title,tooltiptext=title"
+              onclick="document.getBindingParent(this).openStory(
+                GS_DIGG_TRACKING_CODE_NOTIFICATION_TITLE);" />
+            <xul:vbox anonid="gs-digg-event-box-description"
+              class="gs-digg-notification-description-box" />
+            <xul:hbox class="gs-digg-notification-diggs-box">
+              <xul:hbox onclick="document.getBindingParent(this).openStory(
+                GS_DIGG_TRACKING_CODE_NOTIFICATION_COMMENTS);">
+                <xul:image class="gs-digg-notification-comments-image"/>
+                <xul:label class="gs-digg-notification-comments-label
+                  gs-digg-notification-link" xbl:inherits="value=comments"/>
+              </xul:hbox>
+            </xul:hbox>
+          </xul:vbox>
+
+          <xul:hbox class="gs-digg-notification-image-box"
+            xbl:inherits="hidden=imageRigthHidden">
+            <xul:hbox class="gs-digg-notification-image-border">
+              <xul:image class="gs-digg-notification-image"
+                xbl:inherits="style=imageSource"/>
+            </xul:hbox>
+          </xul:hbox>
+        </xul:hbox>
+
+        <xul:hbox class="gs-digg-notification-bottom-box">
+          <xul:image class="gs-digg-notification-event-image"
+            xbl:inherits="eventType" />
+          <xul:hbox anonid="gs-digg-event-box-info" flex="1" crop="end"
+            class="gs-digg-notification-event-label"
+            xbl:inherits="eventType" />
+          <xul:spacer flex="1" />
+          <xul:label class="gs-digg-notification-settings-label
+            gs-digg-notification-link"
+            value="&gs.digg.eventBox.settings.label;"
+            tooltiptext="&gs.digg.eventBox.settings.tooltip;"
+            onclick="document.getBindingParent(this).openSettingsWindow();" />
+          <xul:hbox class="gs-digg-notification-small-divider" />
+          <xul:label class="gs-digg-notification-snooze-label
+            gs-digg-notification-link"
+            value="&gs.digg.eventBox.snooze.label;"
+            observes="gs-digg-broadcaster-snooze"
+            onclick="document.getBindingParent(this).toggleSnooze();" />
+        </xul:hbox>
+
+      </xul:vbox>
+    </content>
+  </binding>
+
+  <!--
+    - Event Compact Box.
+    -->
+  <binding id="gs-digg-event-compact-box"
+    extends="chrome://digg/content/events/gsDiggEventBox.xml#gs-digg-event-box-base">
+    <content>
+      <xul:vbox flex="1">
+        <xul:hbox class="gs-digg-notification-top-box" flex="1">
+          <xul:vbox class="gs-digg-notification-content-box" flex="1">
+            <xul:label crop="end"
+              class="gs-digg-notification-title gs-digg-notification-link"
+              xbl:inherits="value=title,tooltiptext=title"
+              onclick="document.getBindingParent(this).openStory(
+                GS_DIGG_TRACKING_CODE_NOTIFICATION_TITLE);" />
+          </xul:vbox>
+        </xul:hbox>
+
+        <xul:hbox class="gs-digg-notification-bottom-box">
+          <xul:hbox>
+            <xul:hbox onclick="document.getBindingParent(this).openStory(
+              GS_DIGG_TRACKING_CODE_NOTIFICATION_DIGGS);">
+              <xul:label class="gs-digg-notification-diggs-label
+                gs-digg-notification-link" xbl:inherits="value=diggs"/>
+            </xul:hbox>
+            <xul:hbox anonid="gs-digg-notification-diggit-button"
+              class="gs-digg-notification-diggit-button"
+              onclick="document.getBindingParent(this).diggStoryFromEvent(
+                GS_DIGG_NOTIFICATION_STYLE_COMPACT);" />
+            <xul:hbox class="gs-digg-notification-comments-separator" />
+            <xul:hbox onclick="document.getBindingParent(this).openStory(
+              GS_DIGG_TRACKING_CODE_NOTIFICATION_COMMENTS);">
+              <xul:image class="gs-digg-notification-comments-image"/>
+              <xul:label class="gs-digg-notification-comments-label
+                gs-digg-notification-link" xbl:inherits="value=comments"/>
+            </xul:hbox>
+          </xul:hbox>
+          <xul:spacer flex="1" />
+          <xul:image class="gs-digg-notification-event-image"
+            xbl:inherits="eventType" />
+          <xul:hbox anonid="gs-digg-event-box-info" flex="1" crop="end"
+            class="gs-digg-notification-event-label"
+            xbl:inherits="eventType" />
+          <xul:spacer flex="1" />
+          <xul:label class="gs-digg-notification-settings-label
+            gs-digg-notification-link"
+            value="&gs.digg.eventBox.settings.label;"
+            tooltiptext="&gs.digg.eventBox.settings.tooltip;"
+            onclick="document.getBindingParent(this).openSettingsWindow();" />
+          <xul:hbox class="gs-digg-notification-small-divider" />
+          <xul:label class="gs-digg-notification-snooze-label
+            gs-digg-notification-link"
+            value="&gs.digg.eventBox.snooze.label;"
+            observes="gs-digg-broadcaster-snooze"
+            onclick="document.getBindingParent(this).toggleSnooze();" />
+        </xul:hbox>
+
+      </xul:vbox>
+    </content>
+  </binding>
+</bindings>

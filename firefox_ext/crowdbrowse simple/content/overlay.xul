@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://crowdbrowse/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://crowdbrowse/locale/overlay.dtd">
+
+<overlay id="crowdbrowse-overlay"
+		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+  <script type="application/x-javascript" src="jquery.js" />
+
+
+	<toolbarpalette id="PersonalToolbar">
+		<toolbarbutton id="lh-button" 
+			label="CrowdBrowse"
+			tooltiptext="Do it!"
+			onclick="CrowdBrowse.click()"
+			/>
+	</toolbarpalette>
+</overlay>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<overlay id="example" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<head>
+
+</head>
+<script type="application/x-javascript" src="jquery.js"></script>
+<script type="application/x-javascript" src="example.js"></script>
+
+</overlay>

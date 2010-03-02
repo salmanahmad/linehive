@@ -1,0 +1,100 @@
+/***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****/
+
+gsdiggtree {
+  -moz-binding: url("chrome://digg/content/settings/gsDiggTree.xml#gs-digg-tree");
+}
+
+gsdiggtreecontainer {
+  -moz-binding: url("chrome://digg/content/settings/gsDiggTree.xml#gs-digg-tree-container");
+}
+
+gsdiggtreetopic {
+  -moz-binding: url("chrome://digg/content/settings/gsDiggTree.xml#gs-digg-tree-topic");
+}
+
+.gs-digg-tree-box {
+  height: 176px;
+  border: 1px solid #999999;
+  background-color: #FFFFFF;
+  overflow: auto;
+  -moz-box-orient: vertical;
+  padding: 2px;
+}
+
+.gs-digg-tree-throbber-box {
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  background-color: transparent;
+}
+
+.gs-digg-tree-throbber{
+  list-style-image: url("chrome://digg/skin/images/throbber.gif");
+}
+
+/* Container CSS */
+.gs-digg-tree-container-row {
+  background-color: #FFFFFF;
+  color: #000000;
+  height: 1.8em;
+}
+.gs-digg-tree-container-row[gsdiggselected=true] {
+  background-color: Highlight;
+  color: HighlightText;
+}
+
+.gs-digg-tree-container-twisty-box {
+  width: 12px !important;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+}
+
+.gs-digg-tree-container-twisty {
+  width: 9px !important;
+  height: 9px !important;
+  list-style-image: url("chrome://global/skin/tree/twisty-clsd.png");
+}
+.gs-digg-tree-container-twisty[open=true] {
+  list-style-image: url("chrome://global/skin/tree/twisty-open.png");
+}
+
+/* Topic CSS */
+.gs-digg-tree-topic-space {
+  width: 3.6em;
+}
+.gs-digg-tree-topic-box {
+  height: 1.8em;
+  color: #000000;
+  background-color: #FFFFFF;
+}
+.gs-digg-tree-topic-box[gsdiggselected=true] {
+  background-color: Highlight;
+  color: HighlightText;
+}
