@@ -48,9 +48,7 @@
 	<div id="trail_subheading">
 		
 		<div class="actions">
-			<% if @trail.user.nil? %>
-				This is an anonymous timeline. Anyone can edit it - <%= link_to "Edit", :controller => "trails", :action => "edit", :id => @trail.id %>
-			<% elsif @trail.user.id == current_user %>
+			<% if @trail.user && @trail.user.id == current_user %>
 				This is your timeline - <%= link_to "Edit", :controller => "trails", :action => "edit", :id => @trail.id %>
 			<% end %>
 		</div>
@@ -89,6 +87,8 @@
 
 
 <div style="text-align:center;">
+	
+		<div class="space_5"></div>
 	
 		<div class="urlbox">
 	

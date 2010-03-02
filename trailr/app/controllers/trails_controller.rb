@@ -56,7 +56,7 @@ class TrailsController < ApplicationController
     
     @trail = Trail.find(params[:id])
     
-    if(@trail.user && @trail.user.id != current_user)
+    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
       redirect_to :action => "show", :id => @trail.id
       return
     end
@@ -81,7 +81,7 @@ class TrailsController < ApplicationController
     @trail = Trail.find(params[:id])
     
     
-    if(@trail.user && @trail.user.id != current_user)
+    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
       redirect_to :action => "show", :id => @trail.id
       return
     end
