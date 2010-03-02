@@ -59,7 +59,15 @@
 		<ul>		
 			<% for @draft in @drafts %>
 				<% url = url_for :controller => "trails", :action => "show", :id => @draft.id, :only_path => false %>
-				<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @draft.caption ||= "Untitled" %></a></li><br>
+				<li>
+					<a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank">
+						<% caption = @draft.caption %>
+						<% caption.strip! %>
+						<%= if caption != "" then caption else "Untitled" end %>
+					</a>
+					(saved at <%= @draft.updated_at %>)
+				</li>
+				<br>
 			<% end %>
 		</ul>
 		<% if @drafts.size == 0 %>

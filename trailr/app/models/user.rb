@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
   has_many :articles, :through => :trails
   
   def published_trails
-    Trail.find(:all, :conditions => {:user_id => self.id, :draft => 0})
+    Trail.find(:all, :conditions => {:user_id => self.id, :draft => false})
   end
   
   def drafts
-    Trail.find(:all, :conditions => {:user_id => self.id, :draft => 1})    
+    Trail.find(:all, :conditions => {:user_id => self.id, :draft => true})    
   end
   
   
