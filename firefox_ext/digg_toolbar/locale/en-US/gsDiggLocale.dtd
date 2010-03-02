@@ -1,0 +1,132 @@
+<!--
+***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****
+-->
+
+<!ENTITY gs.digg.toolbar.toggle.button.label      "Digg">
+<!ENTITY gs.digg.toolbar.toggle.button.tooltip    "Toggle Digg Toolbar">
+<!ENTITY gs.digg.toolbar.diggs.button.title       "Diggs">
+<!ENTITY gs.digg.toolbar.diggs.button.tooltip     "Diggs">
+<!ENTITY gs.digg.toolbar.diggit.button.tooltip    "Digg this story">
+<!ENTITY gs.digg.toolbar.submit.button.title      "Submit">
+<!ENTITY gs.digg.toolbar.submit.button.tooltip    "Submit this story">
+
+<!ENTITY gs.digg.toolbar.name                     "Digg Toolbar">
+<!ENTITY gs.digg.toolbar.options.button.label     "Digg">
+<!ENTITY gs.digg.toolbar.options.button.tooltip   "Go to digg.com">
+<!ENTITY gs.digg.toolbar.title.button.title       "Title">
+<!ENTITY gs.digg.toolbar.title.button.tooltip     "Digg story title">
+<!ENTITY gs.digg.toolbar.comments.button.title    "Comments">
+<!ENTITY gs.digg.toolbar.comments.button.tooltip  "Digg story comments">
+<!ENTITY gs.digg.toolbar.views.button.title       "Views">
+<!ENTITY gs.digg.toolbar.views.button.tooltip     "Digg story views">
+<!ENTITY gs.digg.toolbar.related.button.label     "Related...">
+<!ENTITY gs.digg.toolbar.related.button.tooltip   "Related stories">
+<!ENTITY gs.digg.toolbar.keyword.submenu.label    "By keyword">
+<!ENTITY gs.digg.toolbar.source.submenu.label     "By source">
+<!ENTITY gs.digg.toolbar.duggit.submenu.label     "By who dugg it">
+<!ENTITY gs.digg.toolbar.random.button.label      "Random">
+<!ENTITY gs.digg.toolbar.random.button.tooltip    "Go to a random story">
+<!ENTITY gs.digg.toolbar.mail.button.label        "Email">
+<!ENTITY gs.digg.toolbar.mail.button.tooltip      "Share story with Email">
+<!ENTITY gs.digg.toolbar.facebook.button.label    "Facebook">
+<!ENTITY gs.digg.toolbar.facebook.button.tooltip  "Share story with Facebook">
+<!ENTITY gs.digg.toolbar.twitter.button.label     "Twitter">
+<!ENTITY gs.digg.toolbar.twitter.button.tooltip   "Share story with Twitter">
+<!ENTITY gs.digg.toolbar.shorturl.button.label    "Short Url">
+<!ENTITY gs.digg.toolbar.shorturl.button.tooltip  "Copy short url">
+<!ENTITY gs.digg.toolbar.settings.label           "Settings...">
+<!ENTITY gs.digg.toolbar.settings.tooltip         "Ajust the Digg extension settings">
+<!ENTITY gs.digg.toolbar.feedback.label           "Feedback...">
+<!ENTITY gs.digg.toolbar.feedback.tooltip         "Give us your feedback!">
+<!ENTITY gs.digg.toolbar.toggle.commandkey        "E">
+<!ENTITY gs.digg.toolbar.toggle.modifierskey      "shift accel">
+
+<!ENTITY gs.digg.statubar.tooltip                     "Toggle Digg notifications">
+<!ENTITY gs.digg.context.shorturl.menuitem.label      "Copy Digg short URL">
+<!ENTITY gs.digg.context.shorturl.menuitem.accesskey  "C">
+
+<!ENTITY gs.digg.setup.title                  "Digg Toolbar Setup Wizard">
+<!ENTITY gs.digg.wizard.page1.title           "Customize Notifications: Friends’ Activity">
+<!ENTITY gs.digg.wizard.page1.description     "Enter your Digg username below to get notifications when your friends Digg, submit, and comment on stories.">
+<!ENTITY gs.digg.wizard.page2.title           "Customize Notifications: Popular Stories">
+<!ENTITY gs.digg.wizard.page2.description     "To receive notifications of the latest popular stories, choose the story types and topics from the list below.">
+<!ENTITY gs.digg.wizard.enter.user.label      "I have a Digg account:">
+<!ENTITY gs.digg.wizard.continue.user.label   "I don't have an account, I'll create one later">
+
+<!ENTITY gs.digg.settings.window.title                   "Digg Notifications Settings">
+<!ENTITY gs.digg.settings.recentlyPopular.label          "Receive notifications about recently popular stories">
+<!ENTITY gs.digg.settings.friendsActivity.label          "Receive notifications about your friends' activity">
+<!ENTITY gs.digg.settings.username.textbox.label         "Digg user name">
+<!ENTITY gs.digg.settings.username.comment.label         "(leave blank for none)">
+<!ENTITY gs.digg.settings.autohide.label                 "Auto-hide notifications">
+<!ENTITY gs.digg.settings.autohide.type1.label           "Never show">
+<!ENTITY gs.digg.settings.autohide.type2.label           "Hide after 5 seconds">
+<!ENTITY gs.digg.settings.autohide.type3.label           "Hide after 10 seconds">
+<!ENTITY gs.digg.settings.autohide.type4.label           "Keep open">
+<!ENTITY gs.digg.settings.openLinks.label                "Open Links">
+<!ENTITY gs.digg.settings.openLinks.type1.label          "In the current tab">
+<!ENTITY gs.digg.settings.openLinks.type2.label          "In a new tab">
+<!ENTITY gs.digg.settings.openLinks.type3.label          "In a new window">
+<!ENTITY gs.digg.settings.notificationType.label         "Notification Type">
+<!ENTITY gs.digg.settings.notificationType.type1.label   "Bottom bar">
+<!ENTITY gs.digg.settings.notificationType.type2.label   "Inner popup">
+<!ENTITY gs.digg.settings.notificationType.type3.label   "Outer popup">
+<!ENTITY gs.digg.settings.notificationStyle.label        "Notification Style">
+<!ENTITY gs.digg.settings.notificationStyle.style1.label "Compact">
+<!ENTITY gs.digg.settings.notificationStyle.style2.label "Detailed">
+<!ENTITY gs.digg.settings.notify.news.label              "News">
+<!ENTITY gs.digg.settings.notify.videos.label            "Videos">
+<!ENTITY gs.digg.settings.notify.images.label            "Images">
+<!ENTITY gs.digg.settings.notify.diggCount.label         "Minimum Digg Count">
+<!ENTITY gs.digg.settings.notify.diggCount.option1.label "None">
+<!ENTITY gs.digg.settings.notify.diggCount.option2.label "500 diggs">
+<!ENTITY gs.digg.settings.notify.diggCount.option3.label "1000 diggs">
+<!ENTITY gs.digg.settings.notify.diggCount.option4.label "2000 diggs">
+<!ENTITY gs.digg.settings.notify.diggCount.option5.label "3000 diggs">
+<!ENTITY gs.digg.settings.notify.diggCount.option6.label "4000 diggs">
+<!ENTITY gs.digg.settings.notify.diggCount.option7.label "5000 diggs">
+<!ENTITY gs.digg.settings.displayTime.label              "Display Frequency">
+<!ENTITY gs.digg.settings.displayTime.time1.label        "Live feed">
+<!ENTITY gs.digg.settings.displayTime.time2.label        "30 minutes">
+<!ENTITY gs.digg.settings.displayTime.time3.label        "1 hour">
+<!ENTITY gs.digg.settings.displayTime.time4.label        "6 hours">
+<!ENTITY gs.digg.settings.displayTime.time5.label        "12 hours">
+<!ENTITY gs.digg.settings.displayTime.time6.label        "24 hours">
+<!ENTITY gs.digg.settings.buttonsPlace.label             "Main buttons location">
+<!ENTITY gs.digg.settings.buttonsPlace.option1.label     "Main Toolbar">
+<!ENTITY gs.digg.settings.buttonsPlace.option2.label     "Inside URL bar">
+
+<!ENTITY gs.digg.eventBox.settings.label          "Settings">
+<!ENTITY gs.digg.eventBox.settings.tooltip        "Open the Digg settings window">
+<!ENTITY gs.digg.eventBox.snooze.label            "Zzz...">
+<!ENTITY gs.digg.eventBox.previous.tooltip        "Show previous event">
+<!ENTITY gs.digg.eventBox.next.tooltip            "Show next event">
+<!ENTITY gs.digg.eventBox.closeButton.tooltip     "Close notification">

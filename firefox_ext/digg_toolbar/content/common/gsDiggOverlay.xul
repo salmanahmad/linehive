@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<!--
+***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****
+-->
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://digg/skin/gsDiggOverlay.css" ?>
+<?xml-stylesheet type="text/css"
+  href="chrome://digg-os/skin/gsDiggOverlay.css" ?>
+
+<!DOCTYPE overlay SYSTEM "chrome://digg/locale/gsDiggLocale.dtd">
+
+<overlay id="gs-digg-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggCommon.js" />
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggOverlay.js" />
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggStoryDigger.js" />
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggStorySession.js" />
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggProgressListener.js" />
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="gs-digg-string-bundle"
+      src="chrome://digg/locale/gsDiggLocale.properties" />
+  </stringbundleset>
+
+  <keyset id="mainKeyset">
+    <key id="gs-digg-toolbar-key" key="&gs.digg.toolbar.toggle.commandkey;"
+      modifiers="&gs.digg.toolbar.toggle.modifierskey;"
+      oncommand="GlaxChrome.Digg.Toolbar.toggleToolbar();" />
+  </keyset>
+
+  <broadcasterset id="mainBroadcasterSet">
+    <broadcaster id="gs-digg-broadcaster-snooze" />
+    <broadcaster id="gs-digg-broadcaster-story-empty" />
+    <broadcaster id="gs-digg-broadcaster-story-new"/>
+    <broadcaster id="gs-digg-broadcaster-story-exists"/>
+  </broadcasterset>
+
+  <!-- Main toolbar buttons -->
+  <toolbarpalette id="BrowserToolbarPalette">
+    <!-- Digg toggle button -->
+    <toolbarbutton id="gs-digg-toolbar-toggle-button"
+      label="&gs.digg.toolbar.toggle.button.label;"
+      tooltiptext="&gs.digg.toolbar.toggle.button.tooltip;"
+      class="chromeclass-toolbar-additional toolbarbutton-1 "
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.toggleToolbar();"/>
+    <!-- Digg it and diggs count button -->
+    <toolbaritem id="gs-digg-toolbar-diggs-comboitem"
+      title="&gs.digg.toolbar.diggs.button.title;"
+      observes="gs-digg-broadcaster-story-exists"
+      class="chromeclass-toolbar-additional">
+      <hbox>
+        <toolbarbutton id="gs-digg-toolbar-diggs-button"
+          tooltiptext="&gs.digg.toolbar.diggs.button.tooltip;"
+          onclick="checkForMiddleClick(this, event);"
+          oncommand="GlaxChrome.Digg.StorySession.openStory(
+            GS_DIGG_TRACKING_CODE_TOOLBAR_DIGGS);" />
+        <toolbarbutton id="gs-digg-toolbar-diggit-button"
+          tooltiptext="&gs.digg.toolbar.diggit.button.tooltip;"
+          onclick="checkForMiddleClick(this, event);"
+          oncommand="GlaxChrome.Digg.Overlay.diggStoryFromToolbar(this);" />
+      </hbox>
+    </toolbaritem>
+    <!-- Submit button -->
+    <toolbarbutton id="gs-digg-toolbar-submit-button"
+      title="&gs.digg.toolbar.submit.button.title;"
+      tooltiptext="&gs.digg.toolbar.submit.button.tooltip;"
+      observes="gs-digg-broadcaster-story-new"
+      class="chromeclass-toolbar-additional"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Overlay.submitStory(
+        GS_DIGG_TRACKING_CODE_TOOLBAR_SUBMIT);" />
+  </toolbarpalette>
+
+  <!-- Digg urlbar icons -->
+  <hbox id="urlbar-icons">
+    <label id="gs-digg-urlbar-diggs-button" class="urlbar-icon"
+      tooltiptext="&gs.digg.toolbar.diggs.button.tooltip;"
+      observes="gs-digg-broadcaster-story-exists" insertbefore="feed-button"
+      onclick="GlaxChrome.Digg.StorySession.openStory(
+        GS_DIGG_TRACKING_CODE_URLBAR_DIGGS);" />
+    <image id="gs-digg-urlbar-diggit-button" class="urlbar-icon"
+      tooltiptext="&gs.digg.toolbar.diggit.button.tooltip;"
+      observes="gs-digg-broadcaster-story-exists" insertbefore="feed-button"
+      onclick="GlaxChrome.Digg.Overlay.diggStoryFromToolbar(this);" />
+    <image id="gs-digg-urlbar-submit-button" class="urlbar-icon"
+      tooltiptext="&gs.digg.toolbar.submit.button.title;"
+      observes="gs-digg-broadcaster-story-new" insertbefore="feed-button"
+      onclick="GlaxChrome.Digg.Overlay.submitStory(
+        GS_DIGG_TRACKING_CODE_URLBAR_SUBMIT);" />
+  </hbox>
+
+  <!-- Digg status bar button -->
+  <statusbar id="status-bar">
+    <statusbarpanel id="gs-digg-statusbar-panel"
+      insertafter="page-report-button">
+      <hbox align="center">
+        <image id="gs-digg-statusbar-image"
+          onclick="GlaxChrome.Digg.EventViewer.toggle();"/>
+      </hbox>
+    </statusbarpanel>
+  </statusbar>
+
+  <!-- Digg context menu item -->
+  <popup id="contentAreaContextMenu">
+    <menuitem id="gs-digg-context-shorturl-menuitem"
+      label="&gs.digg.context.shorturl.menuitem.label;"
+      accesskey="&gs.digg.context.shorturl.menuitem.accesskey;"
+      observes="gs-digg-broadcaster-story-empty"
+      insertbefore="context-bookmarkpage"
+      oncommand="GlaxChrome.Digg.Overlay.copyShortURL();" />
+    <menuseparator id="gs-digg-context-shorturl-menuseparator"
+      insertbefore="context-bookmarkpage"
+      observes="gs-digg-broadcaster-story-empty" />
+    <menuitem id="gs-digg-context-shorturl-menuitem-link"
+      label="&gs.digg.context.shorturl.menuitem.label;"
+      accesskey="&gs.digg.context.shorturl.menuitem.accesskey;"
+      observes="gs-digg-broadcaster-story-empty"
+      insertbefore="context-bookmarklink"
+      oncommand="GlaxChrome.Digg.Overlay.copyShortURL();" />
+    <menuseparator id="gs-digg-context-shorturl-menuseparator-link"
+      insertbefore="context-bookmarklink"
+      observes="gs-digg-broadcaster-story-empty" />
+  </popup>
+</overlay>

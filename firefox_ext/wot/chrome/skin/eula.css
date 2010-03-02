@@ -1,0 +1,16 @@
+#wot-eulawindow {
+}
+#wot-eulaframe {
+	height: 20em;
+	margin-bottom: 1em;
+	border-top: 2px solid;
+	-moz-border-top-colors: ThreeDShadow ThreeDDarkShadow;
+	border-left: 2px solid;
+	-moz-border-left-colors: ThreeDShadow ThreeDDarkShadow;
+	border-right: 2px solid;
+	-moz-border-right-colors: ThreeDLightShadow ThreeDHighlight;
+	border-bottom: 2px solid;
+	-moz-border-bottom-colors: ThreeDLightShadow ThreeDHighlight;
+}
+#wot-eulahelp {
+}

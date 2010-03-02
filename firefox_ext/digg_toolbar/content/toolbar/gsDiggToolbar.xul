@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+
+<!--
+***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****
+-->
+
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css" href="chrome://digg/skin/gsDiggToolbar.css" ?>
+<?xml-stylesheet type="text/css"
+  href="chrome://digg-os/skin/gsDiggToolbar.css" ?>
+
+<!DOCTYPE overlay SYSTEM "chrome://digg/locale/gsDiggLocale.dtd">
+
+<overlay id="gs-digg-toolbar-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript"
+    src="chrome://digg/content/common/gsDiggCommon.js" />
+  <script type="application/x-javascript"
+    src="chrome://digg/content/toolbar/gsDiggToolbar.js" />
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <!-- Digg menu button -->
+    <toolbarbutton id="gs-digg-toolbar-logo-button" type="menu-button"
+      title="&gs.digg.toolbar.options.button.label;"
+      tooltiptext="&gs.digg.toolbar.options.button.tooltip;"
+      class="toolbarbutton-1"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.openDiggSite(event, this);">
+      <menupopup id="gs-digg-toolbar-options-menu">
+        <menuitem
+          label="&gs.digg.toolbar.settings.label;"
+          tooltiptext="&gs.digg.toolbar.settings.tooltip;"
+          onclick="checkForMiddleClick(this, event);"
+          oncommand="GlaxChrome.Digg.Overlay.openSettingsWindow();"/>
+        <menuitem
+          label="&gs.digg.toolbar.feedback.label;"
+          tooltiptext="&gs.digg.toolbar.feedback.tooltip;"
+          onclick="checkForMiddleClick(this, event);"
+          oncommand="GlaxChrome.Digg.Toolbar.openFeedbackPage();"/>
+      </menupopup>
+    </toolbarbutton>
+    <!-- Story title button -->
+    <toolbarbutton id="gs-digg-toolbar-title-button"
+      title="&gs.digg.toolbar.title.button.title;"
+      tooltiptext="&gs.digg.toolbar.title.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-exists"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.StorySession.openStory(
+        GS_DIGG_TRACKING_CODE_TOOLBAR_TITLE);" />
+    <!-- Story comments button -->
+    <toolbarbutton id="gs-digg-toolbar-comments-button"
+      title="&gs.digg.toolbar.comments.button.title;"
+      tooltiptext="&gs.digg.toolbar.comments.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-exists"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.StorySession.openStory(
+        GS_DIGG_TRACKING_CODE_TOOLBAR_COMMENTS);" />
+    <!-- Story views button -->
+    <toolbarbutton id="gs-digg-toolbar-views-button"
+      title="&gs.digg.toolbar.views.button.title;"
+      tooltiptext="&gs.digg.toolbar.views.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-exists"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.StorySession.openStory(
+        GS_DIGG_TRACKING_CODE_TOOLBAR_VIEWS);" />
+    <!-- Related by keyword button -->
+    <toolbarbutton id="gs-digg-toolbar-related-button" type="menu"
+      label="&gs.digg.toolbar.related.button.label;"
+      tooltiptext="&gs.digg.toolbar.related.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-exists">
+      <menupopup>
+        <menu label="&gs.digg.toolbar.keyword.submenu.label;">
+          <menupopup id="gs-digg-toolbar-related-menupopup-keywords" />
+        </menu>
+        <menu label="&gs.digg.toolbar.source.submenu.label;">
+          <menupopup id="gs-digg-toolbar-related-menupopup-source" />
+        </menu>
+        <menu label="&gs.digg.toolbar.duggit.submenu.label;">
+          <menupopup id="gs-digg-toolbar-related-menupopup-diggs" />
+        </menu>
+      </menupopup>
+    </toolbarbutton>
+    <!-- Random button -->
+    <toolbarbutton id="gs-digg-toolbar-random-button"
+      label="&gs.digg.toolbar.random.button.label;"
+      tooltiptext="&gs.digg.toolbar.random.button.tooltip;"
+      class="toolbarbutton-1"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.openRandomStory(event);"/>
+    <!-- Share with email button -->
+    <toolbarbutton id="gs-digg-toolbar-mail-button"
+      label="&gs.digg.toolbar.mail.button.label;"
+      tooltiptext="&gs.digg.toolbar.mail.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-empty"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.shareWithEmail();" />
+    <!-- Share with facebook button -->
+    <toolbarbutton id="gs-digg-toolbar-facebook-button"
+      label="&gs.digg.toolbar.facebook.button.label;"
+      tooltiptext="&gs.digg.toolbar.facebook.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-empty"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.shareWithFacebook();" />
+    <!-- Share with twitter button -->
+    <toolbarbutton id="gs-digg-toolbar-twitter-button"
+      label="&gs.digg.toolbar.twitter.button.label;"
+      tooltiptext="&gs.digg.toolbar.twitter.button.tooltip;"
+      class="toolbarbutton-1"
+      observes="gs-digg-broadcaster-story-empty"
+      onclick="checkForMiddleClick(this, event);"
+      oncommand="GlaxChrome.Digg.Toolbar.shareWithTwitter();" />
+  </toolbarpalette>
+
+  <window id="main-window">
+    <toolbox id="navigator-toolbox">
+      <toolbar id="gs-digg-toolbar" toolbarname="&gs.digg.toolbar.name;"
+        customizable="true" mode="icons" defaulticonsize="small"
+        context="toolbar-context-menu" collapsed="true"
+        defaultset="gs-digg-toolbar-logo-button,separator,gs-digg-toolbar-title-button,gs-digg-toolbar-comments-button,gs-digg-toolbar-views-button,spring,gs-digg-toolbar-related-button,separator,gs-digg-toolbar-twitter-button,gs-digg-toolbar-facebook-button,gs-digg-toolbar-mail-button,gs-digg-toolbar-random-button"/>
+    </toolbox>
+  </window>
+
+</overlay>

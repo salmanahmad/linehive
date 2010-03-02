@@ -26,7 +26,7 @@
 		});
 		
 		current_articles = <%= @articles.to_json %>;
-		current_article_num = 1;
+		current_article_num = 0;
 		
 		/*(encodeURIComponent(current_articles[0]['url']));
 		*/
@@ -41,8 +41,6 @@
 	</script>
 	
 </head>
-
-
 <div id="timelinedivcon">
 	<div id="timelinediv">
 		<div id="actions">
@@ -55,7 +53,7 @@
 		<div id="timelineHeadCon">
 			<div id="timelineHead">
 				<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC">
-				<p><b>LineHive</b>: <%= @trail.caption %></p>
+				<b>LineHive</b>: <%= @trail.caption %>
 			</div>
 			<div id="Tcontrols">
 				<div id="prevL"><!--Prev. line--></div>
@@ -64,42 +62,47 @@
 				<div id="nextE">Next point</div>
 			</div>
 		</div>
-		<a href="#" id="close">[x]</a>
 	</div>
-</div>
-<div class="timelineIndicator" style="">
-	<p><b>LineHive:</b> <a id="currentLink">0 lines</a> <a href="#" id="close">Close</a></p>
 </div>
 
 <div id="source">
 	<iframe frameborder="0" id="page" name="page" src="<%= @articles[0]['url']%>">
 	</iframe>
 </div>
-<script>
+<script type="text/javascript">
+function checkLinks(){
+	if(current_article_num>=current_articles.length){
+		current_article_num = current_articles.length-1;
+	}
+	if(current_article_num<=0){
+		current_article_num = 0;
+	}
+	if(current_article_num==current_articles.length-1){
+		$("#nextE").css("color","gray");
+	}
+	else{
+		$("#nextE").css("color","black");
+	}
+	if(current_article_num==0){
+		$("#prevE").css("color","gray");
+	}
+	else{
+		$("#prevE").css("color","black");
+	}
+}
 $(document).ready(function() {
-		/*$(".timelineIndicator").mouseenter(function(){
-			//$('#timeline').show();
-			$('#timelinedivcon').slideDown("slow");
-			//$("#timelineIndicator").css({"top":315});
-		});
-		*/	
-	$(".timelineIndicator").click(function(){
-		$('#timelinedivcon').slideDown("slow");
-	});
-	$("#source").mouseenter(function(){
-			$('#timelinedivcon').hide();
-			// $("#timelineIndicator").css({"top":0});
-		});
-	
-	$("#close").click(function(){
-			$('#timelinedivcon').hide();
-			$('#timelineIndicator').hide();
-		});
-	
+
 	$("#nextE").click(function(){
+		current_article_num++;
+		checkLinks();
 		$('#page').attr("src",current_articles[current_article_num].url);
-		current_article_num++;		
 	});
+	$("#prevE").click(function(){
+		current_article_num--;
+		checkLinks();
+		$('#page').attr("src",current_articles[current_article_num-1].url);
+	});
+	checkLinks();
 	$("#timeline .events .event .thumbnail a").attr("target", "page");
 	$("#timeline .events .event .thumbnail a").click(function(event){$('#page').attr("src",current_articles[1].url);});
 	$("#timeline #events #event .thumbnail a").click(function(){

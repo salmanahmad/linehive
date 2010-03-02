@@ -1,0 +1,160 @@
+/***** BEGIN LICENSE BLOCK *****
+
+Copyright (c) 2008-2009, Digg Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+* Neither the name of Digg Inc. nor the names of its contributors may be used to
+endorse or promote products derived from this software without specific prior
+written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+***** END LICENSE BLOCK *****/
+
+/* Toolbar */
+#gs-digg-toolbar {
+  height: 30px !important;
+  -moz-box-align: center;
+}
+#gs-digg-toolbar toolbarseparator {
+  height: 30px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+/* Toolbar buttons */
+#gs-digg-toolbar-logo-button {
+  list-style-image: url("chrome://digg/skin/images/button-options.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  min-width: 33px;
+  margin-left: 4px;
+  padding-right: 4px !important;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
+#gs-digg-toolbar-logo-button .toolbarbutton-text {
+  display: none !important;
+}
+#gs-digg-toolbar-logo-button .toolbarbutton-icon {
+  display: -moz-box !important;
+}
+#gs-digg-toolbar-logo-button:hover toolbarbutton {
+  border-right: thin solid #777;
+}
+
+#gs-digg-toolbar-title-button {
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  font-weight: bold;
+  font-size: 1.1em;
+  height: 30px;
+  border: none;
+}
+#gs-digg-toolbar-title-button .toolbarbutton-text {
+  display: -moz-box !important;
+  text-align: left;
+}
+#gs-digg-toolbar-title-button .toolbarbutton-icon {
+  display: none !important;
+}
+
+#gs-digg-toolbar-comments-button {
+  list-style-image: url("chrome://digg/skin/images/button-comments.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  font-size: 1.1em;
+  height: 30px;
+  border: none;
+}
+#gs-digg-toolbar-comments-button .toolbarbutton-text {
+  display: -moz-box !important;
+}
+#gs-digg-toolbar-comments-button .toolbarbutton-icon {
+  margin-right: 3px;
+}
+
+#gs-digg-toolbar-views-button {
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  font-size: 1.1em;
+  height: 30px;
+  border: none;
+}
+#gs-digg-toolbar-views-button .toolbarbutton-text {
+  display: -moz-box !important;
+}
+#gs-digg-toolbar-views-button .toolbarbutton-icon {
+  display: none !important;
+}
+
+#gs-digg-toolbar-related-button {
+  list-style-image: url("chrome://digg/skin/images/button-related.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  font-size: 1.1em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
+#gs-digg-toolbar-related-button .toolbarbutton-text {
+  display: -moz-box !important;
+}
+
+#gs-digg-toolbar-random-button {
+  list-style-image: url("chrome://digg/skin/images/button-random.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  min-width: 75px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
+
+#gs-digg-toolbar-mail-button {
+  list-style-image: url("chrome://digg/skin/images/button-mail.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  min-width: 62px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
+
+#gs-digg-toolbar-facebook-button {
+  list-style-image: url("chrome://digg/skin/images/button-facebook.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  min-width: 55px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
+
+#gs-digg-toolbar-twitter-button {
+  list-style-image: url("chrome://digg/skin/images/button-twitter.png");
+  -moz-box-align: center;
+  -moz-box-orient: horizontal;
+  min-width: 62px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: none;
+}
