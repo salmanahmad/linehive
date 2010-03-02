@@ -38,6 +38,61 @@ class TrailsController < ApplicationController
 
 
 
+
+
+  def draft
+    
+    
+    return
+    
+    args = ActiveSupport::JSON.decode(params[:trail])
+
+    if(!current_user)
+      redirect_to :controller => "trails", :action => "new"
+      return
+    end
+    
+    
+    if(args == nil || args == "")
+      redirect_to :controller => "trails", :action => "new"
+      return
+    end
+    
+    @links = args["links"]
+        
+    @trail = Trail.new
+    @trail.caption = args["title"]
+
+    if current_user
+		  @trail.user_id = current_user
+	  end
+
+    construct_trail
+    @trail.draft = true
+    
+    if @trail.save(false)
+      flash[:notice] = 'Draft saved successfully. You can access it from your account page.'
+    else
+      @show_notifications = false
+      flash[:error] = 'Error: Draft could not be created.'
+    end
+
+  end
+  
+  def save_draft
+    
+  end
+  
+  def publish_draft
+
+
+  end
+  
+  
+  
+  
+  
+  
   def new
     
     @trail = Trail.new
@@ -76,7 +131,7 @@ class TrailsController < ApplicationController
     
     if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
       redirect_to :action => "show", :id => @trail.id
-      return
+      return false
     end
     
     
@@ -187,7 +242,7 @@ class TrailsController < ApplicationController
 
 
 
-private 
+protected 
 
 
   def construct_trail

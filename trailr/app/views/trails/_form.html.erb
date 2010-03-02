@@ -55,7 +55,7 @@
 		console.log(text);
 		$("#loader").show();
 		
-		$("#urls").val("");
+	$("#urls").val("");
 		
 		jQuery.ajax({
         type: "POST",
@@ -206,7 +206,7 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	
+		
 	
 </fieldset>
 
@@ -249,6 +249,15 @@
 			<% end %>
 				<%= button_to "Cancel", {:controller => "trails", :action => "show", :id => @trail.id}, {:class => "trail_button"} %>
 		<% else %>
+		
+			<% if current_user %>
+				<% form_tag({:controller => "trails", :action => "create" }, {:id => "post_back"})  do %>
+					<%= submit_tag "Save Draft", { :class => "trail_button"} %>
+					<input type="hidden" name="trail" value="" id="trail_input"> 
+				<% end %>
+			<% end %>
+			
+
 			<% form_tag({:controller => "trails", :action => "create" }, {:id => "post_back"})  do %>
 				<%= submit_tag "Publish", { :class => "trail_button"} %>
 				<input type="hidden" name="trail" value="" id="trail_input"> 

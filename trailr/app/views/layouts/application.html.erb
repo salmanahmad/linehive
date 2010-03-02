@@ -154,7 +154,8 @@
 			<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>
 			<div id="content">
 				
-				<% if !(defined? @show_notifications)  %>
+				<% if !defined? @show_notifications then @show_notifications = true end %>
+				<% if @show_notifications  %>
 					<% if flash[:notice] %>
 						<div class="notice">
 							<%= flash[:notice] %>
