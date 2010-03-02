@@ -38,13 +38,7 @@ class TrailsController < ApplicationController
 
 
 
-
-
-  def draft
-    
-    
-    return
-    
+  def create_draft
     args = ActiveSupport::JSON.decode(params[:trail])
 
     if(!current_user)
@@ -72,19 +66,84 @@ class TrailsController < ApplicationController
     
     if @trail.save(false)
       flash[:notice] = 'Draft saved successfully. You can access it from your account page.'
+      redirect_to :controller => "trails", :action => "draft", :id => @trail.id
     else
       @show_notifications = false
       flash[:error] = 'Error: Draft could not be created.'
+      render :action => 'new'
     end
+    
+  end
 
+
+  # TODO: Refactor this...
+  def draft
+      edit
   end
   
   def save_draft
     
+    @trail = Trail.find(params[:id])
+    
+    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
+      redirect_to :action => "show", :id => @trail.id
+      return
+    end
+    
+    args = ActiveSupport::JSON.decode(params[:trail])
+    @links = args["links"]
+    
+    # TODO: IMPROVE PERFORMANCE! EVEN WHEN THE SAVE FAILS, THIS GETS RE-CREATED
+    @trail.caption = args["title"]
+    @trail.articles.clear
+    
+    construct_trail
+
+	  if @trail.save(false)
+      # clear errors for the _form.html.erb partial
+	    @trail.errors.clear
+      flash[:notice] = 'Trail was saved successfully.'
+      render :controller => 'trails', :action => 'draft'
+    else
+      @show_notifications = false
+      flash[:error] = 'Trail could not be created.'
+      render :action => 'draft'
+    end
+    
+    
   end
   
+  
+  
   def publish_draft
-
+    @trail = Trail.find(params[:id])
+    
+    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
+      redirect_to :action => "show", :id => @trail.id
+      return
+    end
+    
+    args = ActiveSupport::JSON.decode(params[:trail])
+    @links = args["links"]
+    
+    # TODO: IMPROVE PERFORMANCE! EVEN WHEN THE SAVE FAILS, THIS GETS RE-CREATED
+    @trail.caption = args["title"]
+    @trail.articles.clear
+    
+    construct_trail
+    @trail.draft = false
+    
+    
+	  if !@has_errors && @trail.save
+      flash[:notice] = 'Trail was successfully created.'
+      redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
+    else
+      @show_notifications = false
+      flash[:error] = 'Trail could not be created.'
+      render :action => 'draft'
+    end
+	  
+    
 
   end
   

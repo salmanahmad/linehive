@@ -1,1 +1,2 @@
-<%= render :partial => "form", :locals => {:edit => false } %>
+<%# TODO: Move all of the 'mode' code out of the _form partial and into their own partial and have form call based on params[:controller] %> 
+<%= render :partial => "form", :locals => {:mode => :new } %>

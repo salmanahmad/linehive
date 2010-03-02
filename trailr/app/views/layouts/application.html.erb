@@ -23,6 +23,13 @@
 			
 			$(function() {
 				
+				$(".notice").slideDown();
+				setTimeout ( function() {
+					$(".notice").slideUp();
+					$(".notice").fadeOut();
+				}, 3000 );
+				
+				
 				$("#search_box").focus(function() {
 					if(!cleared) {
 						$(this).val("");
