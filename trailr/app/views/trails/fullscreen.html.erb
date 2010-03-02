@@ -86,8 +86,17 @@ function checkLinks(){
 		$("#prevE").css("color","black");
 	}
 }
-$(document).ready(function() {
 
+function resizeIframe() {
+    var height = document.documentElement.clientHeight;
+    // not sure how to get this dynamically
+    height -= 350; /* whatever you set your body bottom margin/padding to be */
+    $('#page').height($(window).height() - 250);
+};
+window.onresize = resizeIframe;
+
+$(document).ready(function() {
+	resizeIframe();
 	$("#nextE").click(function(){
 		current_article_num++;
 		checkLinks();

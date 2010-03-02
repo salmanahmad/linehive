@@ -1,32 +1,26 @@
 html, body {margin: 0px; padding: 0px; height: 100%; border: none;} 
 
-#source
-{
-	height:100%;
-}
 #page
 {
 	border:0px;
 	display: block; border: none; 
 	margin:0px;
-	min-width:100%;
 	width:100%;
-	height:100%;
 }
 #timelinedivcon
 {
 	width:100%;
+	height:250px; 
+	top:0px;
+	z-index:9999;
+	display:block;
 	text-align:center;
-	margin-left:auto;
-	margin-right:auto;
 }
-
 #timelinediv
 {
 	height:250px;
 	top:0px;
 	background-color:white;
-	text-align:center;
 }
 
 #timelinediv #close
@@ -57,16 +51,6 @@ html, body {margin: 0px; padding: 0px; height: 100%; border: none;}
 #timelinediv #Tcontrols #nextE { cursor:pointer; float:right; margin-top:8px; margin-right:50px; }
 #timelinediv #Tcontrols #nextL { cursor:pointer; float:right; margin-top:8px; margin-right:5px; text-align: right;}
 
-#timelinedivcon
-{
-	width:100%;
-	height:250px; 
-	top:0px;
-	z-index:9999;
-	display:block;
-	text-align:center;
-}
-
 #timelineHeadCon
 {
 	font-family: Sans-serif;
@@ -74,12 +58,10 @@ html, body {margin: 0px; padding: 0px; height: 100%; border: none;}
 	padding: 3px;
 	padding-left: 0px;
 	padding-right:0px;
-	width:100%;
+	
 	height:30px; 
 	position:relative; 
 	top:0px; 
-	border-left: 1px solid black;
-	border-right: 1px solid black;
 	background-color:#ffffcc;
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ffffcc), color-stop(0.5, #ffcc00), color-stop(0.5, #ffcc00), to(#ffcc33));
 	background: -moz-linear-gradient(90deg, #ffffcc, #ffcc00, #ffcc33);
