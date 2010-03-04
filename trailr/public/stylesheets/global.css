@@ -222,6 +222,12 @@ br {
 	
 }
 
+.error h2 {
+	font-size:18px;
+	color:#534741;
+	
+}
+
 .space_5 {
 	clear:both;
 	height:5px;
