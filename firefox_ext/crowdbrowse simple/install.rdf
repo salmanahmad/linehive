@@ -2,16 +2,27 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
+  <Seq about="urn:mozilla:stylesheets">
+    <li resource="chrome://global/content/overlay.xul"/>
+  </Seq>
+
+  <Seq about="chrome://global/content/overlay.xul">
+    <li>chrome://crowdbrowse/skin/overlay.css</li>
+  </Seq>
+
   <Description about="urn:mozilla:install-manifest">
   
-    <em:id>{a0d7ccb3-214d-498b-b4aa-0e8fda9a7bf7}</em:id>
+    <em:id>fxchen@stanford.edu</em:id>
     <em:name>CrowdBrowse</em:name>
     <em:version>1.0</em:version>
-    <em:description>Test</em:description>
+    <em:description>The LineHive Firefox extension will install a discreet button on your
+toolbar that will light up when the page you're on has timelines
+associated with it.  You can then view the associated story.</em:description>
     <em:creator>LineHive</em:creator>
+	<em:type>2</em:type>
     <!-- optional items -->
-    <em:contributor>LineHive team</em:contributor>
-    <em:homepageURL>http://kb.mozillazine.org/Getting_started_with_extension_development</em:homepageURL>
+    <em:contributor>LineHive</em:contributor>
+    <em:homepageURL>http://LineHive.com</em:homepageURL>
     <!--em:optionsURL>chrome://sampleext/content/settings.xul</em:optionsURL>
     <em:aboutURL>chrome://sampleext/content/about.xul</em:aboutURL>
     <em:iconURL>chrome://sampleext/skin/mainicon.png</em:iconURL>
