@@ -1,0 +1,32 @@
+// PersonalToolbar
+	//<toolbarpalette id="BrowserToolbarPalette">
+	//</toolbarpalette>
+	
+	<RDF:Seq about="urn:mozilla:stylesheets">
+    <RDF:li resource="chrome://global/content/customizeToolbar.xul" />
+    <RDF:li resource="chrome://browser/content/browser.xul" />
+  </RDF:Seq>
+<RDF:Seq about="chrome://global/content/customizeToolbar.xul">
+    <RDF:li>chrome://crowdbrowse/skin/overlay.css</RDF:li>
+</RDF:Seq>
+
+<RDF:Seq about="chrome://browser/content/browser.xul">
+    <RDF:li>chrome://crowdbrowse/skin/overlay.css</RDF:li>
+</RDF:Seq>
+
+ <Seq about="urn:mozilla:skin:root">
+    <li resource="urn:mozilla:skin:classic/1.0"/>
+  </Seq>
+
+  
+Using DOM Inspector
+Locations: 
+chrome://browser/content/browser.xul
+chrome://browser/content/places/placesOverlay.xul
+
+<toolbarbutton id="lh-button2" 
+			label="CrowdBrowse"
+			tooltiptext="Do it!"
+			onclick="CrowdBrowse.click()"
+			class="lhButton"
+			/>
