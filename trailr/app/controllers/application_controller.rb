@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-    
+  
+  #def local_request?
+  #  false
+  #end
+  
   # These methods are included to check if the user is autenticated
   # The information is actually stored in the session, so these methods
   # have been added to make the code more readable and organized
