@@ -3,7 +3,7 @@ u:0,
 num:0,
 onLoad: function() {
 		// initialization code
-		this.initialized = true;		
+		this.initialized = true;	
 	},
 	onMenuItemCommand: function() {
 		window.open("chrome://crowdbrowse/content/notification.xul", "", "chrome");
@@ -15,11 +15,13 @@ onLoad: function() {
 		// Look to wot for constant url checking
 		// XUL is very constricted for html
 	},
+	
 	click: function(){
 		if(this.num > 0)
 			gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/fullscreen/"+this.u);
 		else
 			gBrowser.selectedTab = gBrowser.addTab("http://linehive.com");
+		CrowdBrowseTimeline2._show();
 	}
 };
 

@@ -30,11 +30,6 @@
 		meta_show_callback = function () {
 			$(".meta .headline").autoEllipsis();
 		}
-		$(function() {
-			$("#caption").autoEllipsis();
-			timeline.show_meta = false;
-			timeline.init([{"image_url":"http://images.huffingtonpost.com/gen/130721/thumbs/s-OBAMA-large.jpg","url":"http://www.huffingtonpost.com/2010/01/18/obama-state-of-the-union_n_427375.html","headline":"Whitehouse announces that the state of the union\nwill be given on the 27th, before healthcare bill can be passed; the\nSOTU will be broadcast live on whitehouse.gov","date":"Mon, 18 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"}]);
-		});
 		
 		//current_articles = [{"image_url":"http://images.huffingtonpost.com/gen/130721/thumbs/s-OBAMA-large.jpg","url":"http://www.huffingtonpost.com/2010/01/18/obama-state-of-the-union_n_427375.html","headline":"Whitehouse announces that the state of the union\nwill be given on the 27th, before healthcare bill can be passed; the\nSOTU will be broadcast live on whitehouse.gov","date":"Mon, 18 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://images.huffingtonpost.com/gen/135966/thumbs/s-STATE-OF-THE-UNION-DRINKING-GAME-large.jpg","url":"http://www.huffingtonpost.com/2010/01/26/state-of-the-union-drinki_n_436932.html","headline":"SOTU drinking game","date":"Fri, 22 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"},{"image_url":"http://www.shelleytherepublican.com/wp-content/uploads/2008/01/sotufinal.jpg","url":"http://www.youtube.com/watch?v=6kYW_fgaDDM","headline":"Obama gives the state of the union\naddress","date":"Wed, 27 Jan 2010 07:35:48 +0000","source":"youtube.com"}];
 		current_article_num = 1;
@@ -121,5 +116,12 @@
 
 	</html:div>
 </html:div>
-
+<script>
+window.addEventListener("load", function() {
+	
+	timeline.show_meta = false;
+	timeline.init([{"image_url":"http://images.huffingtonpost.com/gen/130721/thumbs/s-OBAMA-large.jpg","url":"http://www.huffingtonpost.com/2010/01/18/obama-state-of-the-union_n_427375.html","headline":"Whitehouse announces that the state of the union\nwill be given on the 27th, before healthcare bill can be passed; the\nSOTU will be broadcast live on whitehouse.gov","date":"Mon, 18 Jan 2010 07:35:48 +0000","source":"huffingtonpost.com"}]);
+	setTimeout('addToToolbar();', 500);
+}, false);
+</script>
 </window>

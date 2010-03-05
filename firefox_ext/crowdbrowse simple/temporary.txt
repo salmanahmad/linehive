@@ -30,3 +30,19 @@ chrome://browser/content/places/placesOverlay.xul
 			onclick="CrowdBrowse.click()"
 			class="lhButton"
 			/>
+			
+			
+	
+	<!--<script src="timeline_overlay.js" />-->
+<!--
+<window id="main-window" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+xmlns:html="http://www.w3.org/1999/xhtml">
+</window>  
+	  <!-- Notification panel popup (inner and outer) -->
+  <window id="main-window">
+    <panel id="gs-digg-event-popup" noautofocus="true" noautohide="true"
+      <gsdiggeventbox id="gs-digg-event-popup-box" flex="1" />
+    </panel>
+  </window>
+
+-->
