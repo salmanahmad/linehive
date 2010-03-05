@@ -12,12 +12,17 @@
   <script src="timeline_overlay2.js"/>
 
   <toolbarpalette id="PersonalToolbar">
-		<toolbarbutton id="lh-button" 
+		<toolbarbutton id="lh-button" type="menu-button"
 			label="CrowdBrowse"
 			tooltiptext="Loading..."
-			onclick="CrowdBrowse.click()"
-			class="toolbarbutton-1 chromeclass-toolbar-additional"
-			/>
+			oncommand="CrowdBrowse.click()"
+			class="toolbarbutton-1 chromeclass-toolbar-additional">
+			<menupopup>
+	  <menuitem label="Launch viewer" onclick="alert('full screen');"/>
+	  <menuitem label="Search for all..." onclick="alert('no viewer'); event.stopPropagation();"/>
+	</menupopup>
+			</toolbarbutton>  
+	
 	</toolbarpalette>
 	
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">

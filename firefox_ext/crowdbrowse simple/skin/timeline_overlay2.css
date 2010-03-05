@@ -1,7 +1,7 @@
 #timelineOverlay {
-  width: 520px;
+  width: 600px;
   overflow: hidden;
-  border: none;
+  border: 1px black solid;
   background: transparent;
   padding: 0px;
   -moz-appearance: none !important;

@@ -11,8 +11,6 @@ var CrowdBrowseTimeline2 = {
   _isViewerVisible : function() {
 
     var popup = document.getElementById("timelineOverlay");
-	alert("WTF happens here");
-	return false;
     return ("open" == popup.state);
   },
     /**
@@ -32,11 +30,15 @@ var CrowdBrowseTimeline2 = {
   _hide : function() {
     var popup = document.getElementById("timelineOverlay");
     if ("open" == popup.state) {
-      this._animatePopup(false);
+      popup.hide();
     }
   },
+  /**
+   * Animates the notification popup (fade in/fade out).
+   * @param aShow Whether to fade in (true) or fade out (false) the popup.
+   */
   _show : function() {
-    
+    var popup = document.getElementById("timelineOverlay");
     var win = this._windowManager.getMostRecentWindow("navigator:browser");
     var documentHasFocus = window.document.hasFocus();
     var event = null;
@@ -46,7 +48,7 @@ var CrowdBrowseTimeline2 = {
     }
 
     //event = this._loadEvent();
-    if (true) {
+    if ("open" != popup.state) {
       var popup;
           popup = document.getElementById("timelineOverlay");
           var anchor = document.getElementById("browser-bottombox");
@@ -54,6 +56,7 @@ var CrowdBrowseTimeline2 = {
           popup.show();
     }
   }
+
 
 };
 
