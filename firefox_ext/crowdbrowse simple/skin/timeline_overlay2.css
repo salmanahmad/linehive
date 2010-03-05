@@ -1,5 +1,6 @@
 #timelineOverlay {
   width: 600px;
+  height: 120px;
   overflow: hidden;
   border: 1px black solid;
   background: transparent;

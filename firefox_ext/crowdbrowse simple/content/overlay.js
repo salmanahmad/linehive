@@ -1,16 +1,30 @@
 var CrowdBrowse = {
-u:0,
-num:0,
+	i:0,
+	n:0,
+	u:"",
 	onLoad: function() {
-		// initialization code
+		// Initialize
 		this.initialized = true;	
+		
+		// Set up interaction
+		//var button = document.getElementById("launchCrowdbrowse-button");
+		//button.addEventListener('command',this.launchCrowdbrowse,true);
+		var button2 = document.getElementById("launchSearch-button");
+		button2.addEventListener('command',this.launchSearch,true);
 	},
-	click: function(){
-		if(this.num > 0)
-			gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/fullscreen/"+this.u);
+	launchCrowdbrowse: function(){
+		// Either fire up our embed overlay or open browser for linehive
+		if(CrowdBrowse.n > 0){
+			var popupSrc = document.getElementById("timelineOverlaySrc"); 
+			$("#timelineOverlaySrc").attr('src',"http://localhost:3000/embed/"+CrowdBrowse.i);
+			CrowdBrowseTimeline2.toggle();
+		}
 		else
 			gBrowser.selectedTab = gBrowser.addTab("http://linehive.com");
-		CrowdBrowseTimeline2.toggle();
+	},
+	launchSearch: function(){
+		// Fire up search for most recently navigated page.
+		gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/search/results?query="+CrowdBrowse.u);
 	}
 };
 
@@ -57,18 +71,19 @@ var myExtension = {
 		{
 			$("#lh-button").attr("tooltiptext",trails.length+" linehives from current location.\nClick to launch viewer.");
 			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive.png")');
-			CrowdBrowse.u = trails[0]['trail']['id'];
-			CrowdBrowse.num = trails.length;
+			CrowdBrowse.i = trails[0]['trail']['id'];
+			CrowdBrowse.n = trails.length;
 		}
 		else
 		{
 			$("#lh-button").attr("tooltiptext",trails.length+" linehives from current location.");
 			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive_desat.png")');
-			CrowdBrowse.num = 0;
+			CrowdBrowse.n = 0;
 		}
 		
 	});
     this.oldURL = aURI.spec;
+	CrowdBrowse.u = aURI.spec;
   }
 };
 function addToToolbar(){
@@ -99,46 +114,9 @@ function addToToolbar(){
 };
 	
 window.addEventListener("load", function() {myExtension.init(); CrowdBrowse.onLoad();
-    //setTimeout('show_toolbar_button("lh-button", "urlbar-container");', 1000);
+    
+	// Add it to the toolbar before the url-container
 	setTimeout('addToToolbar();', 500);
 }, false);
 window.addEventListener("unload", function() {myExtension.uninit()}, false);
 
-/*function show_toolbar_button(id, before)
-	{
-		try {
-			var nbr = document.getElementById("nav-bar");
-			if (!nbr || nbr.currentSet.indexOf(id) != -1) {
-				alert("WTF: nav bar not found");
-				return;
-			}
-			var box = document.getElementById("navigator-toolbox");
-			if (!box) {
-				alert("WTF: nav toolbox not found");
-				return;
-			}
-			var bar = box.firstChild;
-			while (bar) {
-				if (bar.currentSet && bar.currentSet.indexOf(id) != -1) {
-					alert("WTF: no bars found");
-					return;
-				}
-				bar = bar.nextSibling;
-			}
-			var target = document.getElementById(before);
-			/* The before element might not exist in the nav-bar 
-			var elem = nbr.firstChild;
-			while (elem) {
-				if (elem == target) {
-					break;
-				}
-				elem = elem.nextSibling;
-			}
-			nbr.insertItem(id, elem, null, false);
-			document.persist("nav-bar", "currentset");
-			alert("Should be added?");
-		} catch (e) {
-			alert("wot_ui.show_toolbar_button: failed with " + e + "\n");
-		}
-	};
-*/

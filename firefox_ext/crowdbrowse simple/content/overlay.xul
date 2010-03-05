@@ -11,23 +11,23 @@
   
   <script src="timeline_overlay2.js"/>
 
-  <toolbarpalette id="PersonalToolbar">
+	<toolbarpalette id="PersonalToolbar">
 		<toolbarbutton id="lh-button" type="menu-button"
-			label="CrowdBrowse"
-			tooltiptext="Loading..."
-			oncommand="CrowdBrowse.click()"
-			class="toolbarbutton-1 chromeclass-toolbar-additional">
-			<menupopup>
-	  <menuitem label="Launch viewer" onclick="alert('full screen');"/>
-	  <menuitem label="Search for all..." onclick="alert('no viewer'); event.stopPropagation();"/>
-	</menupopup>
-			</toolbarbutton>  
+		label="CrowdBrowse"
+		tooltiptext="Loading..."
+		class="toolbarbutton-1 chromeclass-toolbar-additional" 
+		oncommand="CrowdBrowse.launchCrowdbrowse()">
+		<menupopup>
+			<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
+			<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
+		</menupopup>
+	</toolbarbutton>  
 	
 	</toolbarpalette>
 	
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 <panel id="timelineOverlay" >
-	<iframe src="http://cnn.com" flex="1">
+	<iframe id="timelineOverlaySrc" src="http://cnn.com" flex="1">
 	</iframe>
 	</panel>
 </window>
