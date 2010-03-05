@@ -54,7 +54,7 @@ class UserController < ApplicationController
       @user.password = (params[:user][:password] != '' && params[:confirm_password] == params[:user][:password]) ? MD5::md5(params[:user][:password]).hexdigest : nil
 
       if @user.save
-        session[:user] = [@user.id, @user.handle]        
+        session[:user] = [@user.id, @user.username]        
         flash[:notice] = 'Congrats! Your account has been created. You can update your information by clicking "Account"'
         redirect_to :controller => :home, :action => :index    
       else

@@ -10,7 +10,7 @@ class ApiController < ApplicationController
 		
 	end
 	
-	@user = User.find(:first, :conditions => [ "handle = ? OR email = ?", params[:query], params[:query] ]);
+	@user = User.find(:first, :conditions => [ "username = ? OR email = ?", params[:query], params[:query] ]);
 	#@trails = Trail.find(:all, :conditions => { :user_id => @user.id } )
 	@trails = @user.trails
 	

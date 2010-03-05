@@ -4,8 +4,9 @@ class User < ActiveRecord::Base
   has_many :trails, :order => "created_at DESC"
   has_many :articles, :through => :trails
   
-  validates_presence_of :first_name 
-  validates_presence_of :last_name 
+  
+  validates_presence_of :username 
+  validates_uniqueness_of :username
 
   validates_presence_of :password, :message => "did not match, or password fields left blank", :on => :create
 
@@ -29,7 +30,7 @@ class User < ActiveRecord::Base
 		if u.nil? 
 			return nil
 		elsif u["password"] == MD5::md5(password).hexdigest
-			return [u["id"], u["handle"]];
+			return [u["id"], u["username"]];
 		else
 			return nil
 		end    
