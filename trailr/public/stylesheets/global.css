@@ -248,6 +248,11 @@ br {
 	height:20px;
 }
 
+.space_30 {
+	clear:both;
+	height:30px;
+}
+
 .item{
 	height: 100px;
 	margin-bottom: 10px;
