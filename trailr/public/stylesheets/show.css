@@ -13,6 +13,11 @@
 	
 }
 
+.urlbox form {
+	display:inline;
+	height:25px;
+}
+
 .actions {
 	text-align:right;
 	float:right;
@@ -49,4 +54,10 @@
 	margin-right:2px;
 	font-size:12px;
 	font-weight:bold
+}
+
+
+.urlbox span {
+	margin-right:2px;
+	font-size:12px;
 }

@@ -112,7 +112,22 @@
 		
 		<div class="clear"></div>
 		
-	</div>
+		</div>
+		
+		<% if current_admin %>
+		<div class="urlbox" style="line-height:29px">
+			<span class="label">Admin:</span>
+			<% form_tag :controller => "trails", :action => "save_admin_changes", :id => @trail.id do %>
+				
+				<%= check_box :trail, :hidden %>
+				<span class="">Hidden</span>
+				<%= check_box :trail, :demoted %>	
+				<span class="">Demoted</span>
+				<%= submit_tag "Submit" %>
+			<% end %>
+		</div>
+		<% end %>
+		
 </div>
 
 

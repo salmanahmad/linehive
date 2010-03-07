@@ -225,9 +225,23 @@ class TrailsController < ApplicationController
       
     end
     
+  end
+  
+  def save_admin_changes
+    if current_admin
+      @trail = Trail.find(params[:id])
     
+      if @trail.update_attributes(params[:trail])
+        flash[:notice] = "Updated timeline settings" 
+      else
+        flash[:error] = "Could not save changes"
+      end
+    end
+    
+    redirect_to :controller => "trails", :action => "show", :id => @trail.id
     
   end
+  
   
   def update
     

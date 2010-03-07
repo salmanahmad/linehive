@@ -28,6 +28,14 @@ module ApplicationHelper
     end
   end
   
+  def current_admin
+    if current_user and session[:user][2]
+      return true
+    else
+      return false
+    end
+  end
+  
   def current_username
     if session[:user]
       session[:user][1]

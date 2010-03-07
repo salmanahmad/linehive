@@ -31,6 +31,15 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def current_admin
+    if current_user and session[:user][2]
+      return true
+    else
+      return false
+    end
+  end
+  
+  
   def current_trails
 	if session[:trails]
 		session[:trails]
