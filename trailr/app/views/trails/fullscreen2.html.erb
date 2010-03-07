@@ -4,34 +4,11 @@
 <head>
 	<meta http-equiv="x-ua-compatible" content="IE=8">
 	<title>LineHive: <%= @trail.caption %></title>
-	<%= stylesheet_link_tag "embed" %>			
-	<%= stylesheet_link_tag "timeline" %>		
 	<%= default_javascript %>
-	<%= javascript_include_tag "timeline.js" %>
-	<%= javascript_include_tag "jquery.autoellipsis.js" %>
-	<%= javascript_include_tag "jquery.create.js" %>
-	<%= javascript_include_tag "jquery.easing.1.3.js" %>
-	<%= javascript_include_tag "jquery.mousewheel.js" %>
-	<%= stylesheet_link_tag "fullscreen" %>
-	<script type="text/javascript" charset="utf-8">
-
-		meta_show_callback = function () {
-			$(".meta .headline").autoEllipsis();
-		}
-
-		$(function() {
-			$("#caption").autoEllipsis();
-			timeline.show_meta = false;
-			timeline.init(<%= @articles.to_json %>);
-		});
-		
+	<script>	
 		current_articles = <%= @articles.to_json %>;
 		current_article_num = 0;
-		
-		/*(encodeURIComponent(current_articles[0]['url']));
-		*/
-		
-		$.getJSON('<%= url_for :controller => "api", :action => "url" #:only_path => false 
+			$.getJSON('<%= url_for :controller => "api", :action => "url" #:only_path => false 
 		%>?query='+encodeURIComponent(current_articles[0]['url']), function(data) {
 			numlinks = eval(data);
 			$("#currentLink").html(numlinks.length+" lines");
@@ -39,6 +16,7 @@
 	</script>
 	
 </head>
+<body>
 <div id="timelinedivcon">
 	<div id="timelinediv">
 		<div id="timelineHeadCon">
@@ -65,27 +43,6 @@
 </div>
 <script type="text/javascript">
 
-function checkLinks(){
-	if(current_article_num>=current_articles.length){
-		current_article_num = current_articles.length-1;
-	}
-	if(current_article_num<=0){
-		current_article_num = 0;
-	}
-	if(current_article_num==current_articles.length-1){
-		$("#nextE").css("color","gray");
-	}
-	else{
-		$("#nextE").css("color","black");
-	}
-	if(current_article_num==0){
-		$("#prevE").css("color","gray");
-	}
-	else{
-		$("#prevE").css("color","black");
-	}
-}
-
 function resizeIframe() {
     var height = document.documentElement.clientHeight;
     // not sure how to get this dynamically
@@ -95,20 +52,10 @@ function resizeIframe() {
 window.onresize = resizeIframe;
 
 $(document).ready(function() {
-	resizeIframe();
 	$("#nextE").click(function(){
-		current_article_num++;
-		checkLinks();
-		$('#page').attr("src",current_articles[current_article_num].url);
 	});
 	$("#prevE").click(function(){
-		current_article_num--;
-		checkLinks();
-		$('#page').attr("src",current_articles[current_article_num-1].url);
 	});
-	checkLinks();
-	$("#timeline .events .event .thumbnail a").attr("target", "page");
-	//$("#timeline .events .event .thumbnail a").click(function(event){$('#page').attr("src",current_articles[1].url);});
-	
 });
 </script>
+</body>

@@ -19,6 +19,21 @@ class TrailsController < ApplicationController
     
   end
 
+  def s 
+    @trail = Trail.find(params[:id])
+    @articles = @trail.articles_json
+	
+	if params[:num]
+		@num = Integer(params[:num])
+	else
+		@num = 0
+	end
+	
+    respond_to do |format|
+      format.html { render :template => false}
+    end    
+    
+  end
 
   def show
     @trail = Trail.find(params[:id])

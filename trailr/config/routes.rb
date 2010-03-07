@@ -48,6 +48,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect 'create', :controller => "trails", :action => "new"
   map.connect 'fullscreen/:id', :controller => "trails", :action => "fullscreen"
+  map.connect 's/:id/:num', :controller => "trails", :action => "s"
+  map.connect 's/:id', :controller => "trails", :action => "s"
   map.connect 'embed/:id', :controller => "trails", :action => "embed"
   map.connect 'show/:id', :controller => "trails", :action => "show"
   

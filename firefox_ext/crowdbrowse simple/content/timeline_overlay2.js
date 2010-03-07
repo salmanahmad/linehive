@@ -38,7 +38,7 @@ init: function() {
 			var popup;
 			popup = document.getElementById("timelineOverlay");
 			var anchor = document.getElementById("browser-topbox");
-			popup.openPopup(anchor, "after_start", 75, 150, false, false);
+			popup.openPopup(anchor, "after_start", 30, 150, false, false);
 		}
 	}
 };

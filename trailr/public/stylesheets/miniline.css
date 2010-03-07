@@ -1,4 +1,4 @@
-.mini_timeline {
+#mini_timeline {
 	
 	
 	
@@ -14,7 +14,7 @@
 	margin:auto;
 }
 
-.mini_timeline .author {
+#mini_timeline #author {
 	float:right;
 	
 
@@ -22,7 +22,7 @@
 	font-weight:bold;
 }
 
-.mini_timeline .caption {
+#mini_timeline #caption {
 	padding:0px;
 	margin:0px;
 	font-size:14px;
@@ -30,7 +30,7 @@
 	font-weight:bold;
 }
 
-.mini_timeline .events {
+#mini_timeline #events {
 	text-align:center;
 
 	margin:auto;
@@ -46,7 +46,7 @@
 
 }
 
-.mini_timeline .event {
+#mini_timeline #event {
 
 	white-space: normal;
 	line-height:normal;
@@ -66,22 +66,22 @@
 	/*opacity:0.5;*/
 }
 
-.mini_timeline .event:hover {
-	opacity:0.5;
-	background-color:#EBA938;
-	
-	opacity:1.0;
-	background-color:#F2D199;
-}
-
-.mini_timeline .event.highlight {
-	background-color:#95CA38;
-	background-color:#02A1EA;
+#mini_timeline .highlight {
+	border:1px white solid;
 	opacity:1.0;
 	color:white;
+	background-color:#02A1EA;
 }
 
-.mini_timeline .event .thumbnail {
+#mini_timeline #event:hover {
+	opacity:0.5;
+	background-color:#EBA938;
+	opacity:1.0;
+	background-color:#F2D199;
+	cursor:pointer;
+}
+
+#mini_timeline #event .thumbnail {
 	float:left;
 	margin-right:3px;
 	
@@ -91,7 +91,7 @@
 	height:48px;
 }
 
-.mini_timeline .event .thumbnail img {
+#mini_timeline #event .thumbnail img {
 	/*height:48px;*/
 	/*width:48px;*/
 	background-position:center center;
@@ -101,7 +101,7 @@
 }
 
 
-.mini_timeline .event .headline {
+#mini_timeline #event .headline {
 	float:left;
 	height:48px;
 	width:99px;
@@ -109,6 +109,6 @@
 	overflow:hidden;
 }
 
-.mini_timeline .event .date {
+#mini_timeline #event .date {
 	
 }

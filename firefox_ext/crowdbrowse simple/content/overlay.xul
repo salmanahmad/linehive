@@ -27,7 +27,7 @@
 	
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 <panel id="timelineOverlay" >
-	<iframe id="timelineOverlaySrc" src="http://cnn.com" flex="1">
+	<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
 	</iframe>
 	</panel>
 </window>

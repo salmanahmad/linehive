@@ -1,27 +1,28 @@
-<div class="mini_timeline">
-	
-
+<div id="mini_timeline">
+	<% cur_num = 0 
+	if ! defined?(num)
+		num = 0
+	end
+	%>
 	<% if trail.user %>
-		<div class="author">by: <%= trail.user.username %></div>	
+		<div id="author">by: <%= trail.user.username %></div>	
 	<% end %>
 
-	<div class="caption"><%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %></div>
-	<div class="events">
-		
+	<div id="caption"><%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %></div>
+	<div id="events">
 		<% for article in trail.articles %>
+			<div id="event" title="<%= article.headline + "\n" + "Open: " + article.url%>" <%= if cur_num == num then "class=\"highlight\"" end %>
+			<% cur_num = cur_num + 1 %>
 
-			<div class="event">
-				<div class="thumbnail">
-					<img src="<%= article.image_url %>" />
-				</div>
-				<div class="headline" title="<%= article.headline %>">
-					<%= article.headline %>
-				</div>
-			</div>
-
-
-		
-		<% end %>
+			onclick="{window.open('<%= article.url %>'); return false;};"> 
+				<div class="thumbnail"> 
+					<img src="<%= article.image_url %>" /> 
+				</div> 
+				<div class="headline" title="<%= article.headline + "\n" + "Open: " + article.url%>"> 
+					<%= article.headline %> 
+				</div> 
+			</div> 
+		<% end %> 
 
 
 	</div>

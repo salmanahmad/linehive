@@ -16,7 +16,6 @@ var CrowdBrowse = {
 		// Either fire up our embed overlay or open browser for linehive
 		if(CrowdBrowse.n > 0){
 			var popupSrc = document.getElementById("timelineOverlaySrc"); 
-			$("#timelineOverlaySrc").attr('src',"http://localhost:3000/embed/"+CrowdBrowse.i);
 			CrowdBrowseTimeline2.toggle();
 		}
 		else
@@ -51,7 +50,7 @@ var myExt_urlBarListener = {
 
 var myExtension = {
   oldURL: null,
-  
+  URLIndex : -1,
   init: function() {
     // Listen for webpage loads
     gBrowser.addProgressListener(myExt_urlBarListener,
@@ -65,6 +64,7 @@ var myExtension = {
   processNewURL: function(aURI) {
     if (aURI.spec == this.oldURL)
       return;
+
     $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
 		trails = eval(data);
 		if(trails.length>0)
@@ -73,6 +73,27 @@ var myExtension = {
 			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive.png")');
 			CrowdBrowse.i = trails[0]['trail']['id'];
 			CrowdBrowse.n = trails.length;
+			
+			$.getJSON('http://localhost:3000/api/line?query='+CrowdBrowse.i, function(data2) {
+				articles = eval(data2);
+				for(var i = 0; i<articles.length; i++)
+				{
+					
+					if(articles[i]['article']['url'] == gBrowser.contentDocument.location){
+						myExtension.URLIndex = i;
+						
+						return;
+						//alert(myExtension.URLIndex+"matched it!");
+						//alert("YES! "+articles[i]['article']['url']);
+					}
+					else{
+						//alert("No, :( "+articles[i]['article']['url']);
+					}
+				}
+			});
+//			alert(myExtension.URLIndex+"at the source !");
+			$("#timelineOverlaySrc").attr('src',"http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
+			alert("http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
 		}
 		else
 		{
