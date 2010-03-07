@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 		if u.nil? 
 			return nil
 		elsif u["password"] == MD5::md5(password).hexdigest
-			return [u["id"], u["username"]];
+      return [u["id"], u["username"], u["admin"]];
 		else
 			return nil
 		end    
