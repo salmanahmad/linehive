@@ -392,7 +392,8 @@ $(function() {
 		if(url != "nope")
 		{
 			url = $.trim(url);
-			$(".meta #fullLink").html('<b><a href="'+url+'">'+shortenUrl(url)+'</a></b>');
+			//$(".meta #fullLink").html('<b><a href="'+url+'">'+shortenUrl(url)+'</a></b>');
+			$(".meta #fullLink").html('<b><a href="'+ shortenUrl(url) +'" onclick="window.open(\''+ shortenUrl(url) +'\'); return false;" target="_blank">'+ shortenUrl(url) +'</a></b>');
 			$("#searchURL").attr("value",url);
 			$('.meta #searchLink').click(function() { $('#searchURLForm').submit();			});
 			//$(".meta #startLink").html('<a href="/trails/create?urls=' + escape(url) + '">Start new timeline from here</a>');
