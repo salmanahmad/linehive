@@ -1,6 +1,6 @@
 class Trail < ActiveRecord::Base
   belongs_to :user
-  has_many :articles, :dependent => :destroy
+  has_many :articles, :dependent => :destroy, :order => 'date ASC'
   
   validates_length_of :caption, :maximum => 150, :message => "must be less than 150 characters long."
   validates_presence_of :caption, :message => "Timelines must have a caption."
