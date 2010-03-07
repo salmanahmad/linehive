@@ -1,0 +1,28 @@
+<div class="mini_timeline">
+	
+
+	<% if trail.user %>
+		<div class="author">by: <%= trail.user.username %></div>	
+	<% end %>
+
+	<div class="caption"><%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %></div>
+	<div class="events">
+		
+		<% for article in trail.articles %>
+
+			<div class="event">
+				<div class="thumbnail">
+					<img src="<%= article.image_url %>" />
+				</div>
+				<div class="headline" title="<%= article.headline %>">
+					<%= article.headline %>
+				</div>
+			</div>
+
+
+		
+		<% end %>
+
+
+	</div>
+</div>

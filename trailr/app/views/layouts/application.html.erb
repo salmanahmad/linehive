@@ -164,18 +164,9 @@
 				
 				<% if !defined? @show_notifications then @show_notifications = true end %>
 				<% if @show_notifications  %>
-					<% if flash[:notice] %>
-						<div class="notice">
-							<%= flash[:notice] %>
-						</div>
-					<% end %>
-				
-					<% if flash[:error] %>
-						<div class="error">
-							<%= flash[:error] %>
-						</div>
-					<% end %>
+					<%= render :partial => "shared/notifications" %>
 				<% end %>
+
 				<%= yield %>
 			</div>	
 		</div>

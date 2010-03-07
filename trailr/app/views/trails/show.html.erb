@@ -52,7 +52,7 @@
 				This is your timeline - <%= link_to "Edit", :controller => "trails", :action => "edit", :id => @trail.id %> &nbsp; |&nbsp;
 			<% end %>
 			
-			Tweak this timeline - <%= link_to "Copy + Edit", :controller => "trails", :action => "clone", :id => @trail.id %>
+			Tweak this timeline - <%= link_to "Remix", :controller => "trails", :action => "clone", :id => @trail.id %>
 
 
 		</div>
@@ -66,7 +66,7 @@
 				<% if @trail.user && @trail.user.id == current_user %>
 					You!
 				<% else %>
-					<%= @trail.user.handle %>				
+					<%= @trail.user.username %>				
 				<% end %>
 
 			</b>

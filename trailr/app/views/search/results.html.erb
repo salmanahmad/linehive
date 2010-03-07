@@ -2,14 +2,31 @@
 	Search Results - <%= params[:query] %>
 <% end %>
 
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "miniline" %>
+
+<% end %>
+
+<h2>
+
+
 <h2>
 	Search Results: <%= params[:query] %>
 </h2>
 
-<ul>
-	<% for trail in @trails %>
+<div class="space_30"></div>
+
+<% for trail in @trails %>
+
+<%= render :partial => "trails/miniline", :locals => {:trail => trail} %>
+<div class="space_30"></div>
+
+
+<% end %>
+
+
+<!--<ul>
 	<li>
-		<%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id  %>
+		<%# link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id  %>
 	</li>
-	<% end %>
-</ul>
+</ul>-->

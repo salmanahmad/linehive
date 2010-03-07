@@ -7,6 +7,20 @@
 	<%= stylesheet_link_tag "signon" %>	
 <% end %>
 
+<%# Errors for the users %>
+<% if defined? @user %>
+	<% unless @user.errors.empty? %>
+	<div class="error">
+		<%= error_messages_for 'user', :header_message => "", :message => "" %>
+	</div>
+	<% end %>
+
+<% end %>
+
+
+
+
+
 	
 <div class="login">
 	<div class="right">
@@ -15,37 +29,37 @@
 			<h2>Create an Account</h2>
 			<div class="account_form" style="border:1px solid #ccc">
 				
-					<p class="row">
+					<div class="row">
 						<label class="label">Username</label>
-						<%= text_field :user, :handle , {:class => "content" } %>
+						<%= text_field :user, :username , {:class => "content" } %>
 						<br>
-					</p>
+					</div>
 					
-					<p class="row">
+					<div class="row">
 						<label class="label">Email Address</label>
 						<%= text_field :user, :email, {:class => "content"} %>
 						<br>
-					</p>
+					</div>
 
-					<p class="row">
+					<div class="row">
 						<label class="label">Password</label>
 						<%= password_field :user, :password, {:class => "content"} %>
 						<br>
-					</p>
+					</div>
 					
-					<p class="row">
+					<div class="row">
 						<label class="label">Confirm Password</label>
 						<%= password_field_tag "confirm_password", nil, :size => 30, :class => "content" %>			
 						<br>
-					</p>
+					</div>
 					
-					<p class="row" style="text-align:center;">
+					<div class="row" style="text-align:center;">
 						<%= submit_tag "Create", :class => "trail_button" %>
 						<br>
-					</p>
+					</div>
 					
 						
-						
+					&nbsp;
 
 			
 			</div>
@@ -57,22 +71,23 @@
 		<% form_tag :controller => :user, :action => :process_signon do %>
 			<h2>Login with account</h2>
 			<div class="account_form" style="border:1px solid #ccc">
-					<p class="row">
+					<div class="row">
 						<label class="label">Email</label>
 						<%= text_field :user, :email, :class => "content" %>
 						<br>
-					</p>
+					</div>
 					
-					<p class="row">
+					<div class="row">
 						<label class="label">Password</label>
 						<%= password_field :user, :password, :class => "content" %>
 						<br>
-					</p>
+					</div>
 
 					<p class="row" style="text-align:center;">
 						<%= submit_tag "Login", :class => "trail_button" %>
 						<br>
 					</p>
+					&nbsp;
 			</div>
 		<% end %>
 		

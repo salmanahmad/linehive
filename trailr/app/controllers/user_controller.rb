@@ -4,20 +4,13 @@ class UserController < ApplicationController
   include UserHelper
   
   def account
+    
   	if current_user
   		@user = User.find(current_user)
   		@trails = @user.published_trails
   		@drafts = @user.drafts
   		
-  		puts @drafts
-		
-  		#@recent_trails = session[:trails];
-  		#if(@recent_trails.nil?) 
-  		#	@recent_trails = []
-  		#end
-		
-  		#session[:trails] = Array.new	
-  		#session[:trails] = Trail.find(:all, :conditions => [" user_id = ? ", current_user ])
+  		puts @drafts  
   	else 
   		redirect_to :controller => "home", :action => "index"
   	end
@@ -28,7 +21,6 @@ class UserController < ApplicationController
     if current_user
       redirect_to :controller => :user, :action => :account
     end
-    # Iterate on saving current session. Snippet: <% for @trail in session[:trails] %>
   end
   
   def process_signon
@@ -38,6 +30,7 @@ class UserController < ApplicationController
          redirect_to :controller => :user, :action => :account
        else
          session[:user] = nil
+         flash[:error] = "Invalid email or password."
          redirect_to :controller => :user, :action => :signon
        end
        
@@ -51,6 +44,9 @@ class UserController < ApplicationController
   end
 
   def process_create
+    
+    @show_notifications = false
+    
     if current_user then
       redirect_to :controller => :home, :action => :index    
     else
@@ -58,14 +54,12 @@ class UserController < ApplicationController
       @user.password = (params[:user][:password] != '' && params[:confirm_password] == params[:user][:password]) ? MD5::md5(params[:user][:password]).hexdigest : nil
 
       if @user.save
-        session[:user] = [@user.id, @user.handle]        
+        session[:user] = [@user.id, @user.username]        
         flash[:notice] = 'Congrats! Your account has been created. You can update your information by clicking "Account"'
-		
-# Iterate on saving current session. Snippet: <% for @trail in session[:trails] %>
         redirect_to :controller => :home, :action => :index    
       else
-        @customer.password = ""
-        flash[:notice] = 'User could not be created. Please check your input.'
+        @user.password = ""
+        #flash[:error] = 'User could not be created. Please check your input.'
         render :action => 'signon'
       end
 

@@ -222,6 +222,12 @@ br {
 	
 }
 
+.error h2 {
+	font-size:18px;
+	color:#534741;
+	
+}
+
 .space_5 {
 	clear:both;
 	height:5px;
@@ -240,6 +246,11 @@ br {
 .space_20 {
 	clear:both;
 	height:20px;
+}
+
+.space_30 {
+	clear:both;
+	height:30px;
 }
 
 .item{
