@@ -40,7 +40,8 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
 
 
-  map.connect '/', :controller => "home", :action => "index"
+  map.connect '/', :controller => "trails", :action => "index"
+  #map.connect '/', :controller => "home", :action => "index"
   map.connect 'about', :controller => "home", :action => "about"
   map.connect 'team', :controller => "home", :action => "team"
   map.connect 'jetpack', :controller => "home", :action => "jetpack"

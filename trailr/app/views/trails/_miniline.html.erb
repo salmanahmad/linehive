@@ -1,13 +1,19 @@
 <div class="mini_timeline">
 	
-
 	<% if trail.user %>
 		<div class="author">by: <%= trail.user.username %></div>	
 	<% end %>
 
-	<div class="caption"><%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %></div>
-	<div class="events">
-		
+	<div class="caption">
+		<% if trail.caption.strip == "" %>
+			<%= link_to "Untitled", :controller => "trails", :action => "show", :id => trail.id %>			
+		<% else %>
+			<%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %>			
+		<% end %>
+
+	</div>
+	
+	<div class="events">	
 		<% for article in trail.articles %>
 
 			<div class="event">
@@ -18,11 +24,7 @@
 					<%= article.headline %>
 				</div>
 			</div>
-
-
-		
 		<% end %>
-
-
 	</div>
+
 </div>

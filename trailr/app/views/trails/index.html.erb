@@ -1,0 +1,24 @@
+
+
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "miniline" %>
+<% end %>
+
+
+<div id="linehive_description">
+	<h2>LineHive lets anybody tell mini-stories.</h2>
+	<h3>You collect links and we turn them into beautiful timelines to share with the world.</h3>	
+</div>
+
+
+<div class="space_10"></div>
+
+
+
+
+<% for trail in @trails do %>
+	<%= render :partial => "miniline", :locals => {:trail => trail} %>	
+	<div class="space_30"></div>
+<% end %>
+
+<%= will_paginate @trails %>

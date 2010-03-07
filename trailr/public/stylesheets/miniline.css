@@ -30,6 +30,10 @@
 	font-weight:bold;
 }
 
+.mini_timeline .caption a {
+	text-decoration:none;
+}
+
 .mini_timeline .events {
 	text-align:center;
 
