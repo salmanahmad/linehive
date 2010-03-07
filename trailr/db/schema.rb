@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100307070154) do
+ActiveRecord::Schema.define(:version => 20100307231109) do
 
   create_table "articles", :force => true do |t|
     t.integer  "trail_id",   :null => false
@@ -37,9 +37,14 @@ ActiveRecord::Schema.define(:version => 20100307070154) do
     t.boolean  "draft",      :default => false
     t.boolean  "demoted",    :default => false
     t.boolean  "hidden",     :default => false
+    t.boolean  "front",      :default => false
   end
 
   add_index "trails", ["caption"], :name => "index_trails_on_caption"
+  add_index "trails", ["demoted"], :name => "index_trails_on_demoted"
+  add_index "trails", ["draft"], :name => "index_trails_on_draft"
+  add_index "trails", ["front"], :name => "index_trails_on_front"
+  add_index "trails", ["hidden"], :name => "index_trails_on_hidden"
   add_index "trails", ["user_id"], :name => "index_trails_on_user_id"
   add_index "trails", ["viewcount"], :name => "index_trails_on_viewcount"
 

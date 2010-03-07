@@ -9,7 +9,7 @@ class TrailsController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'front DESC, demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
     
     
   end
