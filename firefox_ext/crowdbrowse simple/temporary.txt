@@ -1,7 +1,54 @@
+/*
+
+// ----- This is insertion that doesn't work
+//setTimeout('show_toolbar_button("lh-button", "urlbar-container");', 1000);
+function show_toolbar_button(id, before)
+	{
+		try {
+			var nbr = document.getElementById("nav-bar");
+			if (!nbr || nbr.currentSet.indexOf(id) != -1) {
+				alert("WTF: nav bar not found");
+				return;
+			}
+			var box = document.getElementById("navigator-toolbox");
+			if (!box) {
+				alert("WTF: nav toolbox not found");
+				return;
+			}
+			var bar = box.firstChild;
+			while (bar) {
+				if (bar.currentSet && bar.currentSet.indexOf(id) != -1) {
+					alert("WTF: no bars found");
+					return;
+				}
+				bar = bar.nextSibling;
+			}
+			var target = document.getElementById(before);
+			/* The before element might not exist in the nav-bar 
+			var elem = nbr.firstChild;
+			while (elem) {
+				if (elem == target) {
+					break;
+				}
+				elem = elem.nextSibling;
+			}
+			nbr.insertItem(id, elem, null, false);
+			document.persist("nav-bar", "currentset");
+			alert("Should be added?");
+		} catch (e) {
+			alert("wot_ui.show_toolbar_button: failed with " + e + "\n");
+		}
+	};
+*/
+
+// ----- This is toolbar insertion that doesn't work
+
 // PersonalToolbar
 	//<toolbarpalette id="BrowserToolbarPalette">
 	//</toolbarpalette>
 	
+	
+// ----- This is old school RDF instion that doesn't work	
 	<RDF:Seq about="urn:mozilla:stylesheets">
     <RDF:li resource="chrome://global/content/customizeToolbar.xul" />
     <RDF:li resource="chrome://browser/content/browser.xul" />
@@ -14,11 +61,12 @@
     <RDF:li>chrome://crowdbrowse/skin/overlay.css</RDF:li>
 </RDF:Seq>
 
+// ----- This is resources insert that we don't necessarily need.
  <Seq about="urn:mozilla:skin:root">
     <li resource="urn:mozilla:skin:classic/1.0"/>
   </Seq>
 
-  
+// ----- These are important points 
 Using DOM Inspector
 Locations: 
 chrome://browser/content/browser.xul
@@ -30,3 +78,22 @@ chrome://browser/content/places/placesOverlay.xul
 			onclick="CrowdBrowse.click()"
 			class="lhButton"
 			/>
+			
+			
+// ----- Original insertion of the winow borrowing from the wot code.
+	<!--<script src="timeline_overlay.js" />-->
+	<!--
+	<window id="main-window" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	</window>  
+		  <!-- Notification panel popup (inner and outer) -->
+	  <window id="main-window">
+		<panel id="gs-digg-event-popup" noautofocus="true" noautohide="true"
+		  <gsdiggeventbox id="gs-digg-event-popup-box" flex="1" />
+		</panel>
+	  </window>
+	-->
+
+// ----- This is the pre-perfectly formatted button interaction that did not work.
+<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
+			<menuitem label="Search for more..." id="launchSearch-button" />

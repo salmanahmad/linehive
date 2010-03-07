@@ -1,19 +1,34 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://crowdbrowse/skin/overlay.css" type="text/css"?>
+<?xml-stylesheet type="text/css" href="../skin/timeline_overlay2.css" ?>
+
 <!DOCTYPE overlay SYSTEM "chrome://crowdbrowse/locale/overlay.dtd">
 
 <overlay id="crowdbrowse-overlay"
 		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
-  <script type="application/x-javascript" src="jquery.js" />
+  <script type="application/x-javascript" src="javascripts/jquery-1.4.min.js" />
+  
+  <script src="timeline_overlay2.js"/>
 
-  <toolbarpalette id="PersonalToolbar">
-		<toolbarbutton id="lh-button" 
-			label="CrowdBrowse"
-			tooltiptext="Loading..."
-			onclick="CrowdBrowse.click()"
-			class="toolbarbutton-1 chromeclass-toolbar-additional"
-			/>
-		
+	<toolbarpalette id="PersonalToolbar">
+		<toolbarbutton id="lh-button" type="menu-button"
+		label="CrowdBrowse"
+		tooltiptext="Loading..."
+		class="toolbarbutton-1 chromeclass-toolbar-additional" 
+		oncommand="CrowdBrowse.launchCrowdbrowse()">
+		<menupopup>
+			<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
+			<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
+		</menupopup>
+	</toolbarbutton>  
+	
 	</toolbarpalette>
+	
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+<panel id="timelineOverlay" >
+	<iframe id="timelineOverlaySrc" src="http://cnn.com" flex="1">
+	</iframe>
+	</panel>
+</window>
 </overlay>
