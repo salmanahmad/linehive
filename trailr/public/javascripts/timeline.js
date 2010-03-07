@@ -145,6 +145,9 @@ var timeline = {
 		
 		if($("#timeline.noedit").size() == 0) {
 		
+			var year = (new Date()).getFullYear();
+			var range = (year - 35) + ':' + year;
+		
 			//$(".date_edit").datepicker({dateFormat: 'MM d, yy', 
 			$(".date_edit").datepicker({dateFormat: 'M d, yy', 			
 										changeMonth:true, 
@@ -153,7 +156,7 @@ var timeline = {
 										currentText:'Show Today',
 										onClose:this.updateDate,
 										closeText:'Cancel',
-										yearRange:'-25:0'});
+										yearRange:range});
 
 		} else {
 			$(".date_edit").attr("disabled", true);
