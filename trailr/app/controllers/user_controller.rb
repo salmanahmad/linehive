@@ -74,7 +74,7 @@ class UserController < ApplicationController
       if @user.save
         session[:user] = [@user.id, @user.username]        
         flash[:notice] = 'Congrats! Your account has been created. You can update your information by clicking "Account"'
-        redirect_to :controller => :home, :action => :index    
+        redirect_to :controller => :user, :action => :account    
       else
         @user.password = ""
         #flash[:error] = 'User could not be created. Please check your input.'
