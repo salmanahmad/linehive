@@ -97,3 +97,41 @@ chrome://browser/content/places/placesOverlay.xul
 // ----- This is the pre-perfectly formatted button interaction that did not work.
 <menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
 			<menuitem label="Search for more..." id="launchSearch-button" />
+			
+			
+// -- This is the former overlay.
+<hbox id="browser-topbox">
+		<hbox id="timelineOverlayTop" hidden="true">
+		<iframe id="timelineOverlaySrc" src="about:blank" flex="1" />
+		</hbox>
+	</hbox>
+	<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+	<panel id="timelineOverlay" >
+		<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
+		</iframe>
+		</panel>
+	</window>
+	
+// -- tried to add show bar using js
+var bar = document.getElementById("timelineOverlay");
+		var animationFunction = null;
+		var height = null;
+		var increment = null;
+		var limit = null;
+
+		height = 100;
+		increment = -(100 / 5);
+		limit = 0;
+
+		animationFunction = function() {
+		  height += increment;
+		  bar.style.height = height + "px";
+
+		  if (height != limit) {
+			window.setTimeout(animationFunction, 50);
+		  } else if (0 == height) {
+			bar.hidden = true;
+		  }
+		};
+
+		animationFunction();

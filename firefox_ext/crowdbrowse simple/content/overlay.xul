@@ -21,14 +21,22 @@
 			<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
 			<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
 		</menupopup>
-	</toolbarbutton>  
-	
+	</toolbarbutton>  	
 	</toolbarpalette>
-	
-<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
-<panel id="timelineOverlay" >
-	<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
-	</iframe>
-	</panel>
-</window>
+	<hbox id="PersonalToolbar">
+		<hbox id="timelineOverlayT" hidden="true">
+		<iframe id="timelineOverlaySrc2" src="about:blank" flex="1" />
+		</hbox>
+	</hbox>
+	<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+	<panel id="timelineOverlay" noautohide="true" noautofocus="false">
+		<hbox>
+		<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
+		</iframe>
+		<vbox>
+		<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
+		</vbox>
+		</hbox>
+		</panel>
+	</window>
 </overlay>

@@ -1,5 +1,13 @@
-var CrowdBrowseTimeline2 = {
-init: function() {
+function resizeIframe() {
+	var Wwidth = document.documentElement.clientWidth;
+	$('#timelineOverlay').width(Wwidth);
+};
+window.onresize = resizeIframe;
+
+var CrowdBrowseTimeline2 = 
+{
+	init: function() 
+	{
 		// initialization code
 		this.initialized = true;
 		this._windowManager =     Cc["@mozilla.org/appshell/window-mediator;1"].        getService(Ci.nsIWindowMediator);
@@ -8,25 +16,29 @@ init: function() {
 * Determines whether the event viewer is visible or not.
 * @return True if the viewer is visible, false otherwise.
 */
-	_isViewerVisible : function() {
+	_isViewerVisible : function() 
+	{
 		var popup = document.getElementById("timelineOverlay");
 		return ("open" == popup.state);
 	},
-	toggle : function() {
-		
+	toggle : function() 
+	{
 		if (this._isViewerVisible()) {
 			this._hide();
 		} else {
 			this._show();
 		}
 	},
-	_hide : function() {
+	_hide : function() 
+	{
 		var popup = document.getElementById("timelineOverlay");
-		if ("open" == popup.state) {
-			popup.hide();
+		if ("open" == popup.state) 
+		{
+			popup.hidePopup();
 		}
 	},
-	_show : function() {
+	_show : function() 
+	{
 		var popup = document.getElementById("timelineOverlay");
 		var win = this._windowManager.getMostRecentWindow("navigator:browser");
 		var documentHasFocus = window.document.hasFocus();
@@ -34,11 +46,12 @@ init: function() {
 
 		if (win != window || this._isViewerVisible() || !documentHasFocus) { return;    }
 		//event = this._loadEvent();
-		if ("open" != popup.state) {
+		if ("open" != popup.state) 
+		{
 			var popup;
 			popup = document.getElementById("timelineOverlay");
-			var anchor = document.getElementById("browser-topbox");
-			popup.openPopup(anchor, "after_start", 30, 150, false, false);
+			var anchor = document.getElementById("nav-bar");
+			popup.openPopup(anchor, "after_start", 0, 0, false, false);
 		}
 	}
 };

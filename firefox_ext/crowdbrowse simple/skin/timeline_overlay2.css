@@ -1,9 +1,18 @@
 #timelineOverlay {
-  width: 920px;
+  width:800px;
   height: 100px;
   overflow: hidden;
-  border: 1px black solid;
   background: white;
   padding: 0px;
   -moz-appearance: none !important;
+}
+
+
+#timelineOverlay .lh-close-button{
+  list-style-image: url("images/close.png");
+  width: 16px;
+  height: 16px;
+  position:absolute;
+  margin-top: 4px;
+  margin-bottom: 26px;
 }

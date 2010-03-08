@@ -15,7 +15,7 @@ var CrowdBrowse = {
 	launchCrowdbrowse: function(){
 		// Either fire up our embed overlay or open browser for linehive
 		if(CrowdBrowse.n > 0){
-			var popupSrc = document.getElementById("timelineOverlaySrc"); 
+			//var popupSrc = document.getElementById("timelineOverlaySrc"); 
 			CrowdBrowseTimeline2.toggle();
 		}
 		else
@@ -62,7 +62,7 @@ var myExtension = {
   },
 
   processNewURL: function(aURI) {
-    if (aURI.spec == this.oldURL)
+    if (aURI !=null && aURI.spec == this.oldURL)
       return;
 
     $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
@@ -82,7 +82,7 @@ var myExtension = {
 					if(articles[i]['article']['url'] == gBrowser.contentDocument.location){
 						myExtension.URLIndex = i;
 						
-						return;
+						break;
 						//alert(myExtension.URLIndex+"matched it!");
 						//alert("YES! "+articles[i]['article']['url']);
 					}
@@ -90,10 +90,10 @@ var myExtension = {
 						//alert("No, :( "+articles[i]['article']['url']);
 					}
 				}
+				$("#timelineOverlaySrc").attr('src',"http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
+				//alert("http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
 			});
 //			alert(myExtension.URLIndex+"at the source !");
-			$("#timelineOverlaySrc").attr('src',"http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
-			alert("http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
 		}
 		else
 		{
@@ -135,8 +135,7 @@ function addToToolbar(){
 };
 	
 window.addEventListener("load", function() {myExtension.init(); CrowdBrowse.onLoad();
-    
-	// Add it to the toolbar before the url-container
+	// Add icon to the toolbar before the url-container
 	setTimeout('addToToolbar();', 500);
 }, false);
 window.addEventListener("unload", function() {myExtension.uninit()}, false);
