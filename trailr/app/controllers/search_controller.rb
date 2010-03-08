@@ -12,12 +12,13 @@ class SearchController < ApplicationController
         JOIN articles ON articles.trail_id = trails.id 
         LEFT JOIN users ON trails.user_id = users.id
       WHERE trails.draft = ? AND trails.hidden =? AND (trails.caption LIKE ? OR users.username LIKE ? OR articles.headline LIKE ? OR articles.source LIKE ? OR articles.url LIKE ?)
-      ORDER BY trails.front DESC, trails.demoted ASC, trails.viewcount DESC, trails.created_at DESC;
+      ORDER BY trails.front DESC, trails.demoted ASC, trails.viewcount DESC, trails.created_at DESC
       EOF
       
       query = '%' + params[:query] + '%';
+      page = params[:page] || 1
       
-      @trails = Trail.find_by_sql([sql, false, false, query, query, query, query, query ]) if params[:query]
+      @trails = Trail.paginate_by_sql([sql, false, false, query, query, query, query, query], :per_page => 7, :page => page) if params[:query]
       
     end
     
