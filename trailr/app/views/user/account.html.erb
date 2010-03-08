@@ -12,19 +12,31 @@
 
 <%# form_tag :controller => :user, :action => :process_edit do %>
 	
+	
+	
 <div class="account_info">
-		
-		<div class="two_columns">
+				
+		<div class="two_columns" style="">
 			
 			<div class="left">
-				<h2>Username:</h2>	
-				<b><%= @user.username %></b>
+				<h2>You:</h2>	
+				<b><%= @user.username %></b>(<%= @user.email %>)
 			</div>
 			
 			<div class="right">
-				<h2>Email:</h2>
-				<b><%= @user.email %></b>
+				<h2 style="display:block;margin:0px">
+					<span style="color:black">Your timelines are public at</span> <%= link_to url_for(:controller => "user", :action => "profile", :username => @user.username, :only_path => false), :controller => "user", :action => "profile", :username => @user.username %>
+				</h2>
+
+
 			</div>
+			
+
+			
+			
+			
+			
+			
 			
 		</div>
 

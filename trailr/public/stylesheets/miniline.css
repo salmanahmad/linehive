@@ -1,117 +1,118 @@
-#mini_timeline {
-	
-	
-	
-	font-family:Helvetica, Arial, Sans-Serif;
-	font-size:10px;
-	
-	padding:0px;
-	margin:0px;
-	
-	width:900px;
-	
-	/*background-color:#FAFAFA;*/
-	margin:auto;
-}
-
-#mini_timeline #author {
-	float:right;
-	
-
-	font-size:12px;
-	font-weight:bold;
-}
-
-#mini_timeline #caption {
-	padding:0px;
-	margin:0px;
-	font-size:14px;
-	color:#02A1EA;
-	font-weight:bold;
-}
-
-#mini_timeline #events {
-	text-align:center;
-
-	margin:auto;
-	height:48px;
-	background-color:#FAFAFA;
-	border:1px solid #CCC;
-	
-	white-space: nowrap;
-	overflow:hidden;
-	overflow-x:auto;
-	padding:4px 0px;
-
-
-}
-
-#mini_timeline #event {
-
-	white-space: normal;
-	line-height:normal;
-	
-	margin:0px;
-	padding:0px;
-
-	width:150px;
-	width:138px;
-	display:inline-block;
-	text-align:left;
-
-	margin-right:0px;
-	margin-left:5px;
-	padding-right:4px;
-		
-	/*opacity:0.5;*/
-}
-
-#mini_timeline .highlight {
-	border:1px white solid;
-	opacity:1.0;
-	color:white;
-	background-color:#02A1EA;
-}
-
-#mini_timeline #event:hover {
-	opacity:0.5;
-	background-color:#EBA938;
-	opacity:1.0;
-	background-color:#F2D199;
-	cursor:pointer;
-}
-
-#mini_timeline #event .thumbnail {
-	float:left;
-	margin-right:3px;
-	
-	
-	overflow:hidden; /* this is important */
-	width:48px;
-	height:48px;
-}
-
-#mini_timeline #event .thumbnail img {
-	/*height:48px;*/
-	/*width:48px;*/
-	background-position:center center;
-	height:48px;
-	width:48px;
-	
-}
-
-#mini_timeline #event . url{
-	display:none;
-}
-
-#mini_timeline #event .headline {
-	float:left;
-	height:48px;
-	width:99px;
-	width:87px;
-	overflow:hidden;
-}
-
-#mini_timeline #event .date {
-	
+.mini_timeline { 
+     
+     
+     
+    font-family:Helvetica, Arial, Sans-Serif; 
+    font-size:10px; 
+     
+    padding:0px; 
+    margin:0px; 
+     
+    width:900px; 
+     
+    /*background-color:#FAFAFA;*/ 
+    margin:auto; 
+} 
+ 
+.mini_timeline .author { 
+    float:right; 
+     
+ 
+    font-size:12px; 
+    font-weight:bold; 
+} 
+ 
+.mini_timeline .caption { 
+    padding:0px; 
+    margin:0px; 
+    font-size:14px; 
+    color:#02A1EA; 
+    font-weight:bold; 
+} 
+ 
+.mini_timeline .caption a { 
+    text-decoration:none; 
+} 
+ 
+.mini_timeline .events { 
+    text-align:center; 
+ 
+    margin:auto; 
+    height:48px; 
+    background-color:#FAFAFA; 
+    border:1px solid #CCC; 
+     
+    white-space: nowrap; 
+    overflow:hidden; 
+    overflow-x:auto; 
+    padding:4px 0px; 
+ 
+ 
+} 
+ 
+.mini_timeline .event { 
+ 
+    white-space: normal; 
+    line-height:normal; 
+     
+    margin:0px; 
+    padding:0px; 
+ 
+    width:150px; 
+    width:138px; 
+    display:inline-block; 
+    text-align:left; 
+ 
+    margin-right:0px; 
+    margin-left:5px; 
+    padding-right:4px; 
+         
+    /*opacity:0.5;*/ 
+} 
+ 
+.mini_timeline .event:hover { 
+    opacity:0.5; 
+    background-color:#EBA938; 
+     
+    opacity:1.0; 
+    background-color:#F2D199; 
+} 
+ 
+.mini_timeline .event.highlight { 
+    background-color:#95CA38; 
+    background-color:#02A1EA; 
+    opacity:1.0; 
+    color:white; 
+} 
+ 
+.mini_timeline .event .thumbnail { 
+    float:left; 
+    margin-right:3px; 
+     
+     
+    overflow:hidden; /* this is important */ 
+    width:48px; 
+    height:48px; 
+} 
+ 
+.mini_timeline .event .thumbnail img { 
+    /*height:48px;*/ 
+    /*width:48px;*/ 
+    background-position:center center; 
+    height:48px; 
+    width:48px; 
+     
+} 
+ 
+ 
+.mini_timeline .event .headline { 
+    float:left; 
+    height:48px; 
+    width:99px; 
+    width:87px; 
+    overflow:hidden; 
+} 
+ 
+.mini_timeline .event .date { 
+     
 }

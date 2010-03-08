@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   
   def index
+    redirect_to :controller => "trails", :action => "index"
     #redirect_to :controller => "trails", :action => "new"
   end
 

@@ -1,0 +1,25 @@
+<% content_for :title do %>
+	<%= @user.username %>'s Profile
+<% end %>
+
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "miniline" %>
+<% end %>
+
+<% content_for :head do %>
+	<%= auto_discovery_link_tag(:rss, :controller => "user", :action => "feed", :format => "rss") %>
+<% end %>
+
+<h2>
+	<%= @user.username %>'s timelines
+</h2>
+
+<div class="space_30"></div>
+
+<% for trail in @trails do %>
+	<%= render :partial => "trails/miniline", :locals => {:trail => trail} %>
+	<div class="space_30"></div>
+
+<% end %>
+
+<%= will_paginate @trails %>

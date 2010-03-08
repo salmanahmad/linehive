@@ -40,13 +40,13 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
 
 
+
   map.connect '/', :controller => "trails", :action => "index"
   #map.connect '/', :controller => "home", :action => "index"
   map.connect '/search', :controller => "search", :action => "results"
   map.connect 'about', :controller => "home", :action => "about"
   map.connect 'team', :controller => "home", :action => "team"
   map.connect 'jetpack', :controller => "home", :action => "jetpack"
-  
   
   map.connect 'create', :controller => "trails", :action => "new"
   map.connect 'fullscreen/:id', :controller => "trails", :action => "fullscreen"
@@ -59,6 +59,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'api/:action/:query', :controller => "api"
   
+  map.connect 'home', :controller => "home", :action => "index"
+  map.connect 'feedback', :controller => "feedback", :action => "index"
+  
+  map.connect ':username', :controller => "user", :action => "profile"
+  map.connect ':username.:format', :controller => "user", :action => "feed"
+
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+
+
 end

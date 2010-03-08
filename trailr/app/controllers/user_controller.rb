@@ -3,6 +3,24 @@ require 'md5'
 class UserController < ApplicationController
   include UserHelper
   
+  
+  def profile
+    
+    page = params[:page] || 1
+    
+    @user = User.find(:first, :conditions => {:username => params[:username]})
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false, :user_id => @user.id}, :page => page, :order => 'front DESC, demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
+    #@trails = @user.trails
+    
+  end
+  
+  def feed
+    
+    @user = User.find(:first, :conditions => {:username => params[:username]})
+    @trails = Trail.find :all, :conditions => {:draft => false, :hidden => false, :user_id => @user.id}, :order => 'created_at DESC, viewcount DESC'
+    
+  end
+  
   def account
     
   	if current_user
@@ -56,7 +74,7 @@ class UserController < ApplicationController
       if @user.save
         session[:user] = [@user.id, @user.username]        
         flash[:notice] = 'Congrats! Your account has been created. You can update your information by clicking "Account"'
-        redirect_to :controller => :home, :action => :index    
+        redirect_to :controller => :user, :action => :account    
       else
         @user.password = ""
         #flash[:error] = 'User could not be created. Please check your input.'

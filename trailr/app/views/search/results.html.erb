@@ -11,7 +11,7 @@
 
 
 <h2>
-	Search Results: <%= params[:query] %>
+	Search Results for "<%= params[:query] %>"
 </h2>
 
 <div class="space_30"></div>
@@ -34,8 +34,5 @@
 
 <% end %>
 
-<!--<ul>
-	<li>
-		<%# link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id  %>
-	</li>
-</ul>-->
+
+<%= will_paginate @trails %>
