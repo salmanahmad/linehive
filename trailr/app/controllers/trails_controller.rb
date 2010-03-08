@@ -216,9 +216,11 @@ class TrailsController < ApplicationController
     
     @trail = Trail.find(params[:id])
     
-    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
-      redirect_to :action => "show", :id => @trail.id
-      return false
+    if !current_admin then
+      if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
+        redirect_to :action => "show", :id => @trail.id
+        return false
+      end
     end
     
     
@@ -254,10 +256,11 @@ class TrailsController < ApplicationController
     
     @trail = Trail.find(params[:id])
     
-    
-    if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
-      redirect_to :action => "show", :id => @trail.id
-      return
+    if !current_admin then
+      if(@trail.user && @trail.user.id != current_user || @trail.user.nil?)
+        redirect_to :action => "show", :id => @trail.id
+        return
+      end
     end
     
     
