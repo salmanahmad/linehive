@@ -18,7 +18,7 @@
 		class="toolbarbutton-1 chromeclass-toolbar-additional" 
 		oncommand="CrowdBrowse.launchCrowdbrowse()">
 		<menupopup>
-			<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
+			<menuitem label="Launch LineHive viewer" id="launchCrowdbrowse-button" default="true" />
 			<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
 		</menupopup>
 	</toolbarbutton>  	
@@ -35,6 +35,7 @@
 		</iframe>
 		<vbox>
 		<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
+		<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
 		</vbox>
 		</hbox>
 		</panel>

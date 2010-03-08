@@ -69,7 +69,9 @@ var myExtension = {
 		trails = eval(data);
 		if(trails.length>0)
 		{
-			$("#lh-button").attr("tooltiptext",trails.length+" linehives from current location.\nClick to launch viewer.");
+			$("#lh-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick to launch viewer for most popular line.");
+			$(".lh-search-button").attr("tooltiptext",trails.length+" linehives from current location.\nClick here to view all.");
+			$("#launchSearch-button").attr("tooltiptext",trails.length+" linehives from current location.\nClick here to view all.");
 			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive.png")');
 			CrowdBrowse.i = trails[0]['trail']['id'];
 			CrowdBrowse.n = trails.length;
