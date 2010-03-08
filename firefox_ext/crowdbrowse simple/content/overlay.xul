@@ -6,7 +6,7 @@
 <overlay id="crowdbrowse-overlay"
 		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
-  <script type="application/x-javascript" src="javascripts/jquery-1.4.min.js" />
+  <script type="application/x-javascript" src="jquery.js" />
 
 	<!-- Temporarily place the item into the personal toolbar before moving into navigational toolbar -->
 	<toolbarpalette id="PersonalToolbar"> 
@@ -43,15 +43,15 @@
 				<spacer flex="1"/>
 			</hbox>
 		<vbox flex="1" >
-		<hbox>
-		<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
-		<spacer flex="1" />
-		</hbox>
-		<hbox>
-		<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
-		<spacer flex="1" />
-		</hbox>
-		<spacer flex="1" />
+			<hbox>
+				<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
+				<spacer flex="1" />
+			</hbox>
+			<hbox>
+				<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
+				<spacer flex="1" />
+			</hbox>
+			<spacer flex="1" />
 		</vbox>
 		</hbox>
 		</panel>

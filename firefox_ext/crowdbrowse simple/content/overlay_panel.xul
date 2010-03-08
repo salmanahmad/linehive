@@ -39,10 +39,16 @@ function createEvents(all){
 	var n = createEvent(all[0]['article']);
 	var o = createEvent(all[1]['article']);
 	var p = createEvent(all[2]['article']);
+	var n1 = createEvent(all[0]['article']);
+	var o1 = createEvent(all[1]['article']);
+	var p1 = createEvent(all[2]['article']);
 	
 	eBox.insertBefore(n, rightE);
 	eBox.insertBefore(o, rightE);
 	eBox.insertBefore(p, rightE);
+	eBox.insertBefore(n1, rightE);
+	eBox.insertBefore(o1, rightE);
+	eBox.insertBefore(p1, rightE);
 };
 
 </script>
@@ -70,7 +76,7 @@ function createEvents(all){
 	
 	createEvents(all);
 	
-	//"http://linehive.com/api/line/3"; $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {	    
+	//"http://linehive.com/api/line/3"; $.getJSON('http://linehive.com/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {	    
 	
 	</script>
 </window>

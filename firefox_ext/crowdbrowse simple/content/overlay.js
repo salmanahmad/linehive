@@ -4,6 +4,8 @@ var CrowdBrowse = {
 	i:0,
 	n:0,
 	u:"",
+	articles: [],
+	trails: [],
 	onLoad: function() {
 		// Initialize the window manager
 		this.initialized = true;
@@ -23,7 +25,7 @@ var CrowdBrowse = {
 	},
 	launchSearch: function(){
 		// Fire up search for most recently navigated page.
-		gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/search/results?query="+CrowdBrowse.u);
+		gBrowser.selectedTab = gBrowser.addTab("http://linehive.com/search/results?query="+CrowdBrowse.u);
 	},
 	_isViewerVisible : function() 
 	{
@@ -48,6 +50,8 @@ var CrowdBrowse = {
 	},
 	_show : function() // Show the overlay
 	{ 
+		CrowdBrowse.resetLine();
+		
 		var popup = document.getElementById("timelineOverlay");
 		var win = this._windowManager.getMostRecentWindow("navigator:browser");
 		var documentHasFocus = window.document.hasFocus();
@@ -98,8 +102,13 @@ var CrowdBrowse = {
 		eventContainerBox.insertBefore(n, rightE);
 	},
 	resetLine : function (){ // Function to insert DOM 
-		$(".container #caption").attr("value", trails[0]['trail']['caption']);
+		$(".container #caption").attr("value", CrowdBrowse.trails[0]['trail']['caption']);
 		$(".container #author").attr("value", "");
+		
+		document.getElementById("caption").addEventListener("click", function() { 
+		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+		var recentWindow = wm.getMostRecentWindow("navigator:browser");
+		recentWindow.delayedOpenTab("http://linehive.com/show/"+CrowdBrowse.trails[0]['trail']['id'], null, null, null, null);}, true);
 		
 		$("#event").remove(); $("#event").remove();$("#event").remove();$("#event").remove();$("#event").remove();$("#event").remove();
 		
@@ -159,27 +168,25 @@ var myExtension = {
       return;
 
 	// Query our server based upon incoming url.
-    $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
-		trails = eval(data);
-		if(trails.length>0)
+    $.getJSON('http://linehive.com/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
+		CrowdBrowse.trails = eval(data);
+		if(CrowdBrowse.trails.length>0)
 		{
 			// Something was found! Let's update the different parts of our xul layout.
-			$("#lh-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick to launch viewer for most popular line.");
-			$(".lh-search-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick here to view all.");
-			$("#launchSearch-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick here to view all.");
-			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive.png")');
-			CrowdBrowse.i = trails[0]['trail']['id'];
-			CrowdBrowse.n = trails.length;
+			$("#lh-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick to launch viewer for most popular line.");
+			$(".lh-search-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick here to view all.");
+			$("#launchSearch-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick here to view all.");
+			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/images/linehive.png")');
+			CrowdBrowse.i = CrowdBrowse.trails[0]['trail']['id'];
+			CrowdBrowse.n = CrowdBrowse.trails.length;
 			
-			$(".container #caption").attr("value", trails[0]['trail']['caption']);
-			$(".container #author").attr("value", "");
 			/*  TODO: Add this
 			if(trails[0]['trail']['author'].length > 0)
 			{
 				$(".container #author").attr("value", "by: " + trails[0]['trail']['author']);
 			}*/
 			// Fetch data from our server to ask about the current line.
-			$.getJSON('http://localhost:3000/api/line?query='+CrowdBrowse.i, function(data2) {
+			$.getJSON('http://linehive.com/api/line?query='+CrowdBrowse.i, function(data2) {
 				CrowdBrowse.articles = eval(data2);
 				if( ! CrowdBrowse._isViewerVisible() ){
 					CrowdBrowse.resetLine();
@@ -189,11 +196,11 @@ var myExtension = {
 		}
 		else
 		{
-			$("#lh-button").attr("tooltiptext",trails.length+" linehives found for current location.");
-			$(".lh-search-button").attr("tooltiptext",trails.length+" linehives found for current location.");
-			$("#launchSearch-button").attr("tooltiptext",trails.length+" linehives found for current location.");
+			$("#lh-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
+			$(".lh-search-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
+			$("#launchSearch-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
 			
-			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive_desat.png")');
+			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/images/linehive_desat.png")');
 			CrowdBrowse.n = 0;
 		}
 		
