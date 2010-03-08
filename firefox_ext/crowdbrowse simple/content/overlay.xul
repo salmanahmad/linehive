@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://crowdbrowse/skin/overlay.css" type="text/css"?>
-<?xml-stylesheet type="text/css" href="../skin/timeline_overlay2.css" ?>
 
 <!DOCTYPE overlay SYSTEM "chrome://crowdbrowse/locale/overlay.dtd">
 
@@ -8,27 +7,31 @@
 		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
   <script type="application/x-javascript" src="javascripts/jquery-1.4.min.js" />
-  
-  <script src="timeline_overlay2.js"/>
 
-	<toolbarpalette id="PersonalToolbar">
+	<!-- Temporarily place the item into the personal toolbar before moving into navigational toolbar -->
+	<toolbarpalette id="PersonalToolbar"> 
 		<toolbarbutton id="lh-button" type="menu-button"
 		label="CrowdBrowse"
 		tooltiptext="Loading..."
 		class="toolbarbutton-1 chromeclass-toolbar-additional" 
 		oncommand="CrowdBrowse.launchCrowdbrowse()">
-		<menupopup>
-			<menuitem label="Launch viewer" id="launchCrowdbrowse-button" default="true" />
-			<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
-		</menupopup>
-	</toolbarbutton>  
-	
+			<menupopup>
+				<menuitem label="Launch LineHive viewer" id="launchCrowdbrowse-button" default="true" />
+				<menuitem label="Search for more..." id="launchSearch-button" oncommand="event.stopPropagation();" />
+			</menupopup>
+		</toolbarbutton>  	
 	</toolbarpalette>
 	
-<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
-<panel id="timelineOverlay" >
-	<iframe id="timelineOverlaySrc" src="http://cnn.com" flex="1">
-	</iframe>
-	</panel>
-</window>
+	<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+	<panel id="timelineOverlay" noautohide="true" noautofocus="false">
+		<hbox>
+		<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
+		</iframe>
+		<vbox>
+		<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
+		<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
+		</vbox>
+		</hbox>
+		</panel>
+	</window>
 </overlay>

@@ -1,6 +1,0 @@
-#lh-button{
-	list-style-image: url("chrome://crowdbrowse/skin/linehive_desat.png");
-}
-toolbar[iconsize="small"] #lh-button{
-  list-style-image: url("chrome://crowdbrowse/skin/linehive_desat_small.png");
-}

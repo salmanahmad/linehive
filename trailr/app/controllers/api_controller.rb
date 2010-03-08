@@ -68,7 +68,7 @@ class ApiController < ApplicationController
 	else
 		format = params[:format]
 	end
-	@articles = Article.find(:all, :conditions => params[:query] )
+	@articles = Article.find(:all, :conditions => ["trail_id = ?", params[:query]] )
 	#render :text => "#{params[:query]} #{@articles.to_json}"
 	respond_to do |format|
       format.xml

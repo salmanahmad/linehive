@@ -4,3 +4,30 @@
 toolbar[iconsize="small"] #lh-button{
   list-style-image: url("chrome://crowdbrowse/skin/linehive_desat_small.png");
 }
+
+#timelineOverlay {
+  width:800px;
+  height: 100px;
+  overflow: hidden;
+  background: white;
+  padding: 0px;
+  -moz-appearance: none !important;
+}
+
+
+#timelineOverlay .lh-close-button{
+  list-style-image: url("images/close.png");
+  width: 16px;
+  height: 16px;
+  position:absolute;
+  margin-top: 4px;
+  
+}
+
+#timelineOverlay .lh-search-button{
+  list-style-image: url("images/search.png");
+  width: 16px;
+  height: 16px;
+  position:absolute;
+  margin-top: 4px;
+}
