@@ -57,8 +57,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'api/:action/:query', :controller => "api"
   
+  map.connect 'home', :controller => "home", :action => "index"
+  
   map.connect ':username', :controller => "user", :action => "profile"
+
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+
+
 end
