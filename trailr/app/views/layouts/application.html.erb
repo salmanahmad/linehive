@@ -161,7 +161,9 @@
 		
 		
 		<div style="background-color:white">
-			<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>
+			<!--<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>-->
+			<%= link_to "&nbsp", {:controller => :feedback, :action => :index, :page => request.request_uri}, {:id => "feedback"} %>
+			
 			<div id="content">
 				
 				<% if !defined? @show_notifications then @show_notifications = true end %>

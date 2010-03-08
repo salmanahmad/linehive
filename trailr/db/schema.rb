@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100307231109) do
+ActiveRecord::Schema.define(:version => 20100307235835) do
 
   create_table "articles", :force => true do |t|
     t.integer  "trail_id",   :null => false
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(:version => 20100307231109) do
   add_index "articles", ["source"], :name => "index_articles_on_source"
   add_index "articles", ["trail_id"], :name => "index_articles_on_trail_id"
   add_index "articles", ["url"], :name => "index_articles_on_url"
+
+  create_table "feedbacks", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "can_contact", :default => false
+    t.string   "comment"
+    t.string   "email"
+    t.string   "name"
+    t.string   "page"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trails", :force => true do |t|
     t.integer  "user_id"

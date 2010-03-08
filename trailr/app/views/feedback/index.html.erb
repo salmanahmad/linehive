@@ -1,0 +1,47 @@
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "form" %>
+<% end %>
+
+<% content_for :title do %>
+	LineHive Feedback
+<% end %>
+
+<% if defined? @feedback %>
+	<% unless @feedback.errors.empty? %>
+	<div class="error">
+		<%= error_messages_for 'feedback', :header_message => "Could not send feedback", :message => "" %>
+	</div>
+	<% end %>
+
+<% end %>
+
+
+<h2>Submit Feedback</h2>
+<div class="space_15"></div>
+
+
+<% form_for :feedback, @feedback, :url => { :controller => "feedback", :action => "create" } do |f| %>
+	<label class="large_label">Comments (please include a link to the page if applicable)</label>
+	<%= f.hidden_field :page %>
+	<%= f.text_area :comment, :class => "large_text", :style => "width:100%;height:150px;" %>
+	<div class="space_15"></div>
+
+	<label class="large_label">Name (optional)</label>
+	<%= f.text_field :name, :class => "large_text", :style => "width:100%" %>
+	<div class="space_15"></div>
+
+	<label class="large_label">Email (optional)</label>
+	<%= f.text_field :email, :class => "large_text", :style => "width:100%" %>	
+	<div class="space_15"></div>
+
+	<%= f.check_box :can_contact  %>
+	<label class="large_label">Can we contact you to follow up on your feedback? We will only contact you regarding this issue - no spam, we promise...</label>
+	<div class="space_30"></div>
+
+	<div style="text-align:left">
+		  <%= submit_tag 'Submit', :class => "trail_button" %>
+	</div>
+
+  
+<% end %>
+

@@ -16,14 +16,23 @@
 
 <div class="space_30"></div>
 
-<% for trail in @trails %>
+<% if @trails.size == 0 %>
+	<h3 style="text-align:center">
+		Sorry - could not find any trails for "<%= params[:query] %>"
+	</h3>
+	<div id="linehive_description">
+	
+	</div>
 
-<%= render :partial => "trails/miniline", :locals => {:trail => trail} %>
-<div class="space_30"></div>
 
+<% else %>
+
+	<% for trail in @trails %>
+		<%= render :partial => "trails/miniline", :locals => {:trail => trail} %>
+		<div class="space_30"></div>
+	<% end %>
 
 <% end %>
-
 
 <!--<ul>
 	<li>
