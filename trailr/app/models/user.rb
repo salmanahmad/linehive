@@ -6,9 +6,10 @@ class User < ActiveRecord::Base
   has_many :trails, :order => "created_at DESC"
   has_many :articles, :through => :trails
   
-  
   validates_presence_of :username 
   validates_uniqueness_of :username
+  validates_format_of :username, :with => /^[A-Za-z\d_]+$/, :message => "can only be alphanumeric with no spaces"
+  
 
   validates_presence_of :password, :message => "did not match, or password fields left blank", :on => :create
 

@@ -1,7 +1,7 @@
 <div class="mini_timeline">
 	
 	<% if trail.user %>
-		<div class="author">by: <%= trail.user.username %></div>	
+		<div class="author">by: <%= link_to trail.user.username, :controller => "user", :action => "profile", :username => trail.user.username %></div>	
 	<% end %>
 
 	<div class="caption">

@@ -3,6 +3,17 @@ require 'md5'
 class UserController < ApplicationController
   include UserHelper
   
+  
+  def profile
+    
+    page = params[:page] || 1
+    
+    @user = User.find(:first, :conditions => {:username => params[:username]})
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false, :user_id => @user.id}, :page => page, :order => 'front DESC, demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
+    #@trails = @user.trails
+    
+  end
+  
   def account
     
   	if current_user

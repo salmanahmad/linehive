@@ -1,0 +1,21 @@
+<% content_for :title do %>
+	<%= @user.username %>'s Profile
+<% end %>
+
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "miniline" %>
+<% end %>
+
+<h2>
+	<%= @user.username %>'s timelines
+</h2>
+
+<div class="space_30"></div>
+
+<% for trail in @trails do %>
+	<%= render :partial => "trails/miniline", :locals => {:trail => trail} %>
+	<div class="space_30"></div>
+
+<% end %>
+
+<%= will_paginate @trails %>
