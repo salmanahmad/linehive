@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'api/:action/:query', :controller => "api"
   
   map.connect 'home', :controller => "home", :action => "index"
+  map.connect 'feedback', :controller => "feedback", :action => "index"
   
   map.connect ':username', :controller => "user", :action => "profile"
   map.connect ':username.:format', :controller => "user", :action => "feed"
