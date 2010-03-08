@@ -44,8 +44,8 @@
 		<h2>Published Timelines</h2>
 		<ul>		
 			<% for @trail in @trails %>
-				<% url = url_for :controller => "trails", :action => "show", :id => @trail.id, :only_path => false %>
-				<li><a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank"><%= @trail.caption %></a></li><br>
+				<li><%= link_to @trail.caption, :controller => "trails", :action => "show", :id => @trail.id %></li>
+				<br>
 			<% end %>
 		</ul>
 		<% if @trails.size == 0 %>
@@ -58,13 +58,11 @@
 		
 		<ul>		
 			<% for @draft in @drafts %>
-				<% url = url_for :controller => "trails", :action => "draft", :id => @draft.id, :only_path => false %>
 				<li>
-					<a href="<%= url %>" onclick="window.open('<%= url %>'); return false;" target="_blank">
-						<% caption = @draft.caption %>
-						<% caption.strip! %>
-						<%= if caption != "" then caption else "Untitled" end %>
-					</a>
+					<% caption = @draft.caption %>
+					<% caption.strip! %>
+					<% if caption == "" then caption = "Untitled" end %>
+					<%= link_to caption, :controller => "trails", :action => "draft", :id => @draft.id  %>
 					(saved at <%= @draft.updated_at %>)
 				</li>
 				<br>
