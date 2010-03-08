@@ -347,6 +347,7 @@ class TrailsController < ApplicationController
 
   def x
     @trail = Trail.find(params[:id])
+    @trail2 = Trail.find((params[:id].to_i + 1).to_s)
   end
 
 
