@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<?xml-stylesheet href="../skin/overlay.css" type="text/css"?>
+
+<window id="timelineOverlay" width="800" height="300" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">		
+<script type="application/x-javascript" src="javascripts/jquery-1.4.min.js" />
+<script>
+const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+function createEvent(article, current) {   // Helper function to create NS element
+		var eventbox = document.createElementNS(XUL_NS, "hbox");
+		eventbox.setAttribute("id", "event");
+		if(current == "this")
+		eventbox.setAttribute("class", "highlight");
+		var thumbbox = document.createElementNS(XUL_NS, "box");
+		thumbbox.setAttribute("class", "thumbnail");
+		var imagebox = document.createElementNS(XUL_NS, "image");
+		imagebox.setAttribute("src", article["image_url"]);
+		var headlinebox = document.createElementNS(XUL_NS, "description");
+		headlinebox.setAttribute("class", "headline");
+		headlinebox.textContent = article["headline"];
+		//headlinebox.setAttribute("style", "white-space:normal");
+		var htmlbox = document.createElementNS(XUL_NS, "html:p");
+		htmlbox.value=article["headline"]; 
+		eventbox.appendChild(thumbbox);
+		thumbbox.appendChild(imagebox);
+		eventbox.appendChild(headlinebox);
+		headlinebox.appendChild(htmlbox);
+
+		eventbox.addEventListener("click", function() { 
+		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+		var recentWindow = wm.getMostRecentWindow("navigator:browser");
+		recentWindow.delayedOpenTab(article["url"], null, null, null, null);}, true);
+		return eventbox;
+	};
+function createEvents(all){
+
+	var eBox = document.getElementById("events"); 
+	var rightE = document.getElementById("right"); 
+	
+	var n = createEvent(all[0]['article']);
+	var o = createEvent(all[1]['article']);
+	var p = createEvent(all[2]['article']);
+	
+	eBox.insertBefore(n, rightE);
+	eBox.insertBefore(o, rightE);
+	eBox.insertBefore(p, rightE);
+};
+
+</script>
+
+<hbox>
+<spacer flex="1"/>
+	<vbox class="container">
+		<hbox id="top">
+			<label id="caption" value="WHOA These are test XUL insertions"/>
+			<spacer flex="1"/>
+			<label id="author">by: frank</label>
+		</hbox>
+		
+		<hbox id="events">
+			<spacer id="left" flex="1"/>
+			
+			<spacer id="right" flex="1"/>
+		</hbox>
+	</vbox>
+	<spacer flex="1"/>
+</hbox>
+<script>
+	all = [{"article":{"trail_id":3,"created_at":"2010-02-01T07:49:37Z","image_url":"http://blog.singersroom.com/celebs/wp-content/uploads/2008/10/beyonce-in-essence-magazine.jpg","updated_at":null,"url":"http://www1.essence.com/news_entertainment/entertainment/articles/destinyschildsoulsurvivors","headline":"Destiny's Child: Soul-Survivors","id":32,"date":"2001-04-22T07:41:57Z","source":"essence.com"}},
+	{"article":{"trail_id":3,"created_at":"2010-02-01T07:49:37Z","image_url":"http://drwizard.files.wordpress.com/2009/07/jay-z1.jpg","updated_at":null,"url":"http://www.mtv.com/bands/b/beyonce/news_feature_062703/index2.jhtml","headline":"MTV.com: Beyonce: Genuinely In Love","id":33,"date":"2005-03-07T07:41:57Z","source":"mtv.com"}},{"article":{"trail_id":3,"created_at":"2010-02-01T07:49:37Z","image_url":"http://www.wvpubcast.org/uploadedImages/WVPubcast/Blogs/Mona_Blog/grammy.jpg","updated_at":null,"url":"http://www.grammy.com/nominees","headline":"Nominees | GRAMMY.com","id":34,"date":"2010-01-31T07:41:57Z","source":"grammy.com"}}];	
+	
+	createEvents(all);
+	
+	//"http://linehive.com/api/line/3"; $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {	    
+	
+	</script>
+</window>
