@@ -1,19 +1,19 @@
 #lh-button{
-	list-style-image: url("chrome://crowdbrowse/skin/linehive_desat.png");
+	list-style-image: url("chrome://crowdbrowse/skin/images/linehive_desat.png");
 }
 toolbar[iconsize="small"] #lh-button{
-  list-style-image: url("chrome://crowdbrowse/skin/linehive_desat_small.png");
+  list-style-image: url("chrome://crowdbrowse/skin/images/linehive_desat_small.png");
 }
 
+
 #timelineOverlay {
-  width:800px;
-  height: 100px;
+  width:900px;
+  height: 86px;
   overflow: hidden;
   background: white;
   padding: 0px;
   -moz-appearance: none !important;
 }
-
 
 #timelineOverlay .lh-close-button{
   list-style-image: url("images/close.png");
@@ -30,4 +30,94 @@ toolbar[iconsize="small"] #lh-button{
   height: 16px;
   position:absolute;
   margin-top: 4px;
+}
+
+#timelineOverlay .container
+{
+	width: 900px;
+	margin:0;
+	padding:0;
+	font-family:Helvetica,Arial,Sans-Serif;
+	font-size:10px;
+}
+#timelineOverlay #author {
+	float:right; margin-right: 5px;
+	font-size:12px;
+	font-weight:bold;
+}
+
+#timelineOverlay #caption {
+	padding:0px;
+	margin:0px;
+	font-size:14px;
+	color:#0081C7;
+	font-weight:bold;
+	cursor:pointer;
+}
+
+#timelineOverlay #events {
+	text-align:center;
+	margin:auto;
+	height:58px;
+	background-color:#FAFAFA;
+	border:1px solid #CCC;	
+	white-space: nowrap;
+	overflow:hidden;
+	overflow-x:auto;
+	padding:4px 0px;
+}
+
+#timelineOverlay #event {
+	white-space: normal;
+	line-height:normal;
+	margin:0px;
+	padding:0px;
+	width:138px;
+	display:inline-block;
+	text-align:left;
+	margin-right:5px;
+	cursor:pointer;
+}
+
+#timelineOverlay .highlight {
+	opacity:1.0;
+	color:white;
+	background-color:#02A1EA;
+}
+
+#timelineOverlay #event:hover {
+	opacity:0.5;
+	background-color:#EBA938;
+	opacity:1.0;
+	background-color:#F2D199;
+}
+
+#timelineOverlay #event .thumbnail {
+	float:left;
+	margin-right:3px;
+	overflow:hidden; /* this is important */
+	width:48px;
+	height:48px;
+}
+
+#timelineOverlay #event .thumbnailimage {
+	background-position:center center;
+	height:48px;
+	width:48px;
+}
+
+#timelineOverlay #event image {
+	background-position:center center;
+	height:48px;
+	width:48px;
+}
+
+#timelineOverlay #event .headline {
+	float:left;
+	height:48px;
+	width:74px;
+	overflow:hidden;
+	font-family:Helvetica,Arial,Sans-Serif;
+	font-size:10px;
+	line-height:10px;
 }

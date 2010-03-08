@@ -6,7 +6,7 @@
 <overlay id="crowdbrowse-overlay"
 		 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="overlay.js"/>
-  <script type="application/x-javascript" src="jquery.js" />
+  <script type="application/x-javascript" src="javascripts/jquery-1.4.min.js" />
 
 	<!-- Temporarily place the item into the personal toolbar before moving into navigational toolbar -->
 	<toolbarpalette id="PersonalToolbar"> 
@@ -25,33 +25,11 @@
 	<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
 	<panel id="timelineOverlay" noautohide="true" noautofocus="false">
 		<hbox>
-			<hbox flex="8">
-			<spacer flex="1"/>
-				<vbox class="container">
-					<hbox id="top">
-						<label id="caption" value="WHOA These are test XUL insertions"/>
-						<spacer flex="1"/>
-						<label id="author"><label value="by:"/> frank</label>
-					</hbox>
-					
-					<hbox id="events">
-						<spacer id="left" flex="1"/>
-						
-						<spacer id="right" flex="1"/>
-					</hbox>
-				</vbox>
-				<spacer flex="1"/>
-			</hbox>
-		<vbox flex="1" >
-			<hbox>
-				<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
-				<spacer flex="1" />
-			</hbox>
-			<hbox>
-				<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
-				<spacer flex="1" />
-			</hbox>
-			<spacer flex="1" />
+		<iframe id="timelineOverlaySrc" src="about:blank" flex="1">
+		</iframe>
+		<vbox>
+		<image class="lh-close-button" onclick="this.parentNode.parentNode.parentNode.hidePopup();" tooltiptext="Close LineHive viewer" />
+		<image class="lh-search-button" onclick="this.parentNode.parentNode.parentNode.hidePopup(); CrowdBrowse.launchSearch();" tooltiptext="Search for more..." />
 		</vbox>
 		</hbox>
 		</panel>

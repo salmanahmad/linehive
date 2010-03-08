@@ -36,6 +36,7 @@ class ApiController < ApplicationController
 		@trails << Trail.find(:first, :conditions => ["id=?", @a.trail_id]);
 	end
 	
+	# Todo: JOIN 
 #render :text => "#{params[:query]} #{escaped_url}"
 	
     respond_to do |format|

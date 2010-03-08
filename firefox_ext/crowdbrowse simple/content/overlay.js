@@ -1,20 +1,16 @@
-function resizeIframe() {
-	// Resize our iframe as we need to
-	var Wwidth = document.documentElement.clientWidth;
-	$('#timelineOverlay').width(Wwidth);
-};
+const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
 var CrowdBrowse = {
 	i:0,
 	n:0,
 	u:"",
+	articles: [],
+	trails: [],
 	onLoad: function() {
 		// Initialize the window manager
 		this.initialized = true;
 		this._windowManager =     Cc["@mozilla.org/appshell/window-mediator;1"].        getService(Ci.nsIWindowMediator);
 		// Set up interaction
-		//var button = document.getElementById("launchCrowdbrowse-button");
-		//button.addEventListener('command',this.launchCrowdbrowse,true);
 		var button2 = document.getElementById("launchSearch-button");
 		button2.addEventListener('command',this.launchSearch,true);
 	},
@@ -29,7 +25,7 @@ var CrowdBrowse = {
 	},
 	launchSearch: function(){
 		// Fire up search for most recently navigated page.
-		gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/search/results?query="+CrowdBrowse.u);
+		gBrowser.selectedTab = gBrowser.addTab("http://linehive.com/search/results?query="+CrowdBrowse.u);
 	},
 	_isViewerVisible : function() 
 	{
@@ -54,6 +50,8 @@ var CrowdBrowse = {
 	},
 	_show : function() // Show the overlay
 	{ 
+		CrowdBrowse.resetLine();
+		
 		var popup = document.getElementById("timelineOverlay");
 		var win = this._windowManager.getMostRecentWindow("navigator:browser");
 		var documentHasFocus = window.document.hasFocus();
@@ -68,7 +66,66 @@ var CrowdBrowse = {
 			var anchor = document.getElementById("nav-bar");
 			popup.openPopup(anchor, "after_start", 0, 0, false, false);
 		}
+	},
+	
+	createEvent : function (article, current) {   // Helper function to create NS element
+		var eventbox = document.createElementNS(XUL_NS, "hbox");
+		eventbox.setAttribute("id", "event");
+		if(current == "this")
+		eventbox.setAttribute("class", "highlight");
+		var thumbbox = document.createElementNS(XUL_NS, "box");
+		thumbbox.setAttribute("class", "thumbnail");
+		var imagebox = document.createElementNS(XUL_NS, "image");
+		imagebox.setAttribute("src", article["image_url"]);
+		var headlinebox = document.createElementNS(XUL_NS, "description");
+		headlinebox.setAttribute("class", "headline");
+		headlinebox.textContent = article["headline"];
+		//headlinebox.setAttribute("style", "white-space:normal");
+		var htmlbox = document.createElementNS(XUL_NS, "html:p");
+		htmlbox.value=article["headline"]; 
+		eventbox.appendChild(thumbbox);
+		thumbbox.appendChild(imagebox);
+		eventbox.appendChild(headlinebox);
+		headlinebox.appendChild(htmlbox);
+
+		eventbox.addEventListener("click", function() { 
+		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+		var recentWindow = wm.getMostRecentWindow("navigator:browser");
+		recentWindow.delayedOpenTab(article["url"], null, null, null, null);}, true);
+		return eventbox;
+	},
+	addEventToLine : function (article, current){ // Function to insert DOM 
+		var eventContainerBox = document.getElementById("events"); 
+		var rightE = document.getElementById("right"); 
+		
+		var n = CrowdBrowse.createEvent(article, current);
+		eventContainerBox.insertBefore(n, rightE);
+	},
+	resetLine : function (){ // Function to insert DOM 
+		$(".container #caption").attr("value", CrowdBrowse.trails[0]['trail']['caption']);
+		$(".container #author").attr("value", "");
+		
+		document.getElementById("caption").addEventListener("click", function() { 
+		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+		var recentWindow = wm.getMostRecentWindow("navigator:browser");
+		recentWindow.delayedOpenTab("http://linehive.com/show/"+CrowdBrowse.trails[0]['trail']['id'], null, null, null, null);}, true);
+		
+		$("#event").remove(); $("#event").remove();$("#event").remove();$("#event").remove();$("#event").remove();$("#event").remove();
+		
+		for(var i = 0; i<CrowdBrowse.articles.length; i++)
+		{
+			// Manual check to mark which is our active url
+			if(CrowdBrowse.articles[i]['article']['url'] == gBrowser.contentDocument.location){
+				myExtension.URLIndex = i;
+				CrowdBrowse.addEventToLine(CrowdBrowse.articles[i]['article'], "this");
+			}
+			else{
+				CrowdBrowse.addEventToLine(CrowdBrowse.articles[i]['article'], "");
+			}
+		}
+		
 	}
+
 };
 
 // Class to start a listener for url navigation
@@ -111,48 +168,39 @@ var myExtension = {
       return;
 
 	// Query our server based upon incoming url.
-    $.getJSON('http://localhost:3000/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
-		trails = eval(data);
-		if(trails.length>0)
+    $.getJSON('http://linehive.com/api/url?query='+encodeURIComponent(gBrowser.contentDocument.location), function(data) {
+		CrowdBrowse.trails = eval(data);
+		if(CrowdBrowse.trails.length>0)
 		{
 			// Something was found! Let's update the different parts of our xul layout.
-			$("#lh-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick to launch viewer for most popular line.");
-			$(".lh-search-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick here to view all.");
-			$("#launchSearch-button").attr("tooltiptext",trails.length+" linehives found for current location.\nClick here to view all.");
-			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive.png")');
-			CrowdBrowse.i = trails[0]['trail']['id'];
-			CrowdBrowse.n = trails.length;
+			$("#lh-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick to launch viewer for most popular line.");
+			$(".lh-search-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick here to view all.");
+			$("#launchSearch-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.\nClick here to view all.");
+			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/images/linehive.png")');
+			CrowdBrowse.i = CrowdBrowse.trails[0]['trail']['id'];
+			CrowdBrowse.n = CrowdBrowse.trails.length;
 			
+			/*  TODO: Add this
+			if(trails[0]['trail']['author'].length > 0)
+			{
+				$(".container #author").attr("value", "by: " + trails[0]['trail']['author']);
+			}*/
 			// Fetch data from our server to ask about the current line.
-			$.getJSON('http://localhost:3000/api/line?query='+CrowdBrowse.i, function(data2) {
-				articles = eval(data2);
-				for(var i = 0; i<articles.length; i++)
-				{
-					
-					// Manual check to mark which is our active url
-					if(articles[i]['article']['url'] == gBrowser.contentDocument.location){
-						myExtension.URLIndex = i;
-						break;
-						//alert(myExtension.URLIndex+"matched it!");
-						//alert("YES! "+articles[i]['article']['url']);
-					}
-					else{
-						//alert("No, :( "+articles[i]['article']['url']);
-					}
+			$.getJSON('http://linehive.com/api/line?query='+CrowdBrowse.i, function(data2) {
+				CrowdBrowse.articles = eval(data2);
+				if( ! CrowdBrowse._isViewerVisible() ){
+					CrowdBrowse.resetLine();
 				}
-				
-				// Change the iframe so the popup is fast!
-				$("#timelineOverlaySrc").attr('src',"http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
-				// alert("http://localhost:3000/s/"+CrowdBrowse.i+"/"+myExtension.URLIndex+"/");
+
 			});
 		}
 		else
 		{
-			$("#lh-button").attr("tooltiptext",trails.length+" linehives found for current location.");
-			$(".lh-search-button").attr("tooltiptext",trails.length+" linehives found for current location.");
-			$("#launchSearch-button").attr("tooltiptext",trails.length+" linehives found for current location.");
+			$("#lh-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
+			$(".lh-search-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
+			$("#launchSearch-button").attr("tooltiptext",CrowdBrowse.trails.length+" linehives found for current location.");
 			
-			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/linehive_desat.png")');
+			$("#lh-button").css("list-style-image", 'url("chrome://crowdbrowse/skin/images/linehive_desat.png")');
 			CrowdBrowse.n = 0;
 		}
 		
@@ -200,4 +248,9 @@ window.addEventListener("load", function()
 
 window.addEventListener("unload", function() {myExtension.uninit()}, false);
 
+function resizeIframe() {
+	// Resize our iframe as we need to
+	var Wwidth = document.documentElement.clientWidth;
+	$('#timelineOverlay').width(Wwidth);
+};
 window.onresize = resizeIframe;
