@@ -9,6 +9,8 @@
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		<title><%= yield :title %></title>
 		
+		<%= yield :head %>
+		
 		<%= stylesheet_link_tag "global.css" %>	
 		<%= stylesheet_link_tag "layout.css" %>	
 		<%= yield :stylesheets %>

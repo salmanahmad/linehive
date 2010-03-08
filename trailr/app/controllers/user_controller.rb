@@ -14,6 +14,13 @@ class UserController < ApplicationController
     
   end
   
+  def feed
+    
+    @user = User.find(:first, :conditions => {:username => params[:username]})
+    @trails = Trail.find :all, :conditions => {:draft => false, :hidden => false, :user_id => @user.id}, :order => 'created_at DESC, viewcount DESC'
+    
+  end
+  
   def account
     
   	if current_user

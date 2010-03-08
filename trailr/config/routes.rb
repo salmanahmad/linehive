@@ -62,6 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'home', :controller => "home", :action => "index"
   
   map.connect ':username', :controller => "user", :action => "profile"
+  map.connect ':username.:format', :controller => "user", :action => "feed"
 
   
   map.connect ':controller/:action/:id'

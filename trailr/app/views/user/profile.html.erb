@@ -6,6 +6,10 @@
 	<%= stylesheet_link_tag "miniline" %>
 <% end %>
 
+<% content_for :head do %>
+	<%= auto_discovery_link_tag(:rss, :controller => "user", :action => "feed", :format => "rss") %>
+<% end %>
+
 <h2>
 	<%= @user.username %>'s timelines
 </h2>
