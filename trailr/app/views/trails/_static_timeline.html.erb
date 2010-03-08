@@ -1,0 +1,65 @@
+
+<div class="timeline noedit">
+	<div class="back">Back</div>
+	<div class="meta">
+		<ul>
+			<li>Link: <span id="fullLink">url</span></li>
+			<li id="searchLink"><a id="showURL" style="cursor:pointer">Show timelines containing this link</a></li>
+			<!--<li id="startLink"><%# link_to "Start new timeline from here", :controller => "trails", :action => "create", :query => "url" %></li>-->
+		</ul>
+	</div>
+	<div class="meta_callout">&nbsp;</div>	
+	<div class="events">
+		
+		<% if trail.articles.size == 0 %>
+			<div class="empty">
+				No Events
+			</div>
+		<% else %>
+			<% for article in trail.articles do %>			
+				<div class="event">					 
+					<div class="insert"></div> 
+					<div class="info">				 
+						<div class="pictures">	 
+							$pictures
+						</div>
+						<div class="headline">   
+							<%= article.headline %>
+						</div>                   
+						<div class="url">        
+							<%= article.url %>
+						</div>                   
+						<div class="source">     
+							<%= article.source %>
+						</div>                   
+						<div class="image">      
+							<%= article.image_url %>
+						</div>                   
+						<div class="date">       
+							<%= if article.date.nil? then Time.new.rfc2822() else article.date.rfc2822() end %>
+						</div>                   
+					</div>
+					<div class="thumbnail">
+						<a href="<%= article.url %>" target="_blank">
+							<img src="<%= article.image_url %>" />
+						</a>
+						<span class="pick_image">Change Image</span>
+					</div>
+					<div class="tick">
+						&nbsp;
+					</div>
+					<div class="date">
+						<div class="close">[<a href="#">x</a>]</div>
+						<%= if article.date.nil? then Time.new.strftime("%b %d, %Y") else article.date.strftime("%b %d, %Y") end %>
+					</div>
+					<div class="headline">
+						<%= article.headline %>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+
+	</div>
+	<div id="scale">&nbsp;</div>
+</div>
+

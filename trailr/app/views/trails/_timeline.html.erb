@@ -2,9 +2,9 @@
 
 
 <% if noedit %>
-	<div id="timeline" class="noedit">
+	<div class="timeline noedit">
 <% else  %>
-	<div id="timeline">
+	<div class="timeline">
 	
 	<div id="image_picker_cover">
 		&nbsp;
@@ -43,7 +43,7 @@
 		<ul>
 			<li>Link: <span id="fullLink">url</span></li>
 			<li id="searchLink"><a id="showURL" style="cursor:pointer">Show timelines containing this link</a></li>
-			<!--<li id="startLink"><%= link_to "Start new timeline from here", :controller => "trails", :action => "create", :query => "url" %></li>-->
+			<!--<li id="startLink"><%# link_to "Start new timeline from here", :controller => "trails", :action => "create", :query => "url" %></li>-->
 		</ul>
 	</div>
 	<div class="meta_callout">&nbsp;</div>
@@ -57,48 +57,3 @@
 	<div id="scale">&nbsp;</div>
 </div>
 
-<pre id="add" class="template">
-	<div class="$class">					 
-		<div class="insert"></div> 
-		<div class="info">				 
-			<div class="pictures">	 
-					$pictures
-			</div>									 
-			<div class="headline">   
-					$headline
-			</div>                   
-			<div class="url">        
-				$url
-			</div>                   
-			<div class="source">     
-				$source
-			</div>                   
-			<div class="image">      
-				$img_src
-			</div>                   
-			<div class="date">       
-				$date
-			</div>                   
-		</div>
-		<div class="thumbnail">
-			<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">
-				$image
-			</a>
-			<span class="pick_image">Change Image</span>
-		</div>
-		<div class="tick">
-			&nbsp;					        
-		</div>
-		<div class="date">
-			<div class="close">[<a href="#">x</a>]</div>
-			$format
-		</div>
-		<div class="headline">
-			<% if noedit %>
-				$headline
-			<% else %>
-				<textarea>$headline</textarea>			
-			<% end %>
-		</div>
-	</div>
-</pre>
