@@ -86,7 +86,8 @@
 							<%# link_to image_tag("logo3.png", :border=>0), :controller => 'home', :action => 'index' %>
 							<%# link_to image_tag("logo4.png", :border=>0, :height => 45), :controller => 'home', :action => 'index' %>
 							<%# link_to image_tag("logo5.png", :border=>0, :height => 30), :controller => 'home', :action => 'index' %>
-							<%= link_to image_tag("logo6.png", :border=>0, :height => 50, :style => "position:relative;bottom:15px"), :controller => 'home', :action => 'index' %>							
+							<%# link_to image_tag("logo6.png", :border=>0, :height => 50, :style => "position:relative;bottom:15px"), :controller => 'home', :action => 'index' %>							
+							<%= link_to image_tag("logo6.png", :border=>0, :height => 50, :style => "position:relative;bottom:15px"), :controller => 'trails', :action => 'index' %>							
 							<!--
 							<span style="position:absolute;top:40px;/*left:7px;*/left:18px;font-size:11px">
 								Everybody is a storyteller	
@@ -101,8 +102,8 @@
 						
 
 							<div id="search">
-								<% form_tag({:controller => "search", :action => "results" })  do %>
-									<input type="submit" name="search_button" value="" id="search_button">
+								<% form_tag({:controller => "search", :action => "results" }, {:method => "get"})  do %>
+									<input type="submit" name="" value="" id="search_button">
 									<input type="text" name="query" value="<%= params[:query] ||= "Search..." %>" id="search_box" />
 								<% end %>
 							</div>
@@ -160,7 +161,9 @@
 		
 		
 		<div style="background-color:white">
-			<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>
+			<!--<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>-->
+			<%= link_to "&nbsp", {:controller => :feedback, :action => :index, :page => request.request_uri}, {:id => "feedback"} %>
+			
 			<div id="content">
 				
 				<% if !defined? @show_notifications then @show_notifications = true end %>

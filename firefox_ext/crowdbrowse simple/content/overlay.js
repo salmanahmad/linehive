@@ -1,3 +1,9 @@
+function resizeIframe() {
+	var Wwidth = document.documentElement.clientWidth;
+	$('#timelineOverlay').width(Wwidth);
+};
+window.onresize = resizeIframe;
+
 var CrowdBrowse = {
 	i:0,
 	n:0,
@@ -5,7 +11,8 @@ var CrowdBrowse = {
 	onLoad: function() {
 		// Initialize
 		this.initialized = true;	
-		
+
+		this._windowManager =     Cc["@mozilla.org/appshell/window-mediator;1"].        getService(Ci.nsIWindowMediator);
 		// Set up interaction
 		//var button = document.getElementById("launchCrowdbrowse-button");
 		//button.addEventListener('command',this.launchCrowdbrowse,true);
@@ -16,7 +23,7 @@ var CrowdBrowse = {
 		// Either fire up our embed overlay or open browser for linehive
 		if(CrowdBrowse.n > 0){
 			//var popupSrc = document.getElementById("timelineOverlaySrc"); 
-			CrowdBrowseTimeline2.toggle();
+			CrowdBrowse.toggle();
 		}
 		else
 			gBrowser.selectedTab = gBrowser.addTab("http://linehive.com");
@@ -24,6 +31,48 @@ var CrowdBrowse = {
 	launchSearch: function(){
 		// Fire up search for most recently navigated page.
 		gBrowser.selectedTab = gBrowser.addTab("http://localhost:3000/search/results?query="+CrowdBrowse.u);
+	},
+	/**
+* Determines whether the event viewer is visible or not.
+* @return True if the viewer is visible, false otherwise.
+*/
+	_isViewerVisible : function() 
+	{
+		var popup = document.getElementById("timelineOverlay");
+		return ("open" == popup.state);
+	},
+	toggle : function() 
+	{
+		if (this._isViewerVisible()) {
+			this._hide();
+		} else {
+			this._show();
+		}
+	},
+	_hide : function() 
+	{
+		var popup = document.getElementById("timelineOverlay");
+		if ("open" == popup.state) 
+		{
+			popup.hidePopup();
+		}
+	},
+	_show : function() 
+	{
+		var popup = document.getElementById("timelineOverlay");
+		var win = this._windowManager.getMostRecentWindow("navigator:browser");
+		var documentHasFocus = window.document.hasFocus();
+		var event = null;
+
+		if (win != window || this._isViewerVisible() || !documentHasFocus) { return;    }
+		//event = this._loadEvent();
+		if ("open" != popup.state) 
+		{
+			var popup;
+			popup = document.getElementById("timelineOverlay");
+			var anchor = document.getElementById("nav-bar");
+			popup.openPopup(anchor, "after_start", 0, 0, false, false);
+		}
 	}
 };
 

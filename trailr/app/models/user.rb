@@ -1,6 +1,8 @@
 
 require 'md5'
 class User < ActiveRecord::Base
+  has_many :feedbacks
+  
   has_many :trails, :order => "created_at DESC"
   has_many :articles, :through => :trails
   

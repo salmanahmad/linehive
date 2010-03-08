@@ -115,10 +115,12 @@
 		</div>
 		
 		<% if current_admin %>
-		<div class="urlbox" style="line-height:29px">
+		<div class="urlbox" style="line-height:27px">
 			<span class="label">Admin:</span>
 			<% form_tag :controller => "trails", :action => "save_admin_changes", :id => @trail.id do %>
 				
+				<%= check_box :trail, :front %>	
+				<span class="">Front Page</span>
 				<%= check_box :trail, :hidden %>
 				<span class="">Hidden</span>
 				<%= check_box :trail, :demoted %>	

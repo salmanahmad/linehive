@@ -1,7 +1,7 @@
 <div id="mini_timeline">
 	<% cur_num = 0 
 	if ! defined?(num)
-		num = 0
+		num = -1
 	end
 	%>
 	<% if trail.user %>
@@ -11,10 +11,9 @@
 	<div id="caption"><%= link_to trail.caption, :controller => "trails", :action => "show", :id => trail.id %></div>
 	<div id="events">
 		<% for article in trail.articles %>
-			<div id="event" title="<%= article.headline + "\n" + "Open: " + article.url%>" <%= if cur_num == num then "class=\"highlight\"" end %>
+			<div id="event" title="<%= article.headline %>" <%= if cur_num == num then "class=\"highlight\"" end %>
 			<% cur_num = cur_num + 1 %>
-
-			onclick="{window.open('<%= article.url %>'); return false;};"> 
+			<%= if num > -1 then "onclick=\"window.open('" + article.url + "'); return false;\" " end %> >
 				<div class="thumbnail"> 
 					<img src="<%= article.image_url %>" /> 
 				</div> 
@@ -23,7 +22,5 @@
 				</div> 
 			</div> 
 		<% end %> 
-
-
 	</div>
 </div>

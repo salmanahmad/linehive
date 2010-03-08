@@ -100,6 +100,9 @@
 	
 }
 
+#mini_timeline #event . url{
+	display:none;
+}
 
 #mini_timeline #event .headline {
 	float:left;

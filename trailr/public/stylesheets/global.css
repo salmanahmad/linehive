@@ -103,6 +103,7 @@ ul {
 	width:30px;
 	text-decoration:none;
 	background-image:url("../images/feedback.png");
+	z-index:1000;
 }
 
 
@@ -185,7 +186,7 @@ br {
 	margin-left:10px;
 	width:290px;
 	
-	//margin-left:510px;
+	/*margin-left:510px;*/
 }
 
 
