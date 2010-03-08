@@ -107,7 +107,7 @@ a  {
 	background-image:url("../images/feedback_blue.png");	
 }
 
-#timeline {
+.timeline {
 	background-color:#fafafa;
 	border-color:#cccccc;
 }
@@ -117,26 +117,26 @@ a  {
 	border-color:#cccccc;
 }
 
-#timeline .gap {
+.timeline .gap {
 	background-color:#fafafa;
 	border-color:#534741;
 	border-color:#555;	
 	border-width:1px;
 }
 
-#timeline #scale {
+.timeline #scale {
 	border-color:#534741;
 	border-color:#555;
 	border-width:1px;		
 }
 
-#timeline .tick {
+.timeline .tick {
 	border-color:#534741;
 	border-color:#555;
 	border-width:1px;		
 }
 
-#timeline .empty {
+.timeline .empty {
 	opacity:0.5;
 }
 

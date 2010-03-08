@@ -345,6 +345,10 @@ class TrailsController < ApplicationController
   end
 
 
+  def x
+    @trail = Trail.find(params[:id])
+  end
+
 
 protected 
 

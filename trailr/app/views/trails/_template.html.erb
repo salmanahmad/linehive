@@ -1,0 +1,45 @@
+<pre id="add" class="template">
+	<div class="$class">					 
+		<div class="insert"></div> 
+		<div class="info">				 
+			<div class="pictures">	 
+				$pictures
+			</div>
+			<div class="headline">   
+				$headline
+			</div>                   
+			<div class="url">        
+				$url
+			</div>                   
+			<div class="source">     
+				$source
+			</div>                   
+			<div class="image">      
+				$img_src
+			</div>                   
+			<div class="date">       
+				$date
+			</div>                   
+		</div>
+		<div class="thumbnail">
+			<a href="$url" onclick="window.open(\'$url\'); return false;" target="_blank">
+				$image
+			</a>
+			<span class="pick_image">Change Image</span>
+		</div>
+		<div class="tick">
+			&nbsp;					        
+		</div>
+		<div class="date">
+			<div class="close">[<a href="#">x</a>]</div>
+			$format
+		</div>
+		<div class="headline">
+			<% if noedit %>
+				$headline
+			<% else %>
+				<textarea>$headline</textarea>			
+			<% end %>
+		</div>
+	</div>
+</pre>

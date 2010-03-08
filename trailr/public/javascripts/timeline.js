@@ -12,15 +12,16 @@ var timeline = {
 	max_date:null,
 	zoom_stack:[],
 	overlap:0.5,
-	months: [],
+	//months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+	months:["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 	duration:1000,
 	use_clustering:false,
 	
+	initCollection: function(selector) {
+		
+	},
 	init: function(datas) {
 		console.log("init");
-		
-		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-		this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		
 		for(i in datas) {
 			
@@ -29,7 +30,7 @@ var timeline = {
 			if(data == null) {
 				continue;
 			}
-						
+			
 			//this.add(data["article"]);
 			this.add(data);			
 		}
@@ -75,7 +76,7 @@ var timeline = {
 	addTemplate:function(info) {
 		var template = $("#add.template").html();
 
-		if($("#timeline.noedit").size() == 0) {
+		if($(".timeline.noedit").size() == 0) {
 			var edit_template = '<input type="text" value="$format" class="date_edit" />';
 			template = template.replace(/\$format/g, edit_template);
 		} 
@@ -128,7 +129,7 @@ var timeline = {
 			headline = "Title Not Available";
 		}
 		headline = $.trim(headline);
-		if($("#timeline.noedit").size() != 0) {
+		if($(".timeline.noedit").size() != 0) {
 			headline = headline.replace("\n", "<br />");
 		}
 		
@@ -144,9 +145,9 @@ var timeline = {
 						
 		var template = this.addTemplate(info);
 		
-		$("#timeline .events").append(template);
+		$(".timeline .events").append(template);
 		
-		if($("#timeline.noedit").size() == 0) {
+		if($(".timeline.noedit").size() == 0) {
 		
 			var year = (new Date()).getFullYear();
 			var range = (year - 35) + ':' + year;
@@ -163,7 +164,7 @@ var timeline = {
 
 		} else {
 			$(".date_edit").attr("disabled", true);
-			$("#timeline .events .event > .headline").autoEllipsis();
+			$(".timeline .events .event > .headline").autoEllipsis();
 		}
 		
 		
@@ -181,26 +182,26 @@ var timeline = {
 	remove:function() {                                
 		console.log("remove");                           
 		this.draw();                                     
-	},                                                 
-	draw: function() {                                 
-		console.log("draw");                             
+	},
+	draw: function() {
+		console.log("draw");
 		
 		$(".gap").remove();
 		
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
-		if($(".event").size() == 0) {                    
-			$(".empty").show();                            
-		} else {                                         
-			$(".empty").hide();                            
-		}                                                
+		if($(".event").size() == 0) {
+			$(".empty").show();
+		} else {
+			$(".empty").hide();
+		}
 		
 		var count = $(".event").size();
 		
 		if(count > 0) {
 			var event_width = $(".event:first").outerWidth();
 			var event_total_width = event_width * count;
-			var timeline_width = $("#timeline").outerWidth();
+			var timeline_width = $(".timeline").outerWidth();
 			var start_left = 0;
 			var midde = (timeline_width / 2) - (event_width / 2);
 			
@@ -325,7 +326,7 @@ $(function() {
 	$(".pick_custom_image_button").click(addCustomImage);
 
 
-	$("#timeline #image_picker ul li").live("click", function() {
+	$(".timeline #image_picker ul li").live("click", function() {
 		if(current_event != null) {
 						
 			var src = $(this).children("img").attr("src");
@@ -340,12 +341,12 @@ $(function() {
 	});
 
 
-	$("#timeline .back").live("click", function() {
+	$(".timeline .back").live("click", function() {
 		timeline.zoomOut();
 		timeline.draw();
 	});
 
-	$("#timeline .cluster img").live("click", function() {
+	$(".timeline .cluster img").live("click", function() {
 		var parent = $(this).parents(".event");
 		
 		var min = $(parent).children(".info").children(".min_date").text();
@@ -358,7 +359,7 @@ $(function() {
 		timeline.draw();
 	});
 	
-	$("#timeline #image_picker .close").click(function() {
+	$(".timeline #image_picker .close").click(function() {
 		$("#image_picker_cover").hide();
 		$("#image_picker").hide();
 	});
@@ -418,21 +419,18 @@ $(function() {
 	
 	$(".event").live("mouseenter", function() {
 		
-
-
-		
 		
 		//var parent = $(this).parents(".event");
 		var parent = this;
 		var left = $(parent).position().left;
 		
 		var event_width = $(parent).outerWidth();
-		var timeline_width = $("#timeline").width();
+		var timeline_width = $(".timeline").width();
 		
 		
 		
 		
-		if(!$("#timeline").is(".noedit")) {
+		if(!$(".timeline").is(".noedit")) {
 			$(parent).children(".thumbnail").children(".pick_image").show();			
 		}
 		
@@ -495,14 +493,14 @@ $(function() {
 	
 	
 	$(".event").live("mouseenter", function() {
-		if($("#timeline.noedit").size() == 0) {
+		if($(".timeline.noedit").size() == 0) {
 			$(this).children(".date").children(".close").show();
 		}
 	});
 	
 	
 	$(".event").live("mouseleave", function() {
-		if($("#timeline.noedit").size() == 0) {
+		if($(".timeline.noedit").size() == 0) {
 			$(this).children(".date").children(".close").hide();
 		}
 	});
@@ -527,7 +525,7 @@ $(function() {
 
 	
 	/*
-	$('#timeline .events').mousewheel(function(event , delta) {
+	$('.timeline .events').mousewheel(function(event , delta) {
 
 		var left = $(".events").scrollLeft();
 		delta = 0 - delta;
