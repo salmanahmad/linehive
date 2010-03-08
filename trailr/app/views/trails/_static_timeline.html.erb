@@ -1,4 +1,9 @@
 
+<% if trail.user %>
+	<div class="author" style="float:right; font-size:12px">by: <%= link_to trail.user.username, :controller => "user", :action => "profile", :username => trail.user.username %></div>	
+<% end %>
+
+
 <h3>
 	<%= link_to trail.caption, {:controller => "trails", :action => "show", :id => trail.id}, {:style => "text-decoration:none;"} %>
 </h3>
