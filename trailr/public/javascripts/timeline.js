@@ -127,10 +127,10 @@ var timeline = {
 		if (headline == null || headline == "null") {
 			headline = "Title Not Available";
 		}
-		//alert('before: "' + headline + '"');
 		headline = $.trim(headline);
-		headline = headline.replace("\n", "<br />");
-		//alert('after: "' + headline + '"');
+		if($("#timeline.noedit").size() != 0) {
+			headline = headline.replace("\n", "<br />");
+		}
 		
 				
 		var info = {};
