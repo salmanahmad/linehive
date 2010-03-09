@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'feedback', :controller => "feedback", :action => "index"
   
   map.connect ':username', :controller => "user", :action => "profile"
-  map.connect ':username.:format', :controller => "user", :action => "feed"
+  map.connect ':username/lines.:format', :controller => "user", :action => "feed"
 
   
   map.connect ':controller/:action/:id'

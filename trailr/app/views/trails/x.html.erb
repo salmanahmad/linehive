@@ -12,7 +12,11 @@
 	
 	<script type="text/javascript" charset="utf-8">
 		$(function(){
-			timeline.draw();
+			
+			$(".timeline").each(function(index, element) {
+				timeline.render($(element));				
+			});
+			
 			$(".timeline .events .event > .headline").autoEllipsis();
 			
 		});
@@ -20,3 +24,7 @@
 <% end %>
 
 <%= render :partial => "static_timeline", :locals => {:trail => @trail} %>
+
+<div class="space_15"></div>
+
+<%= render :partial => "static_timeline", :locals => {:trail => @trail2} %>

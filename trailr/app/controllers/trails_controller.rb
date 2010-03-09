@@ -44,6 +44,7 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
+    @related = @trail.related_trails
     
     if(@trail.draft) then
       redirect_to :controller => "home", :action => "index"
@@ -130,11 +131,11 @@ class TrailsController < ApplicationController
 	  if @trail.save(false)
       # clear errors for the _form.html.erb partial
 	    @trail.errors.clear
-      flash[:notice] = 'Trail was saved successfully.'
+      flash[:notice] = 'Timeline was saved successfully.'
       render :controller => 'trails', :action => 'draft'
     else
       @show_notifications = false
-      flash[:error] = 'Trail could not be created.'
+      flash[:error] = 'Timeline could not be created.'
       render :action => 'draft'
     end
     
@@ -163,11 +164,11 @@ class TrailsController < ApplicationController
     
     
 	  if !@has_errors && @trail.save
-      flash[:notice] = 'Trail was successfully created.'
+      flash[:notice] = 'Timeline was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       @show_notifications = false
-      flash[:error] = 'Trail could not be created.'
+      flash[:error] = 'Timeline could not be created.'
       render :action => 'draft'
     end
 	  
@@ -274,11 +275,11 @@ class TrailsController < ApplicationController
     construct_trail
 
 	  if !@has_errors && @trail.save
-      flash[:notice] = 'Trail was successfully created.'
+      flash[:notice] = 'Timeline was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       @show_notifications = false
-      flash[:error] = 'Trail could not be created.'
+      flash[:error] = 'Timeline could not be created.'
       render :action => 'edit'
     end
     
@@ -320,11 +321,11 @@ class TrailsController < ApplicationController
     construct_trail
 
 	  if !@has_errors && @trail.save
-      flash[:notice] = 'Trail was successfully created.'
+      flash[:notice] = 'Timeline was successfully created.'
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       @show_notifications = false
-      flash[:error] = 'Trail could not be created.'
+      flash[:error] = 'Timeline could not be created.'
       render :action => 'new'
     end
     
@@ -347,6 +348,7 @@ class TrailsController < ApplicationController
 
   def x
     @trail = Trail.find(params[:id])
+    @trail2 = Trail.find((params[:id].to_i + 1).to_s)
   end
 
 

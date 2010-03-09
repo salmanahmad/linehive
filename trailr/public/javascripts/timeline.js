@@ -185,23 +185,26 @@ var timeline = {
 	},
 	draw: function() {
 		console.log("draw");
-		
-		$(".gap").remove();
+		this.render($(".timeline:first"));
+	},
+	render :function(selector) {
+		$(".gap", selector).remove();
 		
 		// How or hide the empty tag which displays an image to the user indicating there
 		// are no events currently available to be visualized                                                 
-		if($(".event").size() == 0) {
-			$(".empty").show();
+		if($(".event", selector).size() == 0) {
+			$(".empty", selector).show();
 		} else {
-			$(".empty").hide();
+			$(".empty", selector).hide();
 		}
 		
-		var count = $(".event").size();
+		var count = $(".event", selector).size();
 		
 		if(count > 0) {
-			var event_width = $(".event:first").outerWidth();
+			var event_width = $(".event:first", selector).outerWidth();
 			var event_total_width = event_width * count;
-			var timeline_width = $(".timeline").outerWidth();
+			//var timeline_width = $(".timeline", selector).outerWidth();
+			var timeline_width = selector.outerWidth();
 			var start_left = 0;
 			var midde = (timeline_width / 2) - (event_width / 2);
 			
@@ -210,7 +213,7 @@ var timeline = {
 			}
 			
 			var events = [];
-			$(".event").each(function(index, element) {
+			$(".event", selector).each(function(index, element) {
 				if($(this).children(".insert").size() != 0) {
 					$(this).css("left", midde);
 					$(this).children(".insert").remove();
@@ -271,20 +274,14 @@ var timeline = {
 					if(diff / date_range > timeline.gap_threshold) {
 						var gap = '<div class="gap"></div>'
 
-						$(".events").append(gap);
-						$(".gap:last").animate({ left: (left - 4) }, this.duration, "easeOutCirc");
+						$(".events", selector).append(gap);
+						$(".gap:last", selector).animate({ left: (left - 4) }, this.duration, "easeOutCirc");
 						//left += 15;						
 					}
 					
 
 					
 				}
-
-
-				
-
-				
-				
 				
 			}
 				
@@ -391,7 +388,17 @@ $(function() {
 	});
 	
 	
-	function show_meta(url) {
+	function show_meta(url, meta, meta_callout) {
+		
+		if(meta == undefined) {
+			meta = $(".meta:first");
+		}
+		
+		if(meta_callout == undefined) {
+			meta_callout = $(".meta_callout:first");
+		}
+		
+		
 		if(!timeline.show_meta) {
 			return;
 		}
@@ -404,8 +411,11 @@ $(function() {
 			$('.meta #searchLink').click(function() { $('#searchURLForm').submit();			});
 			//$(".meta #startLink").html('<a href="/trails/create?urls=' + escape(url) + '">Start new timeline from here</a>');
 		}
-		$(".meta").show();
-		$(".meta_callout").show();
+		//$(".meta").show();
+		//$(".meta_callout").show();
+		meta.show();
+		meta_callout.show();
+		
 	}
 	
 	function hide_meta() {
@@ -427,8 +437,8 @@ $(function() {
 		var event_width = $(parent).outerWidth();
 		var timeline_width = $(".timeline").width();
 		
-		
-		
+		var meta = $(this).parents(".timeline").children(".meta");
+		var meta_callout = $(this).parents(".timeline").children(".meta_callout");		
 		
 		if(!$(".timeline").is(".noedit")) {
 			$(parent).children(".thumbnail").children(".pick_image").show();			
@@ -454,23 +464,31 @@ $(function() {
 			url = $(parent).children(".info").children(".url").text();
 		}
 		
-		$(".meta .headline").html(headline);
-		$(".meta .source").html(source);
+		//$(".meta .headline").html(headline);
+		//$(".meta .source").html(source);
+		$(".headline", meta).html(headline);
+		$(".source", meta).html(source);
 
-		$(".meta").css("top", 0);
-		$(".meta").css("top", 0 - $(".meta").outerHeight() - 5);
+
+		//$(".meta").css("top", 0);
+		//$(".meta").css("top", 0 - $(".meta").outerHeight() - 5);
+		meta.css("top", 0);
+		meta.css("top", 0 - meta.outerHeight() - 5);
 		
-		show_meta(url);
+		show_meta(url, meta, meta_callout);
 		
 		if(left > (timeline_width) / 2) {
-			$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
-
+			//$(".meta").css("left", left - ( $(".meta").outerWidth() - $(parent).outerWidth() ));
+			meta.css("left", left - (meta.outerWidth() - $(parent).outerWidth() ));
 		} else {
-			$(".meta").css("left", left);
+			//$(".meta").css("left", left);
+			meta.css("left", left);			
 		}
 		
-		var cal_left = left + (event_width/2.0) - ($(".meta_callout").width() / 2);
-		$(".meta_callout").css("left", cal_left);
+		//var cal_left = left + (event_width/2.0) - ($(".meta_callout").width() / 2);
+		//$(".meta_callout").css("left", cal_left);
+		var cal_left = left + (event_width/2.0) - (meta_callout.width() / 2);
+		meta_callout.css("left", cal_left);
 		
 		if(meta_show_callback != null) {
 			meta_show_callback.apply(this);
@@ -479,14 +497,10 @@ $(function() {
 	});
 	
 
-	
 	$(".event").live("mouseleave", function() {
-		
 		//var parent = $(this).parents(".event");
 		var parent = this;
 		$(parent).children(".thumbnail").children(".pick_image").hide();
-		
-		
 		hide_meta();
 				
 	});
@@ -507,7 +521,9 @@ $(function() {
 	
 	
 	$(".meta_callout").mouseenter(function(){
-		show_meta();
+		var meta_callout = $(this);
+		var meta = $(this).siblings(".meta");
+		show_meta(undefined, meta, meta_callout);
 	});
 	
 	$(".meta_callout").mouseleave(function(){
@@ -515,7 +531,9 @@ $(function() {
 	});
 
 	$(".meta").mouseenter(function(){
-		show_meta();
+		var meta = $(this);
+		var meta_callout = $(this).siblings(".meta_callout");
+		show_meta(undefined, meta, meta_callout);
 	});
 	
 	$(".meta").mouseleave(function(){

@@ -1,11 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html>
 	<head>
 		<meta http-equiv="x-ua-compatible" content="IE=8">
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		
+		
+		<meta name="author" content="LineHive.com" />
+		<meta name="copyright" content="LineHive.com" />
+		<meta name="company" content="LineHive.com" />
+		<meta name="rating" content="general" />
+		<meta name="distribution" content="global" />
+		<meta name="description" content="Hyperlink Haikus: On LineHive, people share interesting sequences of websites they come across. You get a beautiful timeline with the websites on it, then you can share that timeline on any website by linking to it or embedding it." />
+		<meta name="keywords" content="linehive, line, hive, timeline, crowdbrowse, hyperlink haikus" />
+
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="all" />
+		
+		
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 		<title><%= yield :title %></title>
 		
@@ -163,9 +176,7 @@
 		
 		
 		<div style="background-color:white">
-			<!--<a href="http://bugs.linehive.com/" id="feedback">&nbsp;</a>-->
 			<%= link_to "&nbsp", {:controller => :feedback, :action => :index, :page => request.request_uri}, {:id => "feedback"} %>
-			
 			<div id="content">
 				
 				<% if !defined? @show_notifications then @show_notifications = true end %>
@@ -187,14 +198,6 @@
 					<li><%= link_to "About", :controller => "home", :action => "about" %></li>
 					<li><%= link_to "Extension", :controller => "home", :action => "extension" %></li>
 					<li><%= link_to "Create", :controller => "trails", :action => "new" %></li>
-					
-					<!--
-					<li><%# link_to "About", :controller => "home", :action => "about" %></li>
-					<li><%# link_to "Contact", :controller => "home", :action => "contact" %></li>
-					<li><%# link_to "API", :controller => "home", :action => "api" %></li>				
-					<li><%# link_to "Terms", :controller => "home", :action => "terms" %></li>				
-					<li><%# link_to "Privacy", :controller => "home", :action => "privacy" %></li>				
-					-->
 				</ul>				
 			</div>
 

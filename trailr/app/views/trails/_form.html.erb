@@ -115,7 +115,7 @@
 			var data = { title: "", links: [] };
 			data["title"] = $("#title").val();
 			
-			$("#timeline .event").each(function(item) {
+			$(".timeline .event").each(function(item) {
 
 				var headline = $.trim($(".info .headline", this).html());
 				var headline = $.trim($(".headline textarea:first", this).val());
