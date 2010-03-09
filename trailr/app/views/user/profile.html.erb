@@ -10,6 +10,8 @@
 	<%= auto_discovery_link_tag(:rss, :controller => "user", :action => "feed", :format => "rss") %>
 <% end %>
 
+<%= link_to image_tag("rss.png"), {:controller => "user", :action => "feed", :format => "rss"}, :style => "float:right;position:relative;bottom:5px;" %>
+
 <h2>
 	<%= @user.username %>'s timelines
 </h2>
