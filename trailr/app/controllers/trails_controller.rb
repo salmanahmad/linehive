@@ -44,6 +44,7 @@ class TrailsController < ApplicationController
 
   def show
     @trail = Trail.find(params[:id])
+    @related = @trail.related_trails
     
     if(@trail.draft) then
       redirect_to :controller => "home", :action => "index"

@@ -137,10 +137,11 @@
 <div class="space_30"></div>
 
 
-<h2 style="border-bottom:1px solid #CCC;padding-bottom:5px;">Related Timelines</h2>
-<div class="space_10"></div>
-<% for trail in @trail.related_trails do %>
-	<%= render :partial => "miniline", :locals => {:trail => trail} %>
-	<div class="space_30"></div>	
+<% if @related.size != 0 %>
+	<h2 style="border-bottom:1px solid #CCC;padding-bottom:5px;">Related Timelines</h2>
+	<div class="space_10"></div>
+	<% for trail in @related do %>
+		<%= render :partial => "miniline", :locals => {:trail => trail} %>
+		<div class="space_30"></div>	
+	<% end %>
 <% end %>
-
