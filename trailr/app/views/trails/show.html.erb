@@ -5,9 +5,8 @@
 <% content_for :stylesheets do %>
 	<%= stylesheet_link_tag "overview" %>
 	<%= stylesheet_link_tag "form" %>
-	<%# stylesheet_link_tag "hoverline" %>		
-	<%# stylesheet_link_tag "timeline" %>		
-	<%= stylesheet_link_tag "timeline" %>			
+	<%= stylesheet_link_tag "timeline" %>
+	<%= stylesheet_link_tag "miniline" %>
 	<%= stylesheet_link_tag "show" %>
 <% end %>
 
@@ -135,5 +134,13 @@
 </div>
 
 
-<div class="space_20"></div>
+<div class="space_30"></div>
+
+
+<h2 style="border-bottom:1px solid #CCC;padding-bottom:5px;">Related Timelines</h2>
+<div class="space_10"></div>
+<% for trail in @trail.related_trails do %>
+	<%= render :partial => "miniline", :locals => {:trail => trail} %>
+	<div class="space_30"></div>	
+<% end %>
 
