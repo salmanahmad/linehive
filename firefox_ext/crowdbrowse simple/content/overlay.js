@@ -20,6 +20,10 @@ var CrowdBrowse = {
 			//var popupSrc = document.getElementById("timelineOverlaySrc"); 
 			CrowdBrowse.toggle();
 		}
+		if(this._isViewerVisible())
+		{
+			this._hide();
+		}
 		else
 			gBrowser.selectedTab = gBrowser.addTab("http://linehive.com");
 	},

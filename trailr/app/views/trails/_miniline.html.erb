@@ -15,10 +15,12 @@
 	
 	<div class="events">	
 		<% for article in trail.articles %>
-
 			<div class="event">
 				<div class="thumbnail">
 					<img src="<%= article.image_url %>" />
+				</div>
+				<div class="url">
+					<%= article.url %>
 				</div>
 				<div class="headline" title="<%= article.headline %>">
 					<%= article.headline %>

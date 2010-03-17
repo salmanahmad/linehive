@@ -50,6 +50,7 @@
  
 } 
  
+ 
 .mini_timeline .event { 
  
     white-space: normal; 
@@ -111,6 +112,10 @@
     width:99px; 
     width:87px; 
     overflow:hidden; 
+}
+ 
+.mini_timeline .event .url { 
+    display:none;
 } 
  
 .mini_timeline .event .date { 
