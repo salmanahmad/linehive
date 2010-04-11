@@ -148,6 +148,22 @@
 						
 			});
 			
+			if ($.trim(data.title) == "") {
+				alert("Timelines must contain a caption.");
+				return false;
+			}
+			
+			if ($.trim(data.title).length > 150) {
+				alert("Captions must be less than 150 characters.");
+				return false;
+			}
+			
+			
+			if (data.links.length < 3 || data.links.length > 6) {
+				alert("Timelines must contain between 3 to 6 articles.")
+				return false;
+			}
+			
 			var string = JSON.stringify(data);
 			//$("#trail_input").val(string); 
 			$(".trail_input", this).val(string); 
@@ -166,7 +182,9 @@
 	<%= if mode == :edit then "Edit Timeline" elsif mode == :draft then "Update Draft" else "Create New Timeline" end %> 
 	<span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create timelines", :controller => "home", :action => "jetpack" %>)</span>
 </h2>
+
 <span style="font-style:italic;color:gray; font-size:12px;margin-top:0x;">Timelines must contain between 3 to 6 articles.</span>
+
 <div class="space_10"></div>
 
 
@@ -242,6 +260,8 @@
 
 
 <div id="buttons">
+		<span style="font-style:italic;color:gray; font-size:12px;margin-top:0x;">Timelines must contain between 3 to 6 articles.</span>
+	
 		<% if mode == :edit  then %>
 			
 			<% form_tag({:controller => "trails", :action => "update", :id => @trail.id }, {:class => "post_back"})  do %>
