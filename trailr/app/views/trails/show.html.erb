@@ -83,7 +83,7 @@
 
 <div style="margin-top:50px;margin-bottom:15px">
 
-<%= render :partial => "timeline", :locals => { :noedit => true } %>
+<%= render :partial => "timeline", :locals => { :noedit => true, :id => @trail.id  } %>
 <%= render :partial => "template", :locals => { :noedit => true } %>
 
 <% form_tag({:controller => "search", :action => "results"}, :id => 'searchURLForm' )  do %>
