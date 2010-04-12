@@ -7,11 +7,14 @@
      
     padding:0px; 
     margin:0px; 
-     
+	margin:auto;
+    
     width:900px; 
+    /*
+	margin-left: 30px;
+	margin-right: 30px;
+	background-color:#FAFAFA;*/ 
      
-    /*background-color:#FAFAFA;*/ 
-    margin:auto; 
 } 
  
 .mini_timeline .author { 
@@ -59,8 +62,8 @@
     margin:0px; 
     padding:0px; 
  
-    width:150px; 
-    width:138px; 
+    /*width:150px; 
+    width:138px; */
     display:inline-block; 
     text-align:left; 
  
@@ -79,7 +82,7 @@
     background-color:#F2D199; 
 } 
  
-.mini_timeline .event.highlight { 
+.mini_timeline .event_highlight { 
     background-color:#95CA38; 
     background-color:#02A1EA; 
     opacity:1.0; 

@@ -5,7 +5,7 @@
 	<meta http-equiv="x-ua-compatible" content="IE=8">
 	<title>LineHive: <%= @trail.caption %></title>
 	<%= default_javascript %>
-	<%= stylesheet_link_tag "miniline" %>
+	<%= stylesheet_link_tag "miniline" 	%>
 	<%= stylesheet_link_tag "fullscreen" %>
 	<%= render :partial => "shared/analytics" %>
 	
@@ -22,15 +22,15 @@
 	</div>
 		<div id="timelineHeadCon">
 			<div id="timelineHead">
-				<div id="timelineHeadLink"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC">
-				<b>LineHive</b>: <%= @trail.caption %>
+				
+				<div id="controls">
+					<div id="prevE">Prev. point</div>
+					<div id="nextE">Next point</div>
+					<div id="timelineHeadLink"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAYAAAD9L+QYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/5JREFUeNpsVEtsG1UUvXfejO3xP47jtPkrHwI0QVVUqQqkoi0CCRVCliyo+BcJlWyQWCAEGxawACQkkBBFXRQWrCsWVESVUBIKKmkbQighhHwck7iuM3bsGc/nvccdt0BV50lX8+bde8899/MeSinhzvXx1AQoIKEoQ3AF0sABJwPARxHgPKnnSAokJonvGCHpMUGL9UHp4gfKLB1iXRE8vgQq3LUmcf7WBhGuyDR8JQfOrUAiZAE7TW7tpFFIHBJORrYKwmgB6+xjuHGRgUQX8D+2eDdzZ7rPPwbwcDwgBHqgzMzL5sICNAE5J0jpB4j6QQSg1QtldwiL/QlwTtnItlAVL/n4gbE/G5nvTreBEvZAv8foc6LO2yhkcETkt0fk9iYRM8jEJVEJoJU4tNFZu6co4DC4AFx+YS6kgBtBaB6DRnDzWpqygTetxdSCfl/xmLbPHOIJ+zCqsh9DPEMFjRKwJW21KF32EyhyVlhsytmIbdurMXBykbAUaDVTTxrAw8xUqSmP2pXAu5VL+3Yoze9R964qundJbbINYlol8BIvBYq8EgijInQKclhY6gMU6GGNuQNBdB8kqFwD+DvDz7vj2dmj95dXn06I3ZddwZ7gVfYUVFSw86H/DamtqEhQBVUePNCUGnBUlv4ONX8ymz6wc2qvhvacW+vThJcYKv01N1pYhO7qVrzTvDFMqoOdZr6bSZGR9VkCH8zOhlvyFVXP/pLsXZtP9sIfsY4jG3rmh/WTnecbmCN6RyjkWTJe/7lpcC4g3EUKts5A5Lqq+SyBKxJBo4GIEHhmPZxpcRX1yRoLDJGuS6EJpRxfBNijoY+s5S6sxaMfrSRj44juBKKY4ArWXZZiHXUbAvdZ16+LJjjtfVJuQSB8mbJqnx+4acwA9DeWxT72vloKBl6bbc/8/l13u3s9ldxvqmxAIu7P66EkBdKCXPC0VSv7TeOIi61Va76nXPl1JF/go7l8V+dutaxPvWE0jqKmeiHODz2+svnhiZXs8s1QcMZT8BrN8uXrqYThMLYbddzK4E7JI1pRgZiMuN5w3HZeIP5HbabEa4wd0vcqS6RGVVPg1ZqGPwZc5ZlUVTwraSo4SVtly08VCBBcujh+eZggSEE+MgiOKudUga9HXCjuWfOvjxegGPdKK221T/s3Q2cG18LRjKEdTJXVobjJuqiuLbevv0nxCkaUZ28k7OXljpp5+d7Kb61FbTWzo8HJvUbxxPQr9aeHcezymHyPmFWYwJmmXXU5YjGTsuC3SUVQYLqq8wEi8xDZuvTYTFI2OUoEvhn7rJF5uKb8u10PePgWfc+QPGfEPE4g9q3XsL78G8WIvat5+C3JafrfuhPrHwEGAOPL3V0zTDKfAAAAAElFTkSuQmCC">
+					<b>LineHive</b>: <%= @trail.caption %>
 				</div>
-			<div id="controls">
-				<div id="prevL"><!--Prev. line--></div>
-				<div id="nextL"><!--Next line--></div>
-				<div id="prevE">Prev. point</div>
-				<div id="nextE">Next point</div>
-			</div>
+				
+				</div>
 			</div>
 		</div>
 		<%= render :partial => "miniline", :locals => {:trail => @trail}  %><br>
@@ -41,10 +41,29 @@
 	</iframe>
 </div>
 <script type="text/javascript">
+searchTarget=current_articles[0]['url'];
 function trim(str) {
         return str.replace(/^\s+|\s+$/g,"");
     };
+function returnLink(){
+	$(".event").removeClass("event_highlight");
+	var i = 0;
+	for(i = 0; i< current_articles.length; i = i+1)
+	{
+		if(current_articles[i].url == searchTarget){
+			current_article_num = i;
+			$(".event").slice(i,i+1).addClass("event_highlight");
+			return i;
+			}
+			/*
+			TODO: use $(".event")[1] to get the HTMLDivElement, how do I change this?
+		else
+			alert(i+"NOT work\n\n"+current_articles[i].url+"!="+searchTarget);
+			*/
+	}	
+};
 function checkLinks(){
+	returnLink();
 	if(current_article_num>=current_articles.length){
 		current_article_num = current_articles.length-1;
 	}
@@ -67,23 +86,8 @@ function checkLinks(){
 	return true;
 };
 
-function returnLink(){
-	var i = 0;
-	for(i = 0; i< current_articles.length; i = i+1)
-	{
-		if(current_articles[i].url == searchTarget){
-			current_article_num = i;
-			return i;
-			}
-			/*
-		else
-			alert(i+"NOT work\n\n"+current_articles[i].url+"!="+searchTarget);
-			*/
-	}	
-};
 checkLinks();
 minilineSize="small";
-searchTarget=current_articles[0]['url'];
 function resizeIframe() {
 	if(minilineSize == "small")
 	{
@@ -111,18 +115,19 @@ $(document).ready(function() {
 	resizeIframe();
 	$("#nextE").click(function(){
 		current_article_num++;
-		returnLink();checkLinks();
-		$('#page').attr("src",current_articles[current_article_num].url);	
+		checkLinks();
+		$('#page').attr("src",current_articles[current_article_num].url);
 	});
 	$("#prevE").click(function(){
 		current_article_num--;
-		returnLink();checkLinks();
+		checkLinks();
 		$('#page').attr("src",current_articles[current_article_num-1].url	);
+		
 	});
 	$(".event").click( function(){
 		$('#page').attr("src",($(this).find('.url')[0]).innerHTML);
 		searchTarget = trim(($(this).find('.url')[0]).innerHTML);
-		returnLink();checkLinks();
+		checkLinks();
 	});
 	$("#timelineHeadLink").click( function(){
 		window.open("http://linehive.com/show/"+ <%=params[:id]%>);
