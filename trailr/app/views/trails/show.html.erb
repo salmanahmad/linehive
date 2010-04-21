@@ -166,3 +166,12 @@
 		<div class="space_30"></div>	
 	<% end %>
 <% end %>
+
+
+<div style="display:none">
+	<% for article in @articles do %>
+		<%= image_tag article['image_url'] %>
+	<% end %>
+</div>
+
+
