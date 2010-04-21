@@ -2,7 +2,7 @@
 	<%= @trail.caption %>
 <% end  %>
 
-<% content_for :description do %><% for article in @articles do %><%= article['headline'] %>, <br>
+<% content_for :description do %><% for article in @articles do %><%= h article['headline'] %>, 
 <% end %>
 <% end  %>
 
@@ -74,7 +74,7 @@
 				<% if @trail.user && @trail.user.id == current_user %>
 					You!
 				<% else %>
-					<%= @trail.user.username %>				
+					<%= link_to @trail.user.username, :controller => :user, :action => :profile, :username => @trail.user.username %>				
 				<% end %>
 
 			</b>
