@@ -2,7 +2,6 @@ require 'open-uri'
 #require 'json'
 
 
-
 class TrailsController < ApplicationController
   include TrailsHelper
   protect_from_forgery :except => :new
@@ -11,9 +10,8 @@ class TrailsController < ApplicationController
     page = params[:page] || 1
     @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'front DESC, demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
     
-    
   end
-
+  
   
   def embed 
     @trail = Trail.find(params[:id])
@@ -276,8 +274,8 @@ class TrailsController < ApplicationController
   
   
   def fullscreen
-	@trail = Trail.find(params[:id])
-	num = params[:num]
+	  @trail = Trail.find(params[:id])
+	  num = params[:num]
     @articles = @trail.articles_json
 
     respond_to do |format|
@@ -319,7 +317,34 @@ class TrailsController < ApplicationController
   
   
   def process_urls
-    @data = parse_urls(params[:urls])
+    
+    is_message = false
+    url_regex = /(^$)|(^(http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix
+    urls = params[:urls].split(/\s+/);
+    
+    for url in urls do
+      if(!url.match(url_regex)) then
+        is_message = true
+        break
+      end
+    end
+    
+    if is_message then
+        hash = {
+          :url => nil,
+          :headline => params[:urls],
+          :source => nil,
+          :image_url => nil,
+          :date => DateTime.now.to_s,
+          :pictures => nil
+        }
+        
+        @data = [hash]
+        
+    else
+        @data = parse_urls(params[:urls])  
+    end
+    
     render :json => @data   
     
   end

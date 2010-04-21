@@ -48,6 +48,13 @@
 	}
 	
 	function add_url() {
+		
+		if($(".event").size() >= 6) {
+			alert("Timelines must contain at most 6 articles. You can remove articles by hovering over them and clicking the blue 'x' button.")
+			return false;
+		}
+		
+		
 		console.log("here");
 		
 		
@@ -55,7 +62,7 @@
 		console.log(text);
 		$("#loader").show();
 		
-	$("#urls").val("");
+		$("#urls").val("");
 		
 		jQuery.ajax({
         type: "POST",
@@ -209,7 +216,7 @@
 		<div class="maincol">
 			
 			<%= image_tag "loader.gif", :style => "float:right;", :id => "loader" %>
-			<label for="urls" class="large_label" >URLs:</label>
+			<label for="urls" class="large_label" >URLs and Messages:</label>
 						
 			<div id="articles"></div>
 			
@@ -219,7 +226,7 @@
 		</div>
 		<div class="sidecol">
 			<div class="round_box" style="margin-top:15px">
-				Type or paste in as many URLs as you want and hit <b>Enter</b> to add them to your timeline.
+				Paste in URLs or type a  and hit <b>Enter</b> to add them to your timeline. You can also type in a personal message.
 			</div>
 		</div>
 		<div class="clear"></div>
