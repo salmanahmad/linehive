@@ -4,9 +4,7 @@
 
 <% content_for :description do %><% for article in @articles do %><%= h article['headline'] %>, 
 <% end %>
-<% end  %>
-
-<% content_for :img_src do %><%= @articles[0]['image_url'] %><% end %>
+<% end %>
 
 
 <% content_for :stylesheets do %>
@@ -168,7 +166,7 @@
 <% end %>
 
 
-<div style="display:none">
+<div style="visibility:hidden">
 	<% for article in @articles do %>
 		<%= image_tag article['image_url'] %>
 	<% end %>
