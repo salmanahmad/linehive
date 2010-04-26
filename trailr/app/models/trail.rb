@@ -11,8 +11,9 @@ class Trail < ActiveRecord::Base
     	JOIN articles AS a1 ON a1.trail_id = t1.id
     	JOIN articles AS a2 ON a2.url = a1.url
     	JOIN trails AS t2 ON t2.id = a2.trail_id
-    WHERE t1.id = ? AND t2.id != ?
-    GROUP BY t2.id", self.id, self.id]);
+    WHERE t1.id = ? AND t2.id != ? AND t2.draft == ? AND t2.hidden == ?
+    GROUP BY t2.id
+    ORDER BY t2.front DESC, t2.demoted ASC, t2.viewcount DESC, t2.created_at DESC", self.id, self.id, false, false]);
   end
   
   

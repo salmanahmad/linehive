@@ -41,6 +41,13 @@ class TrailsController < ApplicationController
     update_viewcount(params[:id])
 
 
+    # Update the meta description. This is outputted in application_controller.rb
+    @meta_description = "LineHive: "
+    for article in @articles do
+      @meta_description += "#{CGI.escapeHTML article['headline']}, "
+    end
+    
+
 
     respond_to do |format|
       format.html # show.html.erb

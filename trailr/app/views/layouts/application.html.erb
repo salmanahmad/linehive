@@ -12,7 +12,11 @@
 		<meta name="company" content="LineHive.com" />
 		<meta name="rating" content="general" />
 		<meta name="distribution" content="global" />
-		<meta name="description" content="<%= yield :description %>" />
+		
+		
+		<% if !defined? @meta_description then @meta_description = "LineHive. Hyperlink storytelling: As we browse news stories, we make mental connections between pages. 'Hyperlink storytelling' is putting those links together to create mini-stories. Our algorithms automatically create timelines to make your mini-story a mini-beauty. Thinking through linking. Browse the connections others make of the same news stories." end %>
+		<meta name="description" content="<%= @meta_description %>" />
+		
 		<meta name="keywords" content="linehive, line, hive, timeline, crowdbrowse, hyperlink haikus" />
 
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />

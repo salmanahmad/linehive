@@ -80,6 +80,7 @@
 
 .timeline .event {
 	text-align:center;
+	text-align:left;
 	position:absolute;
 	
 	width:150px;
@@ -257,6 +258,8 @@
 	height:60px;
 	z-index:0;
 	text-align:center;
+	
+	text-align:left;
 	font-family:Helvetica, Arial, Sans-Serif;
 	font-size:11px;
 }
