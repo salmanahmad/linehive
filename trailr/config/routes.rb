@@ -42,7 +42,10 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.connect '/', :controller => "trails", :action => "index"
+  map.connect 'recent', :controller => "trails", :action => "recent"
+  map.connect 'popular', :controller => "trails", :action => "popular"
   #map.connect '/', :controller => "home", :action => "index"
+  
   map.connect '/search', :controller => "search", :action => "results"
   map.connect 'about', :controller => "home", :action => "about"
   map.connect 'team', :controller => "home", :action => "team"
@@ -50,8 +53,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect 'create', :controller => "trails", :action => "new"
   map.connect 'fullscreen/:id', :controller => "trails", :action => "fullscreen"
-  map.connect 's/:id/:num', :controller => "trails", :action => "s"
-  map.connect 's/:id', :controller => "trails", :action => "s"
   map.connect 'embed/:id', :controller => "trails", :action => "embed"
   map.connect 'show/:id', :controller => "trails", :action => "show"
   

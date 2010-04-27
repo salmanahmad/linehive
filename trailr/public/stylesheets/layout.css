@@ -221,14 +221,19 @@
 	
 }
 
+#description_box *{
+	text-align:center;
+	margin:0px;
+}
+
 #linehive_description {
 	margin-top:30px;
 	margin-bottom:30px;	
+	width:650px;
+	float:left;
 }
 
 #linehive_description * {
-	text-align:center;
-	margin:0px;
 }
 
 #linehive_description h3 {
@@ -241,6 +246,25 @@
 	color:#959595;
 }
 
+#tab_navigation_box{
+	width: 200px;
+	float:right;
+	margin-top:80px;
+}
+
+#tab_navigation_box a {
+	text-decoration:none;
+}
+
+#tab_navigation_box a:hover {
+	text-decoration:underline;
+}
+
+#tab_navigation_box .current {
+	background-color: #0081C7;
+	color:white;
+	padding: 3px 5px 3px 5px;
+}
 
 .pagination {
 	width:100%;

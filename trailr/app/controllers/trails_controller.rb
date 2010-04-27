@@ -8,8 +8,17 @@ class TrailsController < ApplicationController
 
   def index
     page = params[:page] || 1
-    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'front DESC, demoted ASC, viewcount DESC, created_at DESC', :per_page => 7
-    
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'front DESC, demoted ASC, created_at DESC, viewcount DESC', :per_page => 5
+  end
+  
+  def recent
+    page = params[:page] || 1
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'created_at DESC, demoted ASC', :per_page => 5
+  end
+  
+  def popular
+    page = params[:page] || 1
+    @trails = Trail.paginate :conditions => {:draft => false, :hidden => false}, :page => page, :order => 'viewcount DESC, demoted ASC, created_at DESC', :per_page => 5
   end
   
   

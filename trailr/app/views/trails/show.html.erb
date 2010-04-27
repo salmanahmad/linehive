@@ -13,6 +13,12 @@
 	<%= stylesheet_link_tag "timeline" %>
 	<%= stylesheet_link_tag "miniline" %>
 	<%= stylesheet_link_tag "show" %>
+	<style type="text/css">
+		/* ShareThis */
+		body {font-family:helvetica,sans-serif;font-size:12px;}
+		a.stbar.chicklet img {border:0;height:16px;width:16px;margin-right:3px;vertical-align:middle;}
+		a.stbar.chicklet {height:16px;line-height:16px;}
+	</style>
 <% end %>
 
 <% content_for :javascripts do %>
@@ -26,6 +32,7 @@
 
 	
 	
+	<script type="text/javascript" src="http://w.sharethis.com/button/sharethis.js#publisher=b5eed7de-b653-495e-b7d7-9cb6e37ab4b7&amp;type=website&amp;post_services=email%2Cfacebook%2Ctwitter%2Cgbuzz%2Cmyspace%2Cdigg%2Csms%2Cwindows_live%2Cdelicious%2Cstumbleupon%2Creddit%2Cgoogle_bmarks%2Clinkedin%2Cbebo%2Cybuzz%2Cblogger%2Cyahoo_bmarks%2Cmixx%2Ctechnorati%2Cfriendfeed%2Cpropeller%2Cwordpress%2Cnewsvine&amp;button=false"></script>
 	
 	<script type="text/javascript" charset="utf-8">
 
@@ -120,17 +127,23 @@
 		<br>
 		<ul>
 		<li>
-		<!-- AddThis Button BEGIN -->
-			<div class="addthis_toolbox addthis_default_style">
-			<a class="addthis_button_facebook"></a>
-			<a class="addthis_button_twitter"></a>
-			<a class="addthis_button_google"></a>
-			<a class="addthis_button_email"></a>
-			<span class="addthis_separator">|</span>
-			<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bce6a7a6bd68012" class="addthis_button_compact">Share</a>
-			</div>
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bce6a7a6bd68012"></script>
-		<!-- AddThis Button END -->
+		<!-- ShareThis Button START -->
+		<a id="ck_email" class="stbar chicklet" href="javascript:void(0);"><img src="http://w.sharethis.com/chicklets/email.gif" /></a>
+<a id="ck_facebook" class="stbar chicklet" href="javascript:void(0);"><img src="http://w.sharethis.com/chicklets/facebook.gif" /></a>
+<a id="ck_twitter" class="stbar chicklet" href="javascript:void(0);"><img src="http://w.sharethis.com/chicklets/twitter.gif" /></a>
+<a id="ck_sharethis" class="stbar chicklet" href="javascript:void(0);"><img src="http://w.sharethis.com/chicklets/sharethis.gif" />ShareThis</a>
+<script type="text/javascript">
+	var shared_object = SHARETHIS.addEntry({
+	title: document.title,
+	url: document.location.href
+});
+
+shared_object.attachButton(document.getElementById("ck_sharethis"));
+shared_object.attachChicklet("email", document.getElementById("ck_email"));
+shared_object.attachChicklet("facebook", document.getElementById("ck_facebook"));
+shared_object.attachChicklet("twitter", document.getElementById("ck_twitter"));
+</script>
+<!-- ShareThis Button END -->
 		</li></ul>
 		<div class="clear"></div>
 		</div>
