@@ -1,0 +1,63 @@
+
+<% content_for :title do %>
+	LineHive: Hyperlink storytelling
+<% end %>
+
+
+<% content_for :stylesheets do %>
+	<%= stylesheet_link_tag "miniline" %>
+	<%= stylesheet_link_tag "timeline" %>
+	
+<% end %>
+
+
+<% content_for :javascripts do %>
+	<%= javascript_include_tag "timeline.js" %>
+	<%= javascript_include_tag "jquery.ui.datepicker.js" %>
+	<%= javascript_include_tag "jquery.easing.1.3.js" %>
+	<%= javascript_include_tag "jquery.autoellipsis.js" %>
+	
+	<script type="text/javascript" charset="utf-8">
+		$(function(){
+			
+			$(".timeline").each(function(index, element) {
+				timeline.render($(element));				
+			});
+			
+			$(".timeline .events .event > .headline").autoEllipsis();
+			
+		});
+	</script>
+<% end %>
+
+
+
+<div id="description_box">
+	<div id="linehive_description">
+		<h2>Hyperlink storytelling</h2>
+		<h3>All you do is paste links and we automatically create beautiful mini-stories you can share with the world.</h3>	
+	</div>
+
+	<div id="tab_navigation_box">
+		<a href="/">Featured</a> - 
+		<a href="/recent">Recent</a> - 
+		<span class="current">Popular</span>
+	</div>
+</div>
+
+<div class="space_10"></div>
+
+
+<% form_tag({:controller => "search", :action => "results"}, :id => 'searchURLForm' )  do %>
+	<input id="searchURL" type="hidden" name="query" value="lala" id="search_box" />
+<% end %>
+
+
+
+<% for trail in @trails do %>
+	<%# render :partial => "miniline", :locals => {:trail => trail} %>	
+	<%= render :partial => "static_timeline", :locals => {:trail => trail} %>		
+	<div class="space_30"></div>
+<% end %>
+
+<%= will_paginate @trails %>
