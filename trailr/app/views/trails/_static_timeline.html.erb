@@ -61,9 +61,7 @@
 						<div class="close">[<a href="#">x</a>]</div>
 						<%= if article.date.nil? then Time.new.strftime("%b %d, %Y") else article.date.strftime("%b %d, %Y") end %>
 					</div>
-					<div class="headline">
-						<%= article.headline %>
-					</div>
+					<div class="headline"><%= article.headline %></div>
 				</div>
 			<% end %>
 		<% end %>
