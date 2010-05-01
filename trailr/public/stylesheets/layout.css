@@ -227,8 +227,6 @@
 }
 
 #linehive_description {
-	margin-top:30px;
-	margin-bottom:30px;	
 	width:650px;
 	float:left;
 }
@@ -244,16 +242,20 @@
 #linehive_description h2 {
 	font-size:25px;
 	color:#959595;
+	margin-top:2px;
+	margin-bottom:3px;
+	margin-left:-100px;
 }
 
 #tab_navigation_box{
-	width: 200px;
+	width: 250px;
 	float:right;
-	margin-top:80px;
+	font-weight:bold;
 }
 
 #tab_navigation_box a {
 	text-decoration:none;
+	
 }
 
 #tab_navigation_box a:hover {
@@ -261,8 +263,7 @@
 }
 
 #tab_navigation_box .current {
-	background-color: #0081C7;
-	color:white;
+	color: black;
 	padding: 3px 5px 3px 5px;
 }
 
