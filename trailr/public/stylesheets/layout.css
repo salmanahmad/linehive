@@ -222,13 +222,14 @@
 }
 
 #description_box *{
-	text-align:center;
+	text-align:left;
 	margin:0px;
 }
 
 #linehive_description {
-	width:650px;
-	float:left;
+	margin-bottom:20px;
+	padding-bottom:20px;
+	border-bottom:1px solid gray;
 }
 
 #linehive_description * {
@@ -244,12 +245,15 @@
 	color:#959595;
 	margin-top:2px;
 	margin-bottom:3px;
-	margin-left:-100px;
+	/*margin-left:-100px;*/
 }
 
 #tab_navigation_box{
 	width: 250px;
-	float:right;
+	position:absolute;
+	right:0px;
+	top:25px;
+	text-align:right;
 	font-weight:bold;
 }
 
