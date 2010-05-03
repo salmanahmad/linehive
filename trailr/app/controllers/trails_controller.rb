@@ -321,6 +321,7 @@ class TrailsController < ApplicationController
 
 	  if !@has_errors && @trail.save
       flash[:notice] = 'Timeline was successfully created.'
+      Notifier.deliver_new_timeline_notification(@trail)
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       @show_notifications = false

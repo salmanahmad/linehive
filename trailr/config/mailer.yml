@@ -1,0 +1,6 @@
+---
+  :address: smtp.gmail.com
+  :port: 587
+  :user_name: team@linehive.com 
+  :password: asdfer123
+  :authentication: :plain
