@@ -1,6 +1,8 @@
 ---
-  :address: smtp.gmail.com
-  :port: 587
-  :user_name: team@linehive.com 
-  :password: asdfer123
-  :authentication: :plain
+  :address:              'smtp.gmail.com',    
+  :port:                 587,    
+  :domain:               'linehive.com',    
+  :user_name:            'team@linehive.com',    
+  :password:             'asdfer123',   
+  :authentication:       :plain,    
+  :enable_starttls_auto: true
