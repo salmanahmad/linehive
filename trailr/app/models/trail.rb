@@ -29,9 +29,9 @@ class Trail < ActiveRecord::Base
       hash["source"] = a.source
       hash["image_url"] = a.image_url
       if !a.date.nil? then
-        hash["date"] = a.date.rfc2822()                        
+        hash["date"] = a.date.strftime("%m/%d/%Y")
       else 
-        hash["date"] = Time.new.rfc2822()
+        hash["date"] = Time.new.strftime("%m/%d/%Y")
       end
       
       articles << hash

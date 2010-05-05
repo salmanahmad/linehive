@@ -45,7 +45,7 @@
 							<%= article.image_url %>
 						</div>                   
 						<div class="date">       
-							<%= if article.date.nil? then Time.new.rfc2822() else article.date.rfc2822() end %>
+							<%= if article.date.nil? then Time.new.strftime("%m/%d/%Y") else article.date.strftime("%m/%d/%Y") end %>
 						</div>                   
 					</div>
 					<div class="thumbnail">
