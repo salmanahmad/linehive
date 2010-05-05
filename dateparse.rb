@@ -11,7 +11,7 @@ open(url) do |f|
 
   # html now contains the html string of the page. You can process it to try to extract the date.
   html = f.read
-  
+     
 
   
   # Example:
