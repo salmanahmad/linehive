@@ -430,9 +430,6 @@ protected
     
   end
   
-  
-  
-  
 =begin THIS USED TO BE IN CREATE
     @articles = [];
     has_errors = false

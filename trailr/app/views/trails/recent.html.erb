@@ -30,22 +30,7 @@
 	</script>
 <% end %>
 
-
-
-<div id="description_box">
-	<div id="linehive_description">
-		<h2>Hyperlink storytelling</h2>
-		<h3>All you do is paste links and we automatically create beautiful mini-stories you can share with the world.</h3>	
-	</div>
-
-	<div id="tab_navigation_box">
-		<a href="/">Featured</a> - 
-		<span class="current">Recent</span> - 
-		<a href="/popular">Popular</a>
-	</div>
-</div>
-
-<div class="space_10"></div>
+<%= render :partial => "description_box", :locals => {:current => "recent" } %>	
 
 
 <% form_tag({:controller => "search", :action => "results"}, :id => 'searchURLForm' )  do %>
