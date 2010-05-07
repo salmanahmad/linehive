@@ -1,7 +1,7 @@
 xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "LineHive.com / Popular Linehives"
+    xml.title "LineHive.com: Popular Linehives"
     xml.description "Popular Linehive timelines"
     xml.link url_for :controller => "trails", :action => "popular", :only_path =>false
 
