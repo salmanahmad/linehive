@@ -3,7 +3,7 @@ xml.rss :version => "2.0" do
   xml.channel do
     xml.title "LineHive.com / #{@user.username}"
     xml.description "#{@user.username}'s timelines"
-    xml.link url_for :controller => "user", :action => "profile", :username => "#{@user.username}"
+    xml.link url_for :controller => "user", :action => "profile", :username => "#{@user.username}", :only_path =>false
 
     for trail in @trails
       xml.item do
@@ -16,7 +16,7 @@ xml.rss :version => "2.0" do
         
         xml.description d
         xml.pubDate trail.created_at.to_s(:rfc822)
-        xml.link url_for :controller => "trails", :action => "show", :id => trail.id
+        xml.link url_for :controller => "trails", :action => "show", :id => trail.id, :only_path =>false
       end
     end
   end
