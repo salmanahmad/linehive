@@ -10,6 +10,9 @@
 	
 <% end %>
 
+<% content_for :head do %>
+	<%= auto_discovery_link_tag(:rss, :controller => "home", :action => "recent", :format => "rss") %>
+<% end %>
 
 <% content_for :javascripts do %>
 	<%= javascript_include_tag "timeline.js" %>
@@ -29,6 +32,8 @@
 		});
 	</script>
 <% end %>
+
+<%= link_to image_tag("rss.png"), {:controller => "home", :action => "recent", :format => "rss"}, :style => "float:right;position:relative;bottom:-30px;" %>
 
 <%= render :partial => "description_box", :locals => {:current => "recent" } %>	
 
