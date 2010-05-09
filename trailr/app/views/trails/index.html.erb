@@ -10,6 +10,9 @@
 	
 <% end %>
 
+<% content_for :head do %>
+	<%= auto_discovery_link_tag(:rss, :controller => "home", :action => "featured", :format => "rss") %>
+<% end %>
 
 <% content_for :javascripts do %>
 	<%= javascript_include_tag "timeline.js" %>
@@ -29,21 +32,9 @@
 		});
 	</script>
 <% end %>
+<%= link_to image_tag("rss.png"), {:controller => "home", :action => "featured", :format => "rss"}, :style => "float:right;position:relative;bottom:-30px;" %>
 
-<div id="description_box">
-	
-	<div id="tab_navigation_box">
-		<span class="current">Featured</span> - 
-		<a href="/recent">Recent</a> - 
-		<a href="/popular">Popular</a>
-	</div>
-
-	<div id="linehive_description" title="All you do is paste links and we automatically create beautiful mini-stories you can share with the world.">
-		<h2>Hyperlink storytelling</h2>
-	</div>
-</div>
-
-<div class="space_5"></div>
+<%= render :partial => "description_box", :locals => {:current => "featured" } %>	
 
 
 <% form_tag({:controller => "search", :action => "results"}, :id => 'searchURLForm' )  do %>

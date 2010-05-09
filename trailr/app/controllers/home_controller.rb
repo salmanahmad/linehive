@@ -49,5 +49,16 @@ class HomeController < ApplicationController
   def embed_test
     
   end
-
+  
+  def featured  
+  @trails = Trail.find :all, :conditions => {:draft => false, :hidden => false, :front => true}, :order => 'created_at DESC, viewcount DESC'
+  end
+  
+  def recent  
+  @trails = Trail.find :all, :conditions => {:draft => false, :hidden => false}, :order => 'created_at DESC, demoted ASC'
+  end
+  
+  def popular  
+  @trails = Trail.find :all, :conditions => {:draft => false, :hidden => false}, :order => 'viewcount DESC, demoted ASC, created_at DESC'
+  end
 end

@@ -50,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'about', :controller => "home", :action => "about"
   map.connect 'team', :controller => "home", :action => "team"
   map.connect 'jetpack', :controller => "home", :action => "jetpack"
-
+  map.connect 'featured.:format', :controller => "home", :action => "featured"
   
   map.connect 'create', :controller => "trails", :action => "new"
   map.connect 'fullscreen/:id', :controller => "trails", :action => "fullscreen"

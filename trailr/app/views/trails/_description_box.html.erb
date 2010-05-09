@@ -1,0 +1,27 @@
+<div id="description_box">
+	
+	<div id="tab_navigation_box">
+		<% if current == "featured" %>
+			<span class="current">Featured</span> - 
+		<% else  %>
+			<a href="/">Featured</a> - 
+		<% end %>
+		<% if current == "recent" %>
+			<span class="current">Recent</span> - 
+		<% else  %>
+			<a href="/recent">Recent</a> - 
+		<% end %>
+		<% if current == "popular" %>
+			<span class="current">Popular</span>
+		<% else  %>
+			<a href="/popular">Popular</a>
+		<% end %>
+	</div>
+
+	<div id="linehive_description" title="All you do is paste links and we automatically create beautiful mini-stories you can share with the world.">
+		<h2>Hyperlink storytelling<span><%= link_to "What is it?", {:controller => "home", :action => "about"}, {:title => "Find out more about Linehive" } %></span><span><%= link_to "Subscribe", {:controller => "home", :action => "about"}, {:title => "Subscribe to the Linehive of the Day" } %></span></h2>
+	</div>
+</div>
+
+<div class="space_5"></div>
+
