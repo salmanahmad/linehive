@@ -400,6 +400,8 @@ protected
   def construct_trail
     @articles = [];
     @has_errors = false
+    
+    # REMOVE: HERE
     if @links.length < 3 || @links.length > 6 then
 
       @trail.valid?
