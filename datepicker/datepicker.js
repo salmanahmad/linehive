@@ -1,3 +1,4 @@
+
 // Customizable variables
 var DefaultDateFormat = 'MM/DD/YYYY'; // If no date format is supplied, this will be used instead
 var HideWait = 3; // Number of seconds before the calendar will disappear
@@ -7,7 +8,8 @@ var FontSize = 11; // In pixels
 var FontFamily = 'Tahoma';
 var CellWidth = 18;
 var CellHeight = 16;
-var ImageURL = 'http://images.moonscript.com/icons/calendarIcon.jpg';
+//var ImageURL = 'http://images.moonscript.com/icons/calendarIcon.jpg';
+var ImageURL = "calendar-day.png"
 var NextURL = 'http://images.moonscript.com/icons/calendarNext.gif';
 var PrevURL = 'http://images.moonscript.com/icons/calendarPrev.gif';
 var CalBGColor = 'white';
