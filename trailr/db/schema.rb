@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100307235835) do
+ActiveRecord::Schema.define(:version => 20100810154827) do
 
   create_table "articles", :force => true do |t|
     t.integer  "trail_id",   :null => false
@@ -42,13 +42,16 @@ ActiveRecord::Schema.define(:version => 20100307235835) do
   create_table "trails", :force => true do |t|
     t.integer  "user_id"
     t.string   "caption"
-    t.integer  "viewcount",  :default => 0
+    t.integer  "viewcount",    :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "draft",      :default => false
-    t.boolean  "demoted",    :default => false
-    t.boolean  "hidden",     :default => false
-    t.boolean  "front",      :default => false
+    t.boolean  "draft",        :default => false
+    t.boolean  "demoted",      :default => false
+    t.boolean  "hidden",       :default => false
+    t.boolean  "front",        :default => false
+    t.string   "confirmation"
+    t.datetime "start_task"
+    t.datetime "end_task"
   end
 
   add_index "trails", ["caption"], :name => "index_trails_on_caption"

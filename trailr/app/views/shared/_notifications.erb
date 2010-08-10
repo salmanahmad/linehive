@@ -9,3 +9,9 @@
 		<%= flash[:error] %>
 	</div>
 <% end %>
+
+<% if flash[:confirmation] %>
+	<div class="notice">
+		<%= flash[:confirmation] %>
+	</div>
+<% end %>

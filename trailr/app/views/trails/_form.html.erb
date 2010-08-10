@@ -289,7 +289,7 @@
 
 			<% form_tag({:controller => "trails", :action => "publish_draft", :id => @trail.id }, {:class => "post_back"})  do %>
 				<%= submit_tag "Publish", { :class => "trail_button"} %>
-				<input type="hidden" name="trail" value="" class="trail_input"> 
+				<input type="hidden" name="trail" value="" class="trail_input">
 			<% end %>
 
 			
@@ -299,7 +299,8 @@
 			<% if current_user %>
 				<% form_tag({:controller => "trails", :action => "create_draft" }, {:class => "post_back"})  do %>
 					<%= submit_tag "Save Draft", { :class => "trail_button"} %>
-					<input type="hidden" name="trail" value="" class="trail_input"> 
+					<input type="hidden" name="trail" value="" class="trail_input">
+					<input type="hidden" name="start_task" value="<%= DateTime.now %>" class="trail_input"> 
 				<% end %>
 			<% end %>
 			
@@ -307,6 +308,7 @@
 			<% form_tag({:controller => "trails", :action => "create" }, {:class => "post_back"})  do %>
 				<%= submit_tag "Publish", { :class => "trail_button"} %>
 				<input type="hidden" name="trail" value="" class="trail_input"> 
+				<input type="hidden" name="start_task" value="<%= DateTime.now %>" class="trail_input"> 
 			<% end %>
 
 		<% end %>

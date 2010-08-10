@@ -90,6 +90,8 @@ class TrailsController < ApplicationController
 		  @trail.user_id = current_user
 	  end
 
+    @trail.start_task = DateTime.parse(params[:start_task])
+
     construct_trail
     @trail.draft = true
     
@@ -184,6 +186,7 @@ class TrailsController < ApplicationController
   def new
     
     @trail = Trail.new
+    @trail.start_task = DateTime.now
     @trail.caption = params[:title]
     @articles = nil
     if params[:urls] then
@@ -276,6 +279,7 @@ class TrailsController < ApplicationController
 
 	  if !@has_errors && @trail.save
       flash[:notice] = 'Timeline was successfully created.'
+      flash[:confirmation] = "Thanks for your help. Your confirmation code is: #{@trail.confirmation}"
       redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
     else
       @show_notifications = false
@@ -317,12 +321,23 @@ class TrailsController < ApplicationController
 		  @trail.user_id = current_user
 	  end
 
+    @trail.start_task = DateTime.parse(params[:start_task])
+    @trail.end_task = DateTime.now
+    
     construct_trail
 
 	  if !@has_errors && @trail.save
-      flash[:notice] = 'Timeline was successfully created.'
-      Notifier.deliver_new_timeline_notification(@trail)
-      redirect_to :controller => 'trails', :action => 'show', :id => @trail.id
+      @trail.confirmation = Digest::MD5.hexdigest("#{@trail.id}")
+      if @trail.save
+        flash[:notice] = 'Timeline was successfully created.'
+        flash[:confirmation] = "Thanks for your help. Your confirmation code is: #{@trail.confirmation}"
+        #Notifier.deliver_new_timeline_notification(@trail)
+        redirect_to :controller => 'trails', :action => 'show', :id => @trail.id        
+      else
+        @show_notifications = false
+        flash[:error] = 'Timeline could not be created.'
+        render :action => 'new'
+      end
     else
       @show_notifications = false
       flash[:error] = 'Timeline could not be created.'
