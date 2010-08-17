@@ -51,11 +51,12 @@
 	
 	function add_url() {
 		
+		<% if app_mode == :PF || app_mode == :AF then %>
 		if($(".event").size() >= 6) {
 			alert("Timelines must contain at most 6 articles. You can remove articles by hovering over them and clicking the blue 'x' button.")
 			return false;
 		}
-		
+		<% end %>
 		
 		console.log("here");
 		
@@ -105,6 +106,7 @@
 		title_keyup.apply($("#title"));
 				
 		timeline.use_clustering = false;
+		timeline.mode = "<%= app_mode().to_s %>";
 		
 		<% if @articles %>
 			timeline.init(<%= @articles.to_json %>);
@@ -168,14 +170,18 @@
 			}
 			
 			// REMOVE: HERE
-			if (data.links.length < 3 || data.links.length > 6) {
-				alert("Timelines must contain between 3 to 6 articles.")
-				return false;
-			}
+			<% if app_mode == :AF || app_mode == :PF  then %>
+				if (data.links.length < 3 || data.links.length > 6) {
+					alert("Timelines must contain between 3 to 6 articles.")
+					return false;
+				}
+			<% end %>
 			
 			var string = JSON.stringify(data);
 			//$("#trail_input").val(string); 
-			$(".trail_input", this).val(string); 
+			$(".trail_input", this).val(string);
+			$(".num_added", this).val(timeline.num_added);
+			$(".num_removed", this).val(timeline.num_removed);
 			
 						
 		});		
@@ -192,8 +198,9 @@
 	<span style="font-size:12px; font-weight:normal">(<%= link_to "Other ways to create timelines", :controller => "home", :action => "jetpack" %>)</span>
 </h2>
 
+<% if app_mode == :PF || app_mode == :AF %>
 <span style="font-style:italic;color:gray; font-size:12px;margin-top:0x;">Timelines must contain between 3 to 6 articles.</span>
-
+<% end %>
 <div class="space_10"></div>
 
 
@@ -299,16 +306,20 @@
 			<% if current_user %>
 				<% form_tag({:controller => "trails", :action => "create_draft" }, {:class => "post_back"})  do %>
 					<%= submit_tag "Save Draft", { :class => "trail_button"} %>
-					<input type="hidden" name="trail" value="" class="trail_input">
-					<input type="hidden" name="start_task" value="<%= DateTime.now %>" class="trail_input"> 
+					<input type="hidden" name="trail" class="trail_input" value="">
+					<input type="hidden" name="start_task" class="start_task" value="<%= DateTime.now %>">
+					<input type="hidden" name="num_added" class="num_added">
+					<input type="hidden" name="num_removed" class="num_removed">
 				<% end %>
 			<% end %>
 			
 
 			<% form_tag({:controller => "trails", :action => "create" }, {:class => "post_back"})  do %>
 				<%= submit_tag "Publish", { :class => "trail_button"} %>
-				<input type="hidden" name="trail" value="" class="trail_input"> 
-				<input type="hidden" name="start_task" value="<%= DateTime.now %>" class="trail_input"> 
+				<input type="hidden" name="trail" class="trail_input" value=""> 
+				<input type="hidden" name="start_task" class="start_task" value="<%= DateTime.now %>"> 
+				<input type="hidden" name="num_added" class="num_added">
+				<input type="hidden" name="num_removed" class="num_removed">
 			<% end %>
 
 		<% end %>

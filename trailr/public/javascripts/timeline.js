@@ -6,6 +6,8 @@ var shortenUrl = function (x){
 };
 
 var timeline = {
+	num_added:0,
+	num_removed:0,
 	gap_threshold:.15,
 	show_meta:true,
 	min_date:null,
@@ -101,11 +103,21 @@ var timeline = {
 	},
 	add: function(e) {
 		
+		timeline.num_added++;
+		
 		console.log("add");
 		
-		var date = new Date(Date.parse(e["date"]));
-		if(date == "Invalid Date") {
-			date = new Date();
+		
+		if(timeline.mode == "PF" || timeline.mode == "PU")
+		{
+			var date = new Date(Date.parse(e["date"]));
+			if(date == "Invalid Date") {
+				date = new Date();
+			}
+		}
+		else
+		{
+			var date = new Date();
 		}
 		
 		
@@ -381,6 +393,7 @@ $(function() {
 	
 	
 	$(".event .close a").live("click", function() {
+		timeline.num_removed++;
 		$(this).parents(".event").remove();
 		timeline.draw();
 		hide_meta();

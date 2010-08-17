@@ -1,6 +1,13 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  def app_mode
+    #return :PF
+    #return :PU
+    return :AF
+    #return :AU
+  end
+  
   def default_javascript
 
     return '<script src="/javascripts/jquery-1.4.min.js"></script>

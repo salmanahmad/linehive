@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'show/:id', :controller => "trails", :action => "show"
   
   #map.connect ':id', :controller => "trails", :action => "show"
-
+  
   map.connect 'api/:action/:query', :controller => "api"
   
   map.connect 'home', :controller => "home", :action => "index"
@@ -68,7 +68,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect ':username', :controller => "user", :action => "profile"
   map.connect ':username/lines.:format', :controller => "user", :action => "feed"
-
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

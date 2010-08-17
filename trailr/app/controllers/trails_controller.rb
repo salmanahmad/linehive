@@ -324,6 +324,9 @@ class TrailsController < ApplicationController
     @trail.start_task = DateTime.parse(params[:start_task])
     @trail.end_task = DateTime.now
     
+    @trail.num_added = DateTime.parse(params[:num_added])
+    @trail.num_removed = DateTime.parse(params[:num_removed])
+    
     construct_trail
 
 	  if !@has_errors && @trail.save
@@ -401,14 +404,12 @@ protected
     @articles = [];
     @has_errors = false
     
-    # REMOVE: HERE
-    if @links.length < 3 || @links.length > 6 then
-
-      @trail.valid?
-      @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
-
-      @has_errors = true;
-
+    if app_mode == :PF || app_mode == :AF then
+      if @links.length < 3 || @links.length > 6 then
+        @trail.valid?
+        @trail.errors.add("articles", "Timelines must contain between 3 and 6 articles.")
+        @has_errors = true;
+      end
     end
 
     @links.each do |link|

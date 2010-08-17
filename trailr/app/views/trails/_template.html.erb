@@ -30,10 +30,12 @@
 		<div class="tick">
 			&nbsp;					        
 		</div>
+		<% if app_mode == :PU || app_mode == :PF %>
 		<div class="date">
 			<div class="close">[<a href="#">x</a>]</div>
 			$format
 		</div>
+		<% end %>
 		<div class="headline">
 			<% if noedit %>
 				$headline
