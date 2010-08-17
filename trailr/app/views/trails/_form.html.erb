@@ -276,8 +276,11 @@
 
 
 <div id="buttons">
-		<span style="font-style:italic;color:gray; font-size:12px;margin-top:0x;">Timelines must contain between 3 to 6 articles.</span>
-	
+		
+		<% if app_mode == :PF || app_mode == :AF %>
+			<span style="font-style:italic;color:gray; font-size:12px;margin-top:0x;">Timelines must contain between 3 to 6 articles.</span>
+		<% end %>
+		
 		<% if mode == :edit  then %>
 			
 			<% form_tag({:controller => "trails", :action => "update", :id => @trail.id }, {:class => "post_back"})  do %>
