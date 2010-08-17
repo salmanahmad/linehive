@@ -2,9 +2,22 @@
 module ApplicationHelper
   
   def app_mode
-    #return :PF
+    
+    host = request.host
+    
+    if host.match(/af.linehive/i)
+      return :AF
+    elsif host.match(/au.linehive/i)
+      return :AU
+    elsif host.match(/pf.linehive/i)
+      return :PF
+    elsif host.match(/pu.linehive/i)
+      return :PU
+    end
+    
+    return :PF
     #return :PU
-    return :AF
+    #return :AF
     #return :AU
   end
   
