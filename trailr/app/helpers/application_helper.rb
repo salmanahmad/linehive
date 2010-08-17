@@ -15,10 +15,10 @@ module ApplicationHelper
       return :PU
     end
     
-    return :PF
+    #return :PF
     #return :PU
     #return :AF
-    #return :AU
+    return :AU
   end
   
   def default_javascript

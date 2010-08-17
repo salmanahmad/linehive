@@ -4,6 +4,8 @@ require 'open-uri'
 
 class TrailsController < ApplicationController
   include TrailsHelper
+  include ApplicationHelper
+    
   protect_from_forgery :except => :new
 
   def index
@@ -324,8 +326,8 @@ class TrailsController < ApplicationController
     @trail.start_task = DateTime.parse(params[:start_task])
     @trail.end_task = DateTime.now
     
-    @trail.num_added = DateTime.parse(params[:num_added])
-    @trail.num_removed = DateTime.parse(params[:num_removed])
+    @trail.num_added = params[:num_added]
+    @trail.num_removed = params[:num_removed]
     
     construct_trail
 
